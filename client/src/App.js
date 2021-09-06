@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import Home from "./pages/Home";
+
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./styles/theme";
+import { GlobalStyles } from "./styles/globalStyles";
+import Layout from "./components/Layout/Layout";
+import Shop from "./pages/Shop";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const { theme } = useSelector((state) => state.ui);
+    const themeStyle = theme === "light" ? lightTheme : darkTheme;
+    return (
+        <ThemeProvider theme={themeStyle}>
+            <GlobalStyles />
+            <>
+                <Layout>
+                    <Switch>
+                        <Route exact path="/">
+                            <Home />
+                        </Route>
+                        <Route path="/shop">
+                            <Shop />
+                        </Route>
+                    </Switch>
+                </Layout>
+            </>
+        </ThemeProvider>
+    );
 }
 
 export default App;
