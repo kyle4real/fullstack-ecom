@@ -3,7 +3,7 @@ export const lightTheme = {
     text2: "#333333",
     bg: "#fff",
     bg2: "#d6d6d6",
-    bg2Alpha: "rgba(214, 214, 214, .3)",
+    bg2Alpha: "rgba(214, 214, 214, .8)",
 };
 
 export const darkTheme = {

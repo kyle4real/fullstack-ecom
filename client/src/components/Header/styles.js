@@ -8,12 +8,28 @@ import { BiMenu } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 
 export const SHeader = styled.div`
+    height: calc(${v.headerHeight} + 5vh);
+    display: flex;
+    justify-content: flex-end;
+`;
+
+export const SHeaderAnnouncements = styled.div`
+    background: ${({ theme }) => theme.bg2};
+    height: 5vh;
+    margin-top: auto;
+    width: 100%;
+`;
+
+export const SHeaderFixed = styled.div`
     height: ${v.headerHeight};
     padding: 0 ${v.lgSpacing};
     display: flex;
     justify-content: space-between;
     background: ${({ theme }) => theme.bg2};
-    position: relative;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 0 0 0.5px ${({ theme }) => theme.text2};
 `;
 
 export const SLogo = styled(Link)`
@@ -66,7 +82,7 @@ export const SMenuClose = styled(AiOutlineClose)`
 `;
 
 export const SMenu = styled.div`
-    position: absolute;
+    position: fixed;
     height: 100vh;
     width: 100vw;
     top: -100vh;
