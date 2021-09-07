@@ -7,12 +7,16 @@ import {
     SHead,
     SHeadTitle,
     SInfo,
+    SInfoHead,
     SList,
     SListItem,
     SPrice,
     SProductListHead,
     SProductsList,
     SProductsListHead,
+    STag,
+    STagContainer,
+    STagIcon,
     STitle,
 } from "./styles";
 
@@ -79,9 +83,10 @@ const ProductsList = () => {
                                 </SContentImgContainer>
                                 <SContentInfo>
                                     <SInfo>
+                                        <STag>NEW</STag>
                                         <STitle>{title}</STitle>
-                                        <SPrice>{price}</SPrice>
                                     </SInfo>
+                                    <SPrice>{price}</SPrice>
                                 </SContentInfo>
                             </SContent>
                         </SListItem>

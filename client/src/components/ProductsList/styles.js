@@ -19,16 +19,15 @@ export const SList = styled.div`
 `;
 export const SListItem = styled.div`
     padding: ${v.smSpacing};
-    height: 425px;
     width: 100%;
+    max-width: 400px;
 
     @media ${b.sm} {
-        max-width: 330px;
+        min-height: 425px;
         width: 100%;
     }
 
     @media ${b.md} {
-        max-width: initial;
         width: calc(100% / 2);
     }
 
@@ -38,23 +37,22 @@ export const SListItem = styled.div`
 `;
 
 export const SContent = styled.div`
-    height: 100%;
-    background: ${({ theme }) => theme.bg2};
+    border-radius: ${v.borderRadius};
     cursor: pointer;
     position: relative;
+    overflow: hidden;
 `;
 
 export const SContentImgContainer = styled.div`
-    height: 80%;
-    display: flex;
+    max-height: 80%;
+    width: 100%;
     overflow: hidden;
-    padding: ${v.smSpacing};
 `;
 
 export const SContentImg = styled.img`
-    margin: 0 auto;
     max-width: 100%;
-    height: auto;
+
+    margin: 0 auto;
     transition: 0.3s ease transform;
     :hover {
         transform: scale(1.1);
@@ -62,27 +60,41 @@ export const SContentImg = styled.img`
 `;
 
 export const SContentInfo = styled.div`
-    padding: ${v.mdSpacing} ${v.mdSpacing};
+    padding: ${v.smSpacing};
     position: relative;
     z-index: 10;
-    height: calc(20%);
-    color: ${({ theme }) => theme.textDark};
+    color: ${({ theme }) => theme.primary};
+    display: flex;
+    line-height: 100%;
 `;
 
-export const SInfo = styled.div`
-    width: 80%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    line-height: 1;
-`;
-export const STitle = styled.span`
+export const SInfo = styled.div``;
+
+export const STag = styled.span`
     display: block;
-    white-space: pre-wrap;
-    font-size: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+    padding-left: calc(${v.smSpacing} + 2px);
+
+    ::before {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 16px;
+        background: black;
+        left: 0;
+    }
 `;
+
+export const STitle = styled.span`
+    margin-top: ${v.smSpacing};
+    display: block;
+`;
+
 export const SPrice = styled.span`
     display: block;
-    font-size: 17px;
+    margin-left: auto;
+    font-size: 16px;
+    font-weight: 600;
 `;

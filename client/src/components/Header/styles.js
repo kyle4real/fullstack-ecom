@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 
 import { BiMenu } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import { IoPersonOutline } from "react-icons/io5";
 
 export const SHeader = styled.div`
-    height: calc(${v.headerHeight} + 5vh);
+    height: calc(${v.headerHeight} + ${v.headerTopHeight} + 5vh);
     display: flex;
     justify-content: flex-end;
 `;
@@ -21,14 +22,67 @@ export const SHeaderAnnouncements = styled.div`
 `;
 
 export const SHeaderFixed = styled.div`
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+`;
+
+export const SHeaderTop = styled.div`
+    height: ${v.headerTopHeight};
+    background: ${({ theme }) => theme.bg3};
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+`;
+
+export const SNavTop = styled.nav`
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 ${v.mdSpacing};
+`;
+export const SNavTopItem = styled(Link)`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 100%;
+    padding: 0 ${v.mdSpacing};
+
+    :not(:last-child) {
+        border-right: 1px solid ${({ theme }) => theme.textDark};
+    }
+
+    color: ${({ theme }) => theme.textDark};
+    :hover {
+        color: ${({ theme }) => theme.primary};
+    }
+`;
+
+export const SItemContent = styled.div`
+    display: flex;
+    align-items: flex-end;
+`;
+
+export const SItemSpan = styled.span`
+    display: block;
+`;
+
+export const SAccountIcon = styled(IoPersonOutline)`
+    display: block;
+    margin-right: ${v.smSpacing};
+    font-size: 16px;
+    color: inherit;
+`;
+
+export const SHeaderMain = styled.div`
     height: ${v.headerHeight};
     padding: 0 ${v.lgSpacing};
     display: flex;
     justify-content: space-between;
     background: ${({ theme }) => theme.primary};
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
     box-shadow: 0 0 0 0.5px ${({ theme }) => theme.text};
 `;
 
@@ -89,7 +143,7 @@ export const SMenu = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background: ${({ theme }) => theme.bg2Alpha};
+    background: ${({ theme }) => theme.bg};
     transform: ${({ menuOpen }) => (!menuOpen ? "none" : "translateY(100vh)")};
     transition: 0.3s ease transform;
     display: flex;

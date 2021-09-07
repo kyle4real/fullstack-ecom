@@ -10,7 +10,11 @@ export const SLayout = styled.div`
 `;
 export const SPage = styled.div`
     flex: 1;
-    padding: ${v.lgSpacing};
+    padding: ${v.lgSpacing} 0;
+
+    @media ${b.sm} {
+        padding: ${v.lgSpacing};
+    }
 
     @media ${b.lg} {
         margin: 0 auto;

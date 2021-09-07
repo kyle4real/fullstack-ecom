@@ -1,5 +1,6 @@
 export const v = {
-    headerHeight: `60px`,
+    headerHeight: `80px`,
+    headerTopHeight: "28px",
     smSpacing: `8px`,
     mdSpacing: `16px`,
     lgSpacing: `32px`,

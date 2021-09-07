@@ -2,9 +2,9 @@ export const lightTheme = {
     text: "#fff",
     text2: "#fff",
     textDark: "#000",
-    bg: "rgba(27, 53, 69, .4)",
+    bg: "rgba(27, 53, 69, .3)",
     bg2: "#fff",
-    bg2Alpha: "rgba(240, 240, 240, .8)",
+    bg3: "#fff",
     primary: "#1b3545",
 };
 
