@@ -20,20 +20,26 @@ export const SList = styled.div`
 export const SListItem = styled.div`
     padding: ${v.smSpacing};
     height: 425px;
+    width: 100%;
 
-    max-width: 303px;
-    min-width: 303px;
-    width: calc(100% / 2);
+    @media ${b.sm} {
+        max-width: 330px;
+        width: 100%;
+    }
+
+    @media ${b.md} {
+        max-width: initial;
+        width: calc(100% / 2);
+    }
 
     @media ${b.lg} {
-        max-width: initial;
         width: calc(100% / 3);
     }
 `;
 
 export const SContent = styled.div`
     height: 100%;
-    background: ${({ theme }) => theme.bg2Alpha};
+    background: ${({ theme }) => theme.bg2};
     cursor: pointer;
     position: relative;
 `;
@@ -60,6 +66,7 @@ export const SContentInfo = styled.div`
     position: relative;
     z-index: 10;
     height: calc(20%);
+    color: ${({ theme }) => theme.textDark};
 `;
 
 export const SInfo = styled.div`

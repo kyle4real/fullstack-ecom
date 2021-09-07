@@ -14,7 +14,7 @@ export const SHeader = styled.div`
 `;
 
 export const SHeaderAnnouncements = styled.div`
-    background: ${({ theme }) => theme.bg2};
+    background: ${({ theme }) => theme.primary};
     height: 5vh;
     margin-top: auto;
     width: 100%;
@@ -25,11 +25,11 @@ export const SHeaderFixed = styled.div`
     padding: 0 ${v.lgSpacing};
     display: flex;
     justify-content: space-between;
-    background: ${({ theme }) => theme.bg2};
+    background: ${({ theme }) => theme.primary};
     position: fixed;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 0 0 0.5px ${({ theme }) => theme.text2};
+    box-shadow: 0 0 0 0.5px ${({ theme }) => theme.text};
 `;
 
 export const SLogo = styled(Link)`
