@@ -2,6 +2,11 @@ import React, { useEffect, useState } from "react";
 import useWindowSize from "../../hooks/useWindowSize";
 import {
     SAccountIcon,
+    SBadgeSpan,
+    SCartBadge,
+    SCartIcon,
+    SCartIconContainer,
+    SCartLink,
     SHeader,
     SHeaderAnnouncements,
     SHeaderFixed,
@@ -10,6 +15,7 @@ import {
     SItemContent,
     SItemSpan,
     SLogo,
+    SLogoContainer,
     SMenu,
     SMenuClose,
     SMenuNav,
@@ -23,7 +29,7 @@ import {
 } from "./styles";
 
 const Header = () => {
-    const { isMin } = useWindowSize({ size: "md" });
+    const { isMin } = useWindowSize({ size: "lg" });
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -35,21 +41,23 @@ const Header = () => {
     }, [isMin, menuOpen]);
 
     return (
-        <SHeader>
+        <SHeader isMin={isMin}>
             <SHeaderFixed>
-                <SHeaderTop>
-                    <SNavTop>
-                        <SNavTopItem>
-                            <SItemContent>
-                                <SAccountIcon />
-                                <SItemSpan>My Account</SItemSpan>
-                            </SItemContent>
-                        </SNavTopItem>
-                        <SNavTopItem>Blog</SNavTopItem>
-                        <SNavTopItem>Newsletter</SNavTopItem>
-                        <SNavTopItem>Help</SNavTopItem>
-                    </SNavTop>
-                </SHeaderTop>
+                {!isMin && (
+                    <SHeaderTop>
+                        <SNavTop>
+                            <SNavTopItem>
+                                <SItemContent>
+                                    <SAccountIcon />
+                                    <SItemSpan>My Account</SItemSpan>
+                                </SItemContent>
+                            </SNavTopItem>
+                            <SNavTopItem>Blog</SNavTopItem>
+                            <SNavTopItem>Newsletter</SNavTopItem>
+                            <SNavTopItem>Help</SNavTopItem>
+                        </SNavTop>
+                    </SHeaderTop>
+                )}
                 <SHeaderMain>
                     {isMin === true && (
                         <>
@@ -71,7 +79,9 @@ const Header = () => {
                             </SMenu>
                         </>
                     )}
-                    <SLogo to="/">Fullstack Ecom</SLogo>
+                    <SLogoContainer isMin={isMin}>
+                        <SLogo to="/">Ecom</SLogo>
+                    </SLogoContainer>
                     {isMin === undefined && <SNav></SNav>}
                     {isMin === false && (
                         <SNav>
@@ -80,9 +90,17 @@ const Header = () => {
                             <SNavItem to="/">About</SNavItem>
                         </SNav>
                     )}
+                    <SCartIconContainer>
+                        <SCartLink>
+                            <SCartIcon />
+                            <SCartBadge>
+                                <SBadgeSpan>2</SBadgeSpan>
+                            </SCartBadge>
+                        </SCartLink>
+                    </SCartIconContainer>
                 </SHeaderMain>
             </SHeaderFixed>
-            <SHeaderAnnouncements></SHeaderAnnouncements>
+            {!isMin && <SHeaderAnnouncements></SHeaderAnnouncements>}
         </SHeader>
     );
 };

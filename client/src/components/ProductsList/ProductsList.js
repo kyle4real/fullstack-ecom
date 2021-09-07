@@ -7,16 +7,11 @@ import {
     SHead,
     SHeadTitle,
     SInfo,
-    SInfoHead,
     SList,
     SListItem,
     SPrice,
-    SProductListHead,
     SProductsList,
-    SProductsListHead,
     STag,
-    STagContainer,
-    STagIcon,
     STitle,
 } from "./styles";
 
@@ -74,7 +69,7 @@ const ProductsList = () => {
             </SHead>
             <SList>
                 {productsArr.map(({ title, price, salePrice }, index) => {
-                    const noSale = price === salePrice;
+                    // const noSale = price === salePrice;
                     return (
                         <SListItem key={index}>
                             <SContent>

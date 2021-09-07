@@ -1,15 +1,21 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import { v, b, s } from "./../../styles/variables";
+import { v } from "./../../styles/variables";
 
 import { Link } from "react-router-dom";
 
 import { BiMenu } from "react-icons/bi";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
 
-export const SHeader = styled.div`
+const height = css`
     height: calc(${v.headerHeight} + ${v.headerTopHeight} + 5vh);
+`;
+const heightMin = css`
+    height: calc(${v.headerHeight});
+`;
+export const SHeader = styled.div`
+    ${({ isMin }) => (!isMin ? height : heightMin)}
     display: flex;
     justify-content: flex-end;
 `;
@@ -86,23 +92,27 @@ export const SHeaderMain = styled.div`
     box-shadow: 0 0 0 0.5px ${({ theme }) => theme.text};
 `;
 
+export const SLogoContainer = styled.div`
+    margin: auto 0;
+    flex: ${({ isMin }) => (!isMin ? "1" : "initial")};
+`;
 export const SLogo = styled(Link)`
     display: block;
     text-decoration: none;
     font-size: 1.4rem;
     color: ${({ theme }) => theme.text};
-    margin: auto 0;
-    position: relative;
-    z-index: 100;
 `;
 
 export const SNav = styled.nav`
     display: flex;
-    align-items: center;
-    height: 100%;
+    justify-content: center;
+    /* height: 100%; */
+    flex: 1;
 `;
 
 export const SNavItem = styled(Link)`
+    display: flex;
+    align-items: center;
     text-decoration: none;
     padding: ${v.smSpacing};
     :not(:last-child) {
@@ -112,6 +122,7 @@ export const SNavItem = styled(Link)`
 `;
 
 export const SMenuToggle = styled.button`
+    flex: 1;
     margin: auto 0;
     padding: 0;
     outline: none;
@@ -135,9 +146,45 @@ export const SMenuClose = styled(AiOutlineClose)`
     font-size: 1.8rem;
 `;
 
+export const SCartIconContainer = styled.div`
+    flex: 1;
+    margin: auto 0;
+    display: flex;
+    justify-content: flex-end;
+`;
+export const SCartLink = styled(Link)`
+    display: block;
+    position: relative;
+`;
+export const SCartIcon = styled(AiOutlineShoppingCart)`
+    color: ${({ theme }) => theme.text};
+    display: block;
+    font-size: 1.8rem;
+`;
+export const SCartBadge = styled.div`
+    display: block;
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+export const SBadgeSpan = styled.span`
+    line-height: 100%;
+    display: block;
+    font-size: 11px;
+    font-weight: 900;
+`;
+
 export const SMenu = styled.div`
-    position: fixed;
+    position: absolute;
     height: 100vh;
+    z-index: -1;
     width: 100vw;
     top: -100vh;
     bottom: 0;

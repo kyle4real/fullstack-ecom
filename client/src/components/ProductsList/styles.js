@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { v, b, s } from "./../../styles/variables";
+import { v, b } from "./../../styles/variables";
 
 export const SProductsList = styled.div``;
 
