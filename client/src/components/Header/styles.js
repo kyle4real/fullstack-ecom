@@ -118,7 +118,7 @@ export const SNavItem = styled(Link)`
     :not(:last-child) {
         margin-right: ${v.mdSpacing};
     }
-    color: ${({ theme }) => theme.text2};
+    color: ${({ theme }) => theme.text};
 `;
 
 export const SMenuToggle = styled.button`
@@ -131,7 +131,7 @@ export const SMenuToggle = styled.button`
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: ${({ theme }) => theme.text2};
+    color: ${({ theme }) => theme.text};
     cursor: pointer;
     position: relative;
     z-index: 100;
@@ -169,7 +169,7 @@ export const SCartBadge = styled.div`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: white;
+    background: ${({ theme }) => theme.bg2};
     display: flex;
     justify-content: center;
     align-items: center;

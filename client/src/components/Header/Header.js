@@ -46,7 +46,7 @@ const Header = () => {
                 {!isMin && (
                     <SHeaderTop>
                         <SNavTop>
-                            <SNavTopItem>
+                            <SNavTopItem to="/account">
                                 <SItemContent>
                                     <SAccountIcon />
                                     <SItemSpan>My Account</SItemSpan>

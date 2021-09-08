@@ -7,6 +7,7 @@ export const v = {
     xlSpacing: `48px`,
     xxlSpacing: `64px`,
     borderRadius: "6px",
+    borderRadiusButton: "32px",
     closedAppbarWidth: `58px`,
     openAppbarWidth: `200px`,
     tabsHeight: "30px",

@@ -1,11 +1,13 @@
 export const lightTheme = {
     text: "#fff",
-    text2: "#fff",
+    text2: "#3d3d3d",
     textDark: "#000",
     bg: "rgba(27, 53, 69, .3)",
     bg2: "#fff",
     bg3: "#fff",
     primary: "#1b3545",
+    primaryLight: "#446a82",
+    primaryLighter: "#b3bec4",
 };
 
 export const darkTheme = {
