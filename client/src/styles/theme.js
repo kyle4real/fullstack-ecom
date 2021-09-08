@@ -4,7 +4,7 @@ export const lightTheme = {
     textDark: "#000",
     bg: "rgba(27, 53, 69, .3)",
     bg2: "#fff",
-    bg3: "#fff",
+    bg3: "#e8e8e8",
     primary: "#1b3545",
     primaryLight: "#446a82",
     primaryLighter: "#b3bec4",

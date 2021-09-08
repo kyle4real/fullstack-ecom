@@ -8,9 +8,7 @@ const Auth = () => {
     const { path, url } = useRouteMatch();
     const { authData } = useSelector((state) => state.auth);
 
-    const isAuth = false;
-
-    console.log(authData);
+    const isAuth = authData !== null;
 
     return (
         <>
