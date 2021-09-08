@@ -61,7 +61,7 @@ const ProductsList = ({ productsArray }) => {
                                     {sale && (
                                         <SSaleContainer>
                                             <SSalePrice>${salePrice}.00 USD</SSalePrice>
-                                            <SRegularPrice>${price} USD</SRegularPrice>
+                                            <SRegularPrice>${price}.00 USD</SRegularPrice>
                                         </SSaleContainer>
                                     )}
                                 </SContentInfo>

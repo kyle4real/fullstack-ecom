@@ -35,7 +35,7 @@ export const SHeaderFixed = styled.div`
 
 export const SHeaderTop = styled.div`
     height: ${v.headerTopHeight};
-    background: ${({ theme }) => theme.bg3};
+    background: ${({ theme }) => theme.primaryLighter};
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -53,7 +53,7 @@ export const SNavTopItem = styled(Link)`
     align-items: center;
     text-decoration: none;
     font-size: 14px;
-    font-weight: 200;
+    font-weight: 400;
     line-height: 100%;
     padding: 0 ${v.mdSpacing};
 
