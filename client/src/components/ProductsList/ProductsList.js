@@ -11,65 +11,28 @@ import {
     SListItem,
     SPrice,
     SProductsList,
+    SRegularPrice,
+    SSaleContainer,
+    SSalePrice,
     STag,
     STitle,
+    SVariant,
+    SVariantLink,
+    SVariants,
 } from "./styles";
 
 import Bones from "./../../assets/bones.png";
 
-const ProductsList = () => {
-    // issue as props after component setup
-    const productsArr = [
-        {
-            title: "Bone",
-            price: "12.99",
-            salePrice: "9.99",
-        },
-        {
-            title: "Beef Treat Bag",
-            price: "15.99",
-            salePrice: "15.99",
-        },
-        {
-            title: "Chicken Treat Bag",
-            price: "15.99",
-            salePrice: "15.99",
-        },
-        {
-            title: "Turkey Bone",
-            price: "14.99",
-            salePrice: "11.59",
-        },
-        {
-            title: "Bone",
-            price: "12.99",
-            salePrice: "9.99",
-        },
-        {
-            title: "Beef Treat Bag",
-            price: "15.99",
-            salePrice: "15.99",
-        },
-        {
-            title: "Chicken Treat Bag",
-            price: "15.99",
-            salePrice: "15.99",
-        },
-        {
-            title: "Turkey Bone",
-            price: "14.99",
-            salePrice: "11.59",
-        },
-    ];
-
+const ProductsList = ({ productsArray }) => {
     return (
         <SProductsList>
             <SHead>
                 <SHeadTitle>All Products</SHeadTitle>
             </SHead>
             <SList>
-                {productsArr.map(({ title, price, salePrice }, index) => {
-                    // const noSale = price === salePrice;
+                {productsArray.map(({ title, price, salePrice, tags, variants }, index) => {
+                    const sale = price !== salePrice;
+                    console.log(sale);
                     return (
                         <SListItem key={index}>
                             <SContent>
@@ -78,10 +41,29 @@ const ProductsList = () => {
                                 </SContentImgContainer>
                                 <SContentInfo>
                                     <SInfo>
-                                        <STag>NEW</STag>
+                                        <STag>{tags?.[0]}</STag>
                                         <STitle>{title}</STitle>
+                                        <SVariants>
+                                            {variants.map(({ title: variantTitle }, index) => {
+                                                const isLast = index === variants.length - 1;
+                                                return (
+                                                    <SVariant>
+                                                        <SVariantLink>
+                                                            {variantTitle}
+                                                            {!isLast && <>&nbsp;/&nbsp;</>}
+                                                        </SVariantLink>
+                                                    </SVariant>
+                                                );
+                                            })}
+                                        </SVariants>
                                     </SInfo>
-                                    <SPrice>{price}</SPrice>
+                                    {!sale && <SPrice>${price}.00 USD</SPrice>}
+                                    {sale && (
+                                        <SSaleContainer>
+                                            <SSalePrice>${salePrice}.00 USD</SSalePrice>
+                                            <SRegularPrice>${price} USD</SRegularPrice>
+                                        </SSaleContainer>
+                                    )}
                                 </SContentInfo>
                             </SContent>
                         </SListItem>

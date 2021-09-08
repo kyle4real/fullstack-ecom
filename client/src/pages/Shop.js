@@ -14,7 +14,7 @@ const Shop = () => {
     console.log(productsArray);
     return (
         <>
-            <ProductsList />
+            <ProductsList productsArray={productsArray} />
         </>
     );
 };
