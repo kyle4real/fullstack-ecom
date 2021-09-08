@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { loginUser, registerUser } from "../../store/auth-actions";
 
 import {
     SAuthForm,
@@ -146,6 +148,8 @@ const initialFormInput = (login) => {
 };
 
 const AuthForm = ({ login }) => {
+    const history = useHistory();
+    const dispatch = useDispatch();
     const [formInput, setFormInput] = useState(initialFormInput(login));
 
     useEffect(() => {
@@ -156,7 +160,10 @@ const AuthForm = ({ login }) => {
         setFormInput((p) => ({ ...p, [e.target.name]: e.target.value }));
     };
 
-    const formSubmitHandler = () => {};
+    const formSubmitHandler = (e) => {
+        e.preventDefault();
+        dispatch(login ? loginUser(formInput, history) : registerUser(formInput, history));
+    };
 
     return (
         <SAuthForm>
@@ -169,7 +176,9 @@ const AuthForm = ({ login }) => {
                         <RegisterForm input={formInput} onInputChange={inputChangeHandler} />
                     )}
                 </SForm>
-                {!login && <SFormForgotPassword>I've forgotten my password</SFormForgotPassword>}
+                {!login && (
+                    <SFormForgotPassword to="/">I've forgotten my password</SFormForgotPassword>
+                )}
                 <SFormSwitch>
                     <SFormSwitchSpan>
                         {login ? <>New to Ecom?</> : <>Already registered?</>}&nbsp;

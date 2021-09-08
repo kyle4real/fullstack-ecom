@@ -2,11 +2,15 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Redirect, useRouteMatch } from "react-router";
 import AuthForm from "../components/AuthForm/AuthForm";
+import { useSelector } from "react-redux";
 
 const Auth = () => {
     const { path, url } = useRouteMatch();
+    const { authData } = useSelector((state) => state.auth);
 
     const isAuth = false;
+
+    console.log(authData);
 
     return (
         <>

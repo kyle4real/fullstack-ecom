@@ -52,9 +52,9 @@ const Header = () => {
                                     <SItemSpan>My Account</SItemSpan>
                                 </SItemContent>
                             </SNavTopItem>
-                            <SNavTopItem>Blog</SNavTopItem>
-                            <SNavTopItem>Newsletter</SNavTopItem>
-                            <SNavTopItem>Help</SNavTopItem>
+                            <SNavTopItem to="/blog">Blog</SNavTopItem>
+                            <SNavTopItem to="/newsletter">Newsletter</SNavTopItem>
+                            <SNavTopItem to="/help">Help</SNavTopItem>
                         </SNavTop>
                     </SHeaderTop>
                 )}
@@ -91,7 +91,7 @@ const Header = () => {
                         </SNav>
                     )}
                     <SCartIconContainer>
-                        <SCartLink>
+                        <SCartLink to="/cart">
                             <SCartIcon />
                             <SCartBadge>
                                 <SBadgeSpan>2</SBadgeSpan>

@@ -1,5 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Helmet } from "react-helmet";
 
 import Home from "./pages/Home";
 
@@ -16,6 +17,15 @@ function App() {
     return (
         <ThemeProvider theme={themeStyle}>
             <GlobalStyles />
+            <Helmet>
+                <title>Ecom</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+                    rel="stylesheet"
+                />
+            </Helmet>
             <>
                 <Layout>
                     <Switch>
