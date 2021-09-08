@@ -17,10 +17,10 @@ const Auth = () => {
                     {isAuth ? <>Authorized</> : <Redirect to={`${url}/login`} />}
                 </Route>
                 <Route path={`${path}/login`}>
-                    <AuthForm login />
+                    {isAuth ? <Redirect to={`${url}`} /> : <AuthForm login />}
                 </Route>
                 <Route path={`${path}/register`}>
-                    <AuthForm />
+                    {isAuth ? <Redirect to={`${url}`} /> : <AuthForm />}
                 </Route>
             </Switch>
         </>
