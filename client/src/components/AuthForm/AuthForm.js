@@ -133,7 +133,7 @@ const RegisterForm = ({ input, onInputChange }) => {
                 />
             </SFormControl>
             <SFormControl>
-                <SButton>Log In</SButton>
+                <SButton>Create Account</SButton>
             </SFormControl>
         </>
     );
@@ -168,7 +168,7 @@ const AuthForm = ({ login }) => {
     return (
         <SAuthForm>
             <SFormContainer>
-                <SFormTitle>Log Into My Ecom</SFormTitle>
+                <SFormTitle>{login ? <>Log Into My Ecom</> : <>Create Account</>}</SFormTitle>
                 <SForm noValidate autoComplete="off" onSubmit={formSubmitHandler}>
                     {login ? (
                         <LoginForm input={formInput} onInputChange={inputChangeHandler} />

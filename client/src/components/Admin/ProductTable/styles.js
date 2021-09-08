@@ -36,7 +36,13 @@ export const STableBodyTD = styled.td`
     }
 `;
 
-export const SContentContainer = styled.div``;
+export const SContentContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: ${({ theme }) => theme.bg3};
+    padding: ${v.mdSpacing} ${v.mdSpacing};
+`;
 
 export const SContentSpanHead = styled.span`
     display: block;
@@ -53,6 +59,17 @@ export const SContentSpan = styled.span`
     background: ${({ theme }) => theme.bg3};
     text-align: ${({ center }) => (center ? "center" : "left")};
 `;
+export const SContentSpanBare = styled.span`
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: ${({ center }) => (center ? "center" : "left")};
+`;
+export const SContentSpanStatus = styled.span`
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+`;
 
 export const SContentImgContainer = styled.div`
     display: flex;
@@ -65,10 +82,30 @@ export const SContentImg = styled.img`
     height: auto;
 `;
 
+export const SVariantContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: ${v.smSpacing} ${v.mdSpacing};
+`;
+
 export const SVariantSpan = styled.span`
     display: block;
     padding: ${v.smSpacing} ${v.mdSpacing};
     font-size: 14px;
     font-weight: 200;
     text-align: ${({ center }) => (center ? "center" : "left")};
+`;
+
+export const SVariantSpanBare = styled.span`
+    display: block;
+    font-size: 14px;
+    font-weight: 200;
+    text-align: ${({ center }) => (center ? "center" : "left")};
+`;
+
+export const SVariantSpanStatus = styled.span`
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
 `;

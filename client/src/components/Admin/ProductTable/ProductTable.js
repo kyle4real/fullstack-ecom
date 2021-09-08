@@ -7,10 +7,13 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import { bonesIMG } from "../../../assets";
 
 import {
+    SContentContainer,
     SContentImg,
     SContentImgContainer,
     SContentSpan,
+    SContentSpanBare,
     SContentSpanHead,
+    SContentSpanStatus,
     SProductTable,
     STable,
     STableBody,
@@ -20,10 +23,15 @@ import {
     STableHead,
     STableHeadTH,
     STableHeadTR,
+    SVariantContainer,
     SVariantSpan,
+    SVariantSpanBare,
+    SVariantSpanStatus,
 } from "./styles";
+import useWindowSize from "../../../hooks/useWindowSize";
 
 const ProductTable = () => {
+    const { isMin } = useWindowSize({ size: "sm" });
     const history = useHistory();
     const { url } = useRouteMatch();
     const dispatch = useDispatch();
@@ -48,12 +56,16 @@ const ProductTable = () => {
                                 <STableHeadTH>
                                     <SContentSpanHead>Product</SContentSpanHead>
                                 </STableHeadTH>
-                                <STableHeadTH>
-                                    <SContentSpanHead>Price</SContentSpanHead>
-                                </STableHeadTH>
-                                <STableHeadTH>
-                                    <SContentSpanHead center>QTY</SContentSpanHead>
-                                </STableHeadTH>
+                                {!isMin && (
+                                    <>
+                                        <STableHeadTH>
+                                            <SContentSpanHead>Price</SContentSpanHead>
+                                        </STableHeadTH>
+                                        <STableHeadTH>
+                                            <SContentSpanHead center>QTY</SContentSpanHead>
+                                        </STableHeadTH>
+                                    </>
+                                )}
                             </STableHeadTR>
                         </STableHead>
                         <STableBody>
@@ -70,14 +82,21 @@ const ProductTable = () => {
                                                 </SContentImgContainer>
                                             </STableBodyTD>
                                             <STableBodyTD>
-                                                <SContentSpan>{title}</SContentSpan>
+                                                <SContentContainer>
+                                                    <SContentSpanBare>{title}</SContentSpanBare>
+                                                    <SContentSpanStatus>Active</SContentSpanStatus>
+                                                </SContentContainer>
                                             </STableBodyTD>
-                                            <STableBodyTD>
-                                                <SContentSpan>${price}.00 USD</SContentSpan>
-                                            </STableBodyTD>
-                                            <STableBodyTD>
-                                                <SContentSpan center>3</SContentSpan>
-                                            </STableBodyTD>
+                                            {!isMin && (
+                                                <>
+                                                    <STableBodyTD>
+                                                        <SContentSpan>${price}.00</SContentSpan>
+                                                    </STableBodyTD>
+                                                    <STableBodyTD>
+                                                        <SContentSpan center>3</SContentSpan>
+                                                    </STableBodyTD>
+                                                </>
+                                            )}
                                         </STableBodyTR>
                                         {variants.length > 1 &&
                                             variants.map(
@@ -86,20 +105,29 @@ const ProductTable = () => {
                                                         <STableBodyTR key={index}>
                                                             <STableBodyTD></STableBodyTD>
                                                             <STableBodyTD>
-                                                                <SVariantSpan>
-                                                                    {variantTitle}
-                                                                </SVariantSpan>
+                                                                <SVariantContainer>
+                                                                    <SVariantSpanBare>
+                                                                        {variantTitle}
+                                                                    </SVariantSpanBare>
+                                                                    <SVariantSpanStatus>
+                                                                        Active
+                                                                    </SVariantSpanStatus>
+                                                                </SVariantContainer>
                                                             </STableBodyTD>
-                                                            <STableBodyTD>
-                                                                <SVariantSpan>
-                                                                    ${price}.00 USD
-                                                                </SVariantSpan>
-                                                            </STableBodyTD>
-                                                            <STableBodyTD>
-                                                                <SVariantSpan center>
-                                                                    3
-                                                                </SVariantSpan>
-                                                            </STableBodyTD>
+                                                            {!isMin && (
+                                                                <>
+                                                                    <STableBodyTD>
+                                                                        <SVariantSpan>
+                                                                            ${price}.00
+                                                                        </SVariantSpan>
+                                                                    </STableBodyTD>
+                                                                    <STableBodyTD>
+                                                                        <SVariantSpan center>
+                                                                            3
+                                                                        </SVariantSpan>
+                                                                    </STableBodyTD>
+                                                                </>
+                                                            )}
                                                         </STableBodyTR>
                                                     );
                                                 }
