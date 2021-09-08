@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { Redirect, useRouteMatch } from "react-router";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { useSelector } from "react-redux";
+import Account from "./Account";
 
 const Auth = () => {
     const { path, url } = useRouteMatch();
@@ -14,7 +15,7 @@ const Auth = () => {
         <>
             <Switch>
                 <Route exact path={`${path}/`}>
-                    {isAuth ? <>Authorized</> : <Redirect to={`${url}/login`} />}
+                    {isAuth ? <Account /> : <Redirect to={`${url}/login`} />}
                 </Route>
                 <Route path={`${path}/login`}>
                     {isAuth ? <Redirect to={`${url}`} /> : <AuthForm login />}

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import useWindowSize from "../../hooks/useWindowSize";
 import {
     SAccountIcon,
@@ -30,6 +31,7 @@ import {
 
 const Header = () => {
     const { isMin } = useWindowSize({ size: "lg" });
+    const { authData } = useSelector((state) => state.auth);
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -49,7 +51,13 @@ const Header = () => {
                             <SNavTopItem to="/account">
                                 <SItemContent>
                                     <SAccountIcon />
-                                    <SItemSpan>My Account</SItemSpan>
+                                    <SItemSpan>
+                                        {!authData ? (
+                                            <>My Account</>
+                                        ) : (
+                                            <>Hi {authData?.name.split(" ")[0]}</>
+                                        )}
+                                    </SItemSpan>
                                 </SItemContent>
                             </SNavTopItem>
                             <SNavTopItem to="/blog">Blog</SNavTopItem>
