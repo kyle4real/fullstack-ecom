@@ -48,11 +48,13 @@ const userButtons = [
         button: "Orders",
         to: "/orders",
         component: null,
+        isExact: false,
     },
     {
         button: "Credentials",
         to: "/credentials",
         component: null,
+        isExact: false,
     },
 ];
 const adminButtons = [
@@ -60,16 +62,19 @@ const adminButtons = [
         button: "Products",
         to: "/products",
         component: <ProductTable />,
+        isExact: true,
     },
     {
         button: "Credentials",
         to: "/credentials",
         component: null,
+        isExact: false,
     },
     {
         button: "Orders",
         to: "/orders",
         component: null,
+        isExact: false,
     },
 ];
 
@@ -85,8 +90,8 @@ const Auth = () => {
                 <UserRoute exact path={path}>
                     <Account buttons={userButtons} />
                 </UserRoute>
-                {userButtons.map(({ to, button, component }, index) => (
-                    <UserRoute path={`${path}${to}`} key={index}>
+                {userButtons.map(({ to, button, component, isExact }, index) => (
+                    <UserRoute path={`${path}${to}`} key={index} exact={isExact}>
                         {component ? component : <>{button}</>}
                     </UserRoute>
                 ))}
@@ -94,11 +99,14 @@ const Auth = () => {
                 <AdminRoute exact path={`${path}/admin`}>
                     <Account buttons={adminButtons} />
                 </AdminRoute>
-                {adminButtons.map(({ to, button, component }, index) => (
-                    <AdminRoute path={`${path}${to}`} key={index}>
+                {adminButtons.map(({ to, button, component, isExact }, index) => (
+                    <AdminRoute path={`${path}/admin${to}`} key={index} exact={isExact}>
                         {component ? component : <>{button}</>}
                     </AdminRoute>
                 ))}
+                <AdminRoute path={`${path}/admin/products/:id`}>
+                    <>test</>
+                </AdminRoute>
 
                 <Route path={`/account/login`}>
                     {isLoggedIn ? <Redirect to={url} /> : <AuthForm login />}

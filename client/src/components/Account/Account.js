@@ -1,5 +1,8 @@
 import React from "react";
-import { Switch, Route, useLocation, useRouteMatch, useHistory, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useRouteMatch, useHistory } from "react-router-dom";
+
+import { authActions } from "./../../store/auth-slice";
 
 import Button from "../UI/Button/Button";
 import {
@@ -12,11 +15,18 @@ import {
 } from "./styles";
 
 const Account = ({ buttons }) => {
+    const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const history = useHistory();
 
     const buttonClickHandler = (to) => {
         history.push(`${url}${to}`);
+    };
+
+    const logoutHandler = () => {
+        dispatch(authActions.logoutUser());
+
+        history.push("/");
     };
 
     return (
@@ -31,6 +41,11 @@ const Account = ({ buttons }) => {
                                 <Button onClick={() => buttonClickHandler(to)}>{button}</Button>
                             </SButtonContainer>
                         ))}
+                        <SButtonContainer>
+                            <Button secondary onClick={logoutHandler}>
+                                Logout
+                            </Button>
+                        </SButtonContainer>
                     </SAccountButtons>
                 </SAccountButtonsContainer>
             </SAccount>
