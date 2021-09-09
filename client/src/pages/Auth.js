@@ -1,10 +1,11 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
-import { Redirect, useRouteMatch } from "react-router";
-import AuthForm from "../components/AuthForm/AuthForm";
+import { Switch, Route, Redirect, useRouteMatch } from "react-router-dom";
 import { useSelector } from "react-redux";
-import UserAccount from "./UserAccount";
-import AdminAccount from "./AdminAccount";
+
+import AuthForm from "../components/AuthForm/AuthForm";
+import Account from "../components/Account/Account";
+
+import ProductTable from "./../components/Admin/ProductTable/ProductTable";
 
 const AdminRoute = ({ children, ...restOfProps }) => {
     const { authData } = useSelector((state) => state.auth);
@@ -42,6 +43,36 @@ const UserRoute = ({ children, ...restOfProps }) => {
     );
 };
 
+const userButtons = [
+    {
+        button: "Orders",
+        to: "/orders",
+        component: null,
+    },
+    {
+        button: "Credentials",
+        to: "/credentials",
+        component: null,
+    },
+];
+const adminButtons = [
+    {
+        button: "Products",
+        to: "/products",
+        component: <ProductTable />,
+    },
+    {
+        button: "Credentials",
+        to: "/credentials",
+        component: null,
+    },
+    {
+        button: "Orders",
+        to: "/orders",
+        component: null,
+    },
+];
+
 const Auth = () => {
     const { path, url } = useRouteMatch();
     const { authData } = useSelector((state) => state.auth);
@@ -52,11 +83,23 @@ const Auth = () => {
         <>
             <Switch>
                 <UserRoute exact path={path}>
-                    <UserAccount />
+                    <Account buttons={userButtons} />
                 </UserRoute>
-                <AdminRoute exact path={`/account/admin`}>
-                    <AdminAccount />
+                {userButtons.map(({ to, button, component }, index) => (
+                    <UserRoute path={`${path}${to}`} key={index}>
+                        {component ? component : <>{button}</>}
+                    </UserRoute>
+                ))}
+
+                <AdminRoute exact path={`${path}/admin`}>
+                    <Account buttons={adminButtons} />
                 </AdminRoute>
+                {adminButtons.map(({ to, button, component }, index) => (
+                    <AdminRoute path={`${path}${to}`} key={index}>
+                        {component ? component : <>{button}</>}
+                    </AdminRoute>
+                ))}
+
                 <Route path={`/account/login`}>
                     {isLoggedIn ? <Redirect to={url} /> : <AuthForm login />}
                 </Route>

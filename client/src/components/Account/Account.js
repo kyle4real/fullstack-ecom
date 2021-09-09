@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, useLocation, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useLocation, useRouteMatch, useHistory, Link } from "react-router-dom";
 
 import Button from "../UI/Button/Button";
 import {
@@ -12,6 +12,13 @@ import {
 } from "./styles";
 
 const Account = ({ buttons }) => {
+    const { url } = useRouteMatch();
+    const history = useHistory();
+
+    const buttonClickHandler = (to) => {
+        history.push(`${url}${to}`);
+    };
+
     return (
         <>
             <SAccount>
@@ -21,7 +28,7 @@ const Account = ({ buttons }) => {
                     <SAccountButtons>
                         {buttons.map(({ button, to }, index) => (
                             <SButtonContainer key={index}>
-                                <Button>{button}</Button>
+                                <Button onClick={() => buttonClickHandler(to)}>{button}</Button>
                             </SButtonContainer>
                         ))}
                     </SAccountButtons>
