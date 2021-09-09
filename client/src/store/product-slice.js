@@ -5,6 +5,7 @@ const productSlice = createSlice({
     initialState: {
         productsArray: [],
         currentProduct: null,
+        isEdited: false,
     },
     reducers: {
         replaceProducts(state, action) {
@@ -14,6 +15,10 @@ const productSlice = createSlice({
         replaceCurrentProduct(state, action) {
             const { data } = action.payload;
             state.currentProduct = data.result;
+        },
+        changeIsEdited(state, action) {
+            const boolean = action.payload;
+            state.isEdited = boolean;
         },
     },
 });

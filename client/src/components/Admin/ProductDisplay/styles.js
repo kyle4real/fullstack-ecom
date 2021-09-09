@@ -5,6 +5,52 @@ import { v, b, s } from "./../../../styles/variables";
 import { BiImageAdd } from "react-icons/bi";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
+export const SPopup = styled.div`
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: ${({ theme }) => theme.primaryLighter};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: ${v.headerHeight};
+    @media ${b.lg} {
+        height: calc(${v.headerHeight} + ${v.headerTopHeight});
+    }
+`;
+export const SPrompt = styled.span`
+    color: ${({ theme }) => theme.primary};
+    font-size: 18px;
+    font-weight: 900;
+    display: none;
+
+    @media ${b.sm} {
+        display: block;
+    }
+`;
+export const SPromptContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 ${v.lgSpacing};
+    width: ${s.lg};
+
+    @media ${b.sm} {
+        justify-content: space-between;
+    }
+`;
+export const SPromptButtonContainer = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
+    button {
+        margin-right: ${v.smSpacing};
+    }
+`;
+
 export const SProductDisplay = styled.div`
     display: flex;
     justify-content: center;
