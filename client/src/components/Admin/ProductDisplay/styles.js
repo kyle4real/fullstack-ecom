@@ -179,6 +179,7 @@ export const SMainImage = styled.img`
 export const SImagesContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     width: 100%;
     margin-top: ${v.mdSpacing};
 
@@ -191,7 +192,8 @@ export const SImageContainer = styled.div`
     position: relative;
     width: calc(100% / 2 - ${v.mdSpacing});
     margin: calc(${v.mdSpacing} / 2);
-    height: auto;
+    height: fit-content;
+    display: flex;
 
     @media ${b.sm} {
         width: calc(100% / 3 - ${v.smSpacing});
@@ -207,13 +209,13 @@ export const SImage = styled.img`
 
 export const SAddImage = styled.div`
     width: calc(100% - 2px);
-    height: calc(100% - 2px);
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 2px dotted ${({ theme }) => theme.primaryLighter};
     color: ${({ theme }) => theme.primaryLighter};
-    cursor: pointer;
+    padding: ${v.mdSpacing} 0;
 
     :hover {
         transition: 0.2s ease;
@@ -224,6 +226,14 @@ export const SAddImage = styled.div`
 export const SAddImageIcon = styled(BiImageAdd)`
     display: block;
     font-size: 3rem;
+`;
+
+export const SIMAGEInput = styled.input`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
 `;
 
 // card three /////////////////////////////////////////////////

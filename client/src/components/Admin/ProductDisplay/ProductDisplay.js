@@ -17,6 +17,7 @@ import {
     SFormControl,
     SIconsContainer,
     SImageContainer,
+    SIMAGEInput,
     SImageOverlay,
     SImagesContainer,
     SLabel,
@@ -51,6 +52,7 @@ import Card from "../../UI/Card/Card";
 import { bonesIMG } from "../../../assets";
 import { getProduct } from "../../../store/product-actions";
 import { productActions } from "../../../store/product-slice";
+import ImageInput from "./ImageInput";
 
 const initialEditProduct = (product) => {};
 
@@ -60,6 +62,8 @@ const ProductDisplay = () => {
     const { currentProduct } = useSelector((state) => state.product);
     const [product, setProduct] = useState(null);
     const [edits, setEdits] = useState({});
+
+    const [files, setFiles] = useState([]);
 
     useEffect(() => {
         dispatch(getProduct(id));
@@ -142,25 +146,31 @@ const ProductDisplay = () => {
                                         </SMainImageContainer>
                                         <SImagesContainer>
                                             <SImageContainer>
+                                                <SMainImage src={bonesIMG} />
+                                                <SImageOverlay></SImageOverlay>
+                                            </SImageContainer>
+                                            <SImageContainer>
+                                                <SMainImage src={bonesIMG} />
+                                                <SImageOverlay></SImageOverlay>
+                                            </SImageContainer>
+                                            <SImageContainer>
+                                                <SMainImage src={bonesIMG} />
+                                                <SImageOverlay></SImageOverlay>
+                                            </SImageContainer>
+                                            {files.map((file) => (
+                                                <SImageContainer>
+                                                    <SMainImage src={file} />
+                                                    <SImageOverlay></SImageOverlay>
+                                                </SImageContainer>
+                                            ))}
+                                            <SImageContainer>
                                                 <SAddImage>
                                                     <SAddImageIcon />
+                                                    <ImageInput
+                                                        product={product}
+                                                        setFiles={setFiles}
+                                                    />
                                                 </SAddImage>
-                                            </SImageContainer>
-                                            <SImageContainer>
-                                                <SMainImage src={bonesIMG} />
-                                                <SImageOverlay></SImageOverlay>
-                                            </SImageContainer>
-                                            <SImageContainer>
-                                                <SMainImage src={bonesIMG} />
-                                                <SImageOverlay></SImageOverlay>
-                                            </SImageContainer>
-                                            <SImageContainer>
-                                                <SMainImage src={bonesIMG} />
-                                                <SImageOverlay></SImageOverlay>
-                                            </SImageContainer>
-                                            <SImageContainer>
-                                                <SMainImage src={bonesIMG} />
-                                                <SImageOverlay></SImageOverlay>
                                             </SImageContainer>
                                         </SImagesContainer>
                                     </SMedia>
