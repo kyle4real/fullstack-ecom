@@ -17,3 +17,4 @@ export const login = (formInput) => API.post(`${userPath}/signin`, formInput);
 export const register = (formInput) => API.post(`${userPath}/signup`, formInput);
 
 export const products = () => API.get(`${productPath}/`);
+export const product = (productId) => API.get(`${productPath}/${productId}`);

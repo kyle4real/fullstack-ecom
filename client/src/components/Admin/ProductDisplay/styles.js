@@ -2,6 +2,9 @@ import styled, { css } from "styled-components";
 
 import { v, b, s } from "./../../../styles/variables";
 
+import { BiImageAdd } from "react-icons/bi";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+
 export const SProductDisplay = styled.div`
     display: flex;
     justify-content: center;
@@ -35,7 +38,7 @@ export const SSectionTwo = styled.div`
 
 // SECTION ONE
 
-// first card content
+// card one /////////////////////////////////////////////////
 export const SCardControl = styled.div`
     :not(:last-child) {
         margin-bottom: ${v.mdSpacing};
@@ -87,6 +90,7 @@ export const SDESCRIPTIONInput = styled.textarea`
     resize: none;
 `;
 
+// card two /////////////////////////////////////////////////
 export const SMediaContainer = styled.div``;
 export const SMedia = styled.div`
     background: ${({ theme }) => theme.bg2};
@@ -96,15 +100,6 @@ export const SMedia = styled.div`
     width: 100%;
 `;
 
-export const SMainImageContainer = styled.div`
-    height: 100%;
-    width: 100%;
-    position: relative;
-
-    @media ${b.sm} {
-        width: 40%;
-    }
-`;
 export const SImageOverlay = styled.div`
     position: absolute;
     z-index: 10;
@@ -121,6 +116,15 @@ export const SImageOverlay = styled.div`
     }
 `;
 
+export const SMainImageContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    position: relative;
+
+    @media ${b.sm} {
+        width: 40%;
+    }
+`;
 export const SMainImage = styled.img`
     max-width: 100%;
     height: auto;
@@ -141,7 +145,7 @@ export const SImageContainer = styled.div`
     position: relative;
     width: calc(100% / 2 - ${v.mdSpacing});
     margin: calc(${v.mdSpacing} / 2);
-    height: fit-content;
+    height: auto;
 
     @media ${b.sm} {
         width: calc(100% / 3 - ${v.smSpacing});
@@ -150,8 +154,109 @@ export const SImageContainer = styled.div`
         margin-bottom: ${v.smSpacing};
     }
 `;
-
 export const SImage = styled.img`
     max-width: 100%;
     height: auto;
+`;
+
+export const SAddImage = styled.div`
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dotted ${({ theme }) => theme.primaryLighter};
+    color: ${({ theme }) => theme.primaryLighter};
+    cursor: pointer;
+
+    :hover {
+        transition: 0.2s ease;
+        color: ${({ theme }) => theme.primaryLight};
+        border-color: ${({ theme }) => theme.primaryLight};
+    }
+`;
+export const SAddImageIcon = styled(BiImageAdd)`
+    display: block;
+    font-size: 3rem;
+`;
+
+// card three /////////////////////////////////////////////////
+export const SVariantsContainer = styled.div``;
+
+export const SVariantsHead = styled.div`
+    display: flex;
+    width: 100%;
+    margin-bottom: ${v.mdSpacing};
+`;
+
+export const STable = styled.table`
+    width: calc(100% + calc(${v.mdSpacing} * 2));
+    border-collapse: collapse;
+    margin: 0 -${v.mdSpacing};
+    background: ${({ theme }) => theme.bg2};
+`;
+
+export const STableHead = styled.thead`
+    background: ${({ theme }) => theme.bg3};
+`;
+
+export const STableHeadTR = styled.tr``;
+
+export const STableHeadTH = styled.th``;
+
+export const STableBody = styled.tbody``;
+
+export const STableBodyTR = styled.tr`
+    cursor: ${({ clickable }) => (clickable ? "pointer" : "initial")};
+`;
+
+export const STableBodyTD = styled.td`
+    :first-of-type {
+        width: 6rem;
+    }
+`;
+
+export const SContentContainer = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: ${v.smSpacing} ${v.mdSpacing};
+`;
+
+export const SContentSpanHead = styled.span`
+    display: block;
+    padding: ${v.smSpacing} ${v.mdSpacing};
+    font-size: 16px;
+    font-weight: 400;
+    text-align: ${({ center }) => (center ? "center" : "left")};
+`;
+export const SContentSpan = styled.span`
+    display: block;
+    padding: ${v.mdSpacing} ${v.mdSpacing};
+    font-size: 16px;
+    font-weight: 400;
+    background: ${({ theme }) => theme.bg2};
+    text-align: ${({ center }) => (center ? "center" : "left")};
+`;
+
+export const STableImageContainer = styled.div`
+    position: relative;
+    display: flex;
+`;
+export const STableImage = styled.img`
+    max-width: 100%;
+    height: auto;
+`;
+
+export const SIconsContainer = styled.div``;
+const iconStyles = css`
+    font-size: 24px;
+    display: block;
+`;
+export const SDeleteIcon = styled(AiOutlineDelete)`
+    ${iconStyles}
+    margin-bottom: ${v.mdSpacing};
+`;
+export const SEditIcon = styled(AiOutlineEdit)`
+    ${iconStyles}
 `;

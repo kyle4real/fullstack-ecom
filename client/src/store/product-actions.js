@@ -11,3 +11,14 @@ export const getProducts = () => {
         }
     };
 };
+
+export const getProduct = (productId) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.product(productId);
+            dispatch(productActions.replaceCurrentProduct({ data }));
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+};
