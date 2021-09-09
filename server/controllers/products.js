@@ -1,5 +1,7 @@
 import Product from "../models/product.js";
 
+import cloudinary from "../config/cloudinary.js";
+
 import { productsArr } from "../config/data.js";
 
 export const products = async (req, res) => {
@@ -18,6 +20,19 @@ export const product = async (req, res) => {
 
         const product = await Product.findById(id);
         res.status(200).json({ result: product });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong." });
+    }
+};
+
+export const uploadMedia = async (req, res) => {
+    try {
+        const { data } = req.body;
+        const uploadedResponse = await cloudinary.uploader.upload(data, {
+            upload_preset: "ecom",
+        });
+        console.log(uploadedResponse);
+        res.status(200).json({ message: "Good." });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }
