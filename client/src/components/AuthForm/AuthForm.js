@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { loginUser, registerUser } from "../../store/auth-actions";
+import Button from "../UI/Button/Button";
 
 import {
     SAuthForm,
@@ -55,7 +56,7 @@ const LoginForm = ({ input, onInputChange }) => {
                 </SPasswordWrapper>
             </SFormControl>
             <SFormControl>
-                <SButton>Log In</SButton>
+                <Button>Log In</Button>
             </SFormControl>
         </>
     );
@@ -133,7 +134,7 @@ const RegisterForm = ({ input, onInputChange }) => {
                 />
             </SFormControl>
             <SFormControl>
-                <SButton>Create Account</SButton>
+                <Button>Create Account</Button>
             </SFormControl>
         </>
     );
