@@ -6,6 +6,7 @@ import AuthForm from "../components/AuthForm/AuthForm";
 import Account from "../components/Account/Account";
 
 import ProductTable from "./../components/Admin/ProductTable/ProductTable";
+import ProductDisplay from "../components/Admin/ProductDisplay/ProductDisplay";
 
 const AdminRoute = ({ children, ...restOfProps }) => {
     const { authData } = useSelector((state) => state.auth);
@@ -105,7 +106,7 @@ const Auth = () => {
                     </AdminRoute>
                 ))}
                 <AdminRoute path={`${path}/admin/products/:id`}>
-                    <>test</>
+                    <ProductDisplay />
                 </AdminRoute>
 
                 <Route path={`/account/login`}>
