@@ -9,6 +9,7 @@ const uiSlice = createSlice({
             productDisplay: false,
             imageUpload: false,
             imageDelete: false,
+            productList: false,
         },
     },
     reducers: {

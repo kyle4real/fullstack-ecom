@@ -47,7 +47,7 @@ export const SCloseIcon = styled(AiOutlineClose)`
 `;
 
 export const SSliderContainer = styled.div`
-    background: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primaryGradient};
     width: calc(100% + ${v.mdSpacing} * 2 + 2px);
     margin: 0 calc(-${v.mdSpacing} - 1px);
     display: flex;

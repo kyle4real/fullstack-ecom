@@ -5,6 +5,7 @@ import { uiActions } from "./ui-slice";
 export const getProducts = () => {
     return async (dispatch) => {
         dispatch(uiActions.updateLoading({ constituent: "productTable", isLoading: true }));
+        dispatch(uiActions.updateLoading({ constituent: "productList", isLoading: true }));
         try {
             const { data } = await api.products();
             dispatch(productActions.replaceProducts({ data }));
@@ -12,6 +13,7 @@ export const getProducts = () => {
             console.log(error.message);
         }
         dispatch(uiActions.updateLoading({ constituent: "productTable", isLoading: false }));
+        dispatch(uiActions.updateLoading({ constituent: "productList", isLoading: false }));
     };
 };
 

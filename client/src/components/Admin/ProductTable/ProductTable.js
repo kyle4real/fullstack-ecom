@@ -30,6 +30,7 @@ import {
 } from "./styles";
 import useWindowSize from "../../../hooks/useWindowSize";
 import Loading from "../../UI/Loading/Loading";
+import { productActions } from "../../../store/product-slice";
 
 const ProductTable = () => {
     const { isMin } = useWindowSize({ size: "sm" });
@@ -42,6 +43,10 @@ const ProductTable = () => {
 
     useEffect(() => {
         dispatch(getProducts());
+
+        return () => {
+            dispatch(productActions.replaceProducts({ data: { result: null } }));
+        };
     }, [dispatch]);
 
     const productSelectHandler = (id) => {
@@ -79,7 +84,7 @@ const ProductTable = () => {
                             </STableHeadTR>
                         </STableHead>
                         <STableBody>
-                            {productsArray.map(
+                            {productsArray?.map?.(
                                 ({ title, price, variants, _id: id, media }, index) => {
                                     return (
                                         <Fragment key={index}>
