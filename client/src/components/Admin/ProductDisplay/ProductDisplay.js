@@ -54,6 +54,7 @@ import { productActions } from "../../../store/product-slice";
 import ImageInput from "./ImageInput";
 
 import VariantImageSelect from "./VariantImageSelect/VariantImageSelect";
+import ImageFocus from "./ImageFocus/ImageFocus";
 
 const ProductDisplay = () => {
     const dispatch = useDispatch();
@@ -61,6 +62,7 @@ const ProductDisplay = () => {
     const { currentProduct } = useSelector((state) => state.product);
 
     const [variantImageSelect, setVariantImageSelect] = useState(null);
+    const [imageFocus, setImageFocus] = useState(null);
 
     const [product, setProduct] = useState(null);
     const [edits, setEdits] = useState({});
@@ -99,15 +101,27 @@ const ProductDisplay = () => {
         }
     }, [edits, dispatch]);
 
-    const productImages = product?.media?.length > 1 ? product?.media?.slice(1) : [];
+    const productImages = product?.media?.length === 0 ? null : product?.media;
+    const slicedProductImages = product?.media?.length > 1 ? product?.media?.slice(1) : [];
     return (
         <>
             <>
                 {variantImageSelect !== null && (
                     <VariantImageSelect
-                        product={product}
+                        images={productImages}
                         variant={variantImageSelect}
                         setVariantImageSelect={setVariantImageSelect}
+                        id={id}
+                    />
+                )}
+            </>
+            <>
+                {imageFocus !== null && (
+                    <ImageFocus
+                        images={productImages}
+                        imageFocus={imageFocus}
+                        setImageFocus={setImageFocus}
+                        productTitle={product?.title}
                         id={id}
                     />
                 )}
@@ -157,15 +171,20 @@ const ProductDisplay = () => {
                                 <SMediaContainer>
                                     <SLabelSpan>Media</SLabelSpan>
                                     <SMedia>
-                                        <SMainImageContainer>
+                                        <SMainImageContainer
+                                            onClick={() => setImageFocus(product?.media?.[0]?.url)}
+                                        >
                                             <SMainImage
                                                 src={product?.media?.[0]?.url || missingImg}
                                             />
                                             <SImageOverlay></SImageOverlay>
                                         </SMainImageContainer>
                                         <SImagesContainer>
-                                            {productImages.map(({ url }, index) => (
-                                                <SImageContainer key={index}>
+                                            {slicedProductImages.map(({ url }, index) => (
+                                                <SImageContainer
+                                                    key={index}
+                                                    onClick={() => setImageFocus(url)}
+                                                >
                                                     <SMainImage src={url} />
                                                     <SImageOverlay></SImageOverlay>
                                                 </SImageContainer>

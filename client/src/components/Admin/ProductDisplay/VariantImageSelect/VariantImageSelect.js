@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import useWindowSize from "../../../../hooks/useWindowSize";
 import { updateVariant } from "../../../../store/product-actions";
@@ -19,7 +19,7 @@ import {
     SVariantTitle,
 } from "./styles";
 
-const VariantImageSelect = ({ product, variant, setVariantImageSelect, id }) => {
+const VariantImageSelect = ({ images, variant, setVariantImageSelect, id }) => {
     const dispatch = useDispatch();
     const { isMin } = useWindowSize({ size: "sm" });
     const [selected, setSelected] = useState(variant?.mediaUrl || null);
@@ -39,13 +39,12 @@ const VariantImageSelect = ({ product, variant, setVariantImageSelect, id }) => 
         setVariantImageSelect(null);
     };
 
-    const images = product?.media || null;
     return (
         <Overlay>
             <Card bg={"bg2"} size={"md"}>
                 <SLabel>Select Variant Image</SLabel>
                 {!images ? (
-                    <SNotification>No Media</SNotification>
+                    <SNotification>No Media </SNotification>
                 ) : (
                     <SVariantSelect>
                         {images.map(({ url }, index) => (

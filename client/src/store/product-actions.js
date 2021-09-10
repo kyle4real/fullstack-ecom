@@ -34,6 +34,18 @@ export const uploadMedia = (obj) => {
     };
 };
 
+export const deleteMedia = (obj) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.deleteMedia(obj);
+            console.log(data);
+            // dispatch(productActions.replaceCurrentProduct({data}));
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+};
+
 export const updateVariant = (productId, obj) => {
     return async (dispatch) => {
         try {

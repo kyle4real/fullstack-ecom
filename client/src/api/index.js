@@ -22,3 +22,4 @@ export const product = (productId) => API.get(`${productPath}/${productId}`);
 export const variant = (productId, obj) => API.post(`${productPath}/${productId}/variant`, obj);
 
 export const media = (obj) => API.post(`${productPath}/media`, obj);
+export const deleteMedia = (obj) => API.post(`${productPath}/media/delete`, obj);
