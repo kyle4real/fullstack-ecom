@@ -8,6 +8,7 @@ export const lightTheme = {
     primary: "#1b3545",
     primaryLight: "#446a82",
     primaryLighter: "#b3bec4",
+    overlay: "rgba(0,0,0,.3)",
 };
 
 export const darkTheme = {

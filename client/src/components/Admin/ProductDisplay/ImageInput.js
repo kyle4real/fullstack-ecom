@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { uploadMedia } from "../../../store/product-actions";
 import { SIMAGEInput } from "./styles";
 
-const ImageInput = ({ id, setFiles }) => {
+const ImageInput = ({ id }) => {
     const dispatch = useDispatch();
     const [file, setFile] = useState("");
 
@@ -16,7 +16,6 @@ const ImageInput = ({ id, setFiles }) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
-            setFiles((p) => [...p, reader.result]);
             uploadImage(reader.result);
         };
     };

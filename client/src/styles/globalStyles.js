@@ -13,4 +13,18 @@ export const GlobalStyles = createGlobalStyle`
         font-family: 'Roboto', sans-serif;
         letter-spacing: .6px;
     }
+
+    button {
+        :disabled {
+            background: ${({ theme }) => theme.bg3};
+            border-color: ${({ theme }) => theme.bg3};
+
+            
+        }
+        :disabled:hover {
+            cursor: initial;
+            background: ${({ theme }) => theme.bg3};
+        }
+        
+    }
 `;

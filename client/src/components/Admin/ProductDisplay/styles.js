@@ -5,6 +5,7 @@ import { v, b, s } from "./../../../styles/variables";
 import { BiImageAdd } from "react-icons/bi";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
+// POPUP /////////////////////////////////////////////////
 export const SPopup = styled.div`
     position: fixed;
     z-index: 10000;
@@ -66,6 +67,8 @@ export const SProductDisplayContainer = styled.div`
     }
 `;
 
+// SECTIONS /////////////////////////////////////////////////
+
 export const SSectionOne = styled.div`
     width: 100%;
     margin-right: ${v.mdSpacing};
@@ -82,7 +85,7 @@ export const SSectionTwo = styled.div`
     }
 `;
 
-// SECTION ONE
+// SECTION ONE /////////////////////////////////////////////////
 
 // card one /////////////////////////////////////////////////
 export const SCardControl = styled.div`
@@ -154,7 +157,7 @@ export const SImageOverlay = styled.div`
     top: 0;
     background: ${({ theme }) => theme.bg};
     cursor: pointer;
-    opacity: 0;
+    opacity: ${({ active }) => (!active ? 0 : 1)};
 
     :hover {
         opacity: 1;

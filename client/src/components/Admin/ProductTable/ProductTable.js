@@ -42,10 +42,6 @@ const ProductTable = () => {
         dispatch(getProducts());
     }, [dispatch]);
 
-    useEffect(() => {
-        console.log(location.pathname);
-    }, [location]);
-
     const productSelectHandler = (id) => {
         history.push(`${url}/${id}`);
     };
@@ -75,7 +71,7 @@ const ProductTable = () => {
                         </STableHead>
                         <STableBody>
                             {productsArray.map(
-                                ({ title, price, variants, _id: id, imageUrls }, index) => {
+                                ({ title, price, variants, _id: id, media }, index) => {
                                     return (
                                         <Fragment key={index}>
                                             <STableBodyTR
@@ -85,7 +81,7 @@ const ProductTable = () => {
                                                 <STableBodyTD>
                                                     <SContentImgContainer>
                                                         <SContentImg
-                                                            src={imageUrls[0] || missingImg}
+                                                            src={media?.[0]?.url || missingImg}
                                                         />
                                                     </SContentImgContainer>
                                                 </STableBodyTD>
@@ -110,7 +106,10 @@ const ProductTable = () => {
                                             </STableBodyTR>
                                             {variants.length > 1 &&
                                                 variants.map(
-                                                    ({ title: variantTitle, price }, index) => {
+                                                    (
+                                                        { title: variantTitle, price, mediaId },
+                                                        index
+                                                    ) => {
                                                         return (
                                                             <STableBodyTR key={index}>
                                                                 <STableBodyTD></STableBodyTD>

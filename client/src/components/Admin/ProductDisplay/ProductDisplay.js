@@ -48,38 +48,38 @@ import {
 } from "./styles";
 import Card from "../../UI/Card/Card";
 
-import { bonesIMG, missingImg } from "../../../assets";
+import { missingImg } from "../../../assets";
 import { getProduct } from "../../../store/product-actions";
 import { productActions } from "../../../store/product-slice";
 import ImageInput from "./ImageInput";
+import Overlay from "../../UI/Overlay/Overlay";
+import VariantImageSelect from "./VariantImageSelect/VariantImageSelect";
 
 const ProductDisplay = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { currentProduct } = useSelector((state) => state.product);
+
+    const [variantImageSelect, setVariantImageSelect] = useState({
+        active: false,
+        variant: null,
+    });
+
     const [product, setProduct] = useState(null);
     const [edits, setEdits] = useState({});
 
-    const [files, setFiles] = useState([]);
-
     useEffect(() => {
         dispatch(getProduct(id));
-
         return () => {
             dispatch(productActions.replaceCurrentProduct({ data: { result: null } }));
         };
     }, [dispatch, id]);
     useEffect(() => {
         setProduct({ ...currentProduct });
-
         return () => {
             setProduct(null);
         };
     }, [currentProduct]);
-
-    useEffect(() => {
-        console.log(product);
-    }, [product]);
 
     const inputChangeHandler = (e) => {
         setProduct((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -102,9 +102,18 @@ const ProductDisplay = () => {
         }
     }, [edits, dispatch]);
 
-    const productImages = product?.imageUrls?.length > 1 ? product?.imageUrls?.slice(1) : [];
+    const productImages = product?.media?.length > 1 ? product?.media?.slice(1) : [];
     return (
         <>
+            <>
+                {variantImageSelect.active && (
+                    <VariantImageSelect
+                        product={product}
+                        variant={variantImageSelect?.variant}
+                        setVariantImageSelect={setVariantImageSelect}
+                    />
+                )}
+            </>
             <>
                 {Object.keys(edits).length !== 0 && (
                     <SPopup>
@@ -152,27 +161,21 @@ const ProductDisplay = () => {
                                     <SMedia>
                                         <SMainImageContainer>
                                             <SMainImage
-                                                src={product?.imageUrls?.[0] || missingImg}
+                                                src={product?.media?.[0]?.url || missingImg}
                                             />
                                             <SImageOverlay></SImageOverlay>
                                         </SMainImageContainer>
                                         <SImagesContainer>
-                                            {productImages.map((url, index) => (
+                                            {productImages.map(({ url }, index) => (
                                                 <SImageContainer key={index}>
                                                     <SMainImage src={url} />
                                                     <SImageOverlay></SImageOverlay>
                                                 </SImageContainer>
                                             ))}
-                                            {/* {files.map((file, index) => (
-                                                <SImageContainer key={index}>
-                                                    <SMainImage src={file} />
-                                                    <SImageOverlay></SImageOverlay>
-                                                </SImageContainer>
-                                            ))} */}
                                             <SImageContainer>
                                                 <SAddImage>
                                                     <SAddImageIcon />
-                                                    <ImageInput id={id} setFiles={setFiles} />
+                                                    <ImageInput id={id} />
                                                 </SAddImage>
                                             </SImageContainer>
                                         </SImagesContainer>
@@ -206,14 +209,29 @@ const ProductDisplay = () => {
                                                 </STableHeadTR>
                                             </STableHead>
                                             <STableBody>
-                                                {currentProduct &&
-                                                    currentProduct.variants.map(
-                                                        ({ title, price }, index) => (
+                                                {product &&
+                                                    product?.variants?.map((variant, index) => {
+                                                        const {
+                                                            title,
+                                                            price,
+                                                            mediaId: mediaUrl,
+                                                        } = variant;
+                                                        return (
                                                             <STableBodyTR key={index}>
                                                                 <STableBodyTD>
-                                                                    <STableImageContainer>
+                                                                    <STableImageContainer
+                                                                        onClick={() =>
+                                                                            setVariantImageSelect({
+                                                                                active: true,
+                                                                                variant,
+                                                                            })
+                                                                        }
+                                                                    >
                                                                         <STableImage
-                                                                            src={bonesIMG}
+                                                                            src={
+                                                                                mediaUrl ||
+                                                                                missingImg
+                                                                            }
                                                                         />
                                                                         <SImageOverlay />
                                                                     </STableImageContainer>
@@ -242,8 +260,8 @@ const ProductDisplay = () => {
                                                                     </SContentContainer>
                                                                 </STableBodyTD>
                                                             </STableBodyTR>
-                                                        )
-                                                    )}
+                                                        );
+                                                    })}
                                             </STableBody>
                                         </STable>
                                     </>

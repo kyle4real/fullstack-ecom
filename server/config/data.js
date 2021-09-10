@@ -26,7 +26,7 @@ const create = (titles) => {
             tags: ["new"],
             description: "Default Description.",
             variants: [],
-            imageUrls: [],
+            media: [],
         };
 
         for (let i = 0; i < 3; i++) {
@@ -34,7 +34,7 @@ const create = (titles) => {
                 title: `${16 * (i + 1)}oz`,
                 price: price + 5 * i,
                 salePrice: salePrice + 5 * i,
-                imageUrl: "",
+                mediaId: null,
             });
         }
 

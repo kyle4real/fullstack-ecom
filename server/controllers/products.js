@@ -35,24 +35,24 @@ export const uploadMedia = async (req, res) => {
             upload_preset: "ecom",
         });
 
-        console.log(id);
-
         if (!uploadedResponse)
             return res.status(500).json({ message: "File could not be uploaded." });
 
         const uploadUrl = uploadedResponse.url;
+        const uploadId = uploadedResponse.public_id;
 
         const updatedProduct = await Product.findByIdAndUpdate(
             id,
             {
                 $push: {
-                    imageUrls: uploadUrl,
+                    media: {
+                        url: uploadUrl,
+                        public_id: uploadId,
+                    },
                 },
             },
             { new: true }
         );
-
-        console.log(updatedProduct);
 
         res.status(200).json({ result: updatedProduct });
     } catch (error) {
@@ -68,6 +68,7 @@ export const uploadMedia = async (req, res) => {
 //         console.log(error);
 //     }
 // };
+// createAll();
 
 // const deleteAll = async (req, res) => {
 //     try {
@@ -77,3 +78,4 @@ export const uploadMedia = async (req, res) => {
 //         console.log(error);
 //     }
 // };
+// deleteAll();
