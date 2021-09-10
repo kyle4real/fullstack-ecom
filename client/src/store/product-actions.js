@@ -22,3 +22,14 @@ export const getProduct = (productId) => {
         }
     };
 };
+
+export const uploadMedia = (obj) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.media(obj);
+            dispatch(productActions.replaceCurrentProduct({ data }));
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+};

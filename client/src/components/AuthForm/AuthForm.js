@@ -6,7 +6,6 @@ import Button from "../UI/Button/Button";
 
 import {
     SAuthForm,
-    SButton,
     SForm,
     SFormContainer,
     SFormControl,

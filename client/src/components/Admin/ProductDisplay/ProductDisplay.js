@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -17,7 +17,6 @@ import {
     SFormControl,
     SIconsContainer,
     SImageContainer,
-    SIMAGEInput,
     SImageOverlay,
     SImagesContainer,
     SLabel,
@@ -49,12 +48,10 @@ import {
 } from "./styles";
 import Card from "../../UI/Card/Card";
 
-import { bonesIMG } from "../../../assets";
+import { bonesIMG, missingImg } from "../../../assets";
 import { getProduct } from "../../../store/product-actions";
 import { productActions } from "../../../store/product-slice";
 import ImageInput from "./ImageInput";
-
-const initialEditProduct = (product) => {};
 
 const ProductDisplay = () => {
     const dispatch = useDispatch();
@@ -67,10 +64,22 @@ const ProductDisplay = () => {
 
     useEffect(() => {
         dispatch(getProduct(id));
+
+        return () => {
+            dispatch(productActions.replaceCurrentProduct({ data: { result: null } }));
+        };
     }, [dispatch, id]);
     useEffect(() => {
         setProduct({ ...currentProduct });
+
+        return () => {
+            setProduct(null);
+        };
     }, [currentProduct]);
+
+    useEffect(() => {
+        console.log(product);
+    }, [product]);
 
     const inputChangeHandler = (e) => {
         setProduct((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -93,6 +102,7 @@ const ProductDisplay = () => {
         }
     }, [edits, dispatch]);
 
+    const productImages = product?.imageUrls?.length > 1 ? product?.imageUrls?.slice(1) : [];
     return (
         <>
             <>
@@ -121,7 +131,7 @@ const ProductDisplay = () => {
                                     <SLabel>Title</SLabel>
                                     <STITLEInput
                                         name="title"
-                                        value={product?.title}
+                                        value={product?.title || ""}
                                         onChange={inputChangeHandler}
                                     />
                                 </SFormControl>
@@ -129,7 +139,7 @@ const ProductDisplay = () => {
                                     <SLabel>Description</SLabel>
                                     <SDESCRIPTIONInput
                                         name="description"
-                                        value={product?.description}
+                                        value={product?.description || ""}
                                         onChange={inputChangeHandler}
                                     />
                                 </SFormControl>
@@ -141,35 +151,28 @@ const ProductDisplay = () => {
                                     <SLabelSpan>Media</SLabelSpan>
                                     <SMedia>
                                         <SMainImageContainer>
-                                            <SMainImage src={bonesIMG} />
+                                            <SMainImage
+                                                src={product?.imageUrls?.[0] || missingImg}
+                                            />
                                             <SImageOverlay></SImageOverlay>
                                         </SMainImageContainer>
                                         <SImagesContainer>
-                                            <SImageContainer>
-                                                <SMainImage src={bonesIMG} />
-                                                <SImageOverlay></SImageOverlay>
-                                            </SImageContainer>
-                                            <SImageContainer>
-                                                <SMainImage src={bonesIMG} />
-                                                <SImageOverlay></SImageOverlay>
-                                            </SImageContainer>
-                                            <SImageContainer>
-                                                <SMainImage src={bonesIMG} />
-                                                <SImageOverlay></SImageOverlay>
-                                            </SImageContainer>
-                                            {files.map((file) => (
-                                                <SImageContainer>
-                                                    <SMainImage src={file} />
+                                            {productImages.map((url, index) => (
+                                                <SImageContainer key={index}>
+                                                    <SMainImage src={url} />
                                                     <SImageOverlay></SImageOverlay>
                                                 </SImageContainer>
                                             ))}
+                                            {/* {files.map((file, index) => (
+                                                <SImageContainer key={index}>
+                                                    <SMainImage src={file} />
+                                                    <SImageOverlay></SImageOverlay>
+                                                </SImageContainer>
+                                            ))} */}
                                             <SImageContainer>
                                                 <SAddImage>
                                                     <SAddImageIcon />
-                                                    <ImageInput
-                                                        product={product}
-                                                        setFiles={setFiles}
-                                                    />
+                                                    <ImageInput id={id} setFiles={setFiles} />
                                                 </SAddImage>
                                             </SImageContainer>
                                         </SImagesContainer>

@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { uploadMedia } from "../../../store/product-actions";
 import { SIMAGEInput } from "./styles";
 
-const ImageInput = ({ product, setFiles }) => {
+const ImageInput = ({ id, setFiles }) => {
+    const dispatch = useDispatch();
     const [file, setFile] = useState("");
 
     const fileChangeHandler = (e) => {
@@ -14,7 +17,11 @@ const ImageInput = ({ product, setFiles }) => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setFiles((p) => [...p, reader.result]);
+            uploadImage(reader.result);
         };
+    };
+    const uploadImage = (base64EncodedImage) => {
+        dispatch(uploadMedia({ base64Img: base64EncodedImage, id }));
     };
     return <SIMAGEInput type="file" value={file} onChange={fileChangeHandler} />;
 };

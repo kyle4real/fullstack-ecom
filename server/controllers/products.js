@@ -19,6 +19,9 @@ export const product = async (req, res) => {
         const id = req.params.id;
 
         const product = await Product.findById(id);
+
+        if (!product) res.status(404).json({ message: "Product does not exist." });
+
         res.status(200).json({ result: product });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
@@ -27,12 +30,31 @@ export const product = async (req, res) => {
 
 export const uploadMedia = async (req, res) => {
     try {
-        const { data } = req.body;
-        const uploadedResponse = await cloudinary.uploader.upload(data, {
+        const { base64Img, id } = req.body;
+        const uploadedResponse = await cloudinary.uploader.upload(base64Img, {
             upload_preset: "ecom",
         });
-        console.log(uploadedResponse);
-        res.status(200).json({ message: "Good." });
+
+        console.log(id);
+
+        if (!uploadedResponse)
+            return res.status(500).json({ message: "File could not be uploaded." });
+
+        const uploadUrl = uploadedResponse.url;
+
+        const updatedProduct = await Product.findByIdAndUpdate(
+            id,
+            {
+                $push: {
+                    imageUrls: uploadUrl,
+                },
+            },
+            { new: true }
+        );
+
+        console.log(updatedProduct);
+
+        res.status(200).json({ result: updatedProduct });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }

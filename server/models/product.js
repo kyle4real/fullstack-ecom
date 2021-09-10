@@ -7,7 +7,15 @@ const productSchema = mongoose.Schema({
     createdAt: { type: String, default: String(new Date().toISOString()) },
     tags: [{ type: String }],
     description: { type: String },
-    variants: [{ title: { type: String }, price: { type: String }, salePrice: { type: String } }],
+    imageUrls: [{ type: String }],
+    variants: [
+        {
+            title: { type: String },
+            price: { type: String },
+            salePrice: { type: String },
+            imageUrl: { type: String, default: "" },
+        },
+    ],
 });
 
 const Product = mongoose.model("Product", productSchema);
