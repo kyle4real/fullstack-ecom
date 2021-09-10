@@ -39,7 +39,7 @@ export const deleteMedia = (obj) => {
         try {
             const { data } = await api.deleteMedia(obj);
             console.log(data);
-            // dispatch(productActions.replaceCurrentProduct({data}));
+            dispatch(productActions.replaceCurrentProduct({ data }));
         } catch (error) {
             console.log(error.message);
         }

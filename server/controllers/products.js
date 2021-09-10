@@ -76,6 +76,34 @@ export const uploadMedia = async (req, res) => {
     }
 };
 
+export const deleteMedia = async (req, res) => {
+    try {
+        const { data, id } = req.body;
+        const { public_id, url } = data;
+
+        const { result } = await cloudinary.uploader.destroy(public_id);
+
+        if (result !== "ok") return res.status(500).json({ message: "File could not be deleted." });
+
+        const product = await Product.findById(id);
+        // remove from product
+        product.media = product.media.filter((item) => item.public_id !== public_id);
+        // remove from variants
+        const indicies = product.variants.reduce((r, v, i) => {
+            return r.concat(v.mediaUrl === url ? i : []);
+        }, []);
+        for (let i = 0; i < indicies.length; i++) {
+            product.variants[indicies[i]].mediaUrl = null;
+        }
+
+        product.save();
+
+        res.status(200).json({ result: product });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong." });
+    }
+};
+
 // const createAll = async (req, res) => {
 //     try {
 //         const products = await Product.insertMany(productsArr);

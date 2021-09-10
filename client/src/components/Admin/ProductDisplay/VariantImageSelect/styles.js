@@ -76,7 +76,8 @@ export const SVariantTitle = styled.span`
 
 export const SButtonContainer = styled.div`
     text-align: center;
-    @media ${b.md} {
+    width: 100%;
+    @media ${b.sm} {
         text-align: right;
     }
     button {

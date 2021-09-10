@@ -28,6 +28,7 @@ const ImageFocus = ({ productTitle, images, imageFocus, setImageFocus, id }) => 
     const deleteImage = () => {
         const image = images.find(({ url }) => url === imageFocus);
         dispatch(deleteMedia({ data: image, id }));
+        setImageFocus(null);
     };
 
     const index = useMemo(() => {
