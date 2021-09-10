@@ -21,7 +21,7 @@ import {
     SVariants,
 } from "./styles";
 
-import Bones from "./../../assets/bones.png";
+import { missingImg } from "./../../assets";
 
 const ProductsList = ({ productsArray }) => {
     return (
@@ -30,14 +30,14 @@ const ProductsList = ({ productsArray }) => {
                 <SHeadTitle>All Products</SHeadTitle>
             </SHead>
             <SList>
-                {productsArray.map(({ title, price, salePrice, tags, variants }, index) => {
+                {productsArray.map(({ title, price, salePrice, tags, variants, media }, index) => {
                     const sale = price !== salePrice;
-                    console.log(sale);
+                    console.log(media);
                     return (
                         <SListItem key={index}>
                             <SContent>
                                 <SContentImgContainer>
-                                    <SContentImg src={Bones} />
+                                    <SContentImg src={media?.[0]?.url || missingImg} />
                                 </SContentImgContainer>
                                 <SContentInfo>
                                     <SInfo>

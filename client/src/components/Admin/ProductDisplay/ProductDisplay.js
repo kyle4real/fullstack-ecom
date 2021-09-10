@@ -5,8 +5,6 @@ import { useParams } from "react-router-dom";
 import Button from "./../../UI/Button/Button";
 
 import {
-    SAddImage,
-    SAddImageIcon,
     SCardControl,
     SContentContainer,
     SContentSpan,
@@ -24,6 +22,7 @@ import {
     SMainImage,
     SMainImageContainer,
     SMedia,
+    SMediaBottomBar,
     SMediaContainer,
     SPopup,
     SProductDisplay,
@@ -172,12 +171,16 @@ const ProductDisplay = () => {
                                     <SLabelSpan>Media</SLabelSpan>
                                     <SMedia>
                                         <SMainImageContainer
-                                            onClick={() => setImageFocus(product?.media?.[0]?.url)}
+                                            onClick={() =>
+                                                productImages &&
+                                                setImageFocus(product?.media?.[0]?.url)
+                                            }
                                         >
                                             <SMainImage
                                                 src={product?.media?.[0]?.url || missingImg}
                                             />
-                                            <SImageOverlay></SImageOverlay>
+                                            <SImageOverlay />
+                                            {!productImages && <ImageInput id={id} />}
                                         </SMainImageContainer>
                                         <SImagesContainer>
                                             {slicedProductImages.map(({ url }, index) => (
@@ -189,15 +192,15 @@ const ProductDisplay = () => {
                                                     <SImageOverlay></SImageOverlay>
                                                 </SImageContainer>
                                             ))}
-                                            <SImageContainer>
-                                                <SAddImage>
-                                                    <SAddImageIcon />
-                                                    <ImageInput id={id} />
-                                                </SAddImage>
-                                            </SImageContainer>
                                         </SImagesContainer>
                                     </SMedia>
                                 </SMediaContainer>
+                                <SMediaBottomBar>
+                                    <Button secondaryRadius fixed absolute>
+                                        Add Image
+                                        <ImageInput id={id} />
+                                    </Button>
+                                </SMediaBottomBar>
                             </Card>
                         </SCardControl>
                         <SCardControl>

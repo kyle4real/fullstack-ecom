@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { deleteMedia } from "../../../../store/product-actions";
 import Card from "../../../UI/Card/Card";

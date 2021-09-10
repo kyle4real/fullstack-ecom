@@ -20,19 +20,20 @@ export const SVariantSelect = styled.div`
     margin-top: ${v.mdSpacing};
     overflow-y: auto;
     max-height: 40vh;
+    box-shadow: inset 0 0 10px -3px ${({ theme }) => theme.primary};
 `;
 
 export const SImageContainer = styled.div`
     display: flex;
     position: relative;
-    width: calc(100% / 2 - ${v.mdSpacing});
-    margin: calc(${v.mdSpacing} / 2);
+    width: calc(100% / 2 - ${v.mdSpacing} * 2);
+    margin: ${v.mdSpacing};
     height: fit-content;
 
     @media ${b.sm} {
-        width: calc(100% / 4 - ${v.mdSpacing});
+        width: calc(100% / 3 - ${v.mdSpacing} * 2);
         margin: 0;
-        margin: calc(${v.mdSpacing} / 2);
+        margin: ${v.mdSpacing};
     }
 
     border: 1px solid ${({ theme, active }) => (!active ? "transparent" : theme.primary)};
@@ -51,8 +52,8 @@ export const SCheckBoxContainer = styled.div`
 `;
 
 export const SBottomPanel = styled.div`
-    margin-top: ${v.mdSpacing};
-    border-top: 1px solid ${({ theme }) => theme.primary};
+    /* margin-top: ${v.mdSpacing}; */
+    /* border-top: 1px solid ${({ theme }) => theme.primary}; */
     padding-top: ${v.mdSpacing};
     display: flex;
     justify-content: center;
@@ -65,8 +66,8 @@ export const SBottomPanel = styled.div`
 
 export const SVariantTitle = styled.span`
     display: none;
-    font-weight: 400;
-    font-size: 24px;
+    font-weight: 600;
+    font-size: 18px;
     padding-left: ${v.smSpacing};
 
     @media ${b.sm} {

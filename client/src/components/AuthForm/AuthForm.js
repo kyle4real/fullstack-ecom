@@ -176,7 +176,7 @@ const AuthForm = ({ login }) => {
                         <RegisterForm input={formInput} onInputChange={inputChangeHandler} />
                     )}
                 </SForm>
-                {!login && (
+                {login && (
                     <SFormForgotPassword to="/">I've forgotten my password</SFormForgotPassword>
                 )}
                 <SFormSwitch>

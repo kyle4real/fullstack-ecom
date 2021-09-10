@@ -141,6 +141,7 @@ export const SDESCRIPTIONInput = styled.textarea`
 
 // card two /////////////////////////////////////////////////
 export const SMediaContainer = styled.div``;
+
 export const SMedia = styled.div`
     background: ${({ theme }) => theme.bg2};
     padding: ${v.mdSpacing};
@@ -167,7 +168,8 @@ export const SImageOverlay = styled.div`
 
 export const SMainImageContainer = styled.div`
     height: 100%;
-    width: 100%;
+    width: auto;
+    margin: 0 auto;
     position: relative;
     display: flex;
 
@@ -182,8 +184,8 @@ export const SMainImage = styled.img`
 
 export const SImagesContainer = styled.div`
     display: flex;
+
     flex-wrap: wrap;
-    align-items: center;
     width: 100%;
     margin-top: ${v.mdSpacing};
 
@@ -211,25 +213,16 @@ export const SImage = styled.img`
     height: auto;
 `;
 
-export const SAddImage = styled.div`
-    width: calc(100% - 2px);
-    height: 100%;
+export const SMediaBottomBar = styled.div`
     display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px dotted ${({ theme }) => theme.primaryLighter};
-    color: ${({ theme }) => theme.primaryLighter};
-    padding: ${v.mdSpacing} 0;
-
-    :hover {
-        transition: 0.2s ease;
-        color: ${({ theme }) => theme.primaryLight};
-        border-color: ${({ theme }) => theme.primaryLight};
-    }
+    justify-content: flex-end;
+    margin-top: ${v.mdSpacing};
 `;
+
 export const SAddImageIcon = styled(BiImageAdd)`
     display: block;
-    font-size: 3rem;
+    font-size: 24px;
+    cursor: pointer;
 `;
 
 export const SIMAGEInput = styled.input`
@@ -253,9 +246,9 @@ export const SVariantsHead = styled.div`
 `;
 
 export const STable = styled.table`
-    width: calc(100% + calc(${v.mdSpacing} * 2));
+    width: calc(100% + calc(${v.mdSpacing} * 2 + 2px));
     border-collapse: collapse;
-    margin: 0 -${v.mdSpacing};
+    margin: 0 calc(-${v.mdSpacing} - 1px);
     background: ${({ theme }) => theme.bg2};
 `;
 

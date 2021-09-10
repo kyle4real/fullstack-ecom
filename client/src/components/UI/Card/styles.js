@@ -8,6 +8,7 @@ export const SCard = styled.div`
     border: 1px solid ${({ theme }) => theme.primaryLighter};
     border-radius: 0;
     width: ${({ size }) => (!size ? "initial" : s[size])};
+    box-shadow: ${v.cardBoxShadow};
 
     @media ${b.sm} {
         border-radius: ${v.borderRadius};

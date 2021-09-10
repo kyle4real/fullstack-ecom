@@ -21,16 +21,17 @@ export const SList = styled.div`
 `;
 export const SListItem = styled.div`
     padding: ${v.smSpacing};
-    width: 100%;
+    width: auto;
     max-width: 400px;
 
     @media ${b.sm} {
         min-height: 425px;
-        width: 100%;
+        width: auto;
     }
 
     @media ${b.md} {
-        width: calc(100% / 2);
+        width: auto;
+        /* width: calc(100% / 2); */
     }
 
     @media ${b.lg} {
@@ -49,6 +50,7 @@ export const SContentImgContainer = styled.div`
     max-height: 80%;
     width: 100%;
     overflow: hidden;
+    display: flex;
 `;
 
 export const SContentImg = styled.img`
@@ -57,7 +59,7 @@ export const SContentImg = styled.img`
     margin: 0 auto;
     transition: 0.3s ease transform;
     :hover {
-        transform: scale(1.1);
+        transform: scale(0.95);
     }
 `;
 

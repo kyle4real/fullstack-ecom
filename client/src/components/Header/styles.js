@@ -97,7 +97,7 @@ export const SLogoContainer = styled.div`
     flex: ${({ isMin }) => (!isMin ? "1" : "initial")};
 `;
 export const SLogo = styled(Link)`
-    display: block;
+    display: inline-block;
     text-decoration: none;
     font-size: 1.4rem;
     color: ${({ theme }) => theme.text};

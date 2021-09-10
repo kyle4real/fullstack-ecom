@@ -48,8 +48,8 @@ export const SCloseIcon = styled(AiOutlineClose)`
 
 export const SSliderContainer = styled.div`
     background: ${({ theme }) => theme.primary};
-    width: calc(100% + ${v.mdSpacing} * 2);
-    margin: 0 -${v.mdSpacing};
+    width: calc(100% + ${v.mdSpacing} * 2 + 2px);
+    margin: 0 calc(-${v.mdSpacing} - 1px);
     display: flex;
     justify-content: center;
 `;
