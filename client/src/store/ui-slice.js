@@ -4,8 +4,16 @@ const uiSlice = createSlice({
     name: "ui",
     initialState: {
         theme: "light",
+        loading: {
+            productDisplay: false,
+        },
     },
-    reducers: {},
+    reducers: {
+        updateLoading(state, action) {
+            const { constituent, isLoading } = action.payload;
+            state.loading[constituent] = isLoading;
+        },
+    },
 });
 
 export const uiActions = uiSlice.actions;

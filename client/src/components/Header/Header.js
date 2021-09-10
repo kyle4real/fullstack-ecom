@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router";
 import useWindowSize from "../../hooks/useWindowSize";
 import {
     SAccountIcon,
@@ -30,6 +31,7 @@ import {
 } from "./styles";
 
 const Header = () => {
+    const location = useLocation();
     const { isMin } = useWindowSize({ size: "lg" });
     const { authData } = useSelector((state) => state.auth);
 
@@ -42,8 +44,10 @@ const Header = () => {
         }
     }, [isMin, menuOpen]);
 
+    const isAdminArea = location.pathname.includes("/account/admin");
+
     return (
-        <SHeader isMin={isMin}>
+        <SHeader isMin={isMin} isAdminArea={isAdminArea}>
             <SHeaderFixed>
                 {!isMin && (
                     <SHeaderTop>
@@ -108,7 +112,7 @@ const Header = () => {
                     </SCartIconContainer>
                 </SHeaderMain>
             </SHeaderFixed>
-            {!isMin && <SHeaderAnnouncements></SHeaderAnnouncements>}
+            {!isMin && !isAdminArea && <SHeaderAnnouncements></SHeaderAnnouncements>}
         </SHeader>
     );
 };

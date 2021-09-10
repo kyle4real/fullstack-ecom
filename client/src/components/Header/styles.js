@@ -14,8 +14,11 @@ const height = css`
 const heightMin = css`
     height: calc(${v.headerHeight});
 `;
+const heightMid = css`
+    height: calc(${v.headerHeight} + ${v.headerTopHeight});
+`;
 export const SHeader = styled.div`
-    ${({ isMin }) => (!isMin ? height : heightMin)}
+    ${({ isMin, isAdminArea }) => (isAdminArea && !isMin ? heightMid : !isMin ? height : heightMin)}
     display: flex;
     justify-content: flex-end;
 `;
