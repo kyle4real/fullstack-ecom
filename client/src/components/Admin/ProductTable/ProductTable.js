@@ -29,6 +29,7 @@ import {
     SVariantSpanStatus,
 } from "./styles";
 import useWindowSize from "../../../hooks/useWindowSize";
+import Loading from "../../UI/Loading/Loading";
 
 const ProductTable = () => {
     const { isMin } = useWindowSize({ size: "sm" });
@@ -37,6 +38,7 @@ const ProductTable = () => {
     const { url } = useRouteMatch();
     const dispatch = useDispatch();
     const { productsArray } = useSelector((state) => state.product);
+    const { loading } = useSelector((state) => state.ui);
 
     useEffect(() => {
         dispatch(getProducts());
@@ -46,6 +48,13 @@ const ProductTable = () => {
         history.push(`${url}/${id}`);
     };
 
+    if (loading.productTable) {
+        return (
+            <>
+                <Loading fixed />
+            </>
+        );
+    }
     return (
         <SProductTable>
             <STableContainer>

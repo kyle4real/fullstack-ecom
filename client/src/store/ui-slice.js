@@ -5,7 +5,10 @@ const uiSlice = createSlice({
     initialState: {
         theme: "light",
         loading: {
+            productTable: false,
             productDisplay: false,
+            imageUpload: false,
+            imageDelete: false,
         },
     },
     reducers: {

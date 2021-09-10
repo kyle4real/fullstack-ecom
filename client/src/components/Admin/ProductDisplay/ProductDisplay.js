@@ -15,10 +15,12 @@ import {
     SFormControl,
     SIconsContainer,
     SImageContainer,
+    SImageLoading,
     SImageOverlay,
     SImagesContainer,
     SLabel,
     SLabelSpan,
+    SLoadContainer,
     SMainImage,
     SMainImageContainer,
     SMedia,
@@ -54,11 +56,13 @@ import ImageInput from "./ImageInput";
 
 import VariantImageSelect from "./VariantImageSelect/VariantImageSelect";
 import ImageFocus from "./ImageFocus/ImageFocus";
+import Loading, { Spinner } from "../../UI/Loading/Loading";
 
 const ProductDisplay = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { currentProduct } = useSelector((state) => state.product);
+    const { loading } = useSelector((state) => state.ui);
 
     const [variantImageSelect, setVariantImageSelect] = useState(null);
     const [imageFocus, setImageFocus] = useState(null);
@@ -102,6 +106,14 @@ const ProductDisplay = () => {
 
     const productImages = product?.media?.length === 0 ? null : product?.media;
     const slicedProductImages = product?.media?.length > 1 ? product?.media?.slice(1) : [];
+
+    if (loading.productDisplay) {
+        return (
+            <>
+                <Loading fixed />
+            </>
+        );
+    }
     return (
         <>
             <>
@@ -189,14 +201,22 @@ const ProductDisplay = () => {
                                                     onClick={() => setImageFocus(url)}
                                                 >
                                                     <SMainImage src={url} />
-                                                    <SImageOverlay></SImageOverlay>
+                                                    <SImageOverlay />
                                                 </SImageContainer>
                                             ))}
                                         </SImagesContainer>
                                     </SMedia>
                                 </SMediaContainer>
                                 <SMediaBottomBar>
-                                    <Button secondaryRadius fixed absolute>
+                                    {(loading.imageUpload || loading.imageDelete) && (
+                                        <Spinner size={`30px`} />
+                                    )}
+                                    <Button
+                                        secondaryRadius
+                                        fixed
+                                        absolute
+                                        disabled={loading.imageUpload || loading.imageDelete}
+                                    >
                                         Add Image
                                         <ImageInput id={id} />
                                     </Button>

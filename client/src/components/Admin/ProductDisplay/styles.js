@@ -217,12 +217,10 @@ export const SMediaBottomBar = styled.div`
     display: flex;
     justify-content: flex-end;
     margin-top: ${v.mdSpacing};
-`;
 
-export const SAddImageIcon = styled(BiImageAdd)`
-    display: block;
-    font-size: 24px;
-    cursor: pointer;
+    button {
+        margin-left: ${v.smSpacing};
+    }
 `;
 
 export const SIMAGEInput = styled.input`
