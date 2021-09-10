@@ -34,7 +34,7 @@ const create = (titles) => {
                 title: `${16 * (i + 1)}oz`,
                 price: price + 5 * i,
                 salePrice: salePrice + 5 * i,
-                mediaId: null,
+                mediaUrl: null,
             });
         }
 

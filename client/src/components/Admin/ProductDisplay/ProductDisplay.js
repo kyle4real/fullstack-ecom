@@ -52,7 +52,7 @@ import { missingImg } from "../../../assets";
 import { getProduct } from "../../../store/product-actions";
 import { productActions } from "../../../store/product-slice";
 import ImageInput from "./ImageInput";
-import Overlay from "../../UI/Overlay/Overlay";
+
 import VariantImageSelect from "./VariantImageSelect/VariantImageSelect";
 
 const ProductDisplay = () => {
@@ -60,10 +60,7 @@ const ProductDisplay = () => {
     const { id } = useParams();
     const { currentProduct } = useSelector((state) => state.product);
 
-    const [variantImageSelect, setVariantImageSelect] = useState({
-        active: false,
-        variant: null,
-    });
+    const [variantImageSelect, setVariantImageSelect] = useState(null);
 
     const [product, setProduct] = useState(null);
     const [edits, setEdits] = useState({});
@@ -106,11 +103,12 @@ const ProductDisplay = () => {
     return (
         <>
             <>
-                {variantImageSelect.active && (
+                {variantImageSelect !== null && (
                     <VariantImageSelect
                         product={product}
-                        variant={variantImageSelect?.variant}
+                        variant={variantImageSelect}
                         setVariantImageSelect={setVariantImageSelect}
+                        id={id}
                     />
                 )}
             </>
@@ -120,10 +118,10 @@ const ProductDisplay = () => {
                         <SPromptContainer>
                             <SPrompt>Unsaved Changes</SPrompt>
                             <SPromptButtonContainer>
-                                <Button fixed secondary radius>
+                                <Button fixed secondary secondaryRadius>
                                     Discard
                                 </Button>
-                                <Button fixed radius>
+                                <Button fixed secondaryRadius>
                                     Save
                                 </Button>
                             </SPromptButtonContainer>
@@ -211,20 +209,15 @@ const ProductDisplay = () => {
                                             <STableBody>
                                                 {product &&
                                                     product?.variants?.map((variant, index) => {
-                                                        const {
-                                                            title,
-                                                            price,
-                                                            mediaId: mediaUrl,
-                                                        } = variant;
+                                                        const { title, price, mediaUrl } = variant;
                                                         return (
                                                             <STableBodyTR key={index}>
                                                                 <STableBodyTD>
                                                                     <STableImageContainer
                                                                         onClick={() =>
-                                                                            setVariantImageSelect({
-                                                                                active: true,
-                                                                                variant,
-                                                                            })
+                                                                            setVariantImageSelect(
+                                                                                variant
+                                                                            )
                                                                         }
                                                                     >
                                                                         <STableImage

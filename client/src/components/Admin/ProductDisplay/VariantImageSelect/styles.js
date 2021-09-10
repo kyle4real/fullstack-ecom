@@ -15,10 +15,11 @@ export const SNotification = styled.span`
 export const SVariantSelect = styled.div`
     width: 100%;
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     margin-top: ${v.mdSpacing};
     overflow-y: auto;
-    max-height: 50vh;
+    max-height: 40vh;
 `;
 
 export const SImageContainer = styled.div`
@@ -26,6 +27,7 @@ export const SImageContainer = styled.div`
     position: relative;
     width: calc(100% / 2 - ${v.mdSpacing});
     margin: calc(${v.mdSpacing} / 2);
+    height: fit-content;
 
     @media ${b.sm} {
         width: calc(100% / 4 - ${v.mdSpacing});
@@ -73,10 +75,14 @@ export const SVariantTitle = styled.span`
 `;
 
 export const SButtonContainer = styled.div`
+    text-align: center;
     @media ${b.md} {
         text-align: right;
     }
     button {
-        margin-right: ${v.mdSpacing};
+        margin: calc(${v.smSpacing} / 2);
+        @media ${b.sm} {
+            margin-right: ${v.mdSpacing};
+        }
     }
 `;

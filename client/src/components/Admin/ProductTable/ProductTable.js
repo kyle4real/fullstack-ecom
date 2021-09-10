@@ -2,9 +2,9 @@ import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../../store/product-actions";
 
-import { useHistory, useRouteMatch, useLocation } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
-import { bonesIMG, missingImg } from "../../../assets";
+import { missingImg } from "../../../assets";
 
 import {
     SContentContainer,
@@ -33,7 +33,7 @@ import useWindowSize from "../../../hooks/useWindowSize";
 const ProductTable = () => {
     const { isMin } = useWindowSize({ size: "sm" });
     const history = useHistory();
-    const location = useLocation();
+
     const { url } = useRouteMatch();
     const dispatch = useDispatch();
     const { productsArray } = useSelector((state) => state.product);

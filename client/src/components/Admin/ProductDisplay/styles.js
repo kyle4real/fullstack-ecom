@@ -238,6 +238,9 @@ export const SIMAGEInput = styled.input`
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    z-index: 100;
+    top: 0;
+    right: 0;
 `;
 
 // card three /////////////////////////////////////////////////

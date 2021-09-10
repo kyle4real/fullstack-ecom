@@ -28,6 +28,22 @@ export const product = async (req, res) => {
     }
 };
 
+export const replaceVariant = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const newVariant = req.body;
+
+        const product = await Product.findById(id);
+        let index = product.variants.findIndex((variant) => String(variant._id) === newVariant._id);
+        product.variants[index] = { ...newVariant };
+        await product.save();
+
+        res.status(200).json({ result: product });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong." });
+    }
+};
+
 export const uploadMedia = async (req, res) => {
     try {
         const { base64Img, id } = req.body;

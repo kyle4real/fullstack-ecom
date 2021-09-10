@@ -33,3 +33,14 @@ export const uploadMedia = (obj) => {
         }
     };
 };
+
+export const updateVariant = (productId, obj) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.variant(productId, obj);
+            dispatch(productActions.replaceCurrentProduct({ data }));
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+};

@@ -22,7 +22,7 @@ const ImageInput = ({ id }) => {
     const uploadImage = (base64EncodedImage) => {
         dispatch(uploadMedia({ base64Img: base64EncodedImage, id }));
     };
-    return <SIMAGEInput type="file" value={file} onChange={fileChangeHandler} />;
+    return <SIMAGEInput type="file" value={file} onChange={fileChangeHandler} title=" " />;
 };
 
 export default ImageInput;

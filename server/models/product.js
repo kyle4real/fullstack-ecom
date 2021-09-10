@@ -13,7 +13,7 @@ const productSchema = mongoose.Schema({
             title: { type: String },
             price: { type: String },
             salePrice: { type: String },
-            mediaId: { type: String, default: null },
+            mediaUrl: { type: String, default: null },
         },
     ],
 });

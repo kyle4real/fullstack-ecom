@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import useWindowSize from "../../../../hooks/useWindowSize";
+import { updateVariant } from "../../../../store/product-actions";
 import Button from "../../../UI/Button/Button";
 import Card from "../../../UI/Card/Card";
 import CheckBox from "../../../UI/CheckBox/CheckBox";
 import Overlay from "../../../UI/Overlay/Overlay";
+import ImageInput from "../ImageInput";
 import { SImageOverlay, SLabel } from "../styles";
 import {
     SBottomPanel,
@@ -16,12 +19,24 @@ import {
     SVariantTitle,
 } from "./styles";
 
-const VariantImageSelect = ({ product, variant, setVariantImageSelect }) => {
-    const [selected, setSelected] = useState(null);
+const VariantImageSelect = ({ product, variant, setVariantImageSelect, id }) => {
+    const dispatch = useDispatch();
+    const { isMin } = useWindowSize({ size: "sm" });
+    const [selected, setSelected] = useState(variant?.mediaUrl || null);
 
-    const onSelectHandler = (id) => {
-        if (id === selected) return setSelected(null);
-        setSelected(id);
+    const onSelectHandler = (url) => {
+        if (url === selected) return setSelected(null);
+        setSelected(url);
+    };
+
+    const onSaveHandler = () => {
+        dispatch(
+            updateVariant(id, {
+                ...variant,
+                mediaUrl: selected,
+            })
+        );
+        setVariantImageSelect(null);
     };
 
     const images = product?.media || null;
@@ -33,19 +48,19 @@ const VariantImageSelect = ({ product, variant, setVariantImageSelect }) => {
                     <SNotification>No Media</SNotification>
                 ) : (
                     <SVariantSelect>
-                        {images.map(({ url, _id: id }, index) => (
+                        {images.map(({ url }, index) => (
                             <SImageContainer
                                 key={index}
-                                onClick={() => onSelectHandler(id)}
-                                active={selected === id}
+                                onClick={() => onSelectHandler(url)}
+                                active={selected === url}
                             >
                                 <SImage src={url} />
-                                <SImageOverlay active={selected === id} />
+                                <SImageOverlay active={selected === url} />
                                 <SCheckBoxContainer>
                                     <CheckBox
-                                        checked={selected === id}
+                                        checked={selected === url}
                                         onSelectHandler={onSelectHandler}
-                                        id={id}
+                                        id={url}
                                     />
                                 </SCheckBoxContainer>
                             </SImageContainer>
@@ -56,19 +71,23 @@ const VariantImageSelect = ({ product, variant, setVariantImageSelect }) => {
                     <SVariantTitle>{variant.title}</SVariantTitle>
                     <SButtonContainer>
                         <Button
-                            fixed
-                            radius
+                            fixed={!isMin}
+                            secondaryRadius
                             secondary
-                            onClick={() =>
-                                setVariantImageSelect({
-                                    active: false,
-                                    variant: null,
-                                })
-                            }
+                            onClick={() => setVariantImageSelect(null)}
                         >
                             Cancel
                         </Button>
-                        <Button fixed radius disabled={!images || !selected}>
+                        <Button fixed={!isMin} secondaryRadius secondary absolute>
+                            Add Image
+                            <ImageInput id={id} />
+                        </Button>
+                        <Button
+                            fixed={!isMin}
+                            secondaryRadius
+                            disabled={!images || !selected || selected === variant?.mediaUrl}
+                            onClick={onSaveHandler}
+                        >
                             Save
                         </Button>
                     </SButtonContainer>

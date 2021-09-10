@@ -14,8 +14,10 @@ export const SButton = styled.button`
     color: ${({ theme, secondary }) => (!secondary ? theme.text : theme.primary)};
     border: 1px solid ${({ theme }) => theme.primary};
     background: ${({ theme, secondary }) => (!secondary ? theme.primary : "transparent")};
-    border-radius: ${({ radius }) => (!radius ? v.borderRadiusButton : v.borderRadius)};
+    border-radius: ${({ secondaryRadius }) =>
+        !secondaryRadius ? v.borderRadiusButton : v.borderRadius};
     cursor: pointer;
+    position: ${({ absolute }) => (!absolute ? "initial" : "relative")};
     transition: 0.2s ease background;
 
     :focus {
