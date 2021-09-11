@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { SMenuDropdown, SNavItem, SNavItemContainer } from "../styles";
 import { SDropdownContent, SSection, SSectionLink, SSectionTitle } from "./styles";
 
 const DropdownContent = ({ navLinks }) => {
     const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-        console.log(open);
-    }, [open]);
 
     const { title, link, sections } = navLinks;
     return (
@@ -21,12 +17,13 @@ const DropdownContent = ({ navLinks }) => {
                 {open && (
                     <SDropdownContent>
                         {sections.map(({ title, links }, index) => {
-                            if (title.toLowerCase() === "exclusives") return <></>;
+                            if (title.toLowerCase() === "exclusives")
+                                return <Fragment key={index}></Fragment>;
                             return (
-                                <SSection>
+                                <SSection key={index}>
                                     <SSectionTitle>{title}</SSectionTitle>
-                                    {links.map(({ title, link }) => (
-                                        <SSectionLink to={`/collections/${link}`}>
+                                    {links.map(({ title, link }, index) => (
+                                        <SSectionLink key={index} to={`/collections/${link}`}>
                                             {title}
                                         </SSectionLink>
                                     ))}
@@ -38,8 +35,11 @@ const DropdownContent = ({ navLinks }) => {
                                                     ({ title }) =>
                                                         title.toLowerCase() === "exclusives"
                                                 )
-                                            ].links.map(({ title, link }) => (
-                                                <SSectionLink to={`/collections/${link}`}>
+                                            ].links.map(({ title, link }, index) => (
+                                                <SSectionLink
+                                                    key={index}
+                                                    to={`/collections/${link}`}
+                                                >
                                                     {title}
                                                 </SSectionLink>
                                             ))}

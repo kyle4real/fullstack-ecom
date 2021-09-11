@@ -18,8 +18,10 @@ const create = (titles) => {
     titles.forEach((title, index) => {
         const price = Math.floor(Math.random() * 100);
         const salePrice = price > 50 ? price - 5 : null;
+        const sku = title.toLowerCase().split(" ").join("-");
 
         const obj = {
+            sku,
             title,
             price,
             salePrice,

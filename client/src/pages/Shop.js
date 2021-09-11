@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import Layout from "../components/Layout/Layout";
+import ProductPage from "../components/ProductPage/ProductPage";
+
 import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
 import { getProducts } from "../store/product-actions";
 import { productActions } from "../store/product-slice";
-import { UserRoute } from "./Auth";
 
 const Shop = () => {
     const { path, url } = useRouteMatch();
@@ -28,6 +28,12 @@ const Shop = () => {
                 </Route>
                 <Route path={`${path}/collections/:collection`}>
                     <ProductsGrid productsArray={productsArray} />
+                </Route>
+                <Route exact path={`${path}/products/:product`}>
+                    <ProductPage />
+                </Route>
+                <Route path={`${path}/products/:product/:variant`}>
+                    <ProductPage />
                 </Route>
             </Switch>
         </>

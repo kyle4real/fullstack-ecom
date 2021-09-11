@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory, useRouteMatch } from "react-router";
 import { missingImg } from "../../assets";
 import {
     SComparePrice,
@@ -21,11 +22,17 @@ import {
 } from "./styles";
 
 const ProductsGrid = ({ productsArray }) => {
+    const { url } = useRouteMatch();
+    const history = useHistory();
+
+    const productSelectHandler = (productSku, variantTitle) => {
+        history.push(`${url}/products/${productSku}/${variantTitle}`);
+    };
     return (
         <SProductsGrid>
             <SGrid>
                 {productsArray?.map?.(
-                    ({ title, price, salePrice, tags, variants, media }, index) => {
+                    ({ title, price, salePrice, tags, variants, media, sku }, index) => {
                         let images = media
                             .reduce((r, v) => {
                                 return r.concat(v.url);
@@ -34,7 +41,10 @@ const ProductsGrid = ({ productsArray }) => {
                         images = images.length > 4 ? images.slice(0, 4) : images;
                         const noImg = images.length === 0;
                         return (
-                            <SGridItem key={index}>
+                            <SGridItem
+                                key={index}
+                                onClick={() => productSelectHandler(sku, variants[0].title)}
+                            >
                                 <SImageContainer>
                                     <SImage src={media?.[0]?.url || missingImg} />
                                     {!noImg && (

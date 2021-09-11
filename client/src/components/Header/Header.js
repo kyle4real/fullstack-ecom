@@ -26,14 +26,11 @@ import {
     SLogoContainer,
     SMenu,
     SMenuClose,
-    SMenuDropdown,
     SMenuNav,
     SMenuNavItem,
     SMenuOpen,
     SMenuToggle,
     SNav,
-    SNavItem,
-    SNavItemContainer,
     SNavTop,
     SNavTopItem,
     SRightIcon,
@@ -132,8 +129,9 @@ const Header = () => {
                     {isMin === undefined && <SNav></SNav>}
                     {isMin === false && (
                         <SNav>
-                            {navLinks.map((navLinks) => (
-                                <DropdownContent navLinks={navLinks} />
+                            {/* navitemcontainer and navitem are in here!! */}
+                            {navLinks.map((navLinks, index) => (
+                                <DropdownContent key={index} navLinks={navLinks} />
                             ))}
                         </SNav>
                     )}

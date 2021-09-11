@@ -18,6 +18,6 @@ export const SPage = styled.div`
 
     @media ${b.lg} {
         margin: 0 auto;
-        width: ${s.lg};
+        width: ${({ size }) => (!size ? s.lg : s[size])};
     }
 `;
