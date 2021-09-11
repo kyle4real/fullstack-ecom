@@ -9,6 +9,8 @@ export const lightTheme = {
     primaryLight: "#446a82",
     primaryLighter: "#b3bec4",
     overlay: "rgba(0,0,0,.8)",
+    overlayLight: "rgba(0,0,0,.5)",
+    overlayLighter: "rgba(0,0,0,.4)",
     primaryGradient: "linear-gradient(0.25turn, #1b3545, #fff, #1b3545)",
 };
 

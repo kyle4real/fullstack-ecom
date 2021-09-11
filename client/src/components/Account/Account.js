@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch, useHistory } from "react-router-dom";
 
 import { authActions } from "./../../store/auth-slice";
@@ -15,6 +15,7 @@ import {
 } from "./styles";
 
 const Account = ({ buttons }) => {
+    const { authData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const history = useHistory();
@@ -33,7 +34,7 @@ const Account = ({ buttons }) => {
         <>
             <SAccount>
                 <SAccountButtonsContainer>
-                    <STitle>Welcome Kyle</STitle>
+                    <STitle>Welcome {authData?.name?.split(" ")?.[0]}</STitle>
                     <SDescription>Explore your account</SDescription>
                     <SAccountButtons>
                         {buttons.map(({ button, to }, index) => (

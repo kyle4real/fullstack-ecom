@@ -7,6 +7,7 @@ import Account from "../components/Account/Account";
 
 import ProductTable from "./../components/Admin/ProductTable/ProductTable";
 import ProductDisplay from "../components/Admin/ProductDisplay/ProductDisplay";
+import Credentials from "../components/Account/Credentials/Credentials";
 
 const AdminRoute = ({ children, ...restOfProps }) => {
     const { authData } = useSelector((state) => state.auth);
@@ -68,7 +69,7 @@ const adminButtons = [
     {
         button: "Credentials",
         to: "/credentials",
-        component: null,
+        component: <Credentials />,
         isExact: false,
     },
     {
