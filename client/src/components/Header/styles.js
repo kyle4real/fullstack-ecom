@@ -140,6 +140,7 @@ export const SHeaderMain = styled.div`
     justify-content: space-between;
     background: ${({ theme }) => theme.primary};
     box-shadow: 0 0 0 0.5px ${({ theme }) => theme.text};
+    position: relative;
 `;
 
 export const SLogoContainer = styled.div`
@@ -160,15 +161,45 @@ export const SNav = styled.nav`
     flex: 1;
 `;
 
-export const SNavItem = styled(Link)`
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: ${v.smSpacing};
+export const SNavItemContainer = styled.div`
+    transition: ease 0.2s box-shadow;
+    .dropdown {
+        transition: 0.15s ease-in-out opacity;
+    }
+    :hover {
+        .dropdown {
+            top: calc(${v.headerHeight});
+            visibility: visible;
+            opacity: 1;
+        }
+
+        box-shadow: inset 0 -2px 0 ${({ theme }) => theme.bg3};
+    }
     :not(:last-child) {
         margin-right: ${v.mdSpacing};
     }
+`;
+
+export const SNavItem = styled(Link)`
+    padding: 0 ${v.lgSpacing};
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
     color: ${({ theme }) => theme.text};
+`;
+
+export const SMenuDropdown = styled.div`
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    z-index: -1;
+    background: ${({ theme }) => theme.bg3};
+    opacity: 0;
+    top: 0;
+    visibility: hidden;
 `;
 
 export const SMenuToggle = styled.button`

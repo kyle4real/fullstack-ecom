@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
+import { navLinks } from "../../data";
 import useWindowSize from "../../hooks/useWindowSize";
+import DropdownContent from "./DropdownContent/DropdownContent";
 import {
     SAccountIcon,
     SAnnouncementContent,
@@ -24,12 +26,14 @@ import {
     SLogoContainer,
     SMenu,
     SMenuClose,
+    SMenuDropdown,
     SMenuNav,
     SMenuNavItem,
     SMenuOpen,
     SMenuToggle,
     SNav,
     SNavItem,
+    SNavItemContainer,
     SNavTop,
     SNavTopItem,
     SRightIcon,
@@ -128,9 +132,14 @@ const Header = () => {
                     {isMin === undefined && <SNav></SNav>}
                     {isMin === false && (
                         <SNav>
-                            <SNavItem to="/">Home</SNavItem>
-                            <SNavItem to="/shop">Shop</SNavItem>
-                            <SNavItem to="/">About</SNavItem>
+                            {navLinks.map(({ title, link, sections }) => (
+                                <SNavItemContainer>
+                                    <SNavItem to={`/${link}`}>{title}</SNavItem>
+                                    <SMenuDropdown className="dropdown">
+                                        <DropdownContent sections={sections} />
+                                    </SMenuDropdown>
+                                </SNavItemContainer>
+                            ))}
                         </SNav>
                     )}
                     <SCartIconContainer>
