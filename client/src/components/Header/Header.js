@@ -1,9 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import useWindowSize from "../../hooks/useWindowSize";
 import {
     SAccountIcon,
+    SAnnouncementContent,
+    SAnnouncementSpan,
+    SAnnouncementSpanContainer,
     SBadgeSpan,
     SCartBadge,
     SCartIcon,
@@ -16,6 +19,7 @@ import {
     SHeaderTop,
     SItemContent,
     SItemSpan,
+    SLeftIcon,
     SLogo,
     SLogoContainer,
     SMenu,
@@ -28,14 +32,25 @@ import {
     SNavItem,
     SNavTop,
     SNavTopItem,
+    SRightIcon,
 } from "./styles";
+
+const aArr = [
+    "Good News! We are dispatching and delivering as normal and ensuring contactless shipping!",
+    "Free standard shipping when you spend $75",
+    "Shop Ecom with afterpay, pay in 4 interest-free installments",
+    "Free returns for up to 30 days*",
+];
 
 const Header = () => {
     const location = useLocation();
+
     const { isMin } = useWindowSize({ size: "lg" });
     const { authData } = useSelector((state) => state.auth);
 
     const [menuOpen, setMenuOpen] = useState(false);
+
+    const [currentAs, setCurrentAs] = useState([aArr.length - 1, 0, 1]);
 
     useEffect(() => {
         if (isMin === undefined) return;
@@ -45,6 +60,22 @@ const Header = () => {
     }, [isMin, menuOpen]);
 
     const isAdminArea = location.pathname.includes("/account/admin");
+
+    const changeA = useCallback((inc) => {
+        setCurrentAs((p) =>
+            p.reduce((r, v) => {
+                return inc
+                    ? r.concat(v === aArr.length - 1 ? 0 : v + 1)
+                    : r.concat(v === 0 ? aArr.length - 1 : v - 1);
+            }, [])
+        );
+    }, []);
+    useEffect(() => {
+        const id = setInterval(() => {
+            changeA(true);
+        }, [5000]);
+        return () => clearInterval(id);
+    }, [changeA]);
 
     return (
         <SHeader isMin={isMin} isAdminArea={isAdminArea}>
@@ -112,7 +143,32 @@ const Header = () => {
                     </SCartIconContainer>
                 </SHeaderMain>
             </SHeaderFixed>
-            {!isMin && !isAdminArea && <SHeaderAnnouncements></SHeaderAnnouncements>}
+            {!isMin && !isAdminArea && (
+                <SHeaderAnnouncements>
+                    <SAnnouncementContent>
+                        <SLeftIcon onClick={() => changeA(false)} />
+                        <SAnnouncementSpanContainer>
+                            {aArr.map((text, i) => {
+                                const index = currentAs.findIndex((inx) => inx === i);
+                                const first = index === 0;
+                                const second = index === 1;
+                                return (
+                                    <SAnnouncementSpan
+                                        key={i}
+                                        style={{
+                                            right: first ? "100%" : second ? 0 : "-100%",
+                                            display: index === -1 ? "none" : "block",
+                                        }}
+                                    >
+                                        {text}
+                                    </SAnnouncementSpan>
+                                );
+                            })}
+                        </SAnnouncementSpanContainer>
+                        <SRightIcon onClick={() => changeA(true)} />
+                    </SAnnouncementContent>
+                </SHeaderAnnouncements>
+            )}
         </SHeader>
     );
 };

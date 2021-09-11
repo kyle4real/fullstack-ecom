@@ -1,11 +1,16 @@
 import styled, { css } from "styled-components";
 
-import { v } from "./../../styles/variables";
+import { v, s } from "./../../styles/variables";
 
 import { Link } from "react-router-dom";
 
 import { BiMenu } from "react-icons/bi";
-import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+    AiOutlineClose,
+    AiOutlineShoppingCart,
+    AiOutlineLeft,
+    AiOutlineRight,
+} from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
 
 const height = css`
@@ -24,10 +29,51 @@ export const SHeader = styled.div`
 `;
 
 export const SHeaderAnnouncements = styled.div`
-    background: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.primaryLighter};
     height: 5vh;
     margin-top: auto;
     width: 100%;
+`;
+
+export const SAnnouncementContent = styled.div`
+    height: 100%;
+    margin: 0 auto;
+    display: block;
+    width: ${s.md};
+    text-align: center;
+    display: flex;
+    align-items: center;
+`;
+
+export const SAnnouncementSpanContainer = styled.div`
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+    margin: 0 ${v.mdSpacing};
+`;
+
+export const SAnnouncementSpan = styled.span`
+    line-height: 100%;
+    display: block;
+    position: absolute;
+    top: calc(50% - 6px);
+    width: 100%;
+    font-size: 13.5px;
+    font-weight: 400;
+    transition: right 0.4s ease-out;
+`;
+
+const arrowStyles = css`
+    display: block;
+    font-size: 1rem;
+    cursor: pointer;
+`;
+export const SLeftIcon = styled(AiOutlineLeft)`
+    ${arrowStyles}
+`;
+export const SRightIcon = styled(AiOutlineRight)`
+    ${arrowStyles}
 `;
 
 export const SHeaderFixed = styled.div`

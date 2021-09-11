@@ -2,15 +2,23 @@ import React from "react";
 import { missingImg } from "../../assets";
 import { SHead, SHeadTitle } from "../ProductsList/styles";
 import {
+    SComparePrice,
     SContent,
     SGrid,
     SGridItem,
     SImage,
     SImageContainer,
+    SInfoControl,
+    SPrice,
     SProductsGrid,
+    SSaleIcon,
+    SSalePercentage,
+    SSaleTag,
+    STag,
     SThumbnailImage,
     SThumbnailImageContainer,
     SThumbnailsContainer,
+    STitle,
 } from "./styles";
 
 const ProductsGrid = ({ productsArray }) => {
@@ -30,14 +38,14 @@ const ProductsGrid = ({ productsArray }) => {
                         images = images.length > 4 ? images.slice(0, 4) : images;
                         const noImg = images.length === 0;
                         return (
-                            <SGridItem>
+                            <SGridItem key={index}>
                                 <SImageContainer>
                                     <SImage src={media?.[0]?.url || missingImg} />
                                     {!noImg && (
                                         <SThumbnailsContainer className={"test"}>
-                                            {images.map((url) => {
+                                            {images.map((url, index) => {
                                                 return (
-                                                    <SThumbnailImageContainer>
+                                                    <SThumbnailImageContainer key={index}>
                                                         <SThumbnailImage src={url} />
                                                     </SThumbnailImageContainer>
                                                 );
@@ -45,7 +53,24 @@ const ProductsGrid = ({ productsArray }) => {
                                         </SThumbnailsContainer>
                                     )}
                                 </SImageContainer>
-                                <SContent>hi</SContent>
+                                <SContent>
+                                    <SInfoControl>
+                                        {!salePrice && <STag>{tags?.[0]}</STag>}
+                                        {salePrice && (
+                                            <SSaleTag>
+                                                <SSaleIcon />
+                                                <SSalePercentage>
+                                                    {Math.round((1 - salePrice / price) * 100)}% off
+                                                </SSalePercentage>
+                                            </SSaleTag>
+                                        )}
+                                        <SPrice>${!salePrice ? price : salePrice}.00</SPrice>
+                                    </SInfoControl>
+                                    <SInfoControl>
+                                        <STitle>{title}</STitle>
+                                        {salePrice && <SComparePrice>${price}.00</SComparePrice>}
+                                    </SInfoControl>
+                                </SContent>
                             </SGridItem>
                         );
                     }

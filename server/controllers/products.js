@@ -112,7 +112,6 @@ export const deleteMedia = async (req, res) => {
 //         console.log(error);
 //     }
 // };
-// createAll();
 
 // const deleteAll = async (req, res) => {
 //     try {
@@ -122,4 +121,15 @@ export const deleteMedia = async (req, res) => {
 //         console.log(error);
 //     }
 // };
-// deleteAll();
+
+// const recreate = async (req, res) => {
+//     try {
+//         await deleteAll();
+//         await createAll();
+//         return console.log("recreate done.");
+//     } catch (error) {
+//         console.log(error);
+//     }
+// };
+
+// recreate();

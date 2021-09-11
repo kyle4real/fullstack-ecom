@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 import { v, b, s } from "./../../../styles/variables";
 
-import { BiImageAdd } from "react-icons/bi";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 // POPUP /////////////////////////////////////////////////

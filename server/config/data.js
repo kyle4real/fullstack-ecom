@@ -16,8 +16,8 @@ const titles = [
 const create = (titles) => {
     const all = [];
     titles.forEach((title, index) => {
-        const price = Math.floor(Math.random() * 50);
-        const salePrice = price > 25 ? price - 5 : price;
+        const price = Math.floor(Math.random() * 100);
+        const salePrice = price > 50 ? price - 5 : null;
 
         const obj = {
             title,
@@ -33,7 +33,7 @@ const create = (titles) => {
             obj.variants.push({
                 title: `${16 * (i + 1)}oz`,
                 price: price + 5 * i,
-                salePrice: salePrice + 5 * i,
+                salePrice: !salePrice ? salePrice : salePrice + 5 * i,
                 mediaUrl: null,
             });
         }

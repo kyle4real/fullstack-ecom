@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
-import ProductsList from "../components/ProductsList/ProductsList";
 import { getProducts } from "../store/product-actions";
 import { productActions } from "../store/product-slice";
 
@@ -17,10 +16,8 @@ const Shop = () => {
         };
     }, [dispatch]);
 
-    console.log(productsArray);
     return (
         <>
-            {/* <ProductsList productsArray={productsArray} /> */}
             <ProductsGrid productsArray={productsArray} />
         </>
     );

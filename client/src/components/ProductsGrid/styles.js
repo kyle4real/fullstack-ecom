@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { v, b } from "./../../styles/variables";
 
+import { AiOutlineTag } from "react-icons/ai";
+
 export const SProductsGrid = styled.div``;
 
 export const SGrid = styled.div`
@@ -37,16 +39,9 @@ export const SImageContainer = styled.div`
     flex: 1;
     cursor: pointer;
     position: relative;
-    border-radius: ${v.borderRadius};
+    border-top-right-radius: ${v.borderRadius};
+    border-top-left-radius: ${v.borderRadius};
     overflow: hidden;
-    .test {
-        transition: 0.3s ease bottom;
-    }
-    :hover {
-        .test {
-            bottom: ${v.smSpacing};
-        }
-    }
 `;
 
 export const SImage = styled.img`
@@ -89,4 +84,76 @@ export const SThumbnailImage = styled.img`
     height: auto;
 `;
 
-export const SContent = styled.div``;
+export const SContent = styled.div`
+    padding: ${v.smSpacing} 0;
+    color: ${({ theme }) => theme.primary};
+    line-height: 100%;
+`;
+
+export const SInfoControl = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 4px;
+`;
+
+export const STag = styled.span`
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+    padding-left: calc(${v.smSpacing} + 3px);
+
+    ::before {
+        content: "";
+        position: absolute;
+        width: 3px;
+        height: 100%;
+        background: ${({ theme }) => theme.primary};
+        left: 0;
+        top: 0px;
+    }
+`;
+export const SSaleTag = styled.div`
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+`;
+export const SSaleIcon = styled(AiOutlineTag)`
+    font-size: 12px;
+    display: block;
+    margin-right: 6px;
+    font-weight: 600;
+`;
+export const SSalePercentage = styled.span`
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+`;
+export const SPrice = styled.span`
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+`;
+export const STitle = styled.span`
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+`;
+export const SComparePrice = styled.span`
+    display: block;
+    font-weight: 400;
+    font-size: 14px;
+    position: relative;
+
+    :before {
+        position: absolute;
+        content: "";
+        height: 1px;
+        background: ${({ theme }) => theme.primaryLight};
+        width: 100%;
+        top: 50%;
+        right: 0;
+        left: 0;
+    }
+`;
