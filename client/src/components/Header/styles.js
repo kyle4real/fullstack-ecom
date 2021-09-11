@@ -162,19 +162,6 @@ export const SNav = styled.nav`
 `;
 
 export const SNavItemContainer = styled.div`
-    transition: ease 0.2s box-shadow;
-    .dropdown {
-        transition: 0.15s ease-in-out opacity;
-    }
-    :hover {
-        .dropdown {
-            top: calc(${v.headerHeight});
-            visibility: visible;
-            opacity: 1;
-        }
-
-        box-shadow: inset 0 -2px 0 ${({ theme }) => theme.bg3};
-    }
     :not(:last-child) {
         margin-right: ${v.mdSpacing};
     }
@@ -197,9 +184,9 @@ export const SMenuDropdown = styled.div`
     width: 100vw;
     z-index: -1;
     background: ${({ theme }) => theme.bg3};
-    opacity: 0;
-    top: 0;
-    visibility: hidden;
+    opacity: ${({ open }) => (!open ? 0 : 1)};
+    top: ${({ open }) => (!open ? 0 : v.headerHeight)};
+    visibility: ${({ open }) => (!open ? "hidden" : "visible")};
 `;
 
 export const SMenuToggle = styled.button`

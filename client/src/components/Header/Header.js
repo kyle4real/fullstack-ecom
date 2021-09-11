@@ -132,13 +132,8 @@ const Header = () => {
                     {isMin === undefined && <SNav></SNav>}
                     {isMin === false && (
                         <SNav>
-                            {navLinks.map(({ title, link, sections }) => (
-                                <SNavItemContainer>
-                                    <SNavItem to={`/${link}`}>{title}</SNavItem>
-                                    <SMenuDropdown className="dropdown">
-                                        <DropdownContent sections={sections} />
-                                    </SMenuDropdown>
-                                </SNavItemContainer>
+                            {navLinks.map((navLinks) => (
+                                <DropdownContent navLinks={navLinks} />
                             ))}
                         </SNav>
                     )}
