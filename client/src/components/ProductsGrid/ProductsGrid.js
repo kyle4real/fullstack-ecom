@@ -1,6 +1,5 @@
 import React from "react";
 import { missingImg } from "../../assets";
-import { SHead, SHeadTitle } from "../ProductsList/styles";
 import {
     SComparePrice,
     SContent,
@@ -24,9 +23,6 @@ import {
 const ProductsGrid = ({ productsArray }) => {
     return (
         <SProductsGrid>
-            <SHead>
-                <SHeadTitle>Products GRID</SHeadTitle>
-            </SHead>
             <SGrid>
                 {productsArray?.map?.(
                     ({ title, price, salePrice, tags, variants, media }, index) => {

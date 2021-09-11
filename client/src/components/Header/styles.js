@@ -29,7 +29,8 @@ export const SHeader = styled.div`
 `;
 
 export const SHeaderAnnouncements = styled.div`
-    background: ${({ theme }) => theme.primaryLighter};
+    color: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.primary};
     height: 5vh;
     margin-top: auto;
     width: 100%;
@@ -84,7 +85,7 @@ export const SHeaderFixed = styled.div`
 
 export const SHeaderTop = styled.div`
     height: ${v.headerTopHeight};
-    background: ${({ theme }) => theme.primaryLighter};
+    background: ${({ theme }) => theme.bg3};
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -231,16 +232,16 @@ export const SBadgeSpan = styled.span`
 `;
 
 export const SMenu = styled.div`
-    position: absolute;
+    position: fixed;
     height: 100vh;
     z-index: -1;
     width: 100vw;
-    top: -100vh;
+    top: 0;
     bottom: 0;
-    left: 0;
+    left: -100vw;
     right: 0;
     background: ${({ theme }) => theme.bg};
-    transform: ${({ menuOpen }) => (!menuOpen ? "none" : "translateY(100vh)")};
+    transform: ${({ menuOpen }) => (!menuOpen ? "none" : "translatex(100vw)")};
     transition: 0.3s ease transform;
     display: flex;
     justify-content: center;

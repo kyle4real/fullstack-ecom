@@ -8,6 +8,7 @@ import Account from "../components/Account/Account";
 import ProductTable from "./../components/Admin/ProductTable/ProductTable";
 import ProductDisplay from "../components/Admin/ProductDisplay/ProductDisplay";
 import Credentials from "../components/Account/Credentials/Credentials";
+import Layout from "../components/Layout/Layout";
 
 const AdminRoute = ({ children, ...restOfProps }) => {
     const { authData } = useSelector((state) => state.auth);
