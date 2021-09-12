@@ -17,24 +17,29 @@ const height = css`
     height: calc(${v.headerHeight} + ${v.headerTopHeight} + 5vh);
 `;
 const heightMin = css`
-    height: calc(${v.headerHeight});
+    height: ${v.headerHeight};
 `;
 const heightMid = css`
     height: calc(${v.headerHeight} + ${v.headerTopHeight});
 `;
 export const SHeader = styled.div`
-    ${heightMin};
+    height: ${v.headerHeight};
+    position: relative;
+
     @media ${b.lg} {
         ${({ isAdminArea }) => (isAdminArea ? heightMid : height)}
     }
 `;
 
 export const SHeaderAnnouncements = styled.div`
+    position: absolute;
+    bottom: 0;
     color: ${({ theme }) => theme.text};
     background: ${({ theme }) => theme.primary};
     height: 5vh;
-    margin-top: calc(${v.headerHeight} + ${v.headerTopHeight});
+    /* padding-top: calc(${v.headerHeight} + ${v.headerTopHeight}); */
     justify-content: center;
+    width: 100%;
 
     display: none;
     @media ${b.lg} {

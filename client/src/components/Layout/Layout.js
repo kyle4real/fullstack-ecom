@@ -31,7 +31,7 @@ const Layout = ({ children }) => {
     useEffect(() => {
         if (cartDrawer) {
             cartRef.current.classList.add("cart-open");
-            layoutRef.current.style["height"] = "100vh";
+            layoutRef.current.style["height"] = `100vh`;
             layoutRef.current.style["overflow"] = "hidden";
         } else {
             cartRef.current.classList.remove("cart-open");

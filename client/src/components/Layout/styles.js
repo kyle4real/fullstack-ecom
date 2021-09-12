@@ -3,15 +3,16 @@ import styled from "styled-components";
 import { v, b, s } from "./../../styles/variables";
 
 export const SLayout = styled.div`
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+    display: block;
     /* overflow-y: auto; */
     height: 100%;
     position: relative;
 `;
 export const SPage = styled.div`
     transition: 0.3s ease padding;
-    flex: 1;
+    /* flex: 1; */
     padding: ${({ isProduct }) => (!isProduct ? v.lgSpacing : 0)};
 
     @media ${b.sm} {
