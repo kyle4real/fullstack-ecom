@@ -187,6 +187,7 @@ export const SMenuDropdown = styled.div`
     opacity: ${({ open }) => (!open ? 0 : 1)};
     top: ${({ open }) => (!open ? 0 : v.headerHeight)};
     visibility: ${({ open }) => (!open ? "hidden" : "visible")};
+    box-shadow: ${v.cardBoxShadow};
 `;
 
 export const SMenuToggle = styled.button`

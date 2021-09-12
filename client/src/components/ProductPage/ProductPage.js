@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, useRouteMatch } from "react-router";
 import { missingImg } from "../../assets";
-import { getProduct } from "../../store/product-actions";
+import useWindowSize from "../../hooks/useWindowSize";
+
 import { productActions } from "../../store/product-slice";
 import Accordian from "../UI/Accordian/Accordian";
-import BreadTrail from "../UI/BreadTrail/BreadTrail";
+
 import Button from "../UI/Button/Button";
-import Card from "../UI/Card/Card";
+
 import Rating from "../UI/Rating/Rating";
 import {
-    SAccordianCard,
-    SAccordianContainer,
-    SAccordianContent,
-    SAccordianHead,
-    SAccordianTitle,
     SButtonControl,
     SCardSpan,
     SCardSpanControl,
@@ -23,10 +19,8 @@ import {
     SContentACCORDIAN,
     SContentBUTTONS,
     SContentCARD,
-    SContentCard,
     SContentSection,
     SContentSpacebetween,
-    SContentSpan,
     SContentTOP,
     SContentVARIANTS,
     SExpressIcon,
@@ -38,11 +32,14 @@ import {
     SMediaMAIN,
     SMediaSection,
     SMediaTOP,
-    SPlusIcon,
+    SMobileBOTTOMMedia,
+    SMobileImage,
+    SMobileImageContainer,
+    SMobileMediaBottom,
+    SMobileMediaItemBOTTOM,
     SProductPage,
     SProductPrice,
     SProductTitle,
-    SPurchaseButtons,
     SReturnIcon,
     SShippingIcon,
     SVariantGridItem,
@@ -51,9 +48,12 @@ import {
     SVariantsGrid,
     SVariantsHead,
     SVariantsName,
+    SWrap,
+    SWrapper,
 } from "./styles";
 
 const ProductPage = () => {
+    const { isMin } = useWindowSize({ size: "md" });
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
@@ -75,52 +75,81 @@ const ProductPage = () => {
         history.push(newUrl);
     };
 
-    let TOPMedia = [],
-        MAINMedia = null,
-        BOTTOMMedia = [];
-    const mediaArr = currentProduct?.media;
-    const variantsArr = currentProduct?.variants;
-    const variantUrl = variantsArr?.find(({ title }) => title === productVariant)?.mediaUrl;
-    const filteredMediaArr = mediaArr?.filter(({ url }) => url !== variantUrl);
+    let { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM } = useMemo(() => {
+        let TOPMedia = [],
+            MAINMedia = null,
+            BOTTOMMedia = [];
+        const mediaArr = currentProduct?.media;
+        const variantsArr = currentProduct?.variants;
+        const variantUrl = variantsArr?.find(({ title }) => title === productVariant)?.mediaUrl;
+        const filteredMediaArr = mediaArr?.filter(({ url }) => url !== variantUrl);
 
-    if (mediaArr?.length >= 5) {
-        TOPMedia = filteredMediaArr?.slice(1, 4);
-        MAINMedia = variantUrl;
-        BOTTOMMedia = filteredMediaArr?.slice(2);
-    } else if (mediaArr?.length >= 4) {
-        MAINMedia = variantUrl;
-        BOTTOMMedia = filteredMediaArr;
-    } else if (mediaArr?.length >= 3) {
-        TOPMedia = filteredMediaArr;
-        MAINMedia = variantUrl;
-    }
+        if (mediaArr?.length >= 5) {
+            TOPMedia = filteredMediaArr?.slice(1, 4);
+            MAINMedia = variantUrl;
+            BOTTOMMedia = filteredMediaArr?.slice(2);
+        } else if (mediaArr?.length >= 4) {
+            MAINMedia = variantUrl;
+            BOTTOMMedia = filteredMediaArr;
+        } else if (mediaArr?.length >= 3) {
+            TOPMedia = filteredMediaArr;
+            MAINMedia = variantUrl;
+        }
+
+        let MobileMediaMAIN = null;
+        let MobileMediaBOTTOM = [];
+
+        MobileMediaMAIN = variantUrl;
+        MobileMediaBOTTOM = filteredMediaArr;
+        return { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM };
+    }, [currentProduct?.media, currentProduct?.variants, productVariant]);
 
     return (
         <SProductPage>
             <SMediaSection>
-                <SMediaTOP>
-                    {TOPMedia?.map(({ url }) => (
-                        <SMediaItemTOP>
+                {isMin && (
+                    <>
+                        <SMediaMAIN>
                             <SImageContainer>
-                                <SImage src={url} />
+                                <SImage src={MobileMediaMAIN && MobileMediaMAIN} />
                             </SImageContainer>
-                        </SMediaItemTOP>
-                    ))}
-                </SMediaTOP>
-                <SMediaMAIN>
-                    <SImageContainer>
-                        <SImage src={MAINMedia && MAINMedia} />
-                    </SImageContainer>
-                </SMediaMAIN>
-                <SMediaBOTTOM>
-                    {BOTTOMMedia?.map(({ url }) => (
-                        <SMediaItemBOTTOM>
+                        </SMediaMAIN>
+                        <SMobileMediaBottom>
+                            {MobileMediaBOTTOM?.map(({ url }) => (
+                                <SMobileImageContainer>
+                                    <SMobileImage src={url} />
+                                </SMobileImageContainer>
+                            ))}
+                        </SMobileMediaBottom>
+                    </>
+                )}
+                {!isMin && (
+                    <>
+                        <SMediaTOP>
+                            {TOPMedia?.map(({ url }) => (
+                                <SMediaItemTOP>
+                                    <SImageContainer>
+                                        <SImage src={url} />
+                                    </SImageContainer>
+                                </SMediaItemTOP>
+                            ))}
+                        </SMediaTOP>
+                        <SMediaMAIN>
                             <SImageContainer>
-                                <SImage src={url} />
+                                <SImage src={MAINMedia && MAINMedia} />
                             </SImageContainer>
-                        </SMediaItemBOTTOM>
-                    ))}
-                </SMediaBOTTOM>
+                        </SMediaMAIN>
+                        <SMediaBOTTOM>
+                            {BOTTOMMedia?.map(({ url }) => (
+                                <SMediaItemBOTTOM>
+                                    <SImageContainer>
+                                        <SImage src={url} />
+                                    </SImageContainer>
+                                </SMediaItemBOTTOM>
+                            ))}
+                        </SMediaBOTTOM>
+                    </>
+                )}
             </SMediaSection>
             <SContentSection>
                 <SContent>

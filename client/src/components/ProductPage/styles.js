@@ -1,26 +1,41 @@
 import styled, { css } from "styled-components";
 
-import { v } from "../../styles/variables";
+import { v, b } from "../../styles/variables";
 
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { FaShippingFast } from "react-icons/fa";
 import { GiCardboardBox } from "react-icons/gi";
 
 export const SProductPage = styled.div`
-    display: flex;
+    @media ${b.md} {
+        display: flex;
+    }
 `;
 
 export const SMediaSection = styled.section`
-    width: 60%;
+    @media ${b.md} {
+        width: 65%;
+    }
+    @media ${b.lg} {
+        width: 60%;
+    }
 `;
 
 export const SContentSection = styled.section`
-    width: 40%;
-    min-width: 450px;
     height: 100%;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 10rem;
+
+    @media ${b.md} {
+        width: 45%;
+        min-width: 380px;
+
+        position: -webkit-sticky;
+        position: sticky;
+        top: 10rem;
+    }
+    @media ${b.lg} {
+        min-width: 450px;
+        width: 40%;
+    }
 `;
 
 export const SMediaTOP = styled.div`
@@ -61,9 +76,41 @@ export const SMediaItemBOTTOM = styled.div`
     text-align: center;
 `;
 
+// MOBILE
+
+export const SMobileMediaBottom = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    overflow-x: scroll;
+    margin: ${v.smSpacing};
+`;
+
+export const SMobileImageContainer = styled.div`
+    display: flex;
+    margin-right: 4px;
+`;
+
+export const SMobileImage = styled.img`
+    width: 125px;
+    height: auto;
+`;
+
+// CONTENT ////////////////////////////////////////////////////
+
 export const SContent = styled.div`
-    margin-left: 60px;
     line-height: 100%;
+    margin-top: ${v.lgSpacing};
+
+    @media ${b.md} {
+        margin-top: 0;
+        margin-left: 30px;
+    }
+
+    @media ${b.lg} {
+        margin-left: 60px;
+    }
 `;
 
 export const SContentTOP = styled.div`

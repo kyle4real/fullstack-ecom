@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { v, b, s } from "./../../styles/variables";
 
 export const SLayout = styled.div`
-    min-height: 200vh;
     display: flex;
     flex-direction: column;
     /* overflow-y: auto; */
+    height: 100%;
 `;
 export const SPage = styled.div`
     flex: 1;

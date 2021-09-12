@@ -17,8 +17,10 @@ const Layout = ({ children }) => {
         <SLayout>
             <Header />
             {isCollection && <PageHead />}
-            {isProduct && <BreadTrail />}
-            <SPage size={isProduct && "xl"}>{children}</SPage>
+            <SPage size={isProduct && "xl"}>
+                {isProduct && <BreadTrail />}
+                {children}
+            </SPage>
             <Footer />
         </SLayout>
     );
