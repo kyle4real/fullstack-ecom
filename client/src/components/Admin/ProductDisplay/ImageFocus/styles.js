@@ -4,7 +4,10 @@ import { v } from "../../../../styles/variables";
 
 import { AiOutlineClose, AiOutlineDelete, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
-export const SImageFocus = styled.div``;
+export const SImageFocus = styled.div`
+    color: ${({ theme }) => theme.textDark};
+    user-select: none;
+`;
 
 export const STopBar = styled.div`
     display: flex;
@@ -15,7 +18,7 @@ export const STopBar = styled.div`
 
 export const STitle = styled.span`
     display: block;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 900;
 `;
 
@@ -27,27 +30,28 @@ export const SIconContainer = styled.div`
     padding: ${v.smSpacing};
     border-radius: ${v.borderRadius};
     cursor: pointer;
-    color: ${({ theme }) => theme.primary};
+    color: inherit;
     :not(:last-child) {
         margin-right: ${v.smSpacing};
     }
-
+    transition: 0.2s ease all;
     :hover {
-        background: ${({ theme }) => theme.bg};
+        background: ${({ theme }) => theme.overlayLighter};
+        color: white;
     }
 `;
 
 export const SDeleteIcon = styled(AiOutlineDelete)`
     display: block;
-    font-size: 2rem;
+    font-size: 26px;
 `;
 export const SCloseIcon = styled(AiOutlineClose)`
     display: block;
-    font-size: 2rem;
+    font-size: 26px;
 `;
 
 export const SSliderContainer = styled.div`
-    background: ${({ theme }) => theme.primaryGradient};
+    background: ${({ theme }) => theme.overlay};
     width: calc(100% + ${v.mdSpacing} * 2 + 2px);
     margin: 0 calc(-${v.mdSpacing} - 1px);
     display: flex;
@@ -104,6 +108,6 @@ export const SBottomBar = styled.div`
 
 export const SIndex = styled.span`
     display: block;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 400;
 `;

@@ -21,6 +21,20 @@ export const SMediaSection = styled.section`
     }
 `;
 
+export const SMobileWrapper = styled.div`
+    display: initial;
+    @media ${b.md} {
+        display: none;
+    }
+`;
+
+export const SDesktopWrapper = styled.div`
+    display: none;
+    @media ${b.md} {
+        display: initial;
+    }
+`;
+
 export const SContentSection = styled.section`
     height: 100%;
 
@@ -81,19 +95,27 @@ export const SMediaItemBOTTOM = styled.div`
 export const SMobileMediaBottom = styled.div`
     position: relative;
     display: flex;
-    justify-content: center;
+    align-items: center;
     flex-direction: row;
-    overflow-x: scroll;
-    margin: ${v.smSpacing};
+    overflow-x: auto;
+    margin: ${v.smSpacing} 0;
 `;
 
 export const SMobileImageContainer = styled.div`
     display: flex;
     margin-right: 4px;
+    min-width: 125px;
+    cursor: pointer;
+
+    :first-child {
+        margin-left: 4px;
+    }
 `;
 
 export const SMobileImage = styled.img`
-    width: 125px;
+    transition: 0.3s ease border;
+    border: 2px solid black;
+    max-width: 100%;
     height: auto;
 `;
 
@@ -101,7 +123,12 @@ export const SMobileImage = styled.img`
 
 export const SContent = styled.div`
     line-height: 100%;
+    padding: 0 ${v.mdSpacing};
     margin-top: ${v.lgSpacing};
+
+    @media ${b.sm} {
+        padding: 0;
+    }
 
     @media ${b.md} {
         margin-top: 0;
@@ -125,20 +152,35 @@ export const SContentSpacebetween = styled.div`
 `;
 export const SProductTitle = styled.h1`
     font-weight: 600;
-    font-size: 24px;
     text-transform: uppercase;
+
+    font-size: 18px;
+    @media ${b.sm} {
+        font-size: 24px;
+    }
 `;
 export const SProductPrice = styled.span`
     display: block;
     font-size: 18px;
     font-weight: 600;
+    margin-top: ${({ mobile }) => (!mobile ? 0 : v.mdSpacing)};
+
+    display: ${({ mobile }) => (!mobile ? "none" : "block")};
+    @media ${b.md} {
+        display: ${({ mobile }) => (mobile ? "none" : "block")};
+    }
 `;
 export const SCollectionName = styled.span`
     margin-top: ${v.mdSpacing};
     display: block;
     font-weight: 400;
-    font-size: 16px;
+
     color: ${({ theme }) => theme.primaryLight};
+
+    font-size: 14px;
+    @media ${b.sm} {
+        font-size: 16px;
+    }
 `;
 
 export const SContentVARIANTS = styled.div`
@@ -153,9 +195,17 @@ export const SVariantsName = styled.span`
     font-weight: 600;
     text-transform: uppercase;
     margin-right: 4px;
-    font-size: 18px;
+    font-size: 16px;
+    @media ${b.sm} {
+        font-size: 18px;
+    }
 `;
-export const SVariantSelection = styled.span``;
+export const SVariantSelection = styled.span`
+    font-size: 18px;
+    @media ${b.sm} {
+        font-size: 16px;
+    }
+`;
 
 export const SVariantsGrid = styled.div`
     display: grid;
@@ -176,6 +226,11 @@ export const SVariantImageContainer = styled.div`
 
 export const SContentBUTTONS = styled.div`
     margin-top: ${v.mdSpacing};
+
+    display: none;
+    @media ${b.mdSpacing} {
+        display: block;
+    }
 `;
 export const SButtonControl = styled.div`
     :not(:last-child) {
@@ -186,8 +241,8 @@ export const SButtonControl = styled.div`
 export const SContentCARD = styled.div`
     background: ${({ theme }) => theme.bg3};
     border-radius: ${v.borderRadius};
-    padding: ${v.lgSpacing};
     margin: ${v.lgSpacing} 0;
+    padding: ${v.lgSpacing};
 `;
 export const SCardSpanControl = styled.div`
     display: flex;

@@ -17,10 +17,16 @@ const useWindowSize = ({ size }) => {
 
     useEffect(() => {
         const handleResize = () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
+            // setWindowSize({
+            //     width: window.innerWidth,
+            //     height: window.innerHeight,
+            // });
+            // if (checkSize(window.innerWidth, sLookup[size])) {
+            //     setIsMin(true)
+            // } else {
+            //     setIsMin(false)
+            // }
+            setIsMin(checkSize(window.innerWidth, sLookup[size]));
         };
 
         window.addEventListener("resize", handleResize);
@@ -28,16 +34,19 @@ const useWindowSize = ({ size }) => {
         handleResize();
 
         return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    }, [size]);
 
-    useEffect(() => {
-        if (!windowSize.width) return;
-        if (checkSize(windowSize.width, sLookup[size])) {
-            setIsMin(true);
-        } else {
-            setIsMin(false);
-        }
-    }, [windowSize, size]);
+    // useEffect(() => {
+    //     if (!windowSize.width) {
+    //         setIsMin(true);
+    //         return;
+    //     }
+    //     if (checkSize(windowSize.width, sLookup[size])) {
+    //         setIsMin(true);
+    //     } else {
+    //         setIsMin(false);
+    //     }
+    // }, [windowSize, size]);
 
     return { isMin };
 };

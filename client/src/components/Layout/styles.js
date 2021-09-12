@@ -10,7 +10,7 @@ export const SLayout = styled.div`
 `;
 export const SPage = styled.div`
     flex: 1;
-    padding: ${v.lgSpacing} 0;
+    padding: ${({ isProduct }) => (!isProduct ? v.lgSpacing : 0)};
 
     @media ${b.sm} {
         padding: ${v.lgSpacing};
@@ -20,5 +20,19 @@ export const SPage = styled.div`
         margin: 0 auto;
         width: 100%;
         max-width: ${({ size }) => (!size ? s.lg : s[size])};
+    }
+`;
+
+export const SMobileWrapper = styled.div`
+    display: initial;
+    @media ${b.sm} {
+        display: none;
+    }
+`;
+
+export const SDesktopWrapper = styled.div`
+    display: none;
+    @media ${b.sm} {
+        display: initial;
     }
 `;

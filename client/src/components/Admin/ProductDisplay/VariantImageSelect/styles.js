@@ -13,7 +13,8 @@ export const SNotification = styled.span`
 `;
 
 export const SVariantSelect = styled.div`
-    width: 100%;
+    width: calc(100% + ${v.mdSpacing} * 2 + 2px);
+    margin: 0 calc(-${v.mdSpacing} - 1px);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -21,6 +22,7 @@ export const SVariantSelect = styled.div`
     overflow-y: auto;
     max-height: 40vh;
     box-shadow: inset 0 0 10px -3px ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.overlayLight};
 `;
 
 export const SImageContainer = styled.div`

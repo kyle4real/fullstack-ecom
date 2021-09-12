@@ -23,6 +23,7 @@ import {
     SContentSpacebetween,
     SContentTOP,
     SContentVARIANTS,
+    SDesktopWrapper,
     SExpressIcon,
     SImage,
     SImageContainer,
@@ -32,11 +33,10 @@ import {
     SMediaMAIN,
     SMediaSection,
     SMediaTOP,
-    SMobileBOTTOMMedia,
     SMobileImage,
     SMobileImageContainer,
     SMobileMediaBottom,
-    SMobileMediaItemBOTTOM,
+    SMobileWrapper,
     SProductPage,
     SProductPrice,
     SProductTitle,
@@ -48,18 +48,16 @@ import {
     SVariantsGrid,
     SVariantsHead,
     SVariantsName,
-    SWrap,
-    SWrapper,
 } from "./styles";
 
 const ProductPage = () => {
-    const { isMin } = useWindowSize({ size: "md" });
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
     const { url } = useRouteMatch();
     const { currentProduct, productsArray } = useSelector((state) => state.product);
     const [currentHover, setCurrentHover] = useState(null);
+    const [currentMain, setCurrentMain] = useState(null);
     const productSku = params.product;
     const productVariant = params.variant;
 
@@ -71,6 +69,7 @@ const ProductPage = () => {
     }, [dispatch, productsArray, productSku]);
 
     const variantSelectHandler = (variantTitle) => {
+        setCurrentMain(null);
         const newUrl = url.split("/").slice(0, -1).concat(variantTitle).join("/");
         history.push(newUrl);
     };
@@ -100,56 +99,53 @@ const ProductPage = () => {
         let MobileMediaBOTTOM = [];
 
         MobileMediaMAIN = variantUrl;
-        MobileMediaBOTTOM = filteredMediaArr;
+        MobileMediaBOTTOM = mediaArr;
         return { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM };
     }, [currentProduct?.media, currentProduct?.variants, productVariant]);
 
     return (
         <SProductPage>
             <SMediaSection>
-                {isMin && (
-                    <>
-                        <SMediaMAIN>
-                            <SImageContainer>
-                                <SImage src={MobileMediaMAIN && MobileMediaMAIN} />
-                            </SImageContainer>
-                        </SMediaMAIN>
-                        <SMobileMediaBottom>
-                            {MobileMediaBOTTOM?.map(({ url }) => (
-                                <SMobileImageContainer>
-                                    <SMobileImage src={url} />
-                                </SMobileImageContainer>
-                            ))}
-                        </SMobileMediaBottom>
-                    </>
-                )}
-                {!isMin && (
-                    <>
-                        <SMediaTOP>
-                            {TOPMedia?.map(({ url }) => (
-                                <SMediaItemTOP>
-                                    <SImageContainer>
-                                        <SImage src={url} />
-                                    </SImageContainer>
-                                </SMediaItemTOP>
-                            ))}
-                        </SMediaTOP>
-                        <SMediaMAIN>
-                            <SImageContainer>
-                                <SImage src={MAINMedia && MAINMedia} />
-                            </SImageContainer>
-                        </SMediaMAIN>
-                        <SMediaBOTTOM>
-                            {BOTTOMMedia?.map(({ url }) => (
-                                <SMediaItemBOTTOM>
-                                    <SImageContainer>
-                                        <SImage src={url} />
-                                    </SImageContainer>
-                                </SMediaItemBOTTOM>
-                            ))}
-                        </SMediaBOTTOM>
-                    </>
-                )}
+                <SMobileWrapper>
+                    <SMediaMAIN>
+                        <SImageContainer>
+                            <SImage src={currentMain || (MobileMediaMAIN && MobileMediaMAIN)} />
+                        </SImageContainer>
+                    </SMediaMAIN>
+                    <SMobileMediaBottom>
+                        {MobileMediaBOTTOM?.map(({ url }) => (
+                            <SMobileImageContainer onClick={() => setCurrentMain(url)}>
+                                <SMobileImage src={url} />
+                            </SMobileImageContainer>
+                        ))}
+                    </SMobileMediaBottom>
+                </SMobileWrapper>
+
+                <SDesktopWrapper>
+                    <SMediaTOP>
+                        {TOPMedia?.map(({ url }) => (
+                            <SMediaItemTOP>
+                                <SImageContainer>
+                                    <SImage src={url} />
+                                </SImageContainer>
+                            </SMediaItemTOP>
+                        ))}
+                    </SMediaTOP>
+                    <SMediaMAIN>
+                        <SImageContainer>
+                            <SImage src={MAINMedia && MAINMedia} />
+                        </SImageContainer>
+                    </SMediaMAIN>
+                    <SMediaBOTTOM>
+                        {BOTTOMMedia?.map(({ url }) => (
+                            <SMediaItemBOTTOM>
+                                <SImageContainer>
+                                    <SImage src={url} />
+                                </SImageContainer>
+                            </SMediaItemBOTTOM>
+                        ))}
+                    </SMediaBOTTOM>
+                </SDesktopWrapper>
             </SMediaSection>
             <SContentSection>
                 <SContent>
@@ -160,6 +156,7 @@ const ProductPage = () => {
                             <SProductPrice>${currentProduct?.price}.00 USD</SProductPrice>
                         </SContentSpacebetween>
                         <SCollectionName>Ecom Collection</SCollectionName>
+                        <SProductPrice mobile>${currentProduct?.price}.00 USD</SProductPrice>
                     </SContentTOP>
                     <SContentVARIANTS>
                         <SVariantsHead>
@@ -187,6 +184,7 @@ const ProductPage = () => {
                             ))}
                         </SVariantsGrid>
                     </SContentVARIANTS>
+
                     <SContentBUTTONS>
                         <SButtonControl>
                             <Button font={"14px"}>Add To Cart</Button>
@@ -197,6 +195,7 @@ const ProductPage = () => {
                             </Button>
                         </SButtonControl>
                     </SContentBUTTONS>
+
                     <SContentCARD>
                         <SCardSpanControl>
                             <SReturnIcon />

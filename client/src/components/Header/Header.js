@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { navLinks } from "../../data";
@@ -79,62 +79,53 @@ const Header = () => {
     }, [changeA]);
 
     return (
-        <SHeader isMin={isMin} isAdminArea={isAdminArea}>
+        <SHeader isAdminArea={isAdminArea}>
             <SHeaderFixed>
-                {!isMin && (
-                    <SHeaderTop>
-                        <SNavTop>
-                            <SNavTopItem to="/account">
-                                <SItemContent>
-                                    <SAccountIcon />
-                                    <SItemSpan>
-                                        {!authData ? (
-                                            <>My Account</>
-                                        ) : (
-                                            <>Hi {authData?.name.split(" ")[0]}</>
-                                        )}
-                                    </SItemSpan>
-                                </SItemContent>
-                            </SNavTopItem>
-                            <SNavTopItem to="/blog">Blog</SNavTopItem>
-                            <SNavTopItem to="/newsletter">Newsletter</SNavTopItem>
-                            <SNavTopItem to="/help">Help</SNavTopItem>
-                        </SNavTop>
-                    </SHeaderTop>
-                )}
+                <SHeaderTop>
+                    <SNavTop>
+                        <SNavTopItem to="/account">
+                            <SItemContent>
+                                <SAccountIcon />
+                                <SItemSpan>
+                                    {!authData ? (
+                                        <>My Account</>
+                                    ) : (
+                                        <>Hi {authData?.name.split(" ")[0]}</>
+                                    )}
+                                </SItemSpan>
+                            </SItemContent>
+                        </SNavTopItem>
+                        <SNavTopItem to="/blog">Blog</SNavTopItem>
+                        <SNavTopItem to="/newsletter">Newsletter</SNavTopItem>
+                        <SNavTopItem to="/help">Help</SNavTopItem>
+                    </SNavTop>
+                </SHeaderTop>
                 <SHeaderMain>
-                    {isMin === true && (
-                        <>
-                            <SMenuToggle onClick={() => setMenuOpen((p) => !p)}>
-                                {!menuOpen ? <SMenuOpen /> : <SMenuClose />}
-                            </SMenuToggle>
-                            <SMenu menuOpen={menuOpen}>
-                                <SMenuNav>
-                                    <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
-                                        Home
-                                    </SMenuNavItem>
-                                    <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
-                                        Shop
-                                    </SMenuNavItem>
-                                    <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
-                                        About
-                                    </SMenuNavItem>
-                                </SMenuNav>
-                            </SMenu>
-                        </>
-                    )}
-                    <SLogoContainer isMin={isMin}>
+                    <SMenuToggle onClick={() => setMenuOpen((p) => !p)}>
+                        {!menuOpen ? <SMenuOpen /> : <SMenuClose />}
+                    </SMenuToggle>
+                    <SMenu menuOpen={menuOpen}>
+                        <SMenuNav>
+                            <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
+                                Home
+                            </SMenuNavItem>
+                            <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
+                                Shop
+                            </SMenuNavItem>
+                            <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
+                                About
+                            </SMenuNavItem>
+                        </SMenuNav>
+                    </SMenu>
+                    <SLogoContainer>
                         <SLogo to="/">Ecom</SLogo>
                     </SLogoContainer>
-                    {isMin === undefined && <SNav></SNav>}
-                    {isMin === false && (
-                        <SNav>
-                            {/* navitemcontainer and navitem are in here!! */}
-                            {navLinks.map((navLinks, index) => (
-                                <DropdownContent key={index} navLinks={navLinks} />
-                            ))}
-                        </SNav>
-                    )}
+                    <SNav>
+                        {/* navitemcontainer and navitem are in here!! */}
+                        {navLinks.map((navLinks, index) => (
+                            <DropdownContent key={index} navLinks={navLinks} />
+                        ))}
+                    </SNav>
                     <SCartIconContainer>
                         <SCartLink to="/cart">
                             <SCartIcon />
@@ -145,7 +136,7 @@ const Header = () => {
                     </SCartIconContainer>
                 </SHeaderMain>
             </SHeaderFixed>
-            {!isMin && !isAdminArea && (
+            {!isAdminArea && (
                 <SHeaderAnnouncements>
                     <SAnnouncementContent>
                         <SLeftIcon onClick={() => changeA(false)} />

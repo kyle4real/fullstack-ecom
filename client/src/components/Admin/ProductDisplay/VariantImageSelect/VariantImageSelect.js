@@ -21,7 +21,6 @@ import {
 
 const VariantImageSelect = ({ images, variant, setVariantImageSelect, id }) => {
     const dispatch = useDispatch();
-    const { isMin } = useWindowSize({ size: "sm" });
     const [selected, setSelected] = useState(variant?.mediaUrl || null);
 
     const onSelectHandler = (url) => {
@@ -70,19 +69,19 @@ const VariantImageSelect = ({ images, variant, setVariantImageSelect, id }) => {
                     <SVariantTitle>{variant.title}</SVariantTitle>
                     <SButtonContainer>
                         <Button
-                            fixed={!isMin}
+                            fixed
                             secondaryRadius
                             secondary
                             onClick={() => setVariantImageSelect(null)}
                         >
                             Cancel
                         </Button>
-                        <Button fixed={!isMin} secondaryRadius secondary absolute>
+                        <Button fixed secondaryRadius secondary absolute>
                             Add Image
                             <ImageInput id={id} />
                         </Button>
                         <Button
-                            fixed={!isMin}
+                            fixed
                             secondaryRadius
                             disabled={!images || !selected || selected === variant?.mediaUrl}
                             onClick={onSaveHandler}

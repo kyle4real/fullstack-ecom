@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { v, s } from "./../../styles/variables";
+import { v, s, b } from "./../../styles/variables";
 
 import { Link } from "react-router-dom";
 
@@ -23,9 +23,13 @@ const heightMid = css`
     height: calc(${v.headerHeight} + ${v.headerTopHeight});
 `;
 export const SHeader = styled.div`
-    ${({ isMin, isAdminArea }) => (isAdminArea && !isMin ? heightMid : !isMin ? height : heightMin)}
     display: flex;
     justify-content: flex-end;
+
+    ${heightMin}
+    @media ${b.lg} {
+        ${({ isAdminArea }) => (isAdminArea ? heightMid : height)}
+    }
 `;
 
 export const SHeaderAnnouncements = styled.div`
@@ -34,6 +38,11 @@ export const SHeaderAnnouncements = styled.div`
     height: 5vh;
     margin-top: auto;
     width: 100%;
+
+    display: none;
+    @media ${b.lg} {
+        display: initial;
+    }
 `;
 
 export const SAnnouncementContent = styled.div`
@@ -86,9 +95,13 @@ export const SHeaderFixed = styled.div`
 export const SHeaderTop = styled.div`
     height: ${v.headerTopHeight};
     background: ${({ theme }) => theme.bg3};
-    display: flex;
+    display: none;
     justify-content: flex-end;
     align-items: center;
+
+    @media ${b.lg} {
+        display: flex;
+    }
 `;
 
 export const SNavTop = styled.nav`
@@ -145,7 +158,9 @@ export const SHeaderMain = styled.div`
 
 export const SLogoContainer = styled.div`
     margin: auto 0;
-    flex: ${({ isMin }) => (!isMin ? "1" : "initial")};
+    @media ${b.lg} {
+        flex: 1;
+    }
 `;
 export const SLogo = styled(Link)`
     display: inline-block;
@@ -155,10 +170,13 @@ export const SLogo = styled(Link)`
 `;
 
 export const SNav = styled.nav`
-    display: flex;
+    display: none;
     justify-content: center;
-    /* height: 100%; */
     flex: 1;
+
+    @media ${b.lg} {
+        display: flex;
+    }
 `;
 
 export const SNavItemContainer = styled.div`
@@ -204,6 +222,10 @@ export const SMenuToggle = styled.button`
     cursor: pointer;
     position: relative;
     z-index: 100;
+
+    @media ${b.lg} {
+        display: none;
+    }
 `;
 
 export const SMenuOpen = styled(BiMenu)`
@@ -266,6 +288,10 @@ export const SMenu = styled.div`
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(4px);
+
+    @media ${b.lg} {
+        display: none;
+    }
 `;
 
 export const SMenuNav = styled.nav`

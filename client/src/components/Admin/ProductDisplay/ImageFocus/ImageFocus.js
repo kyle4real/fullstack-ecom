@@ -51,7 +51,7 @@ const ImageFocus = ({ productTitle, images, imageFocus, setImageFocus, id }) => 
 
     return (
         <Overlay>
-            <Card size={"lg"} bg={"bg2"}>
+            <Card size={"md"} bg={"bg2"}>
                 <SImageFocus>
                     <STopBar>
                         <STitle>{productTitle}</STitle>

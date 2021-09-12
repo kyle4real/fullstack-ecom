@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
-import { v } from "./../../../styles/variables";
+import { v, b } from "./../../../styles/variables";
 
 export const SButton = styled.button`
-    width: ${({ fixed }) => (!fixed ? "100%" : "auto")};
     font-family: inherit;
     font-size: ${({ font }) => (!font ? "12px" : font)};
     font-weight: 900;
@@ -23,6 +22,11 @@ export const SButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 100%;
+    @media ${b.sm} {
+        width: ${({ fixed }) => (!fixed ? "100%" : "auto")};
+    }
 
     :focus {
         outline: 1px solid ${({ theme }) => theme.primary};
