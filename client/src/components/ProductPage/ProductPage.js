@@ -5,6 +5,7 @@ import { missingImg } from "../../assets";
 import { getProduct } from "../../store/product-actions";
 import { productActions } from "../../store/product-slice";
 import Accordian from "../UI/Accordian/Accordian";
+import BreadTrail from "../UI/BreadTrail/BreadTrail";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import Rating from "../UI/Rating/Rating";
@@ -86,10 +87,10 @@ const ProductPage = () => {
         TOPMedia = filteredMediaArr?.slice(1, 4);
         MAINMedia = variantUrl;
         BOTTOMMedia = filteredMediaArr?.slice(2);
-    } else if (mediaArr.length >= 4) {
+    } else if (mediaArr?.length >= 4) {
         MAINMedia = variantUrl;
         BOTTOMMedia = filteredMediaArr;
-    } else if (mediaArr.length >= 3) {
+    } else if (mediaArr?.length >= 3) {
         TOPMedia = filteredMediaArr;
         MAINMedia = variantUrl;
     }
