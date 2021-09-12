@@ -62,8 +62,6 @@ const ProductPage = () => {
     const productSku = params.product;
     const productVariant = params.variant;
 
-    const [open, setOpen] = useState(false);
-
     useEffect(() => {
         const product = productsArray?.find?.(({ sku }) => sku === productSku);
         dispatch(productActions.replaceCurrentProduct({ data: { result: product } }));
@@ -76,11 +74,31 @@ const ProductPage = () => {
         history.push(newUrl);
     };
 
+    let TOPMedia = [],
+        MAINMedia = null,
+        BOTTOMMedia = [];
+    const mediaArr = currentProduct?.media;
+    const variantsArr = currentProduct?.variants;
+    const variantUrl = variantsArr?.find(({ title }) => title === productVariant)?.mediaUrl;
+    const filteredMediaArr = mediaArr?.filter(({ url }) => url !== variantUrl);
+
+    if (mediaArr?.length >= 5) {
+        TOPMedia = filteredMediaArr?.slice(1, 4);
+        MAINMedia = variantUrl;
+        BOTTOMMedia = filteredMediaArr?.slice(2);
+    } else if (mediaArr.length >= 4) {
+        MAINMedia = variantUrl;
+        BOTTOMMedia = filteredMediaArr;
+    } else if (mediaArr.length >= 3) {
+        TOPMedia = filteredMediaArr;
+        MAINMedia = variantUrl;
+    }
+
     return (
         <SProductPage>
             <SMediaSection>
                 <SMediaTOP>
-                    {currentProduct?.media?.slice(1, 4)?.map(({ url }) => (
+                    {TOPMedia?.map(({ url }) => (
                         <SMediaItemTOP>
                             <SImageContainer>
                                 <SImage src={url} />
@@ -90,11 +108,11 @@ const ProductPage = () => {
                 </SMediaTOP>
                 <SMediaMAIN>
                     <SImageContainer>
-                        <SImage src={currentProduct?.media?.[0]?.url} />
+                        <SImage src={MAINMedia && MAINMedia} />
                     </SImageContainer>
                 </SMediaMAIN>
                 <SMediaBOTTOM>
-                    {currentProduct?.media?.slice(2, 4)?.map(({ url }) => (
+                    {BOTTOMMedia?.map(({ url }) => (
                         <SMediaItemBOTTOM>
                             <SImageContainer>
                                 <SImage src={url} />

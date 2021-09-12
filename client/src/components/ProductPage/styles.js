@@ -5,7 +5,6 @@ import { v } from "../../styles/variables";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { FaShippingFast } from "react-icons/fa";
 import { GiCardboardBox } from "react-icons/gi";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 export const SProductPage = styled.div`
     display: flex;
@@ -18,6 +17,10 @@ export const SMediaSection = styled.section`
 export const SContentSection = styled.section`
     width: 40%;
     min-width: 450px;
+    height: 100%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10rem;
 `;
 
 export const SMediaTOP = styled.div`
@@ -35,6 +38,8 @@ export const SMediaItemTOP = styled.div`
 
 export const SImageContainer = styled.div`
     display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 export const SImage = styled.img`
     max-width: 100%;
