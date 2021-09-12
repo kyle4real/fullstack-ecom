@@ -15,29 +15,20 @@ export const SCartHead = styled.span`
     display: flex;
     align-items: center;
     margin-bottom: ${v.mdSpacing};
+    position: relative;
 `;
-export const SCartHeadSection = styled.div`
-    flex: 1;
-    text-align: right;
 
-    :first-child {
-        display: none;
-    }
-    @media ${b.md} {
-        :first-child {
-            display: initial;
-        }
-    }
-`;
 export const SCartHeadSpan = styled.span`
     display: block;
+    width: 100%;
     text-align: left;
-
     @media ${b.md} {
         text-align: center;
     }
 `;
 export const SCloseIcon = styled(AiOutlineClose)`
+    position: absolute;
+    right: ${v.smSpacing};
     display: inline-block;
     margin-right: ${v.smSpacing};
     font-size: 24px;
@@ -45,9 +36,11 @@ export const SCloseIcon = styled(AiOutlineClose)`
     cursor: pointer;
 `;
 
+// PRODUCT DISPLAY ////////////////////////////////////////////
+
 export const SCartProductDisplay = styled.div`
     overflow-y: auto;
-    height: calc(100% - ${v.mdSpacing} * 3);
+    max-height: calc(100% - 200px);
 `;
 export const SCartProduct = styled.div`
     display: flex;
@@ -88,9 +81,28 @@ export const SQtySelection = styled.div`
     display: flex;
     width: fit-content;
     border: 1px solid ${({ theme }) => theme.primaryLighter};
+    color: ${({ disabled }) => (!disabled ? "initial" : "red")};
+
+    user-select: none;
 `;
 
 export const SQtySelectionSpan = styled.span`
+    color: inherit;
+    font-size: 14px;
+    width: ${v.lgSpacing};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: ${v.smSpacing} 0;
+
+    border-right: 1px solid ${({ theme }) => theme.primaryLighter};
+`;
+
+export const SQtySelectionButton = styled.button`
+    background: ${({ theme }) => theme.bg2};
+    border: none;
+    outline: none;
+    color: inherit;
     font-size: 14px;
     width: ${v.lgSpacing};
     display: flex;
@@ -100,15 +112,23 @@ export const SQtySelectionSpan = styled.span`
     :not(:last-child) {
         border-right: 1px solid ${({ theme }) => theme.primaryLighter};
     }
-    :not(:nth-child(2)) {
-        cursor: pointer;
+    :hover {
+        background: ${({ theme }) => theme.overlay};
+        color: ${({ theme }) => theme.text};
     }
-    user-select: none;
+    :disabled {
+        background: ${({ theme }) => theme.bg2};
+        color: ${({ theme }) => theme.primaryLighter};
+        :hover {
+            background: none;
+        }
+    }
+    cursor: pointer;
 `;
 
 const iconStyle = css`
     display: inline-block;
-    font-size: 14px;
+    font-size: 16px;
 `;
 export const SMinusIcon = styled(AiOutlineMinus)`
     ${iconStyle}
@@ -128,4 +148,12 @@ export const SRemoveButton = styled.span`
     font-weight: 400;
     color: ${({ theme }) => theme.primaryLight};
     cursor: pointer;
+`;
+
+export const SCartButtons = styled.div`
+    margin-top: ${v.mdSpacing};
+    margin-right: ${v.mdSpacing};
+`;
+export const SButtonControl = styled.div`
+    margin-bottom: ${v.smSpacing};
 `;

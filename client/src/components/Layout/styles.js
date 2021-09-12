@@ -57,10 +57,10 @@ export const SCartDrawerContainer = styled.div`
     box-shadow: ${v.cardBoxShadow};
 
     width: 70%;
-    right: -70%;
+    right: -100%;
     @media ${b.sm} {
         width: 60%;
-        right: -60%;
+        right: -100%;
     }
     @media ${b.md} {
         width: 27.5rem;

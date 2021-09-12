@@ -262,7 +262,7 @@ export const SCartBadge = styled.div`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.bg2};
+    background: ${({ theme }) => theme.primaryLighter};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -272,6 +272,7 @@ export const SBadgeSpan = styled.span`
     display: block;
     font-size: 11px;
     font-weight: 900;
+    margin-right: -1px;
 `;
 
 export const SMenu = styled.div`

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { navLinks } from "../../data";
@@ -51,6 +51,12 @@ const Header = () => {
 
     const { isMin } = useWindowSize({ size: "lg" });
     const { authData } = useSelector((state) => state.auth);
+    const { cartProducts } = useSelector((state) => state.cart);
+    const cartAmount = useMemo(() => {
+        return cartProducts.reduce((r, v, i) => {
+            return r + v.qty;
+        }, 0);
+    }, [cartProducts]);
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -140,9 +146,11 @@ const Header = () => {
                     <SCartIconContainer>
                         <SCartLink onClick={() => dispatch(uiActions.toggleCart())}>
                             <SCartIcon />
-                            <SCartBadge>
-                                <SBadgeSpan>2</SBadgeSpan>
-                            </SCartBadge>
+                            {cartAmount > 0 && (
+                                <SCartBadge>
+                                    <SBadgeSpan>{cartAmount}</SBadgeSpan>
+                                </SCartBadge>
+                            )}
                         </SCartLink>
                     </SCartIconContainer>
                 </SHeaderMain>

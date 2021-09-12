@@ -11,7 +11,7 @@ const uiSlice = createSlice({
             imageDelete: false,
             productList: false,
         },
-        cartDrawer: true,
+        cartDrawer: false,
     },
     reducers: {
         updateLoading(state, action) {

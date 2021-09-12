@@ -15,16 +15,35 @@ const cartSlice = createSlice({
         addToCart(state, action) {
             const { data } = action.payload;
 
-            const cartProduct = {
-                qty: 1,
-                variantSelection: data.variant,
-                productObj: data.product,
-            };
-            state.cartProducts.push(cartProduct);
+            const productIndex = state.cartProducts.findIndex(
+                ({ variantSelection, productObj }) =>
+                    variantSelection === data.variant && productObj.title === data.product.title
+            );
+            if (productIndex === -1) {
+                const cartProduct = {
+                    qty: 1,
+                    variantSelection: data.variant,
+                    productObj: data.product,
+                };
+                state.cartProducts.push(cartProduct);
+            } else {
+                state.cartProducts[productIndex].qty++;
+            }
+        },
+        subFromCart(state, action) {
+            const { data } = action.payload;
+            const productIndex = state.cartProducts.findIndex(
+                ({ variantSelection, productObj }) =>
+                    variantSelection === data.variant && productObj.title === data.product.title
+            );
+            state.cartProducts[productIndex].qty--;
         },
         removeFromCart(state, action) {
             const { data } = action.payload;
-            state.cartProducts = state.cartProducts.filter((item) => item._id !== data.product._id);
+            state.cartProducts = state.cartProducts.filter(
+                ({ variantSelection, productObj }) =>
+                    variantSelection !== data.variant || productObj.title !== data.product.title
+            );
         },
     },
 });
