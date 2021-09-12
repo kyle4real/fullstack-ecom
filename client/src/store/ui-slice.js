@@ -11,11 +11,15 @@ const uiSlice = createSlice({
             imageDelete: false,
             productList: false,
         },
+        cartDrawer: false,
     },
     reducers: {
         updateLoading(state, action) {
             const { constituent, isLoading } = action.payload;
             state.loading[constituent] = isLoading;
+        },
+        toggleCart(state) {
+            state.cartDrawer = !state.cartDrawer;
         },
     },
 });

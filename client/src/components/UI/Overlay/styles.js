@@ -8,7 +8,7 @@ export const SOverlay = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 100000;
+    z-index: 1000;
     width: 100vw;
     height: 100vh;
     display: flex;

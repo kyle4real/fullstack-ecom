@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, useRouteMatch } from "react-router";
 import { missingImg } from "../../assets";
-import useWindowSize from "../../hooks/useWindowSize";
+import { cartActions } from "../../store/cart-slice";
 
 import { productActions } from "../../store/product-slice";
 import Accordian from "../UI/Accordian/Accordian";
@@ -12,6 +12,7 @@ import Button from "../UI/Button/Button";
 import Rating from "../UI/Rating/Rating";
 import {
     SButtonControl,
+    SButtonFIXED,
     SCardSpan,
     SCardSpanControl,
     SCollectionName,
@@ -113,8 +114,8 @@ const ProductPage = () => {
                         </SImageContainer>
                     </SMediaMAIN>
                     <SMobileMediaBottom>
-                        {MobileMediaBOTTOM?.map(({ url }) => (
-                            <SMobileImageContainer onClick={() => setCurrentMain(url)}>
+                        {MobileMediaBOTTOM?.map(({ url }, index) => (
+                            <SMobileImageContainer key={index} onClick={() => setCurrentMain(url)}>
                                 <SMobileImage src={url} />
                             </SMobileImageContainer>
                         ))}
@@ -123,8 +124,8 @@ const ProductPage = () => {
 
                 <SDesktopWrapper>
                     <SMediaTOP>
-                        {TOPMedia?.map(({ url }) => (
-                            <SMediaItemTOP>
+                        {TOPMedia?.map(({ url }, index) => (
+                            <SMediaItemTOP key={index}>
                                 <SImageContainer>
                                     <SImage src={url} />
                                 </SImageContainer>
@@ -137,8 +138,8 @@ const ProductPage = () => {
                         </SImageContainer>
                     </SMediaMAIN>
                     <SMediaBOTTOM>
-                        {BOTTOMMedia?.map(({ url }) => (
-                            <SMediaItemBOTTOM>
+                        {BOTTOMMedia?.map(({ url }, index) => (
+                            <SMediaItemBOTTOM key={index}>
                                 <SImageContainer>
                                     <SImage src={url} />
                                 </SImageContainer>
@@ -187,7 +188,21 @@ const ProductPage = () => {
 
                     <SContentBUTTONS>
                         <SButtonControl>
-                            <Button font={"14px"}>Add To Cart</Button>
+                            <Button
+                                font={"14px"}
+                                onClick={() =>
+                                    dispatch(
+                                        cartActions.addToCart({
+                                            data: {
+                                                variant: productVariant,
+                                                product: { ...currentProduct },
+                                            },
+                                        })
+                                    )
+                                }
+                            >
+                                Add To Cart
+                            </Button>
                         </SButtonControl>
                         <SButtonControl>
                             <Button secondary font={"14px"}>
@@ -195,6 +210,10 @@ const ProductPage = () => {
                             </Button>
                         </SButtonControl>
                     </SContentBUTTONS>
+
+                    <SButtonFIXED>
+                        <Button font={"14px"}>Add To Cart</Button>
+                    </SButtonFIXED>
 
                     <SContentCARD>
                         <SCardSpanControl>

@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { navLinks } from "../../data";
 import useWindowSize from "../../hooks/useWindowSize";
+import { uiActions } from "../../store/ui-slice";
 import DropdownContent from "./DropdownContent/DropdownContent";
 import {
     SAccountIcon,
@@ -44,6 +45,8 @@ const aArr = [
 ];
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const intervalRef = useRef();
     const location = useLocation();
 
     const { isMin } = useWindowSize({ size: "lg" });
@@ -72,11 +75,19 @@ const Header = () => {
         );
     }, []);
     useEffect(() => {
-        const id = setInterval(() => {
+        intervalRef.current = setInterval(() => {
             changeA(true);
         }, [5000]);
-        return () => clearInterval(id);
+        return () => clearInterval(intervalRef.current);
     }, [changeA]);
+
+    const arrowClickHandler = (inc) => {
+        clearInterval(intervalRef.current);
+        changeA(inc);
+        intervalRef.current = setInterval(() => {
+            changeA(true);
+        }, [5000]);
+    };
 
     return (
         <SHeader isAdminArea={isAdminArea}>
@@ -127,7 +138,7 @@ const Header = () => {
                         ))}
                     </SNav>
                     <SCartIconContainer>
-                        <SCartLink to="/cart">
+                        <SCartLink onClick={() => dispatch(uiActions.toggleCart())}>
                             <SCartIcon />
                             <SCartBadge>
                                 <SBadgeSpan>2</SBadgeSpan>
@@ -139,7 +150,7 @@ const Header = () => {
             {!isAdminArea && (
                 <SHeaderAnnouncements>
                     <SAnnouncementContent>
-                        <SLeftIcon onClick={() => changeA(false)} />
+                        <SLeftIcon onClick={() => arrowClickHandler(false)} />
                         <SAnnouncementSpanContainer>
                             {aArr.map((text, i) => {
                                 const index = currentAs.findIndex((inx) => inx === i);
@@ -158,7 +169,7 @@ const Header = () => {
                                 );
                             })}
                         </SAnnouncementSpanContainer>
-                        <SRightIcon onClick={() => changeA(true)} />
+                        <SRightIcon onClick={() => arrowClickHandler(true)} />
                     </SAnnouncementContent>
                 </SHeaderAnnouncements>
             )}

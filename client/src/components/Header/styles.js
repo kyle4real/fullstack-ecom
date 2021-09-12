@@ -23,10 +23,7 @@ const heightMid = css`
     height: calc(${v.headerHeight} + ${v.headerTopHeight});
 `;
 export const SHeader = styled.div`
-    display: flex;
-    justify-content: flex-end;
-
-    ${heightMin}
+    ${heightMin};
     @media ${b.lg} {
         ${({ isAdminArea }) => (isAdminArea ? heightMid : height)}
     }
@@ -36,18 +33,17 @@ export const SHeaderAnnouncements = styled.div`
     color: ${({ theme }) => theme.text};
     background: ${({ theme }) => theme.primary};
     height: 5vh;
-    margin-top: auto;
-    width: 100%;
+    margin-top: calc(${v.headerHeight} + ${v.headerTopHeight});
+    justify-content: center;
 
     display: none;
     @media ${b.lg} {
-        display: initial;
+        display: flex;
     }
 `;
 
 export const SAnnouncementContent = styled.div`
     height: 100%;
-    margin: 0 auto;
     display: block;
     width: ${s.md};
     text-align: center;
@@ -243,9 +239,10 @@ export const SCartIconContainer = styled.div`
     display: flex;
     justify-content: flex-end;
 `;
-export const SCartLink = styled(Link)`
+export const SCartLink = styled.div`
     display: block;
     position: relative;
+    cursor: pointer;
 `;
 export const SCartIcon = styled(AiOutlineShoppingCart)`
     color: ${({ theme }) => theme.text};

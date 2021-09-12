@@ -228,13 +228,28 @@ export const SContentBUTTONS = styled.div`
     margin-top: ${v.mdSpacing};
 
     display: none;
-    @media ${b.mdSpacing} {
+    @media ${b.md} {
         display: block;
     }
 `;
 export const SButtonControl = styled.div`
     :not(:last-child) {
         margin-bottom: calc(${v.smSpacing} + 4px);
+    }
+`;
+
+export const SButtonFIXED = styled.div`
+    position: fixed;
+    z-index: 100;
+    bottom: ${v.lgSpacing};
+    left: 0;
+    right: 0;
+    padding: 0 ${v.mdSpacing};
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    @media ${b.md} {
+        display: none;
     }
 `;
 

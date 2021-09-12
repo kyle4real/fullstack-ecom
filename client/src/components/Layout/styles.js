@@ -7,8 +7,10 @@ export const SLayout = styled.div`
     flex-direction: column;
     /* overflow-y: auto; */
     height: 100%;
+    position: relative;
 `;
 export const SPage = styled.div`
+    transition: 0.3s ease padding;
     flex: 1;
     padding: ${({ isProduct }) => (!isProduct ? v.lgSpacing : 0)};
 
@@ -24,7 +26,7 @@ export const SPage = styled.div`
 `;
 
 export const SMobileWrapper = styled.div`
-    display: initial;
+    display: block;
     @media ${b.sm} {
         display: none;
     }
@@ -33,6 +35,34 @@ export const SMobileWrapper = styled.div`
 export const SDesktopWrapper = styled.div`
     display: none;
     @media ${b.sm} {
-        display: initial;
+        display: block;
+    }
+`;
+
+export const SCartWrap = styled.div`
+    .cart-open {
+        right: 0;
+    }
+`;
+
+export const SCartDrawerContainer = styled.div`
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100vh;
+    background: white;
+    transition: 0.4s ease-in right;
+    z-index: 10000;
+    box-shadow: ${v.cardBoxShadow};
+
+    width: 70%;
+    right: -70%;
+    @media ${b.sm} {
+        width: 60%;
+        right: -60%;
+    }
+    @media ${b.md} {
+        width: 27.5rem;
+        right: -27.5rem;
     }
 `;
