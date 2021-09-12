@@ -19,6 +19,8 @@ export const v = {
 };
 
 export const s = {
+    // 1460px = 91.25em
+    xxl: "91.25em",
     // 1200px = 75em
     xl: "75em",
     // 1024px = 64em

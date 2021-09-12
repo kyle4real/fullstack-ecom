@@ -8,7 +8,7 @@ export const SProductsGrid = styled.div``;
 
 export const SGrid = styled.div`
     display: grid;
-    grid-gap: ${v.mdSpacing} ${v.mdSpacing};
+    gap: ${v.mdSpacing} ${v.mdSpacing};
 
     @media ${b.sm} {
         grid-template-columns: repeat(2, 1fr);
