@@ -4,14 +4,31 @@ import { useHistory, useParams, useRouteMatch } from "react-router";
 import { missingImg } from "../../assets";
 import { getProduct } from "../../store/product-actions";
 import { productActions } from "../../store/product-slice";
+import Accordian from "../UI/Accordian/Accordian";
+import Button from "../UI/Button/Button";
+import Card from "../UI/Card/Card";
 import Rating from "../UI/Rating/Rating";
 import {
+    SAccordianCard,
+    SAccordianContainer,
+    SAccordianContent,
+    SAccordianHead,
+    SAccordianTitle,
+    SButtonControl,
+    SCardSpan,
+    SCardSpanControl,
     SCollectionName,
     SContent,
+    SContentACCORDIAN,
+    SContentBUTTONS,
+    SContentCARD,
+    SContentCard,
     SContentSection,
     SContentSpacebetween,
+    SContentSpan,
     SContentTOP,
     SContentVARIANTS,
+    SExpressIcon,
     SImage,
     SImageContainer,
     SMediaBOTTOM,
@@ -20,9 +37,13 @@ import {
     SMediaMAIN,
     SMediaSection,
     SMediaTOP,
+    SPlusIcon,
     SProductPage,
     SProductPrice,
     SProductTitle,
+    SPurchaseButtons,
+    SReturnIcon,
+    SShippingIcon,
     SVariantGridItem,
     SVariantImageContainer,
     SVariantSelection,
@@ -40,7 +61,9 @@ const ProductPage = () => {
     const [currentHover, setCurrentHover] = useState(null);
     const productSku = params.product;
     const productVariant = params.variant;
-    console.log(params);
+
+    const [open, setOpen] = useState(false);
+
     useEffect(() => {
         const product = productsArray?.find?.(({ sku }) => sku === productSku);
         dispatch(productActions.replaceCurrentProduct({ data: { result: product } }));
@@ -116,6 +139,48 @@ const ProductPage = () => {
                             ))}
                         </SVariantsGrid>
                     </SContentVARIANTS>
+                    <SContentBUTTONS>
+                        <SButtonControl>
+                            <Button font={"14px"}>Add To Cart</Button>
+                        </SButtonControl>
+                        <SButtonControl>
+                            <Button secondary font={"14px"}>
+                                Checkout Now
+                            </Button>
+                        </SButtonControl>
+                    </SContentBUTTONS>
+                    <SContentCARD>
+                        <SCardSpanControl>
+                            <SReturnIcon />
+                            <SCardSpan>Free Returns On All Orders</SCardSpan>
+                        </SCardSpanControl>
+                        <SCardSpanControl>
+                            <SShippingIcon />
+                            <SCardSpan>Free Standard Over $75</SCardSpan>
+                        </SCardSpanControl>
+                        <SCardSpanControl>
+                            <SExpressIcon />
+                            <SCardSpan>Free Express Over $150</SCardSpan>
+                        </SCardSpanControl>
+                    </SContentCARD>
+                    <SContentACCORDIAN>
+                        <Accordian
+                            data={[
+                                {
+                                    title: "Description",
+                                    content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
+                                accusantium officia. Soluta praesentium blanditiis, maxime
+                                temporibus odit at exercitationem velit!`,
+                                },
+                                {
+                                    title: "Delivery & Returns",
+                                    content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
+                                accusantium officia. Soluta praesentium blanditiis, maxime
+                                temporibus odit at exercitationem velit!`,
+                                },
+                            ]}
+                        />
+                    </SContentACCORDIAN>
                 </SContent>
             </SContentSection>
         </SProductPage>

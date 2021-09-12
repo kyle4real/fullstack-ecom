@@ -77,9 +77,12 @@ export const SVariantTitle = styled.span`
 
 export const SButtonContainer = styled.div`
     text-align: center;
+
     width: 100%;
     @media ${b.sm} {
         text-align: right;
+        display: flex;
+        justify-content: flex-end;
     }
     button {
         margin: calc(${v.smSpacing} / 2);

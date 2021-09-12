@@ -8,6 +8,8 @@ const Button = ({
     fixed,
     secondaryRadius,
     absolute,
+    bg,
+    font,
     ...restOfProps
 }) => {
     return (
@@ -17,6 +19,8 @@ const Button = ({
             fixed={fixed}
             secondaryRadius={secondaryRadius}
             absolute={absolute}
+            bg={bg}
+            font={font}
             {...restOfProps}
         >
             {children}

@@ -1,6 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { v } from "../../styles/variables";
+
+import { RiArrowGoBackLine } from "react-icons/ri";
+import { FaShippingFast } from "react-icons/fa";
+import { GiCardboardBox } from "react-icons/gi";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 export const SProductPage = styled.div`
     display: flex;
@@ -12,6 +17,7 @@ export const SMediaSection = styled.section`
 
 export const SContentSection = styled.section`
     width: 40%;
+    min-width: 450px;
 `;
 
 export const SMediaTOP = styled.div`
@@ -80,6 +86,7 @@ export const SCollectionName = styled.span`
     display: block;
     font-weight: 400;
     font-size: 16px;
+    color: ${({ theme }) => theme.primaryLight};
 `;
 
 export const SContentVARIANTS = styled.div`
@@ -111,6 +118,50 @@ export const SVariantGridItem = styled.div`
 export const SVariantImageContainer = styled.div`
     cursor: pointer;
     display: flex;
-    border: 1px solid ${({ theme, active }) => (!active ? "transparent" : theme.primary)};
+    border: 2px solid ${({ theme, active }) => (!active ? "transparent" : theme.primary)};
     transition: 0.2s ease border;
 `;
+
+export const SContentBUTTONS = styled.div`
+    margin-top: ${v.mdSpacing};
+`;
+export const SButtonControl = styled.div`
+    :not(:last-child) {
+        margin-bottom: calc(${v.smSpacing} + 4px);
+    }
+`;
+
+export const SContentCARD = styled.div`
+    background: ${({ theme }) => theme.bg3};
+    border-radius: ${v.borderRadius};
+    padding: ${v.lgSpacing};
+    margin: ${v.lgSpacing} 0;
+`;
+export const SCardSpanControl = styled.div`
+    display: flex;
+    align-items: center;
+    :not(:last-child) {
+        margin-bottom: ${v.lgSpacing};
+    }
+`;
+export const SCardSpan = styled.span`
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: ${v.mdSpacing};
+`;
+const cardIconStyle = css`
+    display: block;
+    font-size: 20px;
+`;
+export const SReturnIcon = styled(RiArrowGoBackLine)`
+    ${cardIconStyle}
+`;
+export const SShippingIcon = styled(GiCardboardBox)`
+    ${cardIconStyle}
+`;
+export const SExpressIcon = styled(FaShippingFast)`
+    ${cardIconStyle}
+`;
+
+export const SContentACCORDIAN = styled.div``;
