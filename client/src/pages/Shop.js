@@ -26,7 +26,7 @@ const Shop = () => {
                 <Route exact path={path}>
                     <ProductsGrid productsArray={productsArray} />
                 </Route>
-                <Route path={`${path}/collections/:collection`}>
+                <Route exact path={`${path}/collections/:collection`}>
                     <ProductsGrid productsArray={productsArray} />
                 </Route>
                 <Route exact path={`${path}/products/:product`}>

@@ -22,11 +22,10 @@ import {
 } from "./styles";
 
 const ProductsGrid = ({ productsArray }) => {
-    const { url } = useRouteMatch();
     const history = useHistory();
 
     const productSelectHandler = (productSku, variantTitle) => {
-        history.push(`${url}/products/${productSku}/${variantTitle}`);
+        history.push(`/shop/products/${productSku}/${variantTitle}`);
     };
     return (
         <SProductsGrid>
