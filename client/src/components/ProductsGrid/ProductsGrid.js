@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, useRouteMatch } from "react-router";
+import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
 import {
     SComparePrice,
@@ -32,32 +32,38 @@ const ProductsGrid = ({ productsArray }) => {
             <SGrid>
                 {productsArray?.map?.(
                     ({ title, price, salePrice, tags, variants, media, sku }, index) => {
-                        let images = media
-                            .reduce((r, v) => {
-                                return r.concat(v.url);
+                        let images = variants
+                            ?.reduce((r, v) => {
+                                return r.concat(v.mediaUrl);
                             }, [])
-                            .slice(1);
-                        images = images.length > 4 ? images.slice(0, 4) : images;
-                        const noImg = images.length === 0;
+                            ?.slice(1);
+                        images = images?.length > 4 ? images?.slice(0, 4) : images;
+                        const noImg = images?.length === 0;
                         return (
-                            <SGridItem
-                                key={index}
-                                onClick={() => productSelectHandler(sku, variants[0].title)}
-                            >
-                                <SImageContainer>
+                            <SGridItem key={index}>
+                                <SImageContainer
+                                    onClick={() => productSelectHandler(sku, variants?.[0]?.title)}
+                                >
                                     <SImage src={media?.[0]?.url || missingImg} />
+                                </SImageContainer>
+                                <SThumbnailsContainer>
                                     {!noImg && (
-                                        <SThumbnailsContainer className={"test"}>
-                                            {images.map((url, index) => {
+                                        <>
+                                            {variants.map(({ mediaUrl, title }, index) => {
                                                 return (
-                                                    <SThumbnailImageContainer key={index}>
-                                                        <SThumbnailImage src={url} />
+                                                    <SThumbnailImageContainer
+                                                        key={index}
+                                                        onClick={() =>
+                                                            productSelectHandler(sku, title)
+                                                        }
+                                                    >
+                                                        <SThumbnailImage src={mediaUrl} />
                                                     </SThumbnailImageContainer>
                                                 );
                                             })}
-                                        </SThumbnailsContainer>
+                                        </>
                                     )}
-                                </SImageContainer>
+                                </SThumbnailsContainer>
                                 <SContent>
                                     <SInfoControl>
                                         {!salePrice && <STag>{tags?.[0]}</STag>}

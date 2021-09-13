@@ -8,7 +8,7 @@ export const SProductsGrid = styled.div``;
 
 export const SGrid = styled.div`
     display: grid;
-    gap: ${v.mdSpacing} ${v.mdSpacing};
+    gap: ${v.lgSpacing} ${v.lgSpacing};
 
     @media ${b.sm} {
         grid-template-columns: repeat(2, 1fr);
@@ -33,9 +33,9 @@ export const SGridItem = styled.div`
 `;
 
 export const SImageContainer = styled.div`
-    background: ${({ theme }) => theme.primaryLighter};
+    background: ${({ theme }) => theme.bg3};
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex: 1;
     cursor: pointer;
     position: relative;
@@ -55,13 +55,10 @@ export const SImage = styled.img`
 `;
 
 export const SThumbnailsContainer = styled.div`
-    height: calc(4vh + ${v.smSpacing} * 2);
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    padding: ${v.smSpacing};
-    display: flex;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
     justify-content: space-evenly;
     cursor: initial;
 `;
@@ -70,39 +67,46 @@ export const SThumbnailImageContainer = styled.div`
     display: flex;
     width: auto;
     cursor: pointer;
-    box-shadow: ${v.cardBoxShadow};
+    overflow: hidden;
+`;
 
+export const SThumbnailImage = styled.img`
     transition: 0.3s ease transform;
-
+    max-width: 100%;
+    height: auto;
     :hover {
         transform: scale(1.1);
     }
 `;
 
-export const SThumbnailImage = styled.img`
-    max-width: 100%;
-    height: auto;
-`;
-
 export const SContent = styled.div`
-    padding: ${v.smSpacing} 0;
     color: ${({ theme }) => theme.primary};
     line-height: 100%;
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
+
+    padding: ${v.mdSpacing} ${v.smSpacing} ${v.smSpacing};
+    @media ${b.sm} {
+        padding: ${v.mdSpacing} 0 ${v.smSpacing};
+    }
 `;
 
 export const SInfoControl = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 4px;
+
+    padding-bottom: ${v.mdSpacing};
+
+    @media ${b.md} {
+        padding-bottom: ${v.smSpacing};
+    }
 `;
 
 export const STag = styled.span`
     display: block;
-    font-size: 14px;
+    text-transform: uppercase;
     font-weight: 600;
     position: relative;
-    padding-left: calc(${v.smSpacing} + 3px);
 
     ::before {
         content: "";
@@ -111,34 +115,62 @@ export const STag = styled.span`
         height: 100%;
         background: ${({ theme }) => theme.primary};
         left: 0;
-        top: 0px;
+        top: 0;
+    }
+
+    padding-left: ${v.mdSpacing};
+    font-size: 16px;
+    @media ${b.md} {
+        padding-left: calc(${v.smSpacing} + 4px);
+        font-size: 14px;
     }
 `;
 export const SSaleTag = styled.div`
     display: flex;
     align-items: center;
     font-weight: 600;
+
+    font-size: 18px;
+    @media ${b.md} {
+        font-size: 14px;
+    }
 `;
 export const SSaleIcon = styled(AiOutlineTag)`
-    font-size: 12px;
+    font-size: inherit;
     display: block;
-    margin-right: 6px;
     font-weight: 600;
+
+    margin-right: ${v.smSpacing};
+    @media ${b.md} {
+        margin-right: 6px;
+    }
 `;
 export const SSalePercentage = styled.span`
     display: block;
-    font-size: 12px;
     text-transform: uppercase;
+
+    font-size: 16px;
+    @media ${b.md} {
+        font-size: 14px;
+    }
 `;
 export const SPrice = styled.span`
     display: block;
     font-weight: 600;
-    font-size: 14px;
+
+    font-size: 18px;
+    @media ${b.md} {
+        font-size: 16px;
+    }
 `;
 export const STitle = styled.span`
     display: block;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 20px;
+
+    @media ${b.md} {
+        font-size: 16px;
+    }
 `;
 export const SComparePrice = styled.span`
     display: block;
@@ -155,5 +187,10 @@ export const SComparePrice = styled.span`
         top: 50%;
         right: 0;
         left: 0;
+    }
+
+    font-size: 16px;
+    @media ${b.md} {
+        font-size: 14px;
     }
 `;
