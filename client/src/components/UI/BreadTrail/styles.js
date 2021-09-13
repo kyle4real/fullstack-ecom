@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { v, s, b } from "../../../styles/variables";
+import { v } from "../../../styles/variables";
 
 import { Link } from "react-router-dom";
 

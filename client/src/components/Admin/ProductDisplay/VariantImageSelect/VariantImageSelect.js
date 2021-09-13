@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import useWindowSize from "../../../../hooks/useWindowSize";
 import { updateVariant } from "../../../../store/product-actions";
 import Button from "../../../UI/Button/Button";
 import Card from "../../../UI/Card/Card";

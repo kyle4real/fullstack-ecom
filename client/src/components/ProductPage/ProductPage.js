@@ -5,6 +5,7 @@ import { missingImg } from "../../assets";
 import { cartActions } from "../../store/cart-slice";
 
 import { productActions } from "../../store/product-slice";
+import { uiActions } from "../../store/ui-slice";
 import Accordian from "../UI/Accordian/Accordian";
 
 import Button from "../UI/Button/Button";
@@ -75,34 +76,44 @@ const ProductPage = () => {
         history.push(newUrl);
     };
 
-    let { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM } = useMemo(() => {
-        let TOPMedia = [],
-            MAINMedia = null,
-            BOTTOMMedia = [];
-        const mediaArr = currentProduct?.media;
-        const variantsArr = currentProduct?.variants;
-        const variantUrl = variantsArr?.find(({ title }) => title === productVariant)?.mediaUrl;
-        const filteredMediaArr = mediaArr?.filter(({ url }) => url !== variantUrl);
+    let { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM, variantPrice } =
+        useMemo(() => {
+            let TOPMedia = [],
+                MAINMedia = null,
+                BOTTOMMedia = [];
+            const mediaArr = currentProduct?.media;
+            const variantsArr = currentProduct?.variants;
+            const variantUrl = variantsArr?.find(({ title }) => title === productVariant)?.mediaUrl;
+            const filteredMediaArr = mediaArr?.filter(({ url }) => url !== variantUrl);
 
-        if (mediaArr?.length >= 5) {
-            TOPMedia = filteredMediaArr?.slice(1, 4);
-            MAINMedia = variantUrl;
-            BOTTOMMedia = filteredMediaArr?.slice(2);
-        } else if (mediaArr?.length >= 4) {
-            MAINMedia = variantUrl;
-            BOTTOMMedia = filteredMediaArr;
-        } else if (mediaArr?.length >= 3) {
-            TOPMedia = filteredMediaArr;
-            MAINMedia = variantUrl;
-        }
+            if (mediaArr?.length >= 5) {
+                TOPMedia = filteredMediaArr?.slice(1, 4);
+                MAINMedia = variantUrl;
+                BOTTOMMedia = filteredMediaArr?.slice(2);
+            } else if (mediaArr?.length >= 4) {
+                MAINMedia = variantUrl;
+                BOTTOMMedia = filteredMediaArr;
+            } else if (mediaArr?.length >= 3) {
+                TOPMedia = filteredMediaArr;
+                MAINMedia = variantUrl;
+            }
 
-        let MobileMediaMAIN = null;
-        let MobileMediaBOTTOM = [];
+            let MobileMediaMAIN = null;
+            let MobileMediaBOTTOM = [];
 
-        MobileMediaMAIN = variantUrl;
-        MobileMediaBOTTOM = mediaArr;
-        return { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM };
-    }, [currentProduct?.media, currentProduct?.variants, productVariant]);
+            MobileMediaMAIN = variantUrl;
+            MobileMediaBOTTOM = mediaArr;
+
+            let variantPrice = variantsArr?.find(({ title }) => title === productVariant)?.price;
+            return {
+                TOPMedia,
+                MAINMedia,
+                BOTTOMMedia,
+                MobileMediaMAIN,
+                MobileMediaBOTTOM,
+                variantPrice,
+            };
+        }, [currentProduct?.media, currentProduct?.variants, productVariant]);
 
     const addToCartHandler = (variant, product) => {
         dispatch(
@@ -113,6 +124,7 @@ const ProductPage = () => {
                 },
             })
         );
+        dispatch(uiActions.toggleCart());
     };
 
     return (
@@ -165,10 +177,10 @@ const ProductPage = () => {
                         <Rating />
                         <SContentSpacebetween>
                             <SProductTitle>{currentProduct?.title}</SProductTitle>
-                            <SProductPrice>${currentProduct?.price}.00 USD</SProductPrice>
+                            <SProductPrice>${variantPrice}.00 USD</SProductPrice>
                         </SContentSpacebetween>
                         <SCollectionName>Ecom Collection</SCollectionName>
-                        <SProductPrice mobile>${currentProduct?.price}.00 USD</SProductPrice>
+                        <SProductPrice mobile>${variantPrice}.00 USD</SProductPrice>
                     </SContentTOP>
                     <SContentVARIANTS>
                         <SVariantsHead>
@@ -243,9 +255,9 @@ const ProductPage = () => {
                             data={[
                                 {
                                     title: "Description",
-                                    content: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
-                                accusantium officia. Soluta praesentium blanditiis, maxime
-                                temporibus odit at exercitationem velit!`,
+                                    content: `lit. Quibusdam repellendrem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam 
+                                    repellendus, laboriosam voluptate sadfasdf asdfasdf sdfasdf asdf asdfasdf adsdf asd dfasdfsdf
+                                    temporibus odit at exercitationem velit! Lorem ipsum dolor sit amet consectetur adipi`,
                                 },
                                 {
                                     title: "Delivery & Returns",

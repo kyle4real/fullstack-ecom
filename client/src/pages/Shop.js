@@ -8,7 +8,7 @@ import { getProducts } from "../store/product-actions";
 import { productActions } from "../store/product-slice";
 
 const Shop = () => {
-    const { path, url } = useRouteMatch();
+    const { path } = useRouteMatch();
     const dispatch = useDispatch();
     const { productsArray } = useSelector((state) => state.product);
 

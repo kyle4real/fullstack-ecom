@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { SMenuDropdown, SNavItem, SNavItemContainer } from "../styles";
 import { SDropdownContent, SSection, SSectionLink, SSectionTitle } from "./styles";
 

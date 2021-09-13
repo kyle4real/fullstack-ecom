@@ -12,7 +12,6 @@ import {
     SCartDrawerContainer,
     SCartEmptyNotification,
     SCartHead,
-    SCartHeadSection,
     SCartHeadSpan,
     SCartProduct,
     SCartProductDisplay,
@@ -79,8 +78,6 @@ const CartDrawer = ({ layoutRef }) => {
             return r + v.qty;
         }, 0);
     }, [cartProducts]);
-
-    console.log(cartProducts);
 
     const totalPrice = useMemo(() => {
         return cartProducts.reduce((r, v) => {

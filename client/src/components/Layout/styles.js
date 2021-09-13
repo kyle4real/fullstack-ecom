@@ -13,7 +13,7 @@ export const SLayout = styled.div`
 export const SPage = styled.div`
     transition: 0.3s ease padding;
     /* flex: 1; */
-    padding: ${({ isProduct }) => (!isProduct ? v.lgSpacing : 0)};
+    padding: ${({ isProduct }) => (!isProduct ? v.mdSpacing : 0)};
 
     @media ${b.sm} {
         padding: ${v.lgSpacing};
@@ -22,7 +22,7 @@ export const SPage = styled.div`
     @media ${b.lg} {
         margin: 0 auto;
         width: 100%;
-        max-width: ${({ size }) => (!size ? s.lg : s[size])};
+        max-width: ${({ pageSize }) => (!pageSize ? s.lg : s[pageSize])};
     }
 `;
 

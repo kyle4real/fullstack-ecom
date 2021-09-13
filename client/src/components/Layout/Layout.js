@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
         <SLayout ref={layoutRef}>
             <Header />
             {isCollection && <PageHead />}
-            <SPage size={isProduct && "xl"} isProduct={isProduct}>
+            <SPage pageSize={isProduct && "xl"} isProduct={isProduct}>
                 <SDesktopWrapper>{isProduct && <BreadTrail />}</SDesktopWrapper>
                 {children}
             </SPage>

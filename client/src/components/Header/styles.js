@@ -16,12 +16,14 @@ import { IoPersonOutline } from "react-icons/io5";
 const height = css`
     height: calc(${v.headerHeight} + ${v.headerTopHeight} + 5vh);
 `;
-const heightMin = css`
-    height: ${v.headerHeight};
-`;
+// const heightMin = css`
+//     height: ${v.headerHeight};
+// `;
 const heightMid = css`
     height: calc(${v.headerHeight} + ${v.headerTopHeight});
 `;
+
+// HEADER ////////////////////////////////////////////////////
 export const SHeader = styled.div`
     height: ${v.headerHeight};
     position: relative;
@@ -30,6 +32,8 @@ export const SHeader = styled.div`
         ${({ isAdminArea }) => (isAdminArea ? heightMid : height)}
     }
 `;
+
+// ANNOUNCEMENTS ////////////////////////////////////////////////
 
 export const SHeaderAnnouncements = styled.div`
     position: absolute;
@@ -87,11 +91,15 @@ export const SRightIcon = styled(AiOutlineRight)`
     ${arrowStyles}
 `;
 
+// HEADER FIXED //////////////////////////////////////////////
+
 export const SHeaderFixed = styled.div`
     width: 100%;
     position: fixed;
     z-index: 1000;
 `;
+
+// HEADER TOP ////////////////////////////////////////////////
 
 export const SHeaderTop = styled.div`
     height: ${v.headerTopHeight};
