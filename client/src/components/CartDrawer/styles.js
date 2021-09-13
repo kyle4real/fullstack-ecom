@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 import { v, b } from "../../styles/variables";
 
-import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 
 // CART WRAP ////////////////////////////////
 export const SCartWrap = styled.div`
@@ -108,79 +108,6 @@ export const SProductPrice = styled.span`
     color: ${({ theme }) => theme.primaryLight};
 `;
 
-// QTY SELECTION ///////////////////////////////////////
-
-export const SQtySelection = styled.div`
-    display: inline-block;
-    position: relative;
-    display: flex;
-    width: fit-content;
-    border: 1px solid ${({ theme }) => theme.primaryLighter};
-    color: ${({ disabled }) => (!disabled ? "initial" : "red")};
-
-    user-select: none;
-`;
-
-export const SQtySelectionSpan = styled.span`
-    color: inherit;
-    font-size: 14px;
-    width: ${v.lgSpacing};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: ${v.smSpacing} 0;
-
-    border-right: 1px solid ${({ theme }) => theme.primaryLighter};
-`;
-
-export const SQtySelectionButton = styled.button`
-    background: ${({ theme }) => theme.bg2};
-    border: none;
-    outline: none;
-    color: inherit;
-    font-size: 14px;
-    width: ${v.lgSpacing};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: ${v.smSpacing} 0;
-    :not(:last-child) {
-        border-right: 1px solid ${({ theme }) => theme.primaryLighter};
-    }
-    :hover {
-        background: ${({ theme }) => theme.overlay};
-        color: ${({ theme }) => theme.text};
-    }
-    :disabled {
-        background: ${({ theme }) => theme.bg2};
-        color: ${({ theme }) => theme.primaryLighter};
-        :hover {
-            background: none;
-        }
-    }
-    cursor: pointer;
-`;
-
-const iconStyle = css`
-    display: inline-block;
-    font-size: 16px;
-`;
-export const SMinusIcon = styled(AiOutlineMinus)`
-    ${iconStyle}
-`;
-export const SPlusIcon = styled(AiOutlinePlus)`
-    ${iconStyle}
-`;
-
-export const SRemoveButton = styled.span`
-    margin-top: ${v.smSpacing};
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 400;
-    color: ${({ theme }) => theme.primaryLight};
-    cursor: pointer;
-`;
-
 // CART TOTAL //////////////////////////////////////////////
 
 export const SCartTotal = styled.div`
@@ -204,15 +131,6 @@ export const SCartTotalPrice = styled.span`
     display: block;
     font-size: 20px;
     font-weight: 600;
-`;
-
-// EMPTY NOTIFICATION ///////////////////////////////////////
-export const SCartEmptyNotification = styled.span`
-    display: block;
-    font-size: 18px;
-    font-weight: 400;
-    padding: ${v.lgSpacing} 0;
-    text-align: center;
 `;
 
 // CART BUTTONS //////////////////////////////////////////////

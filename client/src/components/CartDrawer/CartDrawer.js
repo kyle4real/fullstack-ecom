@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import useCartActions from "../../hooks/useCartActions";
+
 import useDetectClickaway from "../../hooks/useClickAway";
 import { uiActions } from "../../store/ui-slice";
 import Button from "../UI/Button/Button";
+import EmptyCart from "../UI/EmptyCart/EmptyCart";
 import Overlay from "../UI/Overlay/Overlay";
 import QuantitySelection from "../UI/QuantitySelection/QuantitySelection";
 import {
@@ -12,7 +13,6 @@ import {
     SCartButtons,
     SCartDrawer,
     SCartDrawerContainer,
-    SCartEmptyNotification,
     SCartHead,
     SCartHeadSpan,
     SCartProduct,
@@ -24,16 +24,10 @@ import {
     SCloseIcon,
     SImage,
     SImageContainer,
-    SMinusIcon,
-    SPlusIcon,
     SProductContent,
     SProductPrice,
     SProductTitle,
     SProductVariant,
-    SQtySelection,
-    SQtySelectionButton,
-    SQtySelectionSpan,
-    SRemoveButton,
 } from "./styles";
 
 const CartDrawer = ({ layoutRef }) => {
@@ -47,7 +41,6 @@ const CartDrawer = ({ layoutRef }) => {
     });
     const { cartDrawer } = useSelector((state) => state.ui);
     const { cartProducts } = useSelector((state) => state.cart);
-    const { removeHandler, addHandler, subHandler } = useCartActions();
 
     useEffect(() => {
         if (cartDrawer) {
@@ -117,11 +110,7 @@ const CartDrawer = ({ layoutRef }) => {
                             <SCartTotalLabel>Total</SCartTotalLabel>
                             <SCartTotalPrice>${totalPrice}.00 USD</SCartTotalPrice>
                         </SCartTotal>
-                        {cartProducts.length === 0 && (
-                            <SCartEmptyNotification>
-                                Your Cart Is Currently Empty
-                            </SCartEmptyNotification>
-                        )}
+                        {cartProducts.length === 0 && <EmptyCart />}
                         {cartProducts.length > 0 && (
                             <SCartButtons>
                                 <SButtonControl>

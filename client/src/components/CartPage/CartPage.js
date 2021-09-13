@@ -1,26 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useCartActions from "../../hooks/useCartActions";
+import EmptyCart from "../UI/EmptyCart/EmptyCart";
 import QuantitySelection from "../UI/QuantitySelection/QuantitySelection";
 
 import {
-    SCartEmptyNotification,
     SCartPage,
     SCartPageTitle,
-    SContinueShopping,
-    SContinueShoppingContainer,
-    SContinueShoppingLink,
     SImage,
     SImageContainer,
-    SMinusIcon,
-    SPlusIcon,
     SProductPrice,
     SProductTitle,
     SProductVariant,
-    SQtySelection,
-    SQtySelectionButton,
-    SQtySelectionSpan,
-    SRemoveButton,
     STable,
     STableBody,
     STableBodyTD,
@@ -35,27 +25,12 @@ const CartPage = () => {
     const { authData } = useSelector((state) => state.auth);
     const firstName = authData?.name?.split(" ")?.[0];
     const { cartProducts } = useSelector((state) => state.cart);
-    const { removeHandler, addHandler, subHandler } = useCartActions();
 
     return (
         <SCartPage>
             <SCartPageTitle>{firstName ? <>{firstName}'s</> : <>Your</>} Cart</SCartPageTitle>
             <>
-                <>
-                    {cartProducts?.length === 0 && (
-                        <>
-                            <SCartEmptyNotification>
-                                Your cart is currently empty.
-                            </SCartEmptyNotification>
-                            <SContinueShoppingContainer>
-                                <SContinueShopping>Continue Shopping</SContinueShopping>
-                                <>&nbsp;</>
-                                <SContinueShoppingLink to="/shop">here</SContinueShoppingLink>
-                                <>.</>
-                            </SContinueShoppingContainer>
-                        </>
-                    )}
-                </>
+                <>{cartProducts?.length === 0 && <EmptyCart />}</>
                 {cartProducts?.length > 0 && (
                     <STable>
                         <STableHead>
