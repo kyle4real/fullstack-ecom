@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import useCartActions from "../../hooks/useCartActions";
 import useDetectClickaway from "../../hooks/useClickAway";
-import { cartActions } from "../../store/cart-slice";
 import { uiActions } from "../../store/ui-slice";
 import Button from "../UI/Button/Button";
 import Overlay from "../UI/Overlay/Overlay";
+import QuantitySelection from "../UI/QuantitySelection/QuantitySelection";
 import {
     SButtonControl,
     SCartButtons,
@@ -46,6 +47,7 @@ const CartDrawer = ({ layoutRef }) => {
     });
     const { cartDrawer } = useSelector((state) => state.ui);
     const { cartProducts } = useSelector((state) => state.cart);
+    const { removeHandler, addHandler, subHandler } = useCartActions();
 
     useEffect(() => {
         if (cartDrawer) {
@@ -62,22 +64,6 @@ const CartDrawer = ({ layoutRef }) => {
     const cartRedirectHandler = () => {
         history.push("/cart");
         dispatch(uiActions.toggleCart());
-    };
-
-    const removeHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.removeFromCart({ data: { product: productObj, variant: variantSelection } })
-        );
-    };
-    const addHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.addToCart({ data: { product: productObj, variant: variantSelection } })
-        );
-    };
-    const subHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.subFromCart({ data: { product: productObj, variant: variantSelection } })
-        );
     };
 
     const cartAmount = useMemo(() => {
@@ -106,53 +92,26 @@ const CartDrawer = ({ layoutRef }) => {
                             <SCloseIcon onClick={() => dispatch(uiActions.toggleCart())} />
                         </SCartHead>
                         <SCartProductDisplay>
-                            {[...cartProducts]
-                                ?.reverse()
-                                ?.map(({ productObj, variantSelection, qty }, index) => {
-                                    const { variants, media, title } = productObj;
-                                    const { mediaUrl, price } = variants?.find(
-                                        ({ title }) => title === variantSelection
-                                    );
-                                    return (
-                                        <SCartProduct key={index}>
-                                            <SImageContainer>
-                                                <SImage src={mediaUrl || media?.[0]?.url} />
-                                            </SImageContainer>
-                                            <SProductContent>
-                                                <SProductTitle>{title}</SProductTitle>
-                                                <SProductVariant>
-                                                    {variantSelection}
-                                                </SProductVariant>
-                                                <SProductPrice>${price}.00 USD</SProductPrice>
-                                                <SQtySelection>
-                                                    <SQtySelectionButton
-                                                        disabled={qty === 1}
-                                                        onClick={() =>
-                                                            subHandler(productObj, variantSelection)
-                                                        }
-                                                    >
-                                                        <SMinusIcon />
-                                                    </SQtySelectionButton>
-                                                    <SQtySelectionSpan>{qty}</SQtySelectionSpan>
-                                                    <SQtySelectionButton
-                                                        onClick={() =>
-                                                            addHandler(productObj, variantSelection)
-                                                        }
-                                                    >
-                                                        <SPlusIcon />
-                                                    </SQtySelectionButton>
-                                                </SQtySelection>
-                                                <SRemoveButton
-                                                    onClick={() =>
-                                                        removeHandler(productObj, variantSelection)
-                                                    }
-                                                >
-                                                    Remove
-                                                </SRemoveButton>
-                                            </SProductContent>
-                                        </SCartProduct>
-                                    );
-                                })}
+                            {[...cartProducts]?.reverse()?.map((cartProduct, index) => {
+                                const { productObj, variantSelection, qty } = cartProduct;
+                                const { variants, media, title } = productObj;
+                                const { mediaUrl, price } = variants?.find(
+                                    ({ title }) => title === variantSelection
+                                );
+                                return (
+                                    <SCartProduct key={index}>
+                                        <SImageContainer>
+                                            <SImage src={mediaUrl || media?.[0]?.url} />
+                                        </SImageContainer>
+                                        <SProductContent>
+                                            <SProductTitle>{title}</SProductTitle>
+                                            <SProductVariant>{variantSelection}</SProductVariant>
+                                            <SProductPrice>${price}.00 USD</SProductPrice>
+                                            <QuantitySelection cartProduct={cartProduct} />
+                                        </SProductContent>
+                                    </SCartProduct>
+                                );
+                            })}
                         </SCartProductDisplay>
                         <SCartTotal>
                             <SCartTotalLabel>Total</SCartTotalLabel>
