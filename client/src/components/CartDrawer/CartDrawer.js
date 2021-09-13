@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import useDetectClickaway from "../../hooks/useClickAway";
 import { cartActions } from "../../store/cart-slice";
 import { uiActions } from "../../store/ui-slice";
@@ -36,6 +37,7 @@ import {
 
 const CartDrawer = ({ layoutRef }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const cartRef = useRef();
     useDetectClickaway(cartRef, () => {
         if (cartDrawer) {
@@ -56,6 +58,11 @@ const CartDrawer = ({ layoutRef }) => {
             layoutRef.current.style["overflow"] = "initial";
         }
     }, [cartDrawer, layoutRef]);
+
+    const cartRedirectHandler = () => {
+        history.push("/cart");
+        dispatch(uiActions.toggleCart());
+    };
 
     const removeHandler = (productObj, variantSelection) => {
         dispatch(
@@ -152,14 +159,16 @@ const CartDrawer = ({ layoutRef }) => {
                             <SCartTotalPrice>${totalPrice}.00 USD</SCartTotalPrice>
                         </SCartTotal>
                         {cartProducts.length === 0 && (
-                            <SCartEmptyNotification>Your Cart Is Empty</SCartEmptyNotification>
+                            <SCartEmptyNotification>
+                                Your Cart Is Currently Empty
+                            </SCartEmptyNotification>
                         )}
                         {cartProducts.length > 0 && (
                             <SCartButtons>
                                 <SButtonControl>
                                     <Button>Checkout</Button>
                                 </SButtonControl>
-                                <SButtonControl>
+                                <SButtonControl onClick={cartRedirectHandler}>
                                     <Button secondary>Your Cart</Button>
                                 </SButtonControl>
                             </SCartButtons>

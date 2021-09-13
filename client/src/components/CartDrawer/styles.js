@@ -172,10 +172,6 @@ export const SPlusIcon = styled(AiOutlinePlus)`
     ${iconStyle}
 `;
 
-export const SQtySelectionPopup = styled.div`
-    position: absolute;
-`;
-
 export const SRemoveButton = styled.span`
     margin-top: ${v.smSpacing};
     display: inline-block;
@@ -214,7 +210,7 @@ export const SCartTotalPrice = styled.span`
 export const SCartEmptyNotification = styled.span`
     display: block;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 400;
     padding: ${v.lgSpacing} 0;
     text-align: center;
 `;
