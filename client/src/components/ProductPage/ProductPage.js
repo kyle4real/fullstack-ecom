@@ -104,6 +104,17 @@ const ProductPage = () => {
         return { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM };
     }, [currentProduct?.media, currentProduct?.variants, productVariant]);
 
+    const addToCartHandler = (variant, product) => {
+        dispatch(
+            cartActions.addToCart({
+                data: {
+                    variant,
+                    product,
+                },
+            })
+        );
+    };
+
     return (
         <SProductPage>
             <SMediaSection>
@@ -191,14 +202,7 @@ const ProductPage = () => {
                             <Button
                                 font={"14px"}
                                 onClick={() =>
-                                    dispatch(
-                                        cartActions.addToCart({
-                                            data: {
-                                                variant: productVariant,
-                                                product: { ...currentProduct },
-                                            },
-                                        })
-                                    )
+                                    addToCartHandler(productVariant, { ...currentProduct })
                                 }
                             >
                                 Add To Cart
@@ -212,7 +216,12 @@ const ProductPage = () => {
                     </SContentBUTTONS>
 
                     <SButtonFIXED>
-                        <Button font={"14px"}>Add To Cart</Button>
+                        <Button
+                            font={"14px"}
+                            onClick={() => addToCartHandler(productVariant, { ...currentProduct })}
+                        >
+                            Add To Cart
+                        </Button>
                     </SButtonFIXED>
 
                     <SContentCARD>

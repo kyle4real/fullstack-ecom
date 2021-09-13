@@ -39,31 +39,3 @@ export const SDesktopWrapper = styled.div`
         display: block;
     }
 `;
-
-export const SCartWrap = styled.div`
-    .cart-open {
-        right: 0;
-    }
-`;
-
-export const SCartDrawerContainer = styled.div`
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    height: 100vh;
-    background: white;
-    transition: 0.4s ease-in right;
-    z-index: 10000;
-    box-shadow: ${v.cardBoxShadow};
-
-    width: 70%;
-    right: -100%;
-    @media ${b.sm} {
-        width: 60%;
-        right: -100%;
-    }
-    @media ${b.md} {
-        width: 27.5rem;
-        right: -27.5rem;
-    }
-`;
