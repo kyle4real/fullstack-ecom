@@ -52,7 +52,7 @@ import {
     SVariantsName,
 } from "./styles";
 
-const ProductPage = () => {
+const Product = () => {
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
@@ -274,4 +274,4 @@ const ProductPage = () => {
     );
 };
 
-export default ProductPage;
+export default Product;

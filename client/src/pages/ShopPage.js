@@ -1,13 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import ProductPage from "../components/ProductPage/ProductPage";
+import Product from "../components/Product/Product";
 
 import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
+import PageLayout from "../components/UI/PageLayout/PageLayout";
 import { getProducts } from "../store/product-actions";
 import { productActions } from "../store/product-slice";
+import ShopCategoryPage from "./ShopCategoryPage";
+import ShopCollectionPage from "./ShopCollectionPage";
 
-const Shop = () => {
+const ShopPage = () => {
     const { path } = useRouteMatch();
     const dispatch = useDispatch();
     const { productsArray } = useSelector((state) => state.product);
@@ -24,20 +27,24 @@ const Shop = () => {
         <>
             <Switch>
                 <Route exact path={path}>
-                    <ProductsGrid productsArray={productsArray} />
+                    <PageLayout
+                        layoutArr={[
+                            {
+                                type: "contain",
+                                component: <ProductsGrid productsArray={productsArray} />,
+                            },
+                        ]}
+                    />
                 </Route>
                 <Route exact path={`${path}/collections/:collection`}>
-                    <ProductsGrid productsArray={productsArray} />
+                    <ShopCollectionPage />
                 </Route>
-                <Route exact path={`${path}/products/:product`}>
-                    <ProductPage />
-                </Route>
-                <Route path={`${path}/products/:product/:variant`}>
-                    <ProductPage />
+                <Route exact path={`${path}/categories/:category`}>
+                    <ShopCategoryPage />
                 </Route>
             </Switch>
         </>
     );
 };
 
-export default Shop;
+export default ShopPage;

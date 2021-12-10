@@ -42,17 +42,17 @@ const CartDrawer = ({ layoutRef }) => {
     const { cartDrawer } = useSelector((state) => state.ui);
     const { cartProducts } = useSelector((state) => state.cart);
 
-    useEffect(() => {
-        if (cartDrawer) {
-            cartRef.current.classList.add("cart-open");
-            layoutRef.current.style["height"] = `100vh`;
-            layoutRef.current.style["overflow"] = "hidden";
-        } else {
-            cartRef.current.classList.remove("cart-open");
-            layoutRef.current.style["height"] = "100%";
-            layoutRef.current.style["overflow"] = "initial";
-        }
-    }, [cartDrawer, layoutRef]);
+    // useEffect(() => {
+    //     if (cartDrawer) {
+    //         cartRef.current.classList.add("cart-open");
+    //         layoutRef.current.style["height"] = `100vh`;
+    //         layoutRef.current.style["overflow"] = "hidden";
+    //     } else {
+    //         cartRef.current.classList.remove("cart-open");
+    //         layoutRef.current.style["height"] = "100%";
+    //         layoutRef.current.style["overflow"] = "initial";
+    //     }
+    // }, [cartDrawer, layoutRef]);
 
     const cartRedirectHandler = () => {
         history.push("/cart");

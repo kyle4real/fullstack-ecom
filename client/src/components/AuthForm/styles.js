@@ -14,7 +14,7 @@ export const SAuthForm = styled.div`
 export const SFormContainer = styled.div`
     line-height: 100%;
     margin-top: ${v.xlSpacing};
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.text};
 `;
 
 export const SFormTitle = styled.span`
@@ -41,7 +41,7 @@ export const SLabel = styled.label`
     display: block;
     font-weight: 600;
     font-size: 11px;
-    color: ${({ theme }) => theme.primaryLight};
+    color: ${({ theme }) => theme.text2};
     line-height: 100%;
     padding-bottom: 4px;
 `;
@@ -51,7 +51,7 @@ export const SInput = styled.input`
     width: 100%;
     font-size: 12px;
     padding: calc(${v.smSpacing} + 4px) calc(${v.smSpacing} + 4px);
-    border: 1px solid ${({ theme }) => theme.primaryLighter};
+    border: 1px solid ${({ theme }) => theme.bg3};
     border-radius: 2px;
     outline: none;
     transition: 0.3s ease border-color;
@@ -84,7 +84,7 @@ export const SFormForgotPassword = styled(Link)`
     display: block;
     font-size: 12px;
     text-align: center;
-    color: ${({ theme }) => theme.primaryLight};
+    color: ${({ theme }) => theme.text2};
     margin-top: ${v.mdSpacing};
 
     :hover {
@@ -93,7 +93,7 @@ export const SFormForgotPassword = styled(Link)`
 `;
 
 export const SFormSwitch = styled.div`
-    color: ${({ theme }) => theme.primaryLight};
+    color: ${({ theme }) => theme.text};
     margin-top: ${v.lgSpacing};
     display: flex;
     justify-content: center;

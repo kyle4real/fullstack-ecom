@@ -20,7 +20,7 @@ import {
     STableHeadTR,
 } from "./styles";
 
-const CartPage = () => {
+const Cart = () => {
     const dispatch = useDispatch();
     const { authData } = useSelector((state) => state.auth);
     const firstName = authData?.name?.split(" ")?.[0];
@@ -75,4 +75,4 @@ const CartPage = () => {
     );
 };
 
-export default CartPage;
+export default Cart;

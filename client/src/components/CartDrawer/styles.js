@@ -74,7 +74,7 @@ export const SCartProductDisplay = styled.div`
 export const SCartProduct = styled.div`
     display: flex;
     padding: ${v.mdSpacing} 0;
-    border-bottom: 1px solid ${({ theme }) => theme.primaryLighter};
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
 `;
 export const SImageContainer = styled.div`
     max-width: 100px;
@@ -99,13 +99,13 @@ export const SProductVariant = styled.span`
     display: block;
     font-size: 14px;
     margin-bottom: ${v.smSpacing};
-    color: ${({ theme }) => theme.primaryLight};
+    color: ${({ theme }) => theme.text2};
 `;
 export const SProductPrice = styled.span`
     display: block;
     font-size: 14px;
     margin-bottom: ${v.mdSpacing};
-    color: ${({ theme }) => theme.primaryLight};
+    color: ${({ theme }) => theme.text};
 `;
 
 // CART TOTAL //////////////////////////////////////////////
@@ -117,7 +117,7 @@ export const SCartTotal = styled.div`
     align-items: flex-end;
     padding-bottom: ${v.mdSpacing};
     padding-right: ${v.mdSpacing};
-    border-bottom: 1px solid ${({ theme }) => theme.primaryLighter};
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
     margin-bottom: ${v.lgSpacing};
 `;
 

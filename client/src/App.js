@@ -1,16 +1,11 @@
-import { Route, Switch } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Helmet } from "react-helmet";
-
-import Home from "./pages/Home";
 
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./styles/theme";
 import { GlobalStyles } from "./styles/globalStyles";
 import Layout from "./components/Layout/Layout";
-import Shop from "./pages/Shop";
-import Auth from "./pages/Auth";
-import Cart from "./pages/Cart";
+import Routes from "./Routes";
 
 function App() {
     const { theme } = useSelector((state) => state.ui);
@@ -29,20 +24,7 @@ function App() {
             </Helmet>
             <>
                 <Layout>
-                    <Switch>
-                        <Route exact path="/">
-                            <Home />
-                        </Route>
-                        <Route path="/shop">
-                            <Shop />
-                        </Route>
-                        <Route path="/account">
-                            <Auth />
-                        </Route>
-                        <Route path="/cart">
-                            <Cart />
-                        </Route>
-                    </Switch>
+                    <Routes />
                 </Layout>
             </>
         </ThemeProvider>
