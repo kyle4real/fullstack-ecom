@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./config/config.env" });
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import "colors";
 
 import userRoutes from "./routes/users.js";
 import productRoutes from "./routes/products.js";
@@ -22,6 +23,12 @@ app.use("/user", userRoutes);
 app.use("/product", productRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Server running on PORT ${PORT}`);
+const server = app.listen(PORT, () => {
+    console.log(`Server running in ${process.env.NODE_ENV} mode on PORT ${PORT}`.green.bold);
+});
+
+process.on("unhandledRejection", (error, promise) => {
+    console.log(`Error: ${error.message}`.red.bold);
+    // Close server and exit process
+    server.close(() => process.exit(1));
 });
