@@ -1,5 +1,7 @@
-import * as api from "./../api";
-import { authActions } from "./auth-slice";
+import { authActions } from "../slices/auth-slice";
+import * as api from "./../../api";
+
+// TODO
 
 export const loginUser = (formInput, history) => {
     return async (dispatch) => {
@@ -8,7 +10,7 @@ export const loginUser = (formInput, history) => {
             dispatch(authActions.loginUser({ data }));
             history.push("/account");
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     };
 };
@@ -20,7 +22,7 @@ export const registerUser = (formInput, history) => {
             dispatch(authActions.loginUser({ data }));
             history.push("/account");
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     };
 };

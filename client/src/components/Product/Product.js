@@ -1,11 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, useRouteMatch } from "react-router";
 import { missingImg } from "../../assets";
-import { cartActions } from "../../store/cart-slice";
+import { cartActions } from "../../app/slices/cart-slice";
 
-import { productActions } from "../../store/product-slice";
-import { uiActions } from "../../store/ui-slice";
 import Accordian from "../UI/Accordian/Accordian";
 
 import Button from "../UI/Button/Button";
@@ -51,24 +49,16 @@ import {
     SVariantsHead,
     SVariantsName,
 } from "./styles";
+import { uiActions } from "../../app/slices/ui-slice";
 
 const Product = () => {
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
     const { url } = useRouteMatch();
-    const { currentProduct, productsArray } = useSelector((state) => state.product);
+    const { product } = useSelector((state) => state.product);
     const [currentHover, setCurrentHover] = useState(null);
     const [currentMain, setCurrentMain] = useState(null);
-    const productSku = params.product;
-    const productVariant = params.variant;
-
-    useEffect(() => {
-        const product = productsArray?.find?.(({ sku }) => sku === productSku);
-        dispatch(productActions.replaceCurrentProduct({ data: { result: product } }));
-
-        return () => dispatch(productActions.replaceCurrentProduct({ data: { result: null } }));
-    }, [dispatch, productsArray, productSku]);
 
     const variantSelectHandler = (variantTitle) => {
         setCurrentMain(null);
@@ -81,9 +71,9 @@ const Product = () => {
             let TOPMedia = [],
                 MAINMedia = null,
                 BOTTOMMedia = [];
-            const mediaArr = currentProduct?.media;
-            const variantsArr = currentProduct?.variants;
-            const variantUrl = variantsArr?.find(({ title }) => title === productVariant)?.mediaUrl;
+            const mediaArr = product?.media;
+            const variantsArr = product?.variants;
+            const variantUrl = variantsArr?.find(({ title }) => title === params.variant)?.mediaUrl;
             const filteredMediaArr = mediaArr?.filter(({ url }) => url !== variantUrl);
 
             if (mediaArr?.length >= 5) {
@@ -104,7 +94,7 @@ const Product = () => {
             MobileMediaMAIN = variantUrl;
             MobileMediaBOTTOM = mediaArr;
 
-            let variantPrice = variantsArr?.find(({ title }) => title === productVariant)?.price;
+            let variantPrice = variantsArr?.find(({ title }) => title === params.variant)?.price;
             return {
                 TOPMedia,
                 MAINMedia,
@@ -113,7 +103,7 @@ const Product = () => {
                 MobileMediaBOTTOM,
                 variantPrice,
             };
-        }, [currentProduct?.media, currentProduct?.variants, productVariant]);
+        }, [product, params.variant]);
 
     const addToCartHandler = (variant, product) => {
         dispatch(
@@ -176,7 +166,7 @@ const Product = () => {
                     <SContentTOP>
                         <Rating />
                         <SContentSpacebetween>
-                            <SProductTitle>{currentProduct?.title}</SProductTitle>
+                            <SProductTitle>{product?.title}</SProductTitle>
                             <SProductPrice>${variantPrice}.00 USD</SProductPrice>
                         </SContentSpacebetween>
                         <SCollectionName>Ecom Collection</SCollectionName>
@@ -186,18 +176,18 @@ const Product = () => {
                         <SVariantsHead>
                             <SVariantsName>Size:</SVariantsName>
                             <SVariantSelection>
-                                {currentHover ? currentHover : productVariant}
+                                {currentHover ? currentHover : params.variant}
                             </SVariantSelection>
                         </SVariantsHead>
                         <SVariantsGrid>
-                            {currentProduct?.variants?.map(({ mediaUrl, title }, index) => (
+                            {product?.variants?.map(({ mediaUrl, title }, index) => (
                                 <SVariantGridItem key={index}>
                                     <SVariantImageContainer
                                         onClick={() => variantSelectHandler(title)}
                                         active={
                                             currentHover
                                                 ? currentHover === title
-                                                : productVariant === title
+                                                : params.variant === title
                                         }
                                         onMouseEnter={() => setCurrentHover(title)}
                                         onMouseLeave={() => setCurrentHover(null)}
@@ -213,9 +203,7 @@ const Product = () => {
                         <SButtonControl>
                             <Button
                                 font={"14px"}
-                                onClick={() =>
-                                    addToCartHandler(productVariant, { ...currentProduct })
-                                }
+                                onClick={() => addToCartHandler(params.variant, { ...product })}
                             >
                                 Add To Cart
                             </Button>
@@ -230,7 +218,7 @@ const Product = () => {
                     <SButtonFIXED>
                         <Button
                             font={"14px"}
-                            onClick={() => addToCartHandler(productVariant, { ...currentProduct })}
+                            onClick={() => addToCartHandler(params.variant, { ...product })}
                         >
                             Add To Cart
                         </Button>

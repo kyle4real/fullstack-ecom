@@ -1,26 +1,30 @@
 import React, { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import Product from "../components/Product/Product";
+import { getProducts } from "../app/actions/products-actions";
+import { productsActions } from "../app/slices/products-slice";
 
 import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
-import { getProducts } from "../store/product-actions";
-import { productActions } from "../store/product-slice";
+
 import ShopCategoryPage from "./ShopCategoryPage";
 import ShopCollectionPage from "./ShopCollectionPage";
 
 const ShopPage = () => {
     const { path } = useRouteMatch();
     const dispatch = useDispatch();
-    const { productsArray } = useSelector((state) => state.product);
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        dispatch(getProducts());
+        const onComplete = () => setLoading(false);
+        const onError = (err) => setError(err);
 
-        return () => {
-            dispatch(productActions.replaceProducts({ data: { result: null } }));
-        };
+        dispatch(getProducts({ onComplete, onError }));
+
+        return () => dispatch(productsActions.resetProducts());
     }, [dispatch]);
 
     return (
@@ -28,10 +32,12 @@ const ShopPage = () => {
             <Switch>
                 <Route exact path={path}>
                     <PageLayout
+                        loading={loading}
+                        error={error}
                         layoutArr={[
                             {
                                 type: "contain",
-                                component: <ProductsGrid productsArray={productsArray} />,
+                                component: <ProductsGrid />,
                             },
                         ]}
                     />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateVariant } from "../../../../store/product-actions";
+import { updateVariant } from "../../../../app/actions/product-actions";
 import Button from "../../../UI/Button/Button";
 import Card from "../../../UI/Card/Card";
 import CheckBox from "../../../UI/CheckBox/CheckBox";

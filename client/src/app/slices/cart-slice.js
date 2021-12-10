@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const cartProduct = {
-//     qty: 1,
-//     variantSelection: '',
-//     productObj: {}
-// }
-
 const cartSlice = createSlice({
     name: "cart",
     initialState: {

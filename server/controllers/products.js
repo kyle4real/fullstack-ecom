@@ -8,7 +8,7 @@ export const products = async (req, res) => {
     try {
         const products = await Product.find({});
 
-        res.status(200).json({ result: products });
+        res.status(200).json({ data: products });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }
@@ -18,11 +18,11 @@ export const product = async (req, res) => {
     try {
         const id = req.params.id;
 
-        const product = await Product.findById(id);
+        const product = await Product.findOne({ sku: id });
 
         if (!product) res.status(404).json({ message: "Product does not exist." });
 
-        res.status(200).json({ result: product });
+        res.status(200).json({ data: product });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }
@@ -70,7 +70,7 @@ export const uploadMedia = async (req, res) => {
             { new: true }
         );
 
-        res.status(200).json({ result: updatedProduct });
+        res.status(200).json({ data: updatedProduct });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }
@@ -98,7 +98,7 @@ export const deleteMedia = async (req, res) => {
 
         product.save();
 
-        res.status(200).json({ result: product });
+        res.status(200).json({ data: product });
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }

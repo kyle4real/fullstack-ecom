@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { loginUser, registerUser } from "../../store/auth-actions";
+import { loginUser, registerUser } from "../../app/actions/auth-actions";
+
 import Button from "../UI/Button/Button";
 
 import {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { navLinks } from "../../data";
 import useWindowSize from "../../hooks/useWindowSize";
-import { uiActions } from "../../store/ui-slice";
+import { uiActions } from "../../app/slices/ui-slice";
 import DropdownContent from "./DropdownContent/DropdownContent";
 import {
     SAccountIcon,

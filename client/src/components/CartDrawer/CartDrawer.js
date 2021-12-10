@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { uiActions } from "../../app/slices/ui-slice";
 
 import useDetectClickaway from "../../hooks/useClickAway";
-import { uiActions } from "../../store/ui-slice";
 import Button from "../UI/Button/Button";
 import EmptyCart from "../UI/EmptyCart/EmptyCart";
 import Overlay from "../UI/Overlay/Overlay";

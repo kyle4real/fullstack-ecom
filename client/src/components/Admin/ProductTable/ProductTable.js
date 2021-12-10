@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../../store/product-actions";
 
 import { useHistory, useRouteMatch } from "react-router-dom";
 
@@ -30,7 +29,8 @@ import {
 } from "./styles";
 import useWindowSize from "../../../hooks/useWindowSize";
 import Loading from "../../UI/Loading/Loading";
-import { productActions } from "../../../store/product-slice";
+import { getProducts } from "../../../app/actions/products-actions";
+import { productActions } from "../../../app/slices/product-slice";
 
 const ProductTable = () => {
     const { isMin } = useWindowSize({ size: "sm" });

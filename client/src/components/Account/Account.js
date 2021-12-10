@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch, useHistory } from "react-router-dom";
 
-import { authActions } from "./../../store/auth-slice";
+import { authActions } from "../../app/slices/auth-slice";
 
 import Button from "../UI/Button/Button";
 import {
