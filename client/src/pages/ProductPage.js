@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getProduct } from "../app/actions/product-actions";
 import { productActions } from "../app/slices/product-slice";
 import Product from "../components/Product/Product";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const ProductPage = () => {
-    const { path } = useRouteMatch();
     const params = useParams();
     const dispatch = useDispatch();
 
@@ -30,16 +29,7 @@ const ProductPage = () => {
             layoutArr={[
                 {
                     type: "contain",
-                    component: (
-                        <Switch>
-                            <Route exact path={`${path}`}>
-                                <Product />
-                            </Route>
-                            <Route path={`${path}/:variant`}>
-                                <Product />
-                            </Route>
-                        </Switch>
-                    ),
+                    component: <Product />,
                 },
             ]}
         />

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { getProducts } from "../app/actions/products-actions";
 import { productsActions } from "../app/slices/products-slice";

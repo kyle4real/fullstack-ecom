@@ -14,7 +14,7 @@ import {
     STitle,
 } from "./styles";
 
-const Account = ({ buttons }) => {
+const Account = () => {
     const { authData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
@@ -37,11 +37,11 @@ const Account = ({ buttons }) => {
                     <STitle>Welcome {authData?.name?.split(" ")?.[0]}</STitle>
                     <SDescription>Explore your account</SDescription>
                     <SAccountButtons>
-                        {buttons.map(({ button, to }, index) => (
+                        {/* {buttons.map(({ button, to }, index) => (
                             <SButtonContainer key={index}>
                                 <Button onClick={() => buttonClickHandler(to)}>{button}</Button>
                             </SButtonContainer>
-                        ))}
+                        ))} */}
                         <SButtonContainer>
                             <Button secondary onClick={logoutHandler}>
                                 Logout
