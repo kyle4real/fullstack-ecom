@@ -8,8 +8,8 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
     }
     body {
-        background: ${({ theme }) => theme.bg2};
-        color: ${({ theme }) => theme.primary};
+        background: ${({ theme }) => theme.bg};
+        color: ${({ theme }) => theme.text};
         font-family: 'Roboto', sans-serif;
         letter-spacing: .6px;
     }

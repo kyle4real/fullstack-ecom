@@ -39,7 +39,7 @@ export const SHeaderAnnouncements = styled.div`
     position: absolute;
     bottom: 0;
     color: ${({ theme }) => theme.text};
-    background: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.bg2};
     height: 5vh;
     /* padding-top: calc(${v.headerHeight} + ${v.headerTopHeight}); */
     justify-content: center;
@@ -130,7 +130,7 @@ export const SNavTopItem = styled(Link)`
     padding: 0 ${v.mdSpacing};
 
     :not(:last-child) {
-        border-right: 1px solid ${({ theme }) => theme.textDark};
+        border-right: 1px solid ${({ theme }) => theme.bg};
     }
 
     color: ${({ theme }) => theme.textDark};
@@ -160,8 +160,8 @@ export const SHeaderMain = styled.div`
     padding: 0 ${v.lgSpacing};
     display: flex;
     justify-content: space-between;
-    background: ${({ theme }) => theme.primary};
-    box-shadow: 0 0 0 0.5px ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.bg};
+    box-shadow: inset 0 -1px 0 0 ${({ theme }) => theme.bg3};
     position: relative;
 `;
 
@@ -200,6 +200,7 @@ export const SNavItem = styled(Link)`
     display: flex;
     align-items: center;
     text-decoration: none;
+    font-weight: 600;
 
     color: ${({ theme }) => theme.text};
 `;

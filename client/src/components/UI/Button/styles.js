@@ -10,7 +10,7 @@ export const SButton = styled.button`
     line-height: 100%;
     padding: ${v.mdSpacing} ${({ fixed }) => (!fixed ? "0" : v.lgSpacing)};
     border: none;
-    color: ${({ theme, secondary }) => (!secondary ? theme.text : theme.primary)};
+    color: ${({ theme, secondary }) => (!secondary ? theme.textSecondary : theme.primary)};
     border: 1px solid ${({ theme, bg }) => (!bg ? theme.primary : theme[bg])};
     background: ${({ theme, secondary, bg }) =>
         !secondary && bg ? theme[bg] : !secondary ? theme.primary : "transparent"};
@@ -34,6 +34,7 @@ export const SButton = styled.button`
     :hover {
         background: ${({ theme, secondary, bg }) =>
             !secondary && bg ? theme.primaryLighter : !secondary ? theme.primaryLight : theme.bg3};
-        color: ${({ theme, secondary }) => (!secondary ? theme.text : theme.textDark)};
+        /* color: ${({ theme, secondary }) =>
+            !secondary ? theme.textSecondary : theme.primary}; */
     }
 `;

@@ -1,6 +1,6 @@
 export const navLinks = [
     {
-        title: "Shop",
+        title: "Dogs",
         link: "shop",
         sections: [
             {
@@ -116,7 +116,7 @@ export const navLinks = [
         ],
     },
     {
-        title: "Home",
+        title: "Cats",
         link: "",
         sections: [
             {

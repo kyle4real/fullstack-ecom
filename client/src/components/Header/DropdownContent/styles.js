@@ -10,7 +10,7 @@ export const SDropdownContent = styled.div`
     padding: ${v.lgSpacing} ${v.mdSpacing} ${v.xlSpacing};
     display: flex;
     line-height: 100%;
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.text};
     text-align: center;
 `;
 
@@ -30,7 +30,7 @@ export const SSectionTitle = styled.span`
 `;
 
 export const SSectionLink = styled(Link)`
-    color: ${({ theme }) => theme.primaryLight};
+    color: ${({ theme }) => theme.text2};
     display: block;
     text-decoration: none;
     font-size: 14px;

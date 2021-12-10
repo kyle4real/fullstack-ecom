@@ -80,7 +80,7 @@ export const SThumbnailImage = styled.img`
 `;
 
 export const SContent = styled.div`
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.text};
     line-height: 100%;
     border-bottom: 1px solid ${({ theme }) => theme.bg3};
 
@@ -107,6 +107,7 @@ export const STag = styled.span`
     text-transform: uppercase;
     font-weight: 600;
     position: relative;
+    color: ${({ theme }) => theme.primary};
 
     ::before {
         content: "";
@@ -129,6 +130,7 @@ export const SSaleTag = styled.div`
     display: flex;
     align-items: center;
     font-weight: 600;
+    color: ${({ theme }) => theme.primary};
 
     font-size: 18px;
     @media ${b.md} {
@@ -182,7 +184,7 @@ export const SComparePrice = styled.span`
         position: absolute;
         content: "";
         height: 1px;
-        background: ${({ theme }) => theme.primaryLight};
+        background: ${({ theme }) => theme.primary};
         width: 100%;
         top: 50%;
         right: 0;

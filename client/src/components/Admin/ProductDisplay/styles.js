@@ -103,7 +103,7 @@ const labelStyles = css`
     display: block;
     font-weight: 600;
     font-size: 14px;
-    color: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.text};
     line-height: 100%;
     padding-bottom: 4px;
 `;
@@ -119,7 +119,7 @@ const inputStyles = css`
     width: 100%;
     font-size: 14px;
     padding: calc(${v.smSpacing} + 4px) calc(${v.smSpacing} + 4px);
-    border: 1px solid ${({ theme }) => theme.primaryLighter};
+    border: 1px solid ${({ theme }) => theme.bg3};
     border-radius: 2px;
     outline: none;
     transition: 0.3s ease border-color;
@@ -155,7 +155,7 @@ export const SImageOverlay = styled.div`
     width: 100%;
     height: 100%;
     top: 0;
-    background: ${({ theme }) => theme.bg};
+    background: ${({ theme }) => theme.bgOverlay};
     cursor: pointer;
     opacity: ${({ active }) => (!active ? 0 : 1)};
 

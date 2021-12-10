@@ -5,7 +5,7 @@ import { v } from "../../../../styles/variables";
 import { AiOutlineClose, AiOutlineDelete, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 export const SImageFocus = styled.div`
-    color: ${({ theme }) => theme.textDark};
+    color: ${({ theme }) => theme.text};
     user-select: none;
 `;
 
@@ -51,7 +51,7 @@ export const SCloseIcon = styled(AiOutlineClose)`
 `;
 
 export const SSliderContainer = styled.div`
-    background: ${({ theme }) => theme.overlay};
+    background: ${({ theme }) => theme.bg3};
     width: calc(100% + ${v.mdSpacing} * 2 + 2px);
     margin: 0 calc(-${v.mdSpacing} - 1px);
     display: flex;
@@ -67,11 +67,11 @@ export const SSliderPanel = styled.div`
 const arrowStyles = css`
     display: block;
     margin: auto 0;
-    color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.text2};
     font-size: 3rem;
     cursor: pointer;
     :hover {
-        color: ${({ theme }) => theme.primaryLighter};
+        color: ${({ theme }) => theme.text};
     }
 `;
 export const SLeftIcon = styled(AiOutlineLeft)`

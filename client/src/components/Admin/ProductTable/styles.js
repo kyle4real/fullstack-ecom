@@ -14,6 +14,7 @@ export const STableContainer = styled.div`
 export const STable = styled.table`
     width: 100%;
     border-collapse: collapse;
+    color: ${({ theme }) => theme.text};
 `;
 
 export const STableHead = styled.thead`

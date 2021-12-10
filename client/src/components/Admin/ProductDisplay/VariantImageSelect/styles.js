@@ -21,8 +21,8 @@ export const SVariantSelect = styled.div`
     margin-top: ${v.mdSpacing};
     overflow-y: auto;
     max-height: 40vh;
-    box-shadow: inset 0 0 10px -3px ${({ theme }) => theme.primary};
-    background: ${({ theme }) => theme.overlayLight};
+    box-shadow: inset 0 0 10px -3px ${({ theme }) => theme.bg};
+    background: ${({ theme }) => theme.bg3};
 `;
 
 export const SImageContainer = styled.div`
