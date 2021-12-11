@@ -24,8 +24,8 @@ app.use(cors());
 app.use(morgan("dev"));
 
 app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
-app.use("/product", productRoutes);
+app.use("/users", userRoutes);
+app.use("/products", productRoutes);
 
 // Error handling middleware (must be mounted after routes)
 app.use(errorHandler);
