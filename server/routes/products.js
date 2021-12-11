@@ -7,7 +7,6 @@ import {
     replaceVariant,
     deleteMedia,
 } from "../controllers/products.js";
-import auth from "./../middleware/auth.js";
 
 const router = express.Router();
 
