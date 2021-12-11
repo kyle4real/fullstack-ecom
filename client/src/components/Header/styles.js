@@ -189,9 +189,9 @@ export const SNav = styled.nav`
 `;
 
 export const SNavItemContainer = styled.div`
-    :not(:last-child) {
+    /* :not(:last-child) {
         margin-right: ${v.mdSpacing};
-    }
+    } */
 `;
 
 export const SNavItem = styled(Link)`
@@ -203,19 +203,6 @@ export const SNavItem = styled(Link)`
     font-weight: 600;
 
     color: ${({ theme }) => theme.text};
-`;
-
-export const SMenuDropdown = styled.div`
-    position: absolute;
-    right: 0;
-    left: 0;
-    width: 100vw;
-    z-index: -1;
-    background: ${({ theme }) => theme.bg3};
-    opacity: ${({ open }) => (!open ? 0 : 1)};
-    top: ${({ open }) => (!open ? 0 : v.headerHeight)};
-    visibility: ${({ open }) => (!open ? "hidden" : "visible")};
-    box-shadow: ${v.cardBoxShadow};
 `;
 
 export const SMenuToggle = styled.button`

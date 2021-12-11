@@ -123,14 +123,11 @@ const Header = () => {
                     </SMenuToggle>
                     <SMenu menuOpen={menuOpen}>
                         <SMenuNav>
-                            <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
-                                Home
+                            <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
+                                Men
                             </SMenuNavItem>
                             <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
-                                Shop
-                            </SMenuNavItem>
-                            <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
-                                About
+                                Women
                             </SMenuNavItem>
                         </SMenuNav>
                     </SMenu>

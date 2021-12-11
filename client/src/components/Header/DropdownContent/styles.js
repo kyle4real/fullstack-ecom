@@ -3,6 +3,26 @@ import styled from "styled-components";
 
 import { v, s } from "../../../styles/variables";
 
+export const SMenuDropdownWrap = styled.div`
+    .menu-dropdown-open {
+        opacity: 1;
+        top: ${v.headerHeight};
+        transition: 0.3s ease all;
+    }
+`;
+
+export const SMenuDropdown = styled.div`
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    z-index: -1;
+    background: ${({ theme }) => theme.bg};
+    opacity: 0;
+    top: 0;
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
+`;
+
 export const SDropdownContent = styled.div`
     margin: 0 auto;
     width: ${s.md};

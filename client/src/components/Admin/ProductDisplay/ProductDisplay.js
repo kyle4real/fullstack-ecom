@@ -71,9 +71,7 @@ const ProductDisplay = () => {
 
     useEffect(() => {
         dispatch(getProduct(id));
-        return () => {
-            dispatch(productActions.replaceCurrentProduct({ data: { result: null } }));
-        };
+        return () => dispatch(productActions.resetProduct());
     }, [dispatch, id]);
     useEffect(() => {
         setProduct({ ...currentProduct });

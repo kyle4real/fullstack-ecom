@@ -3,24 +3,50 @@ import * as api from "./../../api";
 
 // TODO
 
-export const loginUser = (formInput, history) => {
+export const login = (form, callback) => {
     return async (dispatch) => {
         try {
-            const { data } = await api.login(formInput);
-            dispatch(authActions.loginUser({ data }));
-            history.push("/account");
+            const { data } = await api.login(form);
+            dispatch(authActions.replaceAccessToken({ data }));
         } catch (error) {
             console.log(error);
+        } finally {
+            callback && callback();
         }
     };
 };
 
-export const registerUser = (formInput, history) => {
+export const register = (form, callback) => {
     return async (dispatch) => {
         try {
-            const { data } = await api.register(formInput);
-            dispatch(authActions.loginUser({ data }));
-            history.push("/account");
+            const { data } = await api.register(form);
+            dispatch(authActions.replaceAccessToken({ data }));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            callback && callback();
+        }
+    };
+};
+
+export const refresh = () => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.refresh();
+            dispatch(authActions.replaceAccessToken({ data }));
+        } catch (error) {
+            dispatch(authActions.resetAccessToken());
+        } finally {
+            dispatch(authActions.setLoading(false));
+        }
+    };
+};
+
+export const logout = () => {
+    return async (dispatch) => {
+        try {
+            await api.logout();
+            dispatch(authActions.resetAccessToken());
         } catch (error) {
             console.log(error);
         }

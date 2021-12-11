@@ -1,23 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { getUserData } from "../../accessToken";
 
 const authSlice = createSlice({
     name: "auth",
     initialState: {
-        authData: JSON.parse(localStorage.getItem("profile"))?.result || null,
-        authToken: JSON.parse(localStorage.getItem("profile"))?.token || null,
-        userList: null,
+        accessToken: null,
+        role: null,
+        me: null,
+        meId: null,
+        loading: true,
+        meLoading: false,
     },
     reducers: {
-        loginUser(state, action) {
+        replaceAccessToken(state, action) {
             const { data } = action.payload;
-            localStorage.setItem("profile", JSON.stringify({ ...data }));
-            state.authData = data.result;
-            state.authToken = data.token;
+            state.accessToken = data.data.accessToken;
+            const { role, id } = getUserData(state.accessToken);
+            state.role = role;
+            state.meId = id;
         },
-        logoutUser(state) {
-            localStorage.removeItem("profile");
-            state.authData = null;
-            state.authToken = null;
+        resetAccessToken(state) {
+            state.accessToken = null;
+            state.role = null;
+            state.meId = null;
+        },
+        // me
+        replaceMe(state, action) {
+            const { data } = action.payload;
+            state.me = data.data;
+        },
+        resetMe(state) {
+            state.me = null;
+        },
+        // loading
+        setLoading(state, action) {
+            state.loading = action.payload;
+        },
+        setMeLoading(state, action) {
+            state.meLoading = action.payload;
         },
     },
 });
