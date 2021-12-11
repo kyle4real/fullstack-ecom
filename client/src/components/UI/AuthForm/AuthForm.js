@@ -6,11 +6,19 @@ const prepareFormInput = (formArr) => {
     return formArr?.reduce((r, v) => ({ ...r, [v.name]: v.initialValue }), {});
 };
 
-const AuthForm = ({ formTitle, formArr, submitBtn }) => {
+const AuthForm = ({ formTitle, formArr, submitBtn, onSubmit }) => {
     const [formInput, setFormInput] = useState(prepareFormInput(formArr));
 
     const onChangeHandler = ({ target: { name, value } }) => {
         setFormInput((p) => ({ ...p, [name]: value }));
+    };
+
+    const onSubmitHandler = (e) => {
+        e.preventDefault();
+        const form = formInput;
+        onSubmit(form, () => {
+            setFormInput(prepareFormInput(formArr));
+        });
     };
 
     return (
@@ -31,7 +39,7 @@ const AuthForm = ({ formTitle, formArr, submitBtn }) => {
                     </SFormControl>
                 );
             })}
-            <SSubmitButton>{submitBtn}</SSubmitButton>
+            <SSubmitButton onClick={(e) => onSubmitHandler(e)}>{submitBtn}</SSubmitButton>
         </SForm>
     );
 };

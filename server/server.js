@@ -19,7 +19,15 @@ const app = express();
 
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use(cors());
+
+if (process.env.NODE_ENV === "development") {
+    app.use(
+        cors({
+            origin: "http://localhost:3000",
+            credentials: true,
+        })
+    );
+}
 
 app.use(morgan("dev"));
 

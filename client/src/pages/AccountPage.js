@@ -24,12 +24,6 @@ const AccountPage = () => {
                     ]}
                 />
             </Route>
-            <Route exact path={`${path}/login`}>
-                <LoginPage />
-            </Route>
-            <Route exact path={`${path}/register`}>
-                <RegisterPage />
-            </Route>
         </Switch>
     );
 };

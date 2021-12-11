@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch, useHistory } from "react-router-dom";
+import { logout } from "../../app/actions/auth-actions";
 
 import { authActions } from "../../app/slices/auth-slice";
 
@@ -25,9 +26,7 @@ const Account = () => {
     };
 
     const logoutHandler = () => {
-        dispatch(authActions.logoutUser());
-
-        history.push("/");
+        dispatch(logout());
     };
 
     return (

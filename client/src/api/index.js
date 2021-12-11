@@ -10,17 +10,22 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-const userPath = "/users";
-const productPath = "/products";
+const authPath = "/auth";
+const usersPath = "/users";
+const productsPath = "/products";
 
-export const login = (formInput) => API.post(`${userPath}/signin`, formInput);
-export const register = (formInput) => API.post(`${userPath}/signup`, formInput);
+export const login = (form) => API.post(`${authPath}/login`, form);
+export const register = (form) => API.post(`${authPath}/register`, form);
+export const refresh = () => API.post(`${authPath}/refresh_token`);
+export const logout = () => API.get(`${authPath}/logout`);
 
-export const products = () => API.get(`${productPath}/`);
+export const getProducts = () => API.get(`${productsPath}/`);
 
-export const product = (productId) => API.get(`${productPath}/${productId}`);
+export const getProductBySku = (productSku) => API.get(`${productsPath}/sku/${productSku}`);
+export const getProduct = (productId) => API.get(`${productsPath}/${productId}`);
 
-export const variant = (productId, obj) => API.post(`${productPath}/${productId}/variant`, obj);
+export const variant = (productId, obj) => API.post(`${productsPath}/${productId}/variant`, obj);
 
-export const media = (obj) => API.post(`${productPath}/media`, obj);
-export const deleteMedia = (obj) => API.post(`${productPath}/media/delete`, obj);
+export const media = (productId, obj) => API.post(`${productsPath}/${productId}/media`, obj);
+export const deleteMedia = (productId, mediaId) =>
+    API.delete(`${productsPath}/${productId}/media/${mediaId}`);
