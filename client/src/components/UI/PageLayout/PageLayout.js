@@ -17,6 +17,7 @@ const PageLayout = ({ head, layoutArr, loading, error }) => {
     const headDimensions = !head || !layoutArr.length ? null : getDimenstionsForHead(layoutArr[0]);
     const headMinWidth = !headDimensions ? null : headDimensions.minWidth;
     const headCustomSize = !headDimensions ? null : headDimensions.customSize;
+
     return (
         <>
             {head && !renderError && (

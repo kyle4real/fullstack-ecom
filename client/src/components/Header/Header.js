@@ -68,8 +68,6 @@ const Header = () => {
         }
     }, [isMin, menuOpen]);
 
-    const isAdminArea = location.pathname.includes("/account/admin");
-
     const changeA = useCallback((inc) => {
         setCurrentAs((p) =>
             p.reduce((r, v) => {
@@ -94,6 +92,7 @@ const Header = () => {
         }, [5000]);
     };
 
+    const isAdminArea = location.pathname.includes("/account/admin");
     return (
         <SHeader isAdminArea={isAdminArea}>
             <SHeaderFixed>
