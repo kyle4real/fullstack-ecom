@@ -10,8 +10,8 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-const userPath = "/user";
-const productPath = "/product";
+const userPath = "/users";
+const productPath = "/products";
 
 export const login = (formInput) => API.post(`${userPath}/signin`, formInput);
 export const register = (formInput) => API.post(`${userPath}/signup`, formInput);
