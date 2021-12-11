@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { deleteMedia } from "../../../../store/product-actions";
+import { deleteMedia } from "../../../../app/actions/product-actions";
 import Card from "../../../UI/Card/Card";
 import Overlay from "../../../UI/Overlay/Overlay";
 

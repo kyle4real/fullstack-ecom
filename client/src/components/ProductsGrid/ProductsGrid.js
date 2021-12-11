@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
 import {
@@ -21,16 +22,19 @@ import {
     STitle,
 } from "./styles";
 
-const ProductsGrid = ({ productsArray }) => {
+const ProductsGrid = () => {
     const history = useHistory();
+    const { products } = useSelector((state) => state.products);
+
+    console.log(products);
 
     const productSelectHandler = (productSku, variantTitle) => {
-        history.push(`/shop/products/${productSku}/${variantTitle}`);
+        history.push(`/products/${productSku}/${variantTitle}`);
     };
     return (
         <SProductsGrid>
             <SGrid>
-                {productsArray?.map?.(
+                {products?.map?.(
                     ({ title, price, salePrice, tags, variants, media, sku }, index) => {
                         let images = variants
                             ?.reduce((r, v) => {

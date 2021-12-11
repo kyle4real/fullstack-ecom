@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { navLinks } from "../../data";
 import useWindowSize from "../../hooks/useWindowSize";
-import { uiActions } from "../../store/ui-slice";
+import { uiActions } from "../../app/slices/ui-slice";
 import DropdownContent from "./DropdownContent/DropdownContent";
 import {
     SAccountIcon,
@@ -123,14 +123,11 @@ const Header = () => {
                     </SMenuToggle>
                     <SMenu menuOpen={menuOpen}>
                         <SMenuNav>
-                            <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
-                                Home
+                            <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
+                                Men
                             </SMenuNavItem>
                             <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
-                                Shop
-                            </SMenuNavItem>
-                            <SMenuNavItem to="/" onClick={() => setMenuOpen(false)}>
-                                About
+                                Women
                             </SMenuNavItem>
                         </SMenuNav>
                     </SMenu>

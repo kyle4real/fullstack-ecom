@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { uploadMedia } from "../../../store/product-actions";
+import { uploadMedia } from "../../../app/actions/product-actions";
 import { SIMAGEInput } from "./styles";
 
 const ImageInput = ({ id }) => {

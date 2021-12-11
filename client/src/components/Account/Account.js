@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch, useHistory } from "react-router-dom";
+import { logout } from "../../app/actions/auth-actions";
 
-import { authActions } from "./../../store/auth-slice";
+import { authActions } from "../../app/slices/auth-slice";
 
 import Button from "../UI/Button/Button";
 import {
@@ -14,7 +15,7 @@ import {
     STitle,
 } from "./styles";
 
-const Account = ({ buttons }) => {
+const Account = () => {
     const { authData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
@@ -25,9 +26,7 @@ const Account = ({ buttons }) => {
     };
 
     const logoutHandler = () => {
-        dispatch(authActions.logoutUser());
-
-        history.push("/");
+        dispatch(logout());
     };
 
     return (
@@ -37,11 +36,11 @@ const Account = ({ buttons }) => {
                     <STitle>Welcome {authData?.name?.split(" ")?.[0]}</STitle>
                     <SDescription>Explore your account</SDescription>
                     <SAccountButtons>
-                        {buttons.map(({ button, to }, index) => (
+                        {/* {buttons.map(({ button, to }, index) => (
                             <SButtonContainer key={index}>
                                 <Button onClick={() => buttonClickHandler(to)}>{button}</Button>
                             </SButtonContainer>
-                        ))}
+                        ))} */}
                         <SButtonContainer>
                             <Button secondary onClick={logoutHandler}>
                                 Logout

@@ -48,13 +48,14 @@ import {
 import Card from "../../UI/Card/Card";
 
 import { missingImg } from "../../../assets";
-import { getProduct } from "../../../store/product-actions";
-import { productActions } from "../../../store/product-slice";
+
 import ImageInput from "./ImageInput";
 
 import VariantImageSelect from "./VariantImageSelect/VariantImageSelect";
 import ImageFocus from "./ImageFocus/ImageFocus";
 import Loading, { Spinner } from "../../UI/Loading/Loading";
+import { getProduct } from "../../../app/actions/product-actions";
+import { productActions } from "../../../app/slices/product-slice";
 
 const ProductDisplay = () => {
     const dispatch = useDispatch();
@@ -70,9 +71,7 @@ const ProductDisplay = () => {
 
     useEffect(() => {
         dispatch(getProduct(id));
-        return () => {
-            dispatch(productActions.replaceCurrentProduct({ data: { result: null } }));
-        };
+        return () => dispatch(productActions.resetProduct());
     }, [dispatch, id]);
     useEffect(() => {
         setProduct({ ...currentProduct });

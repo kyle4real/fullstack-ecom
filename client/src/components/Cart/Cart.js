@@ -20,18 +20,20 @@ import {
     STableHeadTR,
 } from "./styles";
 
-const CartPage = () => {
+const Cart = () => {
     const dispatch = useDispatch();
     const { authData } = useSelector((state) => state.auth);
     const firstName = authData?.name?.split(" ")?.[0];
     const { cartProducts } = useSelector((state) => state.cart);
 
+    const cartProductsList = [...cartProducts]?.reverse();
+
     return (
         <SCartPage>
             <SCartPageTitle>{firstName ? <>{firstName}'s</> : <>Your</>} Cart</SCartPageTitle>
-            <>
-                <>{cartProducts?.length === 0 && <EmptyCart />}</>
-                {cartProducts?.length > 0 && (
+            {(() => {
+                if (!cartProducts?.length) return <EmptyCart />;
+                return (
                     <STable>
                         <STableHead>
                             <STableHeadTR>
@@ -41,7 +43,7 @@ const CartPage = () => {
                             </STableHeadTR>
                         </STableHead>
                         <STableBody>
-                            {[...cartProducts]?.reverse()?.map((cartProduct, index) => {
+                            {cartProductsList?.map((cartProduct, index) => {
                                 const { productObj, variantSelection, qty } = cartProduct;
                                 const { variants, media, title } = productObj;
                                 const { mediaUrl, price } = variants?.find(
@@ -69,10 +71,10 @@ const CartPage = () => {
                             })}
                         </STableBody>
                     </STable>
-                )}
-            </>
+                );
+            })()}
         </SCartPage>
     );
 };
 
-export default CartPage;
+export default Cart;

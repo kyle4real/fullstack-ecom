@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 export const v = {
     headerHeight: `80px`,
     headerTopHeight: "28px",
@@ -17,6 +19,18 @@ export const v = {
     0 4px 4px rgba(0,0,0,0.15), 
     0 8px 8px rgba(0,0,0,0.15)`,
 };
+
+export const btnReset = css`
+    font-family: inherit;
+    outline: none;
+    border: none;
+    background: none;
+    letter-spacing: inherit;
+    color: inherit;
+    font-size: inherit;
+    text-align: inherit;
+    padding: 0;
+`;
 
 export const s = {
     // 1460px = 91.25em
@@ -45,3 +59,45 @@ export const b = {
     md: `(min-width: ${s.md})`,
     sm: `(min-width: ${s.sm})`,
 };
+
+export const loadingBG = css`
+    background: ${({ theme }) => theme.loadingGradient};
+    background-size: 200% 200%;
+    -webkit-animation: Animation 0.7s ease infinite;
+    -moz-animation: Animation 0.7s ease infinite;
+    animation: Animation 0.7s ease infinite;
+
+    @-webkit-keyframes Animation {
+        0% {
+            background-position: 10% 0%;
+        }
+        50% {
+            background-position: 91% 100%;
+        }
+        100% {
+            background-position: 10% 0%;
+        }
+    }
+    @-moz-keyframes Animation {
+        0% {
+            background-position: 10% 0%;
+        }
+        50% {
+            background-position: 91% 100%;
+        }
+        100% {
+            background-position: 10% 0%;
+        }
+    }
+    @keyframes Animation {
+        0% {
+            background-position: 10% 0%;
+        }
+        50% {
+            background-position: 91% 100%;
+        }
+        100% {
+            background-position: 10% 0%;
+        }
+    }
+`;
