@@ -7,6 +7,7 @@ const authSlice = createSlice({
         accessToken: null,
         role: null,
         me: null,
+        firstName: null,
         meId: null,
         loading: true,
         meLoading: false,
@@ -15,14 +16,16 @@ const authSlice = createSlice({
         replaceAccessToken(state, action) {
             const { data } = action.payload;
             state.accessToken = data.data.accessToken;
-            const { role, id } = getUserData(state.accessToken);
+            const { role, id, firstName } = getUserData(state.accessToken);
             state.role = role;
             state.meId = id;
+            state.firstName = firstName;
         },
         resetAccessToken(state) {
             state.accessToken = null;
             state.role = null;
             state.meId = null;
+            state.firstName = null;
         },
         // me
         replaceMe(state, action) {

@@ -50,17 +50,16 @@ const Header = () => {
     const location = useLocation();
 
     const { isMin } = useWindowSize({ size: "lg" });
-    const { authData } = useSelector((state) => state.auth);
+    const { firstName } = useSelector((state) => state.auth);
     const { cartProducts } = useSelector((state) => state.cart);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [currentAs, setCurrentAs] = useState([aArr.length - 1, 0, 1]);
+
     const cartAmount = useMemo(() => {
         return cartProducts.reduce((r, v, i) => {
             return r + v.qty;
         }, 0);
     }, [cartProducts]);
-
-    const [menuOpen, setMenuOpen] = useState(false);
-
-    const [currentAs, setCurrentAs] = useState([aArr.length - 1, 0, 1]);
 
     useEffect(() => {
         if (isMin === undefined) return;
@@ -104,11 +103,7 @@ const Header = () => {
                             <SItemContent>
                                 <SAccountIcon />
                                 <SItemSpan>
-                                    {!authData ? (
-                                        <>My Account</>
-                                    ) : (
-                                        <>Hi {authData?.name.split(" ")[0]}</>
-                                    )}
+                                    {!firstName ? <>My Account</> : <>Hi {firstName}</>}
                                 </SItemSpan>
                             </SItemContent>
                         </SNavTopItem>
