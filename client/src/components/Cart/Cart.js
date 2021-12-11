@@ -26,12 +26,14 @@ const Cart = () => {
     const firstName = authData?.name?.split(" ")?.[0];
     const { cartProducts } = useSelector((state) => state.cart);
 
+    const cartProductsList = [...cartProducts]?.reverse();
+
     return (
         <SCartPage>
             <SCartPageTitle>{firstName ? <>{firstName}'s</> : <>Your</>} Cart</SCartPageTitle>
-            <>
-                <>{cartProducts?.length === 0 && <EmptyCart />}</>
-                {cartProducts?.length > 0 && (
+            {(() => {
+                if (!cartProducts?.length) return <EmptyCart />;
+                return (
                     <STable>
                         <STableHead>
                             <STableHeadTR>
@@ -41,7 +43,7 @@ const Cart = () => {
                             </STableHeadTR>
                         </STableHead>
                         <STableBody>
-                            {[...cartProducts]?.reverse()?.map((cartProduct, index) => {
+                            {cartProductsList?.map((cartProduct, index) => {
                                 const { productObj, variantSelection, qty } = cartProduct;
                                 const { variants, media, title } = productObj;
                                 const { mediaUrl, price } = variants?.find(
@@ -69,8 +71,8 @@ const Cart = () => {
                             })}
                         </STableBody>
                     </STable>
-                )}
-            </>
+                );
+            })()}
         </SCartPage>
     );
 };

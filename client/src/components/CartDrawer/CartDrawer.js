@@ -30,29 +30,17 @@ import {
     SProductVariant,
 } from "./styles";
 
-const CartDrawer = ({ layoutRef }) => {
+const CartDrawer = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const cartRef = useRef();
+    const { cartDrawer } = useSelector((state) => state.ui);
+    const { cartProducts } = useSelector((state) => state.cart);
     useDetectClickaway(cartRef, () => {
         if (cartDrawer) {
             dispatch(uiActions.toggleCart());
         }
     });
-    const { cartDrawer } = useSelector((state) => state.ui);
-    const { cartProducts } = useSelector((state) => state.cart);
-
-    // useEffect(() => {
-    //     if (cartDrawer) {
-    //         cartRef.current.classList.add("cart-open");
-    //         layoutRef.current.style["height"] = `100vh`;
-    //         layoutRef.current.style["overflow"] = "hidden";
-    //     } else {
-    //         cartRef.current.classList.remove("cart-open");
-    //         layoutRef.current.style["height"] = "100%";
-    //         layoutRef.current.style["overflow"] = "initial";
-    //     }
-    // }, [cartDrawer, layoutRef]);
 
     const cartRedirectHandler = () => {
         history.push("/cart");
@@ -74,18 +62,21 @@ const CartDrawer = ({ layoutRef }) => {
             );
         }, 0);
     }, [cartProducts]);
+
+    const cartProductsList = [...cartProducts]?.reverse();
+
     return (
         <>
             {cartDrawer && <Overlay />}
-            <SCartWrap>
-                <SCartDrawerContainer ref={cartRef}>
+            <SCartWrap ref={cartRef}>
+                <SCartDrawerContainer className={cartDrawer ? "cart-open" : ""}>
                     <SCartDrawer>
                         <SCartHead>
                             <SCartHeadSpan>Your Cart - {cartAmount} Items</SCartHeadSpan>
                             <SCloseIcon onClick={() => dispatch(uiActions.toggleCart())} />
                         </SCartHead>
                         <SCartProductDisplay>
-                            {[...cartProducts]?.reverse()?.map((cartProduct, index) => {
+                            {cartProductsList?.map((cartProduct, index) => {
                                 const { productObj, variantSelection, qty } = cartProduct;
                                 const { variants, media, title } = productObj;
                                 const { mediaUrl, price } = variants?.find(
