@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Fragment } from "react";
+import { useSelector } from "react-redux";
 
 import { useHistory, useRouteMatch } from "react-router-dom";
 
@@ -28,38 +28,18 @@ import {
     SVariantSpanStatus,
 } from "./styles";
 import useWindowSize from "../../../hooks/useWindowSize";
-import Loading from "../../UI/Loading/Loading";
-import { getProducts } from "../../../app/actions/products-actions";
-import { productActions } from "../../../app/slices/product-slice";
 
 const ProductTable = () => {
     const { isMin } = useWindowSize({ size: "sm" });
     const history = useHistory();
 
     const { url } = useRouteMatch();
-    const dispatch = useDispatch();
-    const { productsArray } = useSelector((state) => state.product);
-    const { loading } = useSelector((state) => state.ui);
-
-    useEffect(() => {
-        dispatch(getProducts());
-
-        return () => {
-            dispatch(productActions.replaceProducts({ data: { result: null } }));
-        };
-    }, [dispatch]);
+    const { products } = useSelector((state) => state.products);
 
     const productSelectHandler = (id) => {
         history.push(`${url}/${id}`);
     };
 
-    if (loading.productTable) {
-        return (
-            <>
-                <Loading fixed />
-            </>
-        );
-    }
     return (
         <SProductTable>
             <STableContainer>
@@ -84,7 +64,7 @@ const ProductTable = () => {
                             </STableHeadTR>
                         </STableHead>
                         <STableBody>
-                            {productsArray?.map?.(
+                            {products?.map?.(
                                 ({ title, price, variants, _id: id, media }, index) => {
                                     return (
                                         <Fragment key={index}>

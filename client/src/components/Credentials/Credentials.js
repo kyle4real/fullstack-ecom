@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { STitle } from "../styles";
 import {
     SCredentials,
     SCredentialsInfo,
@@ -8,10 +7,13 @@ import {
     SInfoLabelSpan,
     SInfoSpan,
     SLockIcon,
+    STitle,
 } from "./styles";
 
 const Credentials = () => {
-    const { authData } = useSelector((state) => state.auth);
+    const { me } = useSelector((state) => state.auth);
+    const role = me.role;
+    const isAdmin = role === "admin";
     return (
         <SCredentials>
             <SCredentialsInfo>
@@ -19,12 +21,18 @@ const Credentials = () => {
                 <STitle>Credentials</STitle>
                 <SInfoControl>
                     <SInfoLabelSpan>Name:</SInfoLabelSpan>
-                    <SInfoSpan>{authData?.name}</SInfoSpan>
+                    <SInfoSpan>{me?.name}</SInfoSpan>
                 </SInfoControl>
                 <SInfoControl>
                     <SInfoLabelSpan>Email Address:</SInfoLabelSpan>
-                    <SInfoSpan>{authData?.email}</SInfoSpan>
+                    <SInfoSpan>{me?.email}</SInfoSpan>
                 </SInfoControl>
+                {isAdmin && (
+                    <SInfoControl>
+                        <SInfoLabelSpan>Role:</SInfoLabelSpan>
+                        <SInfoSpan>{me?.role}</SInfoSpan>
+                    </SInfoControl>
+                )}
             </SCredentialsInfo>
         </SCredentials>
     );

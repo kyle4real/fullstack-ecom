@@ -52,3 +52,16 @@ export const logout = () => {
         }
     };
 };
+
+export const getMe = ({ onComplete, onError }) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.getMe();
+            dispatch(authActions.replaceMe({ data }));
+        } catch (error) {
+            onError(error);
+        } finally {
+            onComplete();
+        }
+    };
+};

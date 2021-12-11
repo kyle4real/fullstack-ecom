@@ -1,0 +1,35 @@
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getProducts } from "../app/actions/products-actions";
+import { productsActions } from "../app/slices/products-slice";
+import ProductTable from "../components/Admin/ProductTable/ProductTable";
+import PageLayout from "../components/UI/PageLayout/PageLayout";
+
+const AdminProductsPage = () => {
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const onComplete = () => setLoading(false);
+        const onError = (err) => setError(err);
+
+        dispatch(getProducts({ onComplete, onError }));
+        return () => dispatch(productsActions.resetProducts());
+    }, [dispatch]);
+
+    return (
+        <PageLayout
+            loading={loading}
+            error={error}
+            layoutArr={[
+                {
+                    type: "contain",
+                    component: <ProductTable />,
+                },
+            ]}
+        />
+    );
+};
+
+export default AdminProductsPage;

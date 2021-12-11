@@ -53,64 +53,42 @@ import ImageInput from "./ImageInput";
 
 import VariantImageSelect from "./VariantImageSelect/VariantImageSelect";
 import ImageFocus from "./ImageFocus/ImageFocus";
-import Loading, { Spinner } from "../../UI/Loading/Loading";
-import { getProduct } from "../../../app/actions/product-actions";
 import { productActions } from "../../../app/slices/product-slice";
 
 const ProductDisplay = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { currentProduct } = useSelector((state) => state.product);
-    const { loading } = useSelector((state) => state.ui);
+    const { product } = useSelector((state) => state.product);
 
     const [variantImageSelect, setVariantImageSelect] = useState(null);
     const [imageFocus, setImageFocus] = useState(null);
 
-    const [product, setProduct] = useState(null);
     const [edits, setEdits] = useState({});
 
-    useEffect(() => {
-        dispatch(getProduct(id));
-        return () => dispatch(productActions.resetProduct());
-    }, [dispatch, id]);
-    useEffect(() => {
-        setProduct({ ...currentProduct });
-        return () => {
-            setProduct(null);
-        };
-    }, [currentProduct]);
+    // const inputChangeHandler = (e) => {
+    //     setProduct((p) => ({ ...p, [e.target.name]: e.target.value }));
 
-    const inputChangeHandler = (e) => {
-        setProduct((p) => ({ ...p, [e.target.name]: e.target.value }));
+    //     if (e.target.value !== currentProduct[e.target.name]) {
+    //         setEdits((p) => ({ ...p, [e.target.name]: e.target.value }));
+    //     } else {
+    //         setEdits((p) => {
+    //             delete p[e.target.name];
+    //             return p;
+    //         });
+    //     }
+    // };
 
-        if (e.target.value !== currentProduct[e.target.name]) {
-            setEdits((p) => ({ ...p, [e.target.name]: e.target.value }));
-        } else {
-            setEdits((p) => {
-                delete p[e.target.name];
-                return p;
-            });
-        }
-    };
-
-    useEffect(() => {
-        if (Object.keys(edits).length === 0) {
-            dispatch(productActions.changeIsEdited(false));
-        } else {
-            dispatch(productActions.changeIsEdited(true));
-        }
-    }, [edits, dispatch]);
+    // useEffect(() => {
+    //     if (Object.keys(edits).length === 0) {
+    //         dispatch(productActions.changeIsEdited(false));
+    //     } else {
+    //         dispatch(productActions.changeIsEdited(true));
+    //     }
+    // }, [edits, dispatch]);
 
     const productImages = product?.media?.length === 0 ? null : product?.media;
     const slicedProductImages = product?.media?.length > 1 ? product?.media?.slice(1) : [];
 
-    if (loading.productDisplay) {
-        return (
-            <>
-                <Loading fixed />
-            </>
-        );
-    }
     return (
         <>
             <>
@@ -161,7 +139,7 @@ const ProductDisplay = () => {
                                     <STITLEInput
                                         name="title"
                                         value={product?.title || ""}
-                                        onChange={inputChangeHandler}
+                                        // onChange={inputChangeHandler}
                                     />
                                 </SFormControl>
                                 <SFormControl>
@@ -169,7 +147,7 @@ const ProductDisplay = () => {
                                     <SDESCRIPTIONInput
                                         name="description"
                                         value={product?.description || ""}
-                                        onChange={inputChangeHandler}
+                                        // onChange={inputChangeHandler}
                                     />
                                 </SFormControl>
                             </Card>
@@ -204,7 +182,7 @@ const ProductDisplay = () => {
                                         </SImagesContainer>
                                     </SMedia>
                                 </SMediaContainer>
-                                <SMediaBottomBar>
+                                {/* <SMediaBottomBar>
                                     {(loading.imageUpload || loading.imageDelete) && (
                                         <Spinner size={`30px`} />
                                     )}
@@ -217,7 +195,7 @@ const ProductDisplay = () => {
                                         Add Image
                                         <ImageInput id={id} />
                                     </Button>
-                                </SMediaBottomBar>
+                                </SMediaBottomBar> */}
                             </Card>
                         </SCardControl>
                         <SCardControl>

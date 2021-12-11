@@ -1,12 +1,21 @@
 import styled, { css } from "styled-components";
 
-import { v } from "../../../styles/variables";
+import { v } from "../../styles/variables";
 
 import { AiOutlineLock } from "react-icons/ai";
 
 export const SCredentials = styled.div`
     display: flex;
     justify-content: center;
+`;
+
+export const STitle = styled.span`
+    display: block;
+    text-transform: uppercase;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 2.2px;
+    margin-bottom: ${v.smSpacing};
 `;
 
 export const SCredentialsInfo = styled.div`

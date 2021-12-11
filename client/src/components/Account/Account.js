@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import { logout } from "../../app/actions/auth-actions";
 
-import { authActions } from "../../app/slices/auth-slice";
-
 import Button from "../UI/Button/Button";
 import {
     SAccount,
@@ -64,11 +62,11 @@ const adminButtons = [
     ...userButtons,
     {
         label: "Products",
-        to: "/products",
+        to: "/admin/products",
     },
     {
         label: "Orders",
-        to: "/orders",
+        to: "/admin/orders",
     },
 ];
 

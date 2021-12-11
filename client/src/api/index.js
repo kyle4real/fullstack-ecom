@@ -1,14 +1,19 @@
 import axios from "axios";
+import store from "./../app/store";
 
 let baseURL = "http://localhost:5000";
 
 const API = axios.create({ baseURL, withCredentials: true });
 
-API.interceptors.request.use((req) => {
-    if (localStorage.getItem("profile")) {
-        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`;
-    }
+const getAccessToken = () => {
+    const state = store.getState();
+    const accessToken = state.auth.accessToken;
+    return accessToken;
+};
 
+API.interceptors.request.use((req) => {
+    const token = getAccessToken();
+    req.headers.Authorization = `Bearer ${token || ""}`;
     return req;
 });
 
@@ -20,6 +25,7 @@ export const login = (form) => API.post(`${authPath}/login`, form);
 export const register = (form) => API.post(`${authPath}/register`, form);
 export const refresh = () => API.post(`${authPath}/refresh_token`);
 export const logout = () => API.get(`${authPath}/logout`);
+export const getMe = () => API.get(`${authPath}/me`);
 
 export const getProducts = () => API.get(`${productsPath}/`);
 

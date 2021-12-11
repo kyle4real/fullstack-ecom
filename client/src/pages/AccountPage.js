@@ -4,6 +4,11 @@ import { Switch, Route, useRouteMatch } from "react-router-dom";
 import Account from "../components/Account/Account";
 
 import PageLayout from "../components/UI/PageLayout/PageLayout";
+import ProtectedRoute from "../routes/ProtectedRoute";
+import AdminOrdersPage from "./AdminOrdersPage";
+import AdminProductPage from "./AdminProductPage";
+import AdminProductsPage from "./AdminProductsPage";
+import CredentialsPage from "./CredentialsPage";
 
 const AccountPage = () => {
     const { path, url } = useRouteMatch();
@@ -20,6 +25,18 @@ const AccountPage = () => {
                     ]}
                 />
             </Route>
+            <Route exact path={`${path}/credentials`}>
+                <CredentialsPage />
+            </Route>
+            <ProtectedRoute exact path={`${path}/admin/products`} roles={["admin"]}>
+                <AdminProductsPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${path}/admin/products/:product`} roles={["admin"]}>
+                <AdminProductPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${path}/admin/orders`} roles={["admin"]}>
+                <AdminOrdersPage />
+            </ProtectedRoute>
         </Switch>
     );
 };
