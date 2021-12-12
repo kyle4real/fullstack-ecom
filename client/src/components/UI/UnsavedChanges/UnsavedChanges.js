@@ -1,11 +1,23 @@
 import React from "react";
-import { SUnsavedChangedContent, SUnsavedChanges } from "./styles";
+import Button from "../Button/Button";
+import {
+    SButtonContainer,
+    SUnsavedChangedContent,
+    SUnsavedChanges,
+    SUnsavedChangesTitle,
+} from "./styles";
 
 const UnsavedChanges = ({ show }) => {
     return (
         <SUnsavedChanges className={show ? "top-0" : ""}>
             <SUnsavedChangedContent className={"unsaved-changes-content"}>
-                hi
+                <SUnsavedChangesTitle>Unsaved Changes</SUnsavedChangesTitle>
+                <SButtonContainer>
+                    <Button fixed secondary>
+                        Discard
+                    </Button>
+                    <Button fixed>Save</Button>
+                </SButtonContainer>
             </SUnsavedChangedContent>
         </SUnsavedChanges>
     );
