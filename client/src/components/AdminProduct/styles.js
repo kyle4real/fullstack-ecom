@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { v, b, s } from "../../styles/variables";
+import { v, b, s, btnReset } from "../../styles/variables";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
@@ -68,63 +68,38 @@ export const SProductDisplayGrid = styled.div`
     }
 `;
 
-// card one /////////////////////////////////////////////////
-export const SFormControl = styled.div`
-    :not(:last-child) {
-        margin-bottom: calc(${v.mdSpacing} + ${v.smSpacing});
-    }
-`;
-
-const labelStyles = css`
-    display: block;
-    font-weight: 600;
-    font-size: 14px;
-    color: ${({ theme }) => theme.text};
-    line-height: 100%;
-    padding-bottom: 4px;
-`;
-export const SLabel = styled.label`
-    ${labelStyles}
-`;
-export const SLabelSpan = styled.span`
-    ${labelStyles}
-`;
-
-const inputStyles = css`
-    display: block;
-    width: 100%;
-    font-size: 14px;
-    padding: calc(${v.smSpacing} + 4px) calc(${v.smSpacing} + 4px);
-    border: 1px solid ${({ theme }) => theme.bg3};
-    border-radius: 2px;
-    outline: none;
-    transition: 0.3s ease border-color;
-
-    :focus {
-        border-radius: 0;
-        border-color: ${({ theme }) => theme.primary};
-    }
-`;
-export const STITLEInput = styled.input`
-    ${inputStyles}
-`;
-export const SDESCRIPTIONInput = styled.textarea`
-    ${inputStyles};
-    height: 175px;
-    resize: none;
-`;
-
 // card two /////////////////////////////////////////////////
 
-export const SMedia = styled.div`
+export const SMediaGrid = styled.div`
     background: ${({ theme }) => theme.bg};
     padding: ${v.mdSpacing};
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: ${v.smSpacing};
+
+    @media ${b.sm} {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    @media ${b.md} {
+        grid-template-columns: repeat(5, 1fr);
+    }
 `;
 
-export const SImageOverlay = styled.div`
+export const SMainMediaContainer = styled.div`
+    grid-row: 1 / 3;
+    grid-column: 1 / 3;
+
+    display: flex;
+    position: relative;
+`;
+
+export const SMediaContainer = styled.div`
+    display: flex;
+    position: relative;
+`;
+
+export const SImageOverlay = styled.button`
+    ${btnReset};
     position: absolute;
     z-index: 10;
     width: 100%;
@@ -140,48 +115,6 @@ export const SImageOverlay = styled.div`
     }
 `;
 
-export const SMainImageContainer = styled.div`
-    height: 100%;
-    width: auto;
-    margin: 0 auto;
-    position: relative;
-    display: flex;
-
-    @media ${b.sm} {
-        width: 40%;
-    }
-`;
-export const SMainImage = styled.img`
-    max-width: 100%;
-    height: auto;
-`;
-
-export const SImagesContainer = styled.div`
-    display: flex;
-
-    flex-wrap: wrap;
-    width: 100%;
-    margin-top: ${v.mdSpacing};
-
-    @media ${b.sm} {
-        margin-top: 0;
-        width: calc(100% - 40%);
-    }
-`;
-export const SImageContainer = styled.div`
-    position: relative;
-    width: calc(100% / 2 - ${v.mdSpacing});
-    margin: calc(${v.mdSpacing} / 2);
-    height: fit-content;
-    display: flex;
-
-    @media ${b.sm} {
-        width: calc(100% / 3 - ${v.smSpacing});
-        margin: 0;
-        margin-left: ${v.smSpacing};
-        margin-bottom: ${v.smSpacing};
-    }
-`;
 export const SImage = styled.img`
     max-width: 100%;
     height: auto;
@@ -197,93 +130,39 @@ export const SMediaBottomBar = styled.div`
     }
 `;
 
-export const SIMAGEInput = styled.input`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    cursor: pointer;
-    z-index: 100;
-    top: 0;
-    right: 0;
-`;
-
 // card three /////////////////////////////////////////////////
-export const SVariantsContainer = styled.div``;
 
-export const SVariantsHead = styled.div`
+export const STBodyTRVariant = styled.tr`
+    background: ${({ theme }) => theme.bg};
+`;
+
+export const STDImage = styled.td`
+    width: 1%;
+`;
+
+export const STDImageContainer = styled.div`
+    width: 64px;
     display: flex;
-    width: 100%;
-    margin-bottom: ${v.mdSpacing};
+    position: relative;
 `;
 
-export const STable = styled.table`
-    width: calc(100% + calc(${v.mdSpacing} * 2 + 2px));
-    border-collapse: collapse;
-    margin: 0 calc(-${v.mdSpacing} - 1px);
-    background: ${({ theme }) => theme.bg2};
+export const SIconsContainer = styled.div`
+    display: flex;
+    align-items: center;
 `;
-
-export const STableHead = styled.thead`
-    background: ${({ theme }) => theme.bg3};
-`;
-
-export const STableHeadTR = styled.tr``;
-
-export const STableHeadTH = styled.th``;
-
-export const STableBody = styled.tbody``;
-
-export const STableBodyTR = styled.tr`
-    cursor: ${({ clickable }) => (clickable ? "pointer" : "initial")};
-`;
-
-export const STableBodyTD = styled.td`
+export const SIconButtonWrap = styled.button`
+    ${btnReset};
+    cursor: pointer;
     :first-of-type {
-        width: 6rem;
+        margin-right: ${v.mdSpacing};
     }
 `;
-
-export const SContentContainer = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: ${v.smSpacing} ${v.mdSpacing};
-`;
-
-export const SContentSpanHead = styled.span`
-    display: block;
-    padding: ${v.smSpacing} ${v.mdSpacing};
-    font-size: 16px;
-    font-weight: 400;
-    text-align: ${({ center }) => (center ? "center" : "left")};
-`;
-export const SContentSpan = styled.span`
-    display: block;
-    padding: ${v.mdSpacing} ${v.mdSpacing};
-    font-size: 16px;
-    font-weight: 400;
-    background: ${({ theme }) => theme.bg2};
-    text-align: ${({ center }) => (center ? "center" : "left")};
-`;
-
-export const STableImageContainer = styled.div`
-    position: relative;
-    display: flex;
-`;
-export const STableImage = styled.img`
-    max-width: 100%;
-    height: auto;
-`;
-
-export const SIconsContainer = styled.div``;
 const iconStyles = css`
-    font-size: 24px;
+    font-size: 16px;
     display: block;
 `;
 export const SDeleteIcon = styled(AiOutlineDelete)`
     ${iconStyles}
-    margin-bottom: ${v.mdSpacing};
 `;
 export const SEditIcon = styled(AiOutlineEdit)`
     ${iconStyles}

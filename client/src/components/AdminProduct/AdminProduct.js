@@ -1,56 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import Button from "../UI/Button/Button";
 
 import {
-    SCardControl,
-    SContentContainer,
-    SContentSpan,
-    SContentSpanHead,
     SDeleteIcon,
-    SDESCRIPTIONInput,
     SEditIcon,
-    SFormControl,
+    SIconButtonWrap,
     SIconsContainer,
-    SImageContainer,
+    SImage,
     SImageOverlay,
-    SImagesContainer,
-    SLabel,
-    SLabelSpan,
-    SMainImage,
-    SMainImageContainer,
-    SMedia,
+    SMainMediaContainer,
     SMediaBottomBar,
     SMediaContainer,
+    SMediaGrid,
     SPopup,
-    SProductDisplay,
-    SProductDisplayContainer,
     SProductDisplayGrid,
     SPrompt,
     SPromptButtonContainer,
     SPromptContainer,
-    SSectionOne,
-    SSectionTwo,
-    STable,
-    STableBody,
-    STableBodyTD,
-    STableBodyTR,
-    STableHead,
-    STableHeadTH,
-    STableHeadTR,
-    STableImage,
-    STableImageContainer,
-    STITLEInput,
-    SVariantsContainer,
-    SVariantsHead,
+    STBodyTRVariant,
+    STDImage,
+    STDImageContainer,
 } from "./styles";
-import Card from "../UI/Card/Card";
 
 import { missingImg } from "../../assets";
 import { SCardContainer } from "../UI/Containers/styles";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
+import { SFormControl, SInput, SLabel, STextArea } from "../UI/AuthForm/styles";
+import { STable, STBody, STD, STH, STHead, STHeadTR } from "../UI/Table/styles";
+import { useMemo } from "react";
+import ImageInput from "../UI/ImageInput/ImageInput";
+import MediaFocus from "../UI/MediaFocus/MediaFocus";
 
 // import ImageInput from "./ImageInput";
 
@@ -61,35 +43,15 @@ const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { product } = useSelector((state) => state.product);
+    const [mediaSelect, setMediaSelect] = useState(null);
 
-    const [variantImageSelect, setVariantImageSelect] = useState(null);
-    const [imageFocus, setImageFocus] = useState(null);
+    const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
 
-    const [edits, setEdits] = useState({});
-
-    // const inputChangeHandler = (e) => {
-    //     setProduct((p) => ({ ...p, [e.target.name]: e.target.value }));
-
-    //     if (e.target.value !== currentProduct[e.target.name]) {
-    //         setEdits((p) => ({ ...p, [e.target.name]: e.target.value }));
-    //     } else {
-    //         setEdits((p) => {
-    //             delete p[e.target.name];
-    //             return p;
-    //         });
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     if (Object.keys(edits).length === 0) {
-    //         dispatch(productActions.changeIsEdited(false));
-    //     } else {
-    //         dispatch(productActions.changeIsEdited(true));
-    //     }
-    // }, [edits, dispatch]);
-
-    const productImages = product?.media?.length === 0 ? null : product?.media;
-    const slicedProductImages = product?.media?.length > 1 ? product?.media?.slice(1) : [];
+    const { mainMedia, media } = useMemo(() => {
+        if (!product.media.length) return { mainMedia: { url: missingImg, _id: null }, media: [] };
+        if (product.media.length === 1) return { mainMedia: product.media[0], media: [] };
+        else return { mainMedia: product.media[0], media: product.media.slice(1) };
+    }, [product.media]);
 
     return (
         <>
@@ -102,19 +64,17 @@ const AdminProduct = () => {
                         id={id}
                     />
                 )}
-            </>
-            <>
-                {imageFocus !== null && (
-                    <ImageFocus
-                        images={productImages}
-                        imageFocus={imageFocus}
-                        setImageFocus={setImageFocus}
-                        productTitle={product?.title}
-                        id={id}
-                    />
-                )}
             </> */}
             <>
+                {mediaSelect && (
+                    <MediaFocus
+                        product={product}
+                        mediaSelect={mediaSelect}
+                        onMediaSelect={mediaSelectHandler}
+                    />
+                )}
+            </>
+            {/* <>
                 {Object.keys(edits).length !== 0 && (
                     <SPopup>
                         <SPromptContainer>
@@ -130,7 +90,7 @@ const AdminProduct = () => {
                         </SPromptContainer>
                     </SPopup>
                 )}
-            </>
+            </> */}
             <SProductDisplayGrid>
                 <div>
                     <SCardContainer>
@@ -139,47 +99,29 @@ const AdminProduct = () => {
                         </SSectionHeadContainer>
                         <SFormControl>
                             <SLabel>Title</SLabel>
-                            <STITLEInput
-                                name="title"
-                                value={product?.title || ""}
-                                // onChange={inputChangeHandler}
-                            />
+                            <SInput />
                         </SFormControl>
                         <SFormControl>
                             <SLabel>Description</SLabel>
-                            <SDESCRIPTIONInput
-                                name="description"
-                                value={product?.description || ""}
-                                // onChange={inputChangeHandler}
-                            />
+                            <STextArea />
                         </SFormControl>
                     </SCardContainer>
-
                     <SCardContainer>
                         <SSectionHeadContainer>
                             <SSectionHeadTitle>Media</SSectionHeadTitle>
                         </SSectionHeadContainer>
-
-                        <SMedia>
-                            <SMainImageContainer
-                                onClick={() =>
-                                    productImages && setImageFocus(product?.media?.[0]?.url)
-                                }
-                            >
-                                <SMainImage src={product?.media?.[0]?.url || missingImg} />
-                                <SImageOverlay />
-                                {/* {!productImages && <ImageInput id={id} />} */}
-                            </SMainImageContainer>
-                            <SImagesContainer>
-                                {slicedProductImages.map(({ url }, index) => (
-                                    <SImageContainer key={index} onClick={() => setImageFocus(url)}>
-                                        <SMainImage src={url} />
-                                        <SImageOverlay />
-                                    </SImageContainer>
-                                ))}
-                            </SImagesContainer>
-                        </SMedia>
-
+                        <SMediaGrid>
+                            <SMainMediaContainer>
+                                <SImage src={mainMedia.url} />
+                                <SImageOverlay onClick={() => mediaSelectHandler(mainMedia._id)} />
+                            </SMainMediaContainer>
+                            {media.map(({ url, _id }, index) => (
+                                <SMediaContainer key={index}>
+                                    <SImage src={url} />
+                                    <SImageOverlay onClick={() => mediaSelectHandler(_id)} />
+                                </SMediaContainer>
+                            ))}
+                        </SMediaGrid>
                         <SMediaBottomBar>
                             {/* {(loading.imageUpload || loading.imageDelete) && (
                                         <Spinner size={`30px`} />
@@ -191,83 +133,89 @@ const AdminProduct = () => {
                                 // disabled={loading.imageUpload || loading.imageDelete}
                             >
                                 Add Image
-                                {/* <ImageInput id={id} /> */}
+                                <ImageInput productId={id} />
                             </Button>
                         </SMediaBottomBar>
                     </SCardContainer>
-
                     <SCardContainer>
                         <SSectionHeadContainer>
                             <SSectionHeadTitle>Variants</SSectionHeadTitle>
                         </SSectionHeadContainer>
-                        <SVariantsContainer>
-                            <>
+                        {(() => {
+                            const displayKeys = ["title", "price"];
+                            const variants = product.variants;
+                            return (
                                 <STable>
-                                    <STableHead>
-                                        <STableHeadTR>
-                                            <STableHeadTH></STableHeadTH>
-                                            <STableHeadTH>
-                                                <SContentSpanHead>Variant</SContentSpanHead>
-                                            </STableHeadTH>
-                                            <STableHeadTH>
-                                                <SContentSpanHead>Price</SContentSpanHead>
-                                            </STableHeadTH>
-                                            <STableHeadTH>
-                                                <SContentSpanHead center>QTY</SContentSpanHead>
-                                            </STableHeadTH>
-                                            <STableHeadTH></STableHeadTH>
-                                        </STableHeadTR>
-                                    </STableHead>
-                                    <STableBody>
-                                        {product &&
-                                            product?.variants?.map((variant, index) => {
-                                                const { title, price, mediaUrl } = variant;
-                                                return (
-                                                    <STableBodyTR key={index}>
-                                                        <STableBodyTD>
-                                                            <STableImageContainer
-                                                                onClick={() =>
-                                                                    setVariantImageSelect(variant)
-                                                                }
-                                                            >
-                                                                <STableImage
-                                                                    src={mediaUrl || missingImg}
-                                                                />
-                                                                <SImageOverlay />
-                                                            </STableImageContainer>
-                                                        </STableBodyTD>
-                                                        <STableBodyTD>
-                                                            <SContentSpan>{title}</SContentSpan>
-                                                        </STableBodyTD>
-                                                        <STableBodyTD>
-                                                            <SContentSpan>${price}</SContentSpan>
-                                                        </STableBodyTD>
-                                                        <STableBodyTD>
-                                                            <SContentSpan center>3</SContentSpan>
-                                                        </STableBodyTD>
-                                                        <STableBodyTD>
-                                                            <SContentContainer>
-                                                                <SIconsContainer>
-                                                                    <SDeleteIcon />
-                                                                    <SEditIcon />
-                                                                </SIconsContainer>
-                                                            </SContentContainer>
-                                                        </STableBodyTD>
-                                                    </STableBodyTR>
-                                                );
-                                            })}
-                                    </STableBody>
+                                    <STHead>
+                                        <STHeadTR>
+                                            <STH />
+                                            <STH />
+                                            <STH>Title</STH>
+                                            <STH>Price</STH>
+                                            <STH style={{ width: "1%", whiteSpace: "nowrap" }} />
+                                        </STHeadTR>
+                                    </STHead>
+                                    <STBody>
+                                        {variants.map((variant, index) => (
+                                            <STBodyTRVariant key={index}>
+                                                <STD>{index + 1}</STD>
+                                                <STDImage>
+                                                    <STDImageContainer>
+                                                        <SImage src={variant.mediaUrl} />
+                                                        <SImageOverlay />
+                                                    </STDImageContainer>
+                                                </STDImage>
+                                                {displayKeys.map((key, index) => {
+                                                    let value = variant[key];
+                                                    if (key === "price") value = `$${value}`;
+                                                    return <STD key={index}>{value}</STD>;
+                                                })}
+                                                <STD>
+                                                    <SIconsContainer>
+                                                        <SIconButtonWrap>
+                                                            <SEditIcon />
+                                                        </SIconButtonWrap>
+                                                        <SIconButtonWrap>
+                                                            <SDeleteIcon />
+                                                        </SIconButtonWrap>
+                                                    </SIconsContainer>
+                                                </STD>
+                                            </STBodyTRVariant>
+                                        ))}
+                                    </STBody>
                                 </STable>
-                            </>
-                        </SVariantsContainer>
+                            );
+                        })()}
                     </SCardContainer>
                 </div>
                 <div>
-                    <Card>yo</Card>
+                    <SCardContainer>
+                        <SSectionHeadContainer>
+                            <SSectionHeadTitle>Product Status</SSectionHeadTitle>
+                        </SSectionHeadContainer>
+                    </SCardContainer>
                 </div>
             </SProductDisplayGrid>
         </>
     );
 };
+
+// <SMainImageContainer
+//                                 onClick={() =>
+//                                     productImages && setImageFocus(product?.media?.[0]?.url)
+//                                 }
+//                             >
+//                                 <SMainImage src={product?.media?.[0]?.url || missingImg} />
+//                                 <SImageOverlay />
+//                                 {/* {!productImages && <ImageInput id={id} />} */}
+//                             </SMainImageContainer>
+//                             <SImagesContainer>
+//                                 {slicedProductImages.map(({ url }, index) => (
+//                                     <SImageContainer key={index} onClick={() => setImageFocus(url)}>
+//                                         <SMainImage src={url} />
+//                                         <SImageOverlay />
+//                                     </SImageContainer>
+//                                 ))}
+//                             </SImagesContainer>
 
 export default AdminProduct;
