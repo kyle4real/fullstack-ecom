@@ -98,23 +98,6 @@ export const SMediaContainer = styled.div`
     position: relative;
 `;
 
-export const SImageOverlay = styled.button`
-    ${btnReset};
-    position: absolute;
-    z-index: 10;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    background: ${({ theme }) => theme.bgOverlay};
-    cursor: pointer;
-    opacity: ${({ active }) => (!active ? 0 : 1)};
-
-    :hover {
-        opacity: 1;
-        transition: 0.2s ease;
-    }
-`;
-
 export const SImage = styled.img`
     max-width: 100%;
     height: auto;

@@ -10,16 +10,11 @@ import {
     SIconButtonWrap,
     SIconsContainer,
     SImage,
-    SImageOverlay,
     SMainMediaContainer,
     SMediaBottomBar,
     SMediaContainer,
     SMediaGrid,
-    SPopup,
     SProductDisplayGrid,
-    SPrompt,
-    SPromptButtonContainer,
-    SPromptContainer,
     STBodyTRVariant,
     STDImage,
     STDImageContainer,
@@ -27,25 +22,23 @@ import {
 
 import { missingImg } from "../../assets";
 import { SCardContainer } from "../UI/Containers/styles";
-import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
+import { SImageOverlay, SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
 import { SFormControl, SInput, SLabel, STextArea } from "../UI/AuthForm/styles";
 import { STable, STBody, STD, STH, STHead, STHeadTR } from "../UI/Table/styles";
 import { useMemo } from "react";
 import ImageInput from "../UI/ImageInput/ImageInput";
 import MediaFocus from "../UI/MediaFocus/MediaFocus";
-
-// import ImageInput from "./ImageInput";
-
-// import VariantImageSelect from "./VariantImageSelect/VariantImageSelect";
-// import ImageFocus from "./ImageFocus/ImageFocus";
+import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
 
 const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { product } = useSelector((state) => state.product);
     const [mediaSelect, setMediaSelect] = useState(null);
+    const [variantSelect, setVariantSelect] = useState(null);
 
     const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
+    const variantSelectHandler = (variantId) => setVariantSelect(variantId);
 
     const { mainMedia, media } = useMemo(() => {
         if (!product.media.length) return { mainMedia: { url: missingImg, _id: null }, media: [] };
@@ -55,18 +48,17 @@ const AdminProduct = () => {
 
     return (
         <>
-            {/* <>
-                {variantImageSelect !== null && (
-                    <VariantImageSelect
-                        images={productImages}
-                        variant={variantImageSelect}
-                        setVariantImageSelect={setVariantImageSelect}
-                        id={id}
+            <>
+                {!!variantSelect && (
+                    <VariantMediaSelect
+                        product={product}
+                        variantSelect={variantSelect}
+                        onCancel={() => variantSelectHandler(null)}
                     />
                 )}
-            </> */}
+            </>
             <>
-                {mediaSelect && (
+                {!!mediaSelect && (
                     <MediaFocus
                         product={product}
                         mediaSelect={mediaSelect}
@@ -162,7 +154,11 @@ const AdminProduct = () => {
                                                 <STDImage>
                                                     <STDImageContainer>
                                                         <SImage src={variant.mediaUrl} />
-                                                        <SImageOverlay />
+                                                        <SImageOverlay
+                                                            onClick={() =>
+                                                                variantSelectHandler(variant._id)
+                                                            }
+                                                        />
                                                     </STDImageContainer>
                                                 </STDImage>
                                                 {displayKeys.map((key, index) => {

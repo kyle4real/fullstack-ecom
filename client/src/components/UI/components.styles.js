@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { v } from "../../styles/variables";
+import { btnReset, v } from "../../styles/variables";
 
 export const SSectionHeadContainer = styled.div`
     display: flex;
@@ -17,4 +17,21 @@ export const SSectionHeadTitle = styled.h2`
     font-size: 18px;
     font-weight: 600;
     /* padding: ${v.smSpacing}; */
+`;
+
+export const SImageOverlay = styled.button`
+    ${btnReset};
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: ${({ theme }) => theme.bgOverlay};
+    cursor: pointer;
+    opacity: ${({ active }) => (!active ? 0 : 1)};
+
+    :hover {
+        opacity: 1;
+        transition: 0.2s ease;
+    }
 `;
