@@ -11,8 +11,9 @@ import RegisterPage from "./pages/RegisterPage";
 import { useSelector } from "react-redux";
 
 const Routes = () => {
-    const { accessToken } = useSelector((state) => state.auth);
+    const { accessToken, loading } = useSelector((state) => state.auth);
 
+    if (loading) return <></>;
     return (
         <>
             <Switch>

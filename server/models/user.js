@@ -52,7 +52,8 @@ UserSchema.pre("save", async function (next) {
 
 // Sign JWT and return
 UserSchema.methods.createAccessToken = function () {
-    return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
+    const firstName = this.name.split(" ")[0];
+    return jwt.sign({ id: this._id, role: this.role, firstName }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRE,
     });
 };

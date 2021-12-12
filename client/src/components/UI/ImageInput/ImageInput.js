@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { uploadMedia } from "../../../app/actions/product-actions";
-import { SIMAGEInput } from "./styles";
+// import { uploadMedia } from "../../../app/actions/product-actions";
+import { SImageInput } from "./styles";
 
-const ImageInput = ({ id }) => {
+const ImageInput = ({ productId }) => {
     const dispatch = useDispatch();
     const [file, setFile] = useState("");
 
@@ -20,9 +20,9 @@ const ImageInput = ({ id }) => {
         };
     };
     const uploadImage = (base64EncodedImage) => {
-        dispatch(uploadMedia({ base64Img: base64EncodedImage, id }));
+        // dispatch(uploadMedia({ base64Img: base64EncodedImage, id }));
     };
-    return <SIMAGEInput type="file" value={file} onChange={fileChangeHandler} title=" " />;
+    return <SImageInput type="file" value={file} onChange={fileChangeHandler} title=" " />;
 };
 
 export default ImageInput;

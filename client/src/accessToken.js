@@ -23,8 +23,8 @@ export const getUserRole = (token) => {
 export const getUserData = (token) => {
     if (!token) return null;
     try {
-        const { role, id } = jwtDecode(token);
-        return { role, id };
+        const { role, id, firstName } = jwtDecode(token);
+        return { role, id, firstName };
     } catch {
         return null;
     }

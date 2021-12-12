@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { v } from "../../../../styles/variables";
+import { btnReset, v } from "../../../styles/variables";
 
 import { AiOutlineClose, AiOutlineDelete, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
@@ -26,7 +26,8 @@ export const SButtonContainer = styled.div`
     display: flex;
 `;
 
-export const SIconContainer = styled.div`
+export const SIconButtonWrap = styled.button`
+    ${btnReset};
     padding: ${v.smSpacing};
     border-radius: ${v.borderRadius};
     cursor: pointer;
@@ -52,8 +53,6 @@ export const SCloseIcon = styled(AiOutlineClose)`
 
 export const SSliderContainer = styled.div`
     background: ${({ theme }) => theme.bg3};
-    width: calc(100% + ${v.mdSpacing} * 2 + 2px);
-    margin: 0 calc(-${v.mdSpacing} - 1px);
     display: flex;
     justify-content: center;
 `;

@@ -1,16 +1,17 @@
 import React from "react";
-import { Switch, Route, Redirect, useRouteMatch } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import Account from "../components/Account/Account";
 
 import PageLayout from "../components/UI/PageLayout/PageLayout";
-import LoginPage from "./LoginPage";
-import RegisterPage from "./RegisterPage";
+import ProtectedRoute from "../routes/ProtectedRoute";
+import AdminOrdersPage from "./AdminOrdersPage";
+import AdminProductPage from "./AdminProductPage";
+import AdminProductsPage from "./AdminProductsPage";
+import CredentialsPage from "./CredentialsPage";
 
 const AccountPage = () => {
     const { path, url } = useRouteMatch();
-    const { authData } = useSelector((state) => state.auth);
 
     return (
         <Switch>
@@ -24,6 +25,18 @@ const AccountPage = () => {
                     ]}
                 />
             </Route>
+            <Route exact path={`${path}/credentials`}>
+                <CredentialsPage />
+            </Route>
+            <ProtectedRoute exact path={`${path}/admin/products`} roles={["admin"]}>
+                <AdminProductsPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${path}/admin/products/:product`} roles={["admin"]}>
+                <AdminProductPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${path}/admin/orders`} roles={["admin"]}>
+                <AdminOrdersPage />
+            </ProtectedRoute>
         </Switch>
     );
 };

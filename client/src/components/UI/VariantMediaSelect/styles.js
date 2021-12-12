@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-import { v, b } from "../../../../styles/variables";
+import { v, b } from "../../../styles/variables";
 
 // VARIANT IMAGE SELECT /////////////////////////////////////////////////
 
-export const SNotification = styled.span`
+export const SNoMedia = styled.span`
     display: block;
     text-align: center;
     font-size: 18px;
@@ -12,33 +12,25 @@ export const SNotification = styled.span`
     margin: ${v.lgSpacing} 0;
 `;
 
-export const SVariantSelect = styled.div`
-    width: calc(100% + ${v.mdSpacing} * 2 + 2px);
-    margin: 0 calc(-${v.mdSpacing} - 1px);
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-top: ${v.mdSpacing};
-    overflow-y: auto;
-    max-height: 40vh;
-    box-shadow: inset 0 0 10px -3px ${({ theme }) => theme.bg};
-    background: ${({ theme }) => theme.bg3};
+export const SMediaGrid = styled.div`
+    padding: ${v.mdSpacing};
+    display: grid;
+    gap: ${v.mdSpacing};
+    background: ${({ theme }) => theme.bg};
+    max-height: 50vh;
+    overflow: auto;
+
+    grid-template-columns: repeat(2, 1fr);
+    @media ${b.sm} {
+        grid-template-columns: repeat(3, 1fr);
+    }
 `;
 
 export const SImageContainer = styled.div`
     display: flex;
     position: relative;
-    width: calc(100% / 2 - ${v.mdSpacing} * 2);
-    margin: ${v.mdSpacing};
-    height: fit-content;
 
-    @media ${b.sm} {
-        width: calc(100% / 3 - ${v.mdSpacing} * 2);
-        margin: 0;
-        margin: ${v.mdSpacing};
-    }
-
-    border: 1px solid ${({ theme, active }) => (!active ? "transparent" : theme.primary)};
+    border: 2px solid ${({ theme, active }) => (!active ? "transparent" : theme.primary)};
 `;
 
 export const SImage = styled.img`
@@ -53,9 +45,7 @@ export const SCheckBoxContainer = styled.div`
     z-index: 1000;
 `;
 
-export const SBottomPanel = styled.div`
-    /* margin-top: ${v.mdSpacing}; */
-    /* border-top: 1px solid ${({ theme }) => theme.primary}; */
+export const SBottomBar = styled.div`
     padding-top: ${v.mdSpacing};
     display: flex;
     justify-content: center;
@@ -85,11 +75,17 @@ export const SButtonContainer = styled.div`
         text-align: right;
         display: flex;
         justify-content: flex-end;
+        align-items: center;
     }
-    button {
-        margin: calc(${v.smSpacing} / 2);
+    > button {
+        :not(:last-of-type) {
+            margin-bottom: ${v.smSpacing};
+        }
         @media ${b.sm} {
-            margin-right: ${v.mdSpacing};
+            :not(:last-of-type) {
+                margin-bottom: 0;
+                margin-right: ${v.smSpacing};
+            }
         }
     }
 `;

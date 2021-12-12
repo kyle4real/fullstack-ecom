@@ -4,6 +4,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import "colors";
+import cookieParser from "cookie-parser";
 
 import errorHandler from "./middleware/error.js";
 
@@ -28,6 +29,8 @@ if (process.env.NODE_ENV === "development") {
         })
     );
 }
+
+app.use(cookieParser());
 
 app.use(morgan("dev"));
 

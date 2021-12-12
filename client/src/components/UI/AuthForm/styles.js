@@ -77,3 +77,11 @@ export const SSubmitButton = styled.button`
     }
     transition: 0.2s ease all;
 `;
+
+// Text Area
+
+export const STextArea = styled.textarea`
+    height: 175px;
+    resize: none;
+    ${inputStyles};
+`;

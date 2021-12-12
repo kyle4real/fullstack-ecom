@@ -12,6 +12,11 @@ export const GlobalStyles = createGlobalStyle`
         color: ${({ theme }) => theme.text};
         font-family: 'Roboto', sans-serif;
         letter-spacing: .6px;
+
+        .top-0 {
+            top: 0;
+            transition: .3s ease top;
+        }
     }
 
     button {
@@ -27,4 +32,6 @@ export const GlobalStyles = createGlobalStyle`
         }
         
     }
+
+    
 `;

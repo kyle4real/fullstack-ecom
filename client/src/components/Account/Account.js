@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import { logout } from "../../app/actions/auth-actions";
 
-import { authActions } from "../../app/slices/auth-slice";
-
 import Button from "../UI/Button/Button";
 import {
     SAccount,
@@ -16,7 +14,7 @@ import {
 } from "./styles";
 
 const Account = () => {
-    const { authData } = useSelector((state) => state.auth);
+    const { firstName, role } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const history = useHistory();
@@ -29,18 +27,19 @@ const Account = () => {
         dispatch(logout());
     };
 
+    const buttons = role === "admin" ? adminButtons : userButtons;
     return (
         <>
             <SAccount>
                 <SAccountButtonsContainer>
-                    <STitle>Welcome {authData?.name?.split(" ")?.[0]}</STitle>
+                    <STitle>Welcome {firstName}</STitle>
                     <SDescription>Explore your account</SDescription>
                     <SAccountButtons>
-                        {/* {buttons.map(({ button, to }, index) => (
+                        {buttons.map(({ label, to }, index) => (
                             <SButtonContainer key={index}>
-                                <Button onClick={() => buttonClickHandler(to)}>{button}</Button>
+                                <Button onClick={() => buttonClickHandler(to)}>{label}</Button>
                             </SButtonContainer>
-                        ))} */}
+                        ))}
                         <SButtonContainer>
                             <Button secondary onClick={logoutHandler}>
                                 Logout
@@ -52,5 +51,23 @@ const Account = () => {
         </>
     );
 };
+
+const userButtons = [
+    {
+        label: "Credientials",
+        to: "/credentials",
+    },
+];
+const adminButtons = [
+    ...userButtons,
+    {
+        label: "Products",
+        to: "/admin/products",
+    },
+    {
+        label: "Orders",
+        to: "/admin/orders",
+    },
+];
 
 export default Account;

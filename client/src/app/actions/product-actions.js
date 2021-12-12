@@ -14,6 +14,19 @@ export const getProductBySku = (productSku, { onComplete, onError }) => {
     };
 };
 
+export const getProduct = (productId, { onComplete, onError }) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.getProduct(productId);
+            dispatch(productActions.replaceProduct({ data }));
+        } catch (error) {
+            onError(error);
+        } finally {
+            onComplete();
+        }
+    };
+};
+
 export const uploadMedia = (obj, callback) => {
     return async (dispatch) => {
         try {
