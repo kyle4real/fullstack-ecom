@@ -29,6 +29,7 @@ import { useMemo } from "react";
 import ImageInput from "../UI/ImageInput/ImageInput";
 import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
+import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 
 const AdminProduct = () => {
     const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const AdminProduct = () => {
                     </SPopup>
                 )}
             </> */}
+            <UnsavedChanges show={true} loading={false} />
             <SProductDisplayGrid>
                 <div>
                     <SCardContainer>
