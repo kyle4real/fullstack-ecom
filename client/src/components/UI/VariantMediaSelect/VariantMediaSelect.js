@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
+import useDetectClickaway from "../../../hooks/useClickAway";
 import { s, v } from "../../../styles/variables";
 import Button from "../Button/Button";
 import CheckBox from "../CheckBox/CheckBox";
@@ -19,6 +20,10 @@ import {
 } from "./styles";
 
 const VariantMediaSelect = ({ product, variantSelect, onCancel }) => {
+    const variantMediaSelectRef = useRef();
+    useDetectClickaway(variantMediaSelectRef, () => {
+        onCancel();
+    });
     const variant = product.variants.find((item) => item._id === variantSelect);
     const selectedMediaId = variant?.mediaUrl
         ? product.media.find((item) => item.url === variant.mediaUrl)._id
@@ -31,7 +36,10 @@ const VariantMediaSelect = ({ product, variantSelect, onCancel }) => {
     const edited = selectedMediaId && selectedMediaId !== mediaSelect;
     return (
         <Overlay>
-            <SCardContainer style={{ width: s["sm"], margin: `0 ${v.lgSpacing}` }}>
+            <SCardContainer
+                style={{ width: s["sm"], margin: `0 ${v.lgSpacing}` }}
+                ref={variantMediaSelectRef}
+            >
                 <SSectionHeadContainer>
                     <SSectionHeadTitle>Select Variant Media</SSectionHeadTitle>
                 </SSectionHeadContainer>

@@ -1,6 +1,8 @@
 import React from "react";
+import { useRef } from "react";
 import { useState } from "react";
 import { useMemo } from "react";
+import useDetectClickaway from "../../../hooks/useClickAway";
 import { s } from "../../../styles/variables";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../components.styles";
 import { SCardContainer } from "../Containers/styles";
@@ -23,6 +25,10 @@ import {
 } from "./styles";
 
 const MediaFocus = ({ product, mediaSelect, onMediaSelect }) => {
+    const mediaFocusRef = useRef();
+    useDetectClickaway(mediaFocusRef, () => {
+        onMediaSelect(null);
+    });
     const media = product.media;
 
     const { index, src } = useMemo(() => {
@@ -47,7 +53,7 @@ const MediaFocus = ({ product, mediaSelect, onMediaSelect }) => {
 
     return (
         <Overlay>
-            <SCardContainer style={{ width: s["sm"] }}>
+            <SCardContainer style={{ width: s["sm"] }} ref={mediaFocusRef}>
                 <SImageFocus>
                     <SSectionHeadContainer>
                         <SSectionHeadTitle>{product.title}</SSectionHeadTitle>

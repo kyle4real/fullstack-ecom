@@ -148,36 +148,41 @@ const AdminProduct = () => {
                                         </STHeadTR>
                                     </STHead>
                                     <STBody>
-                                        {variants.map((variant, index) => (
-                                            <STBodyTRVariant key={index}>
-                                                <STD>{index + 1}</STD>
-                                                <STDImage>
-                                                    <STDImageContainer>
-                                                        <SImage src={variant.mediaUrl} />
-                                                        <SImageOverlay
-                                                            onClick={() =>
-                                                                variantSelectHandler(variant._id)
-                                                            }
-                                                        />
-                                                    </STDImageContainer>
-                                                </STDImage>
-                                                {displayKeys.map((key, index) => {
-                                                    let value = variant[key];
-                                                    if (key === "price") value = `$${value}`;
-                                                    return <STD key={index}>{value}</STD>;
-                                                })}
-                                                <STD>
-                                                    <SIconsContainer>
-                                                        <SIconButtonWrap>
-                                                            <SEditIcon />
-                                                        </SIconButtonWrap>
-                                                        <SIconButtonWrap>
-                                                            <SDeleteIcon />
-                                                        </SIconButtonWrap>
-                                                    </SIconsContainer>
-                                                </STD>
-                                            </STBodyTRVariant>
-                                        ))}
+                                        {variants.map((variant, index) => {
+                                            const src = variant.mediaUrl || missingImg;
+                                            return (
+                                                <STBodyTRVariant key={index}>
+                                                    <STD>{index + 1}</STD>
+                                                    <STDImage>
+                                                        <STDImageContainer>
+                                                            <SImage src={src} />
+                                                            <SImageOverlay
+                                                                onClick={() =>
+                                                                    variantSelectHandler(
+                                                                        variant._id
+                                                                    )
+                                                                }
+                                                            />
+                                                        </STDImageContainer>
+                                                    </STDImage>
+                                                    {displayKeys.map((key, index) => {
+                                                        let value = variant[key];
+                                                        if (key === "price") value = `$${value}`;
+                                                        return <STD key={index}>{value}</STD>;
+                                                    })}
+                                                    <STD>
+                                                        <SIconsContainer>
+                                                            <SIconButtonWrap>
+                                                                <SEditIcon />
+                                                            </SIconButtonWrap>
+                                                            <SIconButtonWrap>
+                                                                <SDeleteIcon />
+                                                            </SIconButtonWrap>
+                                                        </SIconsContainer>
+                                                    </STD>
+                                                </STBodyTRVariant>
+                                            );
+                                        })}
                                     </STBody>
                                 </STable>
                             );
