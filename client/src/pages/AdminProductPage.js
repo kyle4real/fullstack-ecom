@@ -5,7 +5,8 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../app/actions/product-actions";
 import { productActions } from "../app/slices/product-slice";
-import ProductDisplay from "../components/Admin/ProductDisplay/ProductDisplay";
+
+import AdminProduct from "../components/AdminProduct/AdminProduct";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const AdminProductPage = () => {
@@ -29,7 +30,7 @@ const AdminProductPage = () => {
             layoutArr={[
                 {
                     type: "contain",
-                    component: <ProductDisplay />,
+                    component: <AdminProduct />,
                 },
             ]}
         />

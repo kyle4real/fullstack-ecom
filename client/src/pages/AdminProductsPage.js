@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProducts } from "../app/actions/products-actions";
 import { productsActions } from "../app/slices/products-slice";
-import ProductTable from "../components/Admin/ProductTable/ProductTable";
+import AdminProducts from "../components/AdminProducts/AdminProducts";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const AdminProductsPage = () => {
@@ -25,7 +25,7 @@ const AdminProductsPage = () => {
             layoutArr={[
                 {
                     type: "contain",
-                    component: <ProductTable />,
+                    component: <AdminProducts />,
                 },
             ]}
         />

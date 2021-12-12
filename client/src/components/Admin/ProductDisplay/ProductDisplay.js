@@ -27,6 +27,7 @@ import {
     SPopup,
     SProductDisplay,
     SProductDisplayContainer,
+    SProductDisplayGrid,
     SPrompt,
     SPromptButtonContainer,
     SPromptContainer,
@@ -129,60 +130,56 @@ const ProductDisplay = () => {
                     </SPopup>
                 )}
             </>
-            <SProductDisplay>
-                <SProductDisplayContainer>
-                    <SSectionOne>
-                        <SCardControl>
-                            <Card>
-                                <SFormControl>
-                                    <SLabel>Title</SLabel>
-                                    <STITLEInput
-                                        name="title"
-                                        value={product?.title || ""}
-                                        // onChange={inputChangeHandler}
-                                    />
-                                </SFormControl>
-                                <SFormControl>
-                                    <SLabel>Description</SLabel>
-                                    <SDESCRIPTIONInput
-                                        name="description"
-                                        value={product?.description || ""}
-                                        // onChange={inputChangeHandler}
-                                    />
-                                </SFormControl>
-                            </Card>
-                        </SCardControl>
-                        <SCardControl>
-                            <Card>
-                                <SMediaContainer>
-                                    <SLabelSpan>Media</SLabelSpan>
-                                    <SMedia>
-                                        <SMainImageContainer
-                                            onClick={() =>
-                                                productImages &&
-                                                setImageFocus(product?.media?.[0]?.url)
-                                            }
-                                        >
-                                            <SMainImage
-                                                src={product?.media?.[0]?.url || missingImg}
-                                            />
-                                            <SImageOverlay />
-                                            {!productImages && <ImageInput id={id} />}
-                                        </SMainImageContainer>
-                                        <SImagesContainer>
-                                            {slicedProductImages.map(({ url }, index) => (
-                                                <SImageContainer
-                                                    key={index}
-                                                    onClick={() => setImageFocus(url)}
-                                                >
-                                                    <SMainImage src={url} />
-                                                    <SImageOverlay />
-                                                </SImageContainer>
-                                            ))}
-                                        </SImagesContainer>
-                                    </SMedia>
-                                </SMediaContainer>
-                                {/* <SMediaBottomBar>
+            <SProductDisplayGrid>
+                <div>
+                    <SCardControl>
+                        <Card>
+                            <SFormControl>
+                                <SLabel>Title</SLabel>
+                                <STITLEInput
+                                    name="title"
+                                    value={product?.title || ""}
+                                    // onChange={inputChangeHandler}
+                                />
+                            </SFormControl>
+                            <SFormControl>
+                                <SLabel>Description</SLabel>
+                                <SDESCRIPTIONInput
+                                    name="description"
+                                    value={product?.description || ""}
+                                    // onChange={inputChangeHandler}
+                                />
+                            </SFormControl>
+                        </Card>
+                    </SCardControl>
+                    <SCardControl>
+                        <Card>
+                            <SMediaContainer>
+                                <SLabelSpan>Media</SLabelSpan>
+                                <SMedia>
+                                    <SMainImageContainer
+                                        onClick={() =>
+                                            productImages && setImageFocus(product?.media?.[0]?.url)
+                                        }
+                                    >
+                                        <SMainImage src={product?.media?.[0]?.url || missingImg} />
+                                        <SImageOverlay />
+                                        {!productImages && <ImageInput id={id} />}
+                                    </SMainImageContainer>
+                                    <SImagesContainer>
+                                        {slicedProductImages.map(({ url }, index) => (
+                                            <SImageContainer
+                                                key={index}
+                                                onClick={() => setImageFocus(url)}
+                                            >
+                                                <SMainImage src={url} />
+                                                <SImageOverlay />
+                                            </SImageContainer>
+                                        ))}
+                                    </SImagesContainer>
+                                </SMedia>
+                            </SMediaContainer>
+                            {/* <SMediaBottomBar>
                                     {(loading.imageUpload || loading.imageDelete) && (
                                         <Spinner size={`30px`} />
                                     )}
@@ -196,94 +193,86 @@ const ProductDisplay = () => {
                                         <ImageInput id={id} />
                                     </Button>
                                 </SMediaBottomBar> */}
-                            </Card>
-                        </SCardControl>
-                        <SCardControl>
-                            <Card>
-                                <SVariantsContainer>
-                                    <SVariantsHead>
-                                        <SLabelSpan>Variants</SLabelSpan>
-                                    </SVariantsHead>
-                                    <>
-                                        <STable>
-                                            <STableHead>
-                                                <STableHeadTR>
-                                                    <STableHeadTH></STableHeadTH>
-                                                    <STableHeadTH>
-                                                        <SContentSpanHead>Variant</SContentSpanHead>
-                                                    </STableHeadTH>
-                                                    <STableHeadTH>
-                                                        <SContentSpanHead>Price</SContentSpanHead>
-                                                    </STableHeadTH>
-                                                    <STableHeadTH>
-                                                        <SContentSpanHead center>
-                                                            QTY
-                                                        </SContentSpanHead>
-                                                    </STableHeadTH>
-                                                    <STableHeadTH></STableHeadTH>
-                                                </STableHeadTR>
-                                            </STableHead>
-                                            <STableBody>
-                                                {product &&
-                                                    product?.variants?.map((variant, index) => {
-                                                        const { title, price, mediaUrl } = variant;
-                                                        return (
-                                                            <STableBodyTR key={index}>
-                                                                <STableBodyTD>
-                                                                    <STableImageContainer
-                                                                        onClick={() =>
-                                                                            setVariantImageSelect(
-                                                                                variant
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        <STableImage
-                                                                            src={
-                                                                                mediaUrl ||
-                                                                                missingImg
-                                                                            }
-                                                                        />
-                                                                        <SImageOverlay />
-                                                                    </STableImageContainer>
-                                                                </STableBodyTD>
-                                                                <STableBodyTD>
-                                                                    <SContentSpan>
-                                                                        {title}
-                                                                    </SContentSpan>
-                                                                </STableBodyTD>
-                                                                <STableBodyTD>
-                                                                    <SContentSpan>
-                                                                        ${price}
-                                                                    </SContentSpan>
-                                                                </STableBodyTD>
-                                                                <STableBodyTD>
-                                                                    <SContentSpan center>
-                                                                        3
-                                                                    </SContentSpan>
-                                                                </STableBodyTD>
-                                                                <STableBodyTD>
-                                                                    <SContentContainer>
-                                                                        <SIconsContainer>
-                                                                            <SDeleteIcon />
-                                                                            <SEditIcon />
-                                                                        </SIconsContainer>
-                                                                    </SContentContainer>
-                                                                </STableBodyTD>
-                                                            </STableBodyTR>
-                                                        );
-                                                    })}
-                                            </STableBody>
-                                        </STable>
-                                    </>
-                                </SVariantsContainer>
-                            </Card>
-                        </SCardControl>
-                    </SSectionOne>
-                    <SSectionTwo>
-                        <Card>yo</Card>
-                    </SSectionTwo>
-                </SProductDisplayContainer>
-            </SProductDisplay>
+                        </Card>
+                    </SCardControl>
+                    <SCardControl>
+                        <Card>
+                            <SVariantsContainer>
+                                <SVariantsHead>
+                                    <SLabelSpan>Variants</SLabelSpan>
+                                </SVariantsHead>
+                                <>
+                                    <STable>
+                                        <STableHead>
+                                            <STableHeadTR>
+                                                <STableHeadTH></STableHeadTH>
+                                                <STableHeadTH>
+                                                    <SContentSpanHead>Variant</SContentSpanHead>
+                                                </STableHeadTH>
+                                                <STableHeadTH>
+                                                    <SContentSpanHead>Price</SContentSpanHead>
+                                                </STableHeadTH>
+                                                <STableHeadTH>
+                                                    <SContentSpanHead center>QTY</SContentSpanHead>
+                                                </STableHeadTH>
+                                                <STableHeadTH></STableHeadTH>
+                                            </STableHeadTR>
+                                        </STableHead>
+                                        <STableBody>
+                                            {product &&
+                                                product?.variants?.map((variant, index) => {
+                                                    const { title, price, mediaUrl } = variant;
+                                                    return (
+                                                        <STableBodyTR key={index}>
+                                                            <STableBodyTD>
+                                                                <STableImageContainer
+                                                                    onClick={() =>
+                                                                        setVariantImageSelect(
+                                                                            variant
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <STableImage
+                                                                        src={mediaUrl || missingImg}
+                                                                    />
+                                                                    <SImageOverlay />
+                                                                </STableImageContainer>
+                                                            </STableBodyTD>
+                                                            <STableBodyTD>
+                                                                <SContentSpan>{title}</SContentSpan>
+                                                            </STableBodyTD>
+                                                            <STableBodyTD>
+                                                                <SContentSpan>
+                                                                    ${price}
+                                                                </SContentSpan>
+                                                            </STableBodyTD>
+                                                            <STableBodyTD>
+                                                                <SContentSpan center>
+                                                                    3
+                                                                </SContentSpan>
+                                                            </STableBodyTD>
+                                                            <STableBodyTD>
+                                                                <SContentContainer>
+                                                                    <SIconsContainer>
+                                                                        <SDeleteIcon />
+                                                                        <SEditIcon />
+                                                                    </SIconsContainer>
+                                                                </SContentContainer>
+                                                            </STableBodyTD>
+                                                        </STableBodyTR>
+                                                    );
+                                                })}
+                                        </STableBody>
+                                    </STable>
+                                </>
+                            </SVariantsContainer>
+                        </Card>
+                    </SCardControl>
+                </div>
+                <div>
+                    <Card>yo</Card>
+                </div>
+            </SProductDisplayGrid>
         </>
     );
 };

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { v, b, s } from "./../../../styles/variables";
+import { v, b, s } from "../../styles/variables";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
@@ -58,15 +58,17 @@ export const SProductDisplayGrid = styled.div`
     @media ${b.lg} {
         grid-template-columns: 625px 1fr;
     }
-`;
 
-// card one /////////////////////////////////////////////////
-export const SCardControl = styled.div`
-    :not(:last-child) {
-        margin-bottom: ${v.mdSpacing};
+    > div {
+        > div {
+            :not(:last-of-type) {
+                margin-bottom: ${v.mdSpacing};
+            }
+        }
     }
 `;
 
+// card one /////////////////////////////////////////////////
 export const SFormControl = styled.div`
     :not(:last-child) {
         margin-bottom: calc(${v.mdSpacing} + ${v.smSpacing});
@@ -113,10 +115,9 @@ export const SDESCRIPTIONInput = styled.textarea`
 `;
 
 // card two /////////////////////////////////////////////////
-export const SMediaContainer = styled.div``;
 
 export const SMedia = styled.div`
-    background: ${({ theme }) => theme.bg2};
+    background: ${({ theme }) => theme.bg};
     padding: ${v.mdSpacing};
     display: flex;
     flex-wrap: wrap;
