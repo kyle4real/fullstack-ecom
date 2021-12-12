@@ -3,7 +3,6 @@ import asyncHandler from "./../middleware/async.js";
 import cloudinary from "../config/cloudinary.js";
 import mongoose from "mongoose";
 
-// import { productsArr } from "../config/data.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
 export const getProducts = asyncHandler(async (req, res) => {
