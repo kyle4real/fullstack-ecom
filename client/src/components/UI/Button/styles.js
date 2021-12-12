@@ -9,7 +9,7 @@ export const SButton = styled.button`
     text-transform: uppercase;
     white-space: nowrap;
     line-height: 100%;
-    padding: ${v.mdSpacing} ${({ fixed }) => (!fixed ? "0" : v.lgSpacing)};
+    padding: calc(${v.mdSpacing} - 4px) ${({ fixed }) => (!fixed ? "0" : v.lgSpacing)};
     border: none;
     color: ${({ theme, secondary }) => (!secondary ? theme.textSecondary : theme.primary)};
     border: 1px solid ${({ theme, bg }) => (!bg ? theme.primary : theme[bg])};

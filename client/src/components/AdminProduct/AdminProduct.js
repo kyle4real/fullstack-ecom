@@ -23,7 +23,14 @@ import {
 import { missingImg } from "../../assets";
 import { SCardContainer } from "../UI/Containers/styles";
 import { SImageOverlay, SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
-import { SFormControl, SInput, SLabel, STextArea } from "../UI/AuthForm/styles";
+import {
+    SFormControl,
+    SInput,
+    SLabel,
+    SSelect,
+    SSelectOption,
+    STextArea,
+} from "../UI/AuthForm/styles";
 import { STable, STBody, STD, STH, STHead, STHeadTR } from "../UI/Table/styles";
 import { useMemo } from "react";
 import ImageInput from "../UI/ImageInput/ImageInput";
@@ -48,6 +55,8 @@ const AdminProduct = () => {
     const [variantSelect, setVariantSelect] = useState(null);
 
     const initialFormInput = prepareInitialFormInput(product);
+
+    console.log(initialFormInput);
     const [formInput, setFormInput] = useState(initialFormInput);
 
     const inputChangeHandler = (e) => {
@@ -212,6 +221,17 @@ const AdminProduct = () => {
                         <SSectionHeadContainer>
                             <SSectionHeadTitle>Product Status</SSectionHeadTitle>
                         </SSectionHeadContainer>
+                        <SFormControl>
+                            <SSelect
+                                name="status"
+                                value={formInput["status"]}
+                                onChange={(e) => inputChangeHandler(e)}
+                            >
+                                {["active", "archived"].map((option, index) => (
+                                    <SSelectOption key={index}>{option}</SSelectOption>
+                                ))}
+                            </SSelect>
+                        </SFormControl>
                     </SCardContainer>
                 </div>
             </SProductDisplayGrid>

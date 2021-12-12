@@ -85,3 +85,17 @@ export const STextArea = styled.textarea`
     resize: none;
     ${inputStyles};
 `;
+
+// Select
+
+export const SSelect = styled.select`
+    ${inputStyles};
+`;
+
+export const SSelectOption = styled.option`
+    font-family: inherit;
+    font-size: 14px;
+    padding: inherit;
+    background: ${({ theme }) => theme.bg};
+    color: ${({ theme }) => theme.text};
+`;
