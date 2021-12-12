@@ -16,7 +16,7 @@ export const SUnsavedChanges = styled.div`
         height: calc(${v.headerTopHeight} + ${v.headerHeight});
     }
 
-    box-shadow: ${v.cardBoxShadow};
+    box-shadow: inset 0 -1px ${({ theme }) => theme.bg3};
 `;
 
 export const SUnsavedChangedContent = styled.div`
