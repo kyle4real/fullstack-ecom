@@ -11,7 +11,7 @@ export const getProducts = asyncHandler(async (req, res) => {
 
 export const getProduct = asyncHandler(async (req, res, next) => {
     if (req.params.id) {
-        var product = await Product.findById(req.params.id);
+        var product = await Product.findById(req.params.id).populate("variants").populate("media");
     } else {
         console.log(req.params.sku);
         var product = await Product.findOne({ sku: req.params.sku });

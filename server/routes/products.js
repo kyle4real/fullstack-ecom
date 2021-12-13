@@ -14,7 +14,14 @@ import advancedResults from "./../middleware/advancedResults.js";
 
 const router = express.Router();
 
-router.route("/").get(advancedResults(Product), getProducts);
+router.route("/").get(
+    advancedResults(Product, {
+        path: "variants",
+        select: "media",
+        populate: { path: "media", select: "url" },
+    }),
+    getProducts
+);
 router.route("/:id").get(getProduct);
 router.route("/sku/:sku").get(getProduct);
 router.route("/:id/media").post(uploadMedia);

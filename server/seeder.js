@@ -10,6 +10,8 @@ dotenv.config({ path: "./config/config.env" });
 
 // Load Models
 import Product from "./models/Product.js";
+import Media from "./models/Media.js";
+import Variant from "./models/Variant.js";
 
 // Connect DB
 mongoose.connect(process.env.MONGO_CONNECT, {
@@ -25,7 +27,24 @@ let products = JSON.parse(
 const importData = async () => {
     return new Promise(async (resolve, reject) => {
         try {
-            await Product.create(products);
+            for (let i = 0; i < products.length; i++) {
+                let product = products[i];
+                const { media: mediaArr, variants: variantsArr } = products[i];
+                product = await Product.create(product);
+                const productId = product._id;
+                const mediaURLHash = {};
+                for (let j = 0; j < mediaArr.length; j++) {
+                    let media = { ...mediaArr[j], product: productId };
+                    media = await Media.create(media);
+                    mediaURLHash[media.url] = media;
+                }
+                for (let j = 0; j < variantsArr.length; j++) {
+                    let { mediaUrl } = variantsArr[i];
+                    const assignedMediaId = mediaURLHash[mediaUrl]._id;
+                    let variant = { ...variantsArr[i], product: productId, media: assignedMediaId };
+                    variant = await Variant.create(variant);
+                }
+            }
 
             resolve();
         } catch (error) {
@@ -38,6 +57,8 @@ const deleteData = async () => {
     return new Promise(async (resolve, reject) => {
         try {
             await Product.deleteMany();
+            await Media.deleteMany();
+            await Variant.deleteMany();
 
             resolve();
         } catch (error) {

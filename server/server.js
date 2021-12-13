@@ -13,6 +13,10 @@ import userRoutes from "./routes/users.js";
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js";
 
+// For populating purposes
+import "./models/Variant.js";
+import "./models/Media.js";
+
 import connectDB from "./config/db.js";
 connectDB();
 
