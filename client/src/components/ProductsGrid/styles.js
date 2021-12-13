@@ -87,9 +87,9 @@ export const SContent = styled.div`
     color: ${({ theme }) => theme.text};
     line-height: 100%;
 
-    padding: ${v.mdSpacing} ${v.smSpacing} ${v.smSpacing};
+    padding: ${v.mdSpacing} ${v.smSpacing};
     @media ${b.sm} {
-        padding: ${v.mdSpacing} 0 ${v.smSpacing};
+        padding: ${v.smSpacing} 0 ${v.mdSpacing};
     }
 `;
 
@@ -98,10 +98,14 @@ export const SInfoControl = styled.div`
     justify-content: space-between;
     align-items: flex-start;
 
-    padding-bottom: ${v.mdSpacing};
+    :not(:last-of-type) {
+        padding-bottom: ${v.mdSpacing};
+    }
 
     @media ${b.md} {
-        padding-bottom: ${v.smSpacing};
+        :not(:last-of-type) {
+            padding-bottom: ${v.smSpacing};
+        }
     }
 `;
 

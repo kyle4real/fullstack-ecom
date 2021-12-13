@@ -42,7 +42,7 @@ const ProductsGrid = () => {
     return (
         <SProductsGrid>
             <SGrid>
-                {products?.map?.(({ title, tags, variants, sku }, index) => {
+                {products?.map?.(({ title, tags, variants, sku, image }, index) => {
                     const { price, compareAtPrice } = variants.reduce(
                         (r, v) =>
                             v.price < r.price
@@ -50,20 +50,16 @@ const ProductsGrid = () => {
                                 : r,
                         { price: variants[0].price, compareAtPrice: variants[0].compare_at_price }
                     );
-                    const sortedVariants = [...variants].sort(
-                        (a, b) => a.media.position - b.media.position
-                    );
-                    const mainVariant = sortedVariants[0];
-                    const thumbnails = sortedVariants.slice(1, 6);
+
                     const hasSale = price !== compareAtPrice;
                     return (
                         <SGridItem key={index}>
                             <SImageContainer
                                 onClick={() => productSelectHandler(sku, variants[0].sku)}
                             >
-                                <SImage src={mainVariant.media.url || missingImg} />
+                                <SImage src={image?.url || missingImg} />
                             </SImageContainer>
-                            <SThumbnailsContainer>
+                            {/* <SThumbnailsContainer>
                                 <>
                                     {thumbnails.map(({ media, sku: variantSku }, index) => {
                                         return (
@@ -78,7 +74,7 @@ const ProductsGrid = () => {
                                         );
                                     })}
                                 </>
-                            </SThumbnailsContainer>
+                            </SThumbnailsContainer> */}
                             <SContent>
                                 <SInfoControl>
                                     {!hasSale && <STag>{tags?.[0]}</STag>}

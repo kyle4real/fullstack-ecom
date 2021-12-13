@@ -9,12 +9,13 @@ import advancedResults from "./../middleware/advancedResults.js";
 const router = express.Router();
 
 router.route("/").get(
-    advancedResults(Product, {
-        path: "variants",
-        // perDocumentLimit: 4,
-        select: "media price compare_at_price sku",
-        populate: { path: "media", select: "url position" },
-    }),
+    advancedResults(Product, [
+        {
+            path: "variants",
+            select: "price compare_at_price sku",
+        },
+        { path: "image" },
+    ]),
     getProducts
 );
 router.route("/:sku").get(getProduct);

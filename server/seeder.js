@@ -34,9 +34,13 @@ const importData = async () => {
                 const productId = product._id;
                 const mediaURLHash = {};
                 for (let j = 0; j < mediaArr.length; j++) {
-                    let media = { ...mediaArr[j], product: productId };
+                    var media = { ...mediaArr[j], product: productId };
                     media = await Media.create(media);
                     mediaURLHash[media.url] = media;
+                    if (media.position === 1) {
+                        product.image = media._id;
+                        await product.save();
+                    }
                 }
                 for (let j = 0; j < variantsArr.length; j++) {
                     let { mediaUrl } = variantsArr[j];
