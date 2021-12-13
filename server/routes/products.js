@@ -13,7 +13,7 @@ router.route("/").get(
         path: "variants",
         // perDocumentLimit: 4,
         select: "media price compare_at_price sku",
-        populate: { path: "media", select: "url" },
+        populate: { path: "media", select: "url position" },
     }),
     getProducts
 );

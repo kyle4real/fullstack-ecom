@@ -1,4 +1,5 @@
 import React from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
@@ -49,30 +50,33 @@ const ProductsGrid = () => {
                                 : r,
                         { price: variants[0].price, compareAtPrice: variants[0].compare_at_price }
                     );
+                    const sortedVariants = [...variants].sort(
+                        (a, b) => a.media.position - b.media.position
+                    );
+                    const mainVariant = sortedVariants[0];
+                    const thumbnails = sortedVariants.slice(1, 6);
                     const hasSale = price !== compareAtPrice;
                     return (
                         <SGridItem key={index}>
                             <SImageContainer
                                 onClick={() => productSelectHandler(sku, variants[0].sku)}
                             >
-                                <SImage src={variants[0].media.url || missingImg} />
+                                <SImage src={mainVariant.media.url || missingImg} />
                             </SImageContainer>
                             <SThumbnailsContainer>
                                 <>
-                                    {variants
-                                        .slice(0, 5)
-                                        .map(({ media, sku: variantSku }, index) => {
-                                            return (
-                                                <SThumbnailImageContainer
-                                                    key={index}
-                                                    onClick={() =>
-                                                        productSelectHandler(sku, variantSku)
-                                                    }
-                                                >
-                                                    <SThumbnailImage src={media.url} />
-                                                </SThumbnailImageContainer>
-                                            );
-                                        })}
+                                    {thumbnails.map(({ media, sku: variantSku }, index) => {
+                                        return (
+                                            <SThumbnailImageContainer
+                                                key={index}
+                                                onClick={() =>
+                                                    productSelectHandler(sku, variantSku)
+                                                }
+                                            >
+                                                <SThumbnailImage src={media.url} />
+                                            </SThumbnailImageContainer>
+                                        );
+                                    })}
                                 </>
                             </SThumbnailsContainer>
                             <SContent>
