@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getProduct } from "../controllers/products.admin.js";
+import { getProduct, getProducts } from "../controllers/products.admin.js";
 import Product from "../models/Product.js";
 
 // Middleware
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.use(protect);
 
-router.route(`/`);
+router.route(`/`).get(advancedResults(Product), getProducts);
 router.route(`/:id`).get(getProduct);
 
 export default router;

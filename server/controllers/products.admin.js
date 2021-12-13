@@ -6,7 +6,9 @@ import ErrorResponse from "../utils/errorResponse.js";
 // @desc    Get products
 // @route   GET /admin/products/
 // @access  Private
-export const getProducts = asyncHandler(async (req, res, next) => {});
+export const getProducts = asyncHandler(async (req, res, next) => {
+    res.status(200).json(res.advancedResults);
+});
 
 // @desc    Get product
 // @route   GET /admin/products/:id

@@ -11,6 +11,7 @@ const router = express.Router();
 router.route("/").get(
     advancedResults(Product, {
         path: "variants",
+        // perDocumentLimit: 4,
         select: "media",
         populate: { path: "media", select: "url" },
     }),
