@@ -77,9 +77,11 @@ const AdminProduct = () => {
     const variantSelectHandler = (variantId) => setVariantSelect(variantId);
 
     const { mainMedia, media } = useMemo(() => {
-        if (!product.media.length) return { mainMedia: { url: missingImg, _id: null }, media: [] };
-        if (product.media.length === 1) return { mainMedia: product.media[0], media: [] };
-        else return { mainMedia: product.media[0], media: product.media.slice(1) };
+        let media = product.media;
+        if (!media.length) return { mainMedia: { url: missingImg, _id: null }, media: [] };
+        media = [...media].sort((a, b) => a.position - b.position);
+        if (media.length === 1) return { mainMedia: media[0], media: [] };
+        else return { mainMedia: media[0], media: media.slice(1) };
     }, [product.media]);
 
     return (
