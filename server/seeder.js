@@ -41,7 +41,12 @@ const importData = async () => {
                 for (let j = 0; j < variantsArr.length; j++) {
                     let { mediaUrl } = variantsArr[j];
                     const assignedMediaId = mediaURLHash[mediaUrl]._id;
-                    let variant = { ...variantsArr[j], product: productId, media: assignedMediaId };
+                    let variant = {
+                        ...variantsArr[j],
+                        product: productId,
+                        media: assignedMediaId,
+                        compare_at_price: variantsArr[j].compareAtPrice,
+                    };
                     variant = await Variant.create(variant);
                 }
             }

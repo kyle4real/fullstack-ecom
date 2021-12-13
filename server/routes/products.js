@@ -12,7 +12,7 @@ router.route("/").get(
     advancedResults(Product, {
         path: "variants",
         // perDocumentLimit: 4,
-        select: "media",
+        select: "media price compare_at_price sku",
         populate: { path: "media", select: "url" },
     }),
     getProducts
