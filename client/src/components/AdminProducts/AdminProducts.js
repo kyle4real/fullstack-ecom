@@ -59,7 +59,7 @@ const AdminProducts = () => {
                                 })}
                             </STBodyTR>
                             {product.variants.map((variant, index) => (
-                                <STBodyTRVariant>
+                                <STBodyTRVariant key={index}>
                                     <STDVariant>{index + 1}</STDVariant>
                                     <STDVariant />
                                     {variantDisplayKeys.map((key, index) => {

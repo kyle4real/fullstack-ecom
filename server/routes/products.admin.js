@@ -11,7 +11,9 @@ const router = express.Router();
 
 router.use(protect);
 
-router.route(`/`).get(advancedResults(Product), getProducts);
+router
+    .route(`/`)
+    .get(advancedResults(Product, [{ path: "variants" }, { path: "media" }]), getProducts);
 router.route(`/:id`).get(getProduct);
 
 export default router;

@@ -142,15 +142,7 @@ const AdminProduct = () => {
                             ))}
                         </SMediaGrid>
                         <SMediaBottomBar>
-                            {/* {(loading.imageUpload || loading.imageDelete) && (
-                                        <Spinner size={`30px`} />
-                                    )} */}
-                            <Button
-                                secondaryRadius
-                                fixed
-                                absolute
-                                // disabled={loading.imageUpload || loading.imageDelete}
-                            >
+                            <Button secondaryRadius fixed absolute>
                                 Add Image
                                 <ImageInput productId={id} />
                             </Button>
@@ -176,7 +168,7 @@ const AdminProduct = () => {
                                     </STHead>
                                     <STBody>
                                         {variants.map((variant, index) => {
-                                            const src = variant.mediaUrl || missingImg;
+                                            const src = variant.media.url || missingImg;
                                             return (
                                                 <STBodyTRVariant key={index}>
                                                     <STD>{index + 1}</STD>
