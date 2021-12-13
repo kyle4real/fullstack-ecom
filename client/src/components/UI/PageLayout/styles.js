@@ -29,9 +29,6 @@ export const SPage = styled.div`
         transition: 0.3s ease padding;
         padding: 0 ${v.mdSpacing};
 
-        @media ${b.md} {
-            margin-left: 225px;
-        }
         @media ${b.lg} {
             padding: 0 ${v.lgSpacing};
         }

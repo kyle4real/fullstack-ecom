@@ -5,10 +5,11 @@ import { v, b } from "./../../../styles/variables";
 export const SButton = styled.button`
     font-family: inherit;
     font-size: ${({ font }) => (!font ? "12px" : font)};
-    font-weight: 900;
+    font-weight: 600;
     text-transform: uppercase;
+    white-space: nowrap;
     line-height: 100%;
-    padding: ${v.mdSpacing} ${({ fixed }) => (!fixed ? "0" : v.lgSpacing)};
+    padding: calc(${v.mdSpacing} - 4px) ${({ fixed }) => (!fixed ? "0" : v.lgSpacing)};
     border: none;
     color: ${({ theme, secondary }) => (!secondary ? theme.textSecondary : theme.primary)};
     border: 1px solid ${({ theme, bg }) => (!bg ? theme.primary : theme[bg])};

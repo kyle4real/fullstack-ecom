@@ -17,23 +17,30 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
+const adminPath = "/admin";
+
 const authPath = "/auth";
-const usersPath = "/users";
 const productsPath = "/products";
 
+// AUTH
 export const login = (form) => API.post(`${authPath}/login`, form);
 export const register = (form) => API.post(`${authPath}/register`, form);
 export const refresh = () => API.post(`${authPath}/refresh_token`);
 export const logout = () => API.get(`${authPath}/logout`);
 export const getMe = () => API.get(`${authPath}/me`);
 
-export const getProducts = () => API.get(`${productsPath}/`);
+// GUEST
+export const getProducts = () => {
+    return API.get(`${productsPath}/`);
+};
+export const getProductBySku = (productSku) => {
+    return API.get(`${productsPath}/${productSku}`);
+};
 
-export const getProductBySku = (productSku) => API.get(`${productsPath}/sku/${productSku}`);
-export const getProduct = (productId) => API.get(`${productsPath}/${productId}`);
-
-export const variant = (productId, obj) => API.post(`${productsPath}/${productId}/variant`, obj);
-
-export const media = (productId, obj) => API.post(`${productsPath}/${productId}/media`, obj);
-export const deleteMedia = (productId, mediaId) =>
-    API.delete(`${productsPath}/${productId}/media/${mediaId}`);
+// ADMIN
+export const getProducts_admin = () => {
+    return API.get(`${adminPath}${productsPath}/`);
+};
+export const getProductById_admin = (productId) => {
+    return API.get(`${adminPath}${productsPath}/${productId}`);
+};

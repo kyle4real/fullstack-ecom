@@ -22,6 +22,12 @@ import {
     STitle,
 } from "./styles";
 
+const priceFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+});
+
 const ProductsGrid = () => {
     const history = useHistory();
     const { products } = useSelector((state) => state.products);
@@ -31,17 +37,15 @@ const ProductsGrid = () => {
     const productSelectHandler = (productSku, variantTitle) => {
         history.push(`/products/${productSku}/${variantTitle}`);
     };
+
     return (
         <SProductsGrid>
             <SGrid>
                 {products?.map?.(
-                    ({ title, price, salePrice, tags, variants, media, sku }, index) => {
-                        let images = variants
-                            ?.reduce((r, v) => {
-                                return r.concat(v.mediaUrl);
-                            }, [])
-                            ?.slice(1);
+                    ({ title, price, compareAtPrice, tags, variants, media, sku }, index) => {
+                        let images = variants?.reduce((r, v) => [...r, v.mediaUrl], [])?.slice(1);
                         images = images?.length > 4 ? images?.slice(0, 4) : images;
+                        const hasSale = compareAtPrice !== price;
                         const noImg = images?.length === 0;
                         return (
                             <SGridItem key={index}>
@@ -70,20 +74,25 @@ const ProductsGrid = () => {
                                 </SThumbnailsContainer>
                                 <SContent>
                                     <SInfoControl>
-                                        {!salePrice && <STag>{tags?.[0]}</STag>}
-                                        {salePrice && (
+                                        {!hasSale && <STag>{tags?.[0]}</STag>}
+                                        {hasSale && (
                                             <SSaleTag>
                                                 <SSaleIcon />
                                                 <SSalePercentage>
-                                                    {Math.round((1 - salePrice / price) * 100)}% off
+                                                    {Math.round((1 - price / compareAtPrice) * 100)}
+                                                    % off
                                                 </SSalePercentage>
                                             </SSaleTag>
                                         )}
-                                        <SPrice>${!salePrice ? price : salePrice}.00</SPrice>
+                                        <SPrice>{priceFormatter.format(price)}</SPrice>
                                     </SInfoControl>
                                     <SInfoControl>
                                         <STitle>{title}</STitle>
-                                        {salePrice && <SComparePrice>${price}.00</SComparePrice>}
+                                        {hasSale && (
+                                            <SComparePrice>
+                                                {priceFormatter.format(compareAtPrice)}
+                                            </SComparePrice>
+                                        )}
                                     </SInfoControl>
                                 </SContent>
                             </SGridItem>

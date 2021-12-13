@@ -1,0 +1,17 @@
+import express from "express";
+
+import { getProduct, getProducts } from "../controllers/products.admin.js";
+import Product from "../models/Product.js";
+
+// Middleware
+import advancedResults from "../middleware/advancedResults.js";
+import { protect } from "../middleware/auth.js";
+
+const router = express.Router();
+
+router.use(protect);
+
+router.route(`/`).get(advancedResults(Product), getProducts);
+router.route(`/:id`).get(getProduct);
+
+export default router;

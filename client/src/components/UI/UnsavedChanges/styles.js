@@ -15,10 +15,35 @@ export const SUnsavedChanges = styled.div`
         top: calc(-${v.headerHeight} - ${v.headerTopHeight});
         height: calc(${v.headerTopHeight} + ${v.headerHeight});
     }
+
+    box-shadow: inset 0 -1px ${({ theme }) => theme.bg3};
 `;
 
 export const SUnsavedChangedContent = styled.div`
-    /* max-width: 1920px;
+    max-width: 1920px;
+    padding: ${v.mdSpacing};
     margin: 0 auto;
-    padding: 0 ${v.mdSpacing}; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+`;
+
+export const SUnsavedChangesTitle = styled.span`
+    font-weight: 600;
+    font-size: 18px;
+
+    @media ${b.sm} {
+        font-size: 24px;
+    }
+`;
+
+export const SButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+    > button {
+        :not(:last-of-type) {
+            margin-right: ${v.smSpacing};
+        }
+    }
 `;

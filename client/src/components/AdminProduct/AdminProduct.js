@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -23,7 +23,14 @@ import {
 import { missingImg } from "../../assets";
 import { SCardContainer } from "../UI/Containers/styles";
 import { SImageOverlay, SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
-import { SFormControl, SInput, SLabel, STextArea } from "../UI/AuthForm/styles";
+import {
+    SFormControl,
+    SInput,
+    SLabel,
+    SSelect,
+    SSelectOption,
+    STextArea,
+} from "../UI/AuthForm/styles";
 import { STable, STBody, STD, STH, STHead, STHeadTR } from "../UI/Table/styles";
 import { useMemo } from "react";
 import ImageInput from "../UI/ImageInput/ImageInput";
@@ -31,12 +38,40 @@ import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 
+const editTargets = ["title", "description", "status"];
+
+const prepareInitialFormInput = (product) => {
+    return editTargets.reduce((r, v) => {
+        const value = product[v] || "";
+        return { ...r, [v]: value };
+    }, {});
+};
+
 const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const { product } = useSelector((state) => state.product);
     const [mediaSelect, setMediaSelect] = useState(null);
     const [variantSelect, setVariantSelect] = useState(null);
+
+    const initialFormInput = prepareInitialFormInput(product);
+
+    console.log(initialFormInput);
+    const [formInput, setFormInput] = useState(initialFormInput);
+
+    const inputChangeHandler = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setFormInput((p) => ({ ...p, [name]: value }));
+    };
+
+    const edits = useMemo(() => {
+        let changes = false;
+        editTargets.forEach((name) => {
+            if (initialFormInput[name] !== formInput[name]) changes = true;
+        });
+        return changes;
+    }, [formInput, initialFormInput]);
 
     const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
     const variantSelectHandler = (variantId) => setVariantSelect(variantId);
@@ -49,42 +84,24 @@ const AdminProduct = () => {
 
     return (
         <>
-            <>
-                {!!variantSelect && (
-                    <VariantMediaSelect
-                        product={product}
-                        variantSelect={variantSelect}
-                        onCancel={() => variantSelectHandler(null)}
-                    />
-                )}
-            </>
-            <>
-                {!!mediaSelect && (
-                    <MediaFocus
-                        product={product}
-                        mediaSelect={mediaSelect}
-                        onMediaSelect={mediaSelectHandler}
-                    />
-                )}
-            </>
-            {/* <>
-                {Object.keys(edits).length !== 0 && (
-                    <SPopup>
-                        <SPromptContainer>
-                            <SPrompt>Unsaved Changes</SPrompt>
-                            <SPromptButtonContainer>
-                                <Button fixed secondary secondaryRadius>
-                                    Discard
-                                </Button>
-                                <Button fixed secondaryRadius>
-                                    Save
-                                </Button>
-                            </SPromptButtonContainer>
-                        </SPromptContainer>
-                    </SPopup>
-                )}
-            </> */}
-            <UnsavedChanges show={true} loading={false} />
+            {!!variantSelect && (
+                <VariantMediaSelect
+                    product={product}
+                    variantSelect={variantSelect}
+                    onCancel={() => variantSelectHandler(null)}
+                />
+            )}
+
+            {!!mediaSelect && (
+                <MediaFocus
+                    product={product}
+                    mediaSelect={mediaSelect}
+                    onMediaSelect={mediaSelectHandler}
+                />
+            )}
+
+            <UnsavedChanges show={edits} loading={false} />
+
             <SProductDisplayGrid>
                 <div>
                     <SCardContainer>
@@ -93,11 +110,19 @@ const AdminProduct = () => {
                         </SSectionHeadContainer>
                         <SFormControl>
                             <SLabel>Title</SLabel>
-                            <SInput />
+                            <SInput
+                                name="title"
+                                value={formInput["title"]}
+                                onChange={(e) => inputChangeHandler(e)}
+                            />
                         </SFormControl>
                         <SFormControl>
                             <SLabel>Description</SLabel>
-                            <STextArea />
+                            <STextArea
+                                name="description"
+                                value={formInput["description"]}
+                                onChange={(e) => inputChangeHandler(e)}
+                            />
                         </SFormControl>
                     </SCardContainer>
                     <SCardContainer>
@@ -196,6 +221,17 @@ const AdminProduct = () => {
                         <SSectionHeadContainer>
                             <SSectionHeadTitle>Product Status</SSectionHeadTitle>
                         </SSectionHeadContainer>
+                        <SFormControl>
+                            <SSelect
+                                name="status"
+                                value={formInput["status"]}
+                                onChange={(e) => inputChangeHandler(e)}
+                            >
+                                {["active", "archived"].map((option, index) => (
+                                    <SSelectOption key={index}>{option}</SSelectOption>
+                                ))}
+                            </SSelect>
+                        </SFormControl>
                     </SCardContainer>
                 </div>
             </SProductDisplayGrid>
