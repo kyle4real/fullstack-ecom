@@ -41,6 +41,14 @@ import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 
+const priceFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+});
+
+console.log(priceFormatter.format(Number("5.005")));
+
 const editTargets = ["title", "description", "status"];
 
 const prepareInitialFormInput = (product) => {
@@ -55,7 +63,10 @@ const variantEditTargets = ["price", "compare_at_price"];
 const prepareInitialVariantFormInput = (variants) => {
     return variants.reduce((r, v) => {
         let variant = v;
-        variant = variantEditTargets.reduce((r, v) => ({ ...r, [v]: variant[v] }), {});
+        variant = variantEditTargets.reduce(
+            (r, v) => ({ ...r, [v]: priceFormatter.format(variant[v]).slice(1) }),
+            {}
+        );
         return { ...r, [v._id]: variant };
     }, {});
 };
@@ -82,9 +93,10 @@ const AdminProduct = () => {
         setFormInput((p) => ({ ...p, [name]: value }));
     };
     const variantInputChangeHandler = (e) => {
-        const [id, name] = e.target.name.split("-");
         const value = e.target.value;
-        setVariantFormInput((p) => ({ ...p, [id]: { ...p[id], [name]: parseInt(value) } }));
+        if (isNaN(Number(value))) return;
+        const [id, name] = e.target.name.split("-");
+        setVariantFormInput((p) => ({ ...p, [id]: { ...p[id], [name]: value } }));
     };
 
     const edits = useMemo(() => {
@@ -95,8 +107,9 @@ const AdminProduct = () => {
 
         product.variants.forEach(({ _id }) => {
             variantEditTargets.forEach((name) => {
-                if (initialVariantFormInput[_id][name] !== variantFormInput[_id][name])
-                    changes = true;
+                const initial = priceFormatter.format(Number(initialVariantFormInput[_id][name]));
+                const formInput = priceFormatter.format(Number(variantFormInput[_id][name]));
+                if (initial !== formInput) changes = true;
             });
         });
         return changes;
@@ -234,6 +247,9 @@ const AdminProduct = () => {
                                                                                 variantInputChangeHandler(
                                                                                     e
                                                                                 )
+                                                                            }
+                                                                            placeholder={
+                                                                                !value && "0.00"
                                                                             }
                                                                         />
                                                                         <SDollarSign>$</SDollarSign>
