@@ -28,3 +28,13 @@ export const writeToFile = (data, fileName) => {
         });
     });
 };
+
+export const readFromFile = async (fileName) => {
+    return new Promise((resolve, reject) => {
+        const file = `./data/${fileName}.json`;
+        fs.readFile(file, "utf-8", (err, data) => {
+            if (err) return reject(err);
+            resolve(JSON.parse(data));
+        });
+    });
+};

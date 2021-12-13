@@ -10,12 +10,12 @@ const getSelectFiles = (targetFolder, res, backdrops) => {
     return filtered;
 };
 
-const fetchFromCloudinary = async (folder, backdrops) => {
+const fetchFromCloudinary = async (artists, backdrops) => {
     const fetchFolder = async (folder) => {
         return new Promise(async (resolve, reject) => {
             try {
                 const { resources } = await cloudinary.search
-                    .expression(`folder:shopify/${folder}/*`)
+                    .expression(`folder:ecom/${folder}/*`)
                     .execute();
                 return resolve(resources);
             } catch (error) {
@@ -34,8 +34,8 @@ const fetchFromCloudinary = async (folder, backdrops) => {
             .then((res) => {
                 console.log(`Fetched ${v} files`.green.bold);
                 const targetFolder = v;
-                const files = getSelectFiles(targetFolder, res, backdrops);
-                arr.push({ artist: v, files });
+                // const files = getSelectFiles(targetFolder, res, backdrops);
+                arr.push({ artist: v, files: res });
             })
             .catch((err) => {
                 return console.log(err);

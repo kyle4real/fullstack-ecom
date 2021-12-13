@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const ProductSchema = mongoose.Schema({
     sku: { type: String, required: true },
     title: { type: String, required: true },
-    price: { type: String, required: true },
-    salePrice: { type: String, default: null },
-    createdAt: { type: String, default: String(new Date().toISOString()) },
+    price: { type: Number, required: true },
+    compareAtPrice: { type: Number, default: null },
+    createdAt: { type: Date, default: Date.now },
     tags: [{ type: String }],
     description: { type: String },
     media: [{ url: { type: String }, public_id: { type: String } }],
@@ -21,5 +21,4 @@ const ProductSchema = mongoose.Schema({
 });
 
 const Product = mongoose.model("Product", ProductSchema);
-
 export default Product;
