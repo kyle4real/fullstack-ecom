@@ -6,6 +6,7 @@ import Button from "../UI/Button/Button";
 
 import {
     SDeleteIcon,
+    SDollarSign,
     SEditIcon,
     SIconButtonWrap,
     SIconsContainer,
@@ -14,6 +15,8 @@ import {
     SMediaBottomBar,
     SMediaContainer,
     SMediaGrid,
+    SPriceInput,
+    SPriceInputContainer,
     SProductDisplayGrid,
     STBodyTRVariant,
     STDImage,
@@ -47,6 +50,16 @@ const prepareInitialFormInput = (product) => {
     }, {});
 };
 
+const variantEditTargets = ["price", "compare_at_price"];
+
+const prepareInitialVariantFormInput = (variants) => {
+    return variants.reduce((r, v) => {
+        let variant = v;
+        variant = variantEditTargets.reduce((r, v) => ({ ...r, [v]: variant[v] }), {});
+        return { ...r, [v._id]: variant };
+    }, {});
+};
+
 const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -54,15 +67,24 @@ const AdminProduct = () => {
     const [mediaSelect, setMediaSelect] = useState(null);
     const [variantSelect, setVariantSelect] = useState(null);
 
-    const initialFormInput = prepareInitialFormInput(product);
-
-    console.log(initialFormInput);
+    const initialFormInput = useMemo(() => prepareInitialFormInput(product), [product]);
     const [formInput, setFormInput] = useState(initialFormInput);
+
+    const initialVariantFormInput = useMemo(
+        () => prepareInitialVariantFormInput(product.variants),
+        [product.variants]
+    );
+    const [variantFormInput, setVariantFormInput] = useState(initialVariantFormInput);
 
     const inputChangeHandler = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setFormInput((p) => ({ ...p, [name]: value }));
+    };
+    const variantInputChangeHandler = (e) => {
+        const [id, name] = e.target.name.split("-");
+        const value = e.target.value;
+        setVariantFormInput((p) => ({ ...p, [id]: { ...p[id], [name]: parseInt(value) } }));
     };
 
     const edits = useMemo(() => {
@@ -70,8 +92,15 @@ const AdminProduct = () => {
         editTargets.forEach((name) => {
             if (initialFormInput[name] !== formInput[name]) changes = true;
         });
+
+        product.variants.forEach(({ _id }) => {
+            variantEditTargets.forEach((name) => {
+                if (initialVariantFormInput[_id][name] !== variantFormInput[_id][name])
+                    changes = true;
+            });
+        });
         return changes;
-    }, [formInput, initialFormInput]);
+    }, [formInput, initialFormInput, product.variants, initialVariantFormInput, variantFormInput]);
 
     const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
     const variantSelectHandler = (variantId) => setVariantSelect(variantId);
@@ -155,7 +184,7 @@ const AdminProduct = () => {
                             <SSectionHeadTitle>Variants</SSectionHeadTitle>
                         </SSectionHeadContainer>
                         {(() => {
-                            const displayKeys = ["title", "price"];
+                            const displayKeys = ["title", "price", "compare_at_price"];
                             const variants = product.variants;
                             return (
                                 <STable>
@@ -165,6 +194,7 @@ const AdminProduct = () => {
                                             <STH />
                                             <STH>Title</STH>
                                             <STH>Price</STH>
+                                            <STH>Compare Price</STH>
                                             <STH style={{ width: "1%", whiteSpace: "nowrap" }} />
                                         </STHeadTR>
                                     </STHead>
@@ -188,14 +218,36 @@ const AdminProduct = () => {
                                                     </STDImage>
                                                     {displayKeys.map((key, index) => {
                                                         let value = variant[key];
-                                                        if (key === "price") value = `$${value}`;
+                                                        if (
+                                                            key === "price" ||
+                                                            key === "compare_at_price"
+                                                        ) {
+                                                            value =
+                                                                variantFormInput[variant._id][key];
+                                                            return (
+                                                                <STD key={index}>
+                                                                    <SPriceInputContainer>
+                                                                        <SPriceInput
+                                                                            value={value}
+                                                                            name={`${variant._id}-${key}`}
+                                                                            onChange={(e) =>
+                                                                                variantInputChangeHandler(
+                                                                                    e
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                        <SDollarSign>$</SDollarSign>
+                                                                    </SPriceInputContainer>
+                                                                </STD>
+                                                            );
+                                                        }
                                                         return <STD key={index}>{value}</STD>;
                                                     })}
                                                     <STD>
                                                         <SIconsContainer>
-                                                            <SIconButtonWrap>
+                                                            {/* <SIconButtonWrap>
                                                                 <SEditIcon />
-                                                            </SIconButtonWrap>
+                                                            </SIconButtonWrap> */}
                                                             <SIconButtonWrap>
                                                                 <SDeleteIcon />
                                                             </SIconButtonWrap>

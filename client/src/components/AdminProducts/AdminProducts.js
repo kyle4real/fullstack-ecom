@@ -34,7 +34,7 @@ const AdminProducts = () => {
             <STBody>
                 {trArr.map((product, index) => {
                     const productId = product._id;
-                    const img = product.media.length ? product.media[0].url : missingImg;
+                    const img = product?.image?.url || missingImg;
                     return (
                         <Fragment key={index}>
                             <STBodyTR

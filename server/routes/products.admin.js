@@ -13,7 +13,10 @@ router.use(protect);
 
 router
     .route(`/`)
-    .get(advancedResults(Product, [{ path: "variants" }, { path: "media" }]), getProducts);
+    .get(
+        advancedResults(Product, [{ path: "variants" }, { path: "media" }, { path: "image" }]),
+        getProducts
+    );
 router.route(`/:id`).get(getProduct);
 
 export default router;
