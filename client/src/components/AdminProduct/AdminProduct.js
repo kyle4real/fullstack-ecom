@@ -7,7 +7,6 @@ import Button from "../UI/Button/Button";
 import {
     SDeleteIcon,
     SDollarSign,
-    SEditIcon,
     SIconButtonWrap,
     SIconsContainer,
     SImage,
@@ -169,6 +168,7 @@ const AdminProduct = () => {
             {!!mediaSelect && (
                 <MediaFocus
                     product={product}
+                    media={[mainMedia, ...media]}
                     mediaSelect={mediaSelect}
                     onMediaSelect={mediaSelectHandler}
                 />
