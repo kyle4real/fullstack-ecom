@@ -40,14 +40,13 @@ import ImageInput from "../UI/ImageInput/ImageInput";
 import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
+import { updateProduct } from "../../app/actions/product-actions_admin";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
 });
-
-console.log(priceFormatter.format(Number("5.005")));
 
 const editTargets = ["title", "description", "status"];
 
@@ -80,12 +79,42 @@ const AdminProduct = () => {
 
     const initialFormInput = useMemo(() => prepareInitialFormInput(product), [product]);
     const [formInput, setFormInput] = useState(initialFormInput);
+    useEffect(() => setFormInput(initialFormInput), [initialFormInput]);
 
     const initialVariantFormInput = useMemo(
         () => prepareInitialVariantFormInput(product.variants),
         [product.variants]
     );
     const [variantFormInput, setVariantFormInput] = useState(initialVariantFormInput);
+    useEffect(() => setVariantFormInput(initialVariantFormInput), [initialVariantFormInput]);
+
+    const onCancelHandler = () => {
+        setFormInput(initialFormInput);
+        setVariantFormInput(initialVariantFormInput);
+    };
+    const onSaveHandler = () => {
+        const productEdits = {};
+        editTargets.forEach((name) => {
+            if (initialFormInput[name] !== formInput[name]) productEdits[name] = formInput[name];
+        });
+
+        const variantsEdits = [];
+        product.variants.forEach(({ _id }) => {
+            const obj = {};
+            variantEditTargets.forEach((name) => {
+                const initial = priceFormatter.format(Number(initialVariantFormInput[_id][name]));
+                const formInput = priceFormatter.format(Number(variantFormInput[_id][name]));
+                if (initial !== formInput) obj[name] = Number(formInput.slice(1));
+            });
+            if (Object.keys(obj).length) variantsEdits.push({ _id, ...obj });
+        });
+
+        if (!Object.keys(productEdits).length && !variantsEdits.length) return;
+
+        const productObj = { ...productEdits };
+        if (variantsEdits.length) productObj.variants = variantsEdits;
+        dispatch(updateProduct(product._id, productObj));
+    };
 
     const inputChangeHandler = (e) => {
         const name = e.target.name;
@@ -144,7 +173,12 @@ const AdminProduct = () => {
                 />
             )}
 
-            <UnsavedChanges show={edits} loading={false} />
+            <UnsavedChanges
+                show={edits}
+                loading={false}
+                onSave={onSaveHandler}
+                onCancel={onCancelHandler}
+            />
 
             <SProductDisplayGrid>
                 <div>
@@ -249,7 +283,9 @@ const AdminProduct = () => {
                                                                                 )
                                                                             }
                                                                             placeholder={
-                                                                                !value && "0.00"
+                                                                                !value
+                                                                                    ? "0.00"
+                                                                                    : "false"
                                                                             }
                                                                         />
                                                                         <SDollarSign>$</SDollarSign>
