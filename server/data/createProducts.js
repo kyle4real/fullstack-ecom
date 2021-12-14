@@ -11,6 +11,7 @@ const createProducts = async () => {
             .map((str) => str[0].toUpperCase() + str.substr(1))
             .join(" ");
         const description = `Custom ${title} inspired artwork carved into a vinyl record and framed with a backdrop of your choice.`;
+        const status = `active`;
         const media = v.files.reduce((r, v) => {
             const handle = v.filename.replace(`${sku}-`, "");
             const order = backdropHash[handle].order;
@@ -34,6 +35,7 @@ const createProducts = async () => {
             sku,
             title,
             description,
+            status,
             media,
             variants,
         };
