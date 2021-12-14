@@ -19,8 +19,10 @@ export const updateProduct = (productId, productObj) => {
     return async (dispatch, getState) => {
         try {
             let { data } = await api.updateProduct_admin(productId, productObj);
-            const media = getState().product.product.media;
-            data = actorlyMediaToVariantPopulate({ ...data.data, media });
+            if (productObj.variants !== undefined) {
+                const media = getState().product.product.media;
+                data = actorlyMediaToVariantPopulate({ ...data.data, media });
+            }
             const updateKeys = Object.keys(productObj);
             dispatch(productActions.updateProduct({ data, updateKeys }));
         } catch (error) {
