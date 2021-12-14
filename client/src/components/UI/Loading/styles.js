@@ -3,21 +3,19 @@ import styled from "styled-components";
 import { v } from "../../../styles/variables";
 
 export const SLoading = styled.div`
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: ${({ margin }) => (margin === 0 ? margin : v.xlSpacing)};
+    margin-left: ${v.smSpacing};
 `;
 
 export const SSpinner = styled.div`
-    margin: auto 0;
-    display: inline-block;
-    width: ${({ fixed, size }) => (size ? size : fixed ? "50px" : "100%")};
-    height: ${({ fixed, size }) => (size ? size : fixed ? "50px" : "100%")};
-    border: 3px solid ${({ theme }) => theme.primaryLighter};
+    display: block;
+    width: ${v.mdSpacing};
+    height: ${v.mdSpacing};
+    border: 3px solid ${({ theme, colorOne }) => (!colorOne ? theme.overlay : theme[colorOne])};
     border-radius: 50%;
-    border-top-color: ${({ theme }) => theme.primary};
+    border-top-color: ${({ theme, colorTwo }) => (!colorTwo ? theme.bg2 : theme[colorTwo])};
     animation: spin 1s ease infinite;
     -webkit-animation: spin 1s ease infinite;
     @keyframes spin {

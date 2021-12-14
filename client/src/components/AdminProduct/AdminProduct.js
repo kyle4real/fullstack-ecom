@@ -73,7 +73,7 @@ const prepareInitialVariantFormInput = (variants) => {
 const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { product } = useSelector((state) => state.product);
+    const { product, productLoading } = useSelector((state) => state.product);
     const [mediaSelect, setMediaSelect] = useState(null);
     const [variantSelect, setVariantSelect] = useState(null);
 
@@ -155,6 +155,7 @@ const AdminProduct = () => {
         else return { mainMedia: media[0], media: media.slice(1) };
     }, [product.media]);
 
+    const loading = productLoading;
     return (
         <>
             {!!variantSelect && (
@@ -175,7 +176,7 @@ const AdminProduct = () => {
 
             <UnsavedChanges
                 show={edits}
-                loading={false}
+                loading={loading}
                 onSave={onSaveHandler}
                 onCancel={onCancelHandler}
             />

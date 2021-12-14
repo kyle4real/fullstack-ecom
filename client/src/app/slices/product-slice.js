@@ -4,6 +4,7 @@ const productSlice = createSlice({
     name: "product",
     initialState: {
         product: null,
+        productLoading: false,
     },
     reducers: {
         replaceProduct(state, action) {
@@ -28,6 +29,10 @@ const productSlice = createSlice({
                     }
                 }
             }
+        },
+        // loading
+        setProductLoading(state, action) {
+            state.productLoading = action.payload;
         },
     },
 });

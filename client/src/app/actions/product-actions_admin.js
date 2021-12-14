@@ -18,6 +18,8 @@ export const getProduct = (productId, { onComplete, onError }) => {
 export const updateProduct = (productId, productObj) => {
     return async (dispatch, getState) => {
         try {
+            dispatch(productActions.setProductLoading(true));
+
             let { data } = await api.updateProduct_admin(productId, productObj);
             if (productObj.variants !== undefined) {
                 const media = getState().product.product.media;
@@ -28,6 +30,7 @@ export const updateProduct = (productId, productObj) => {
         } catch (error) {
             console.log(error);
         } finally {
+            dispatch(productActions.setProductLoading(false));
         }
     };
 };
