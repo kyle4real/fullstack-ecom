@@ -25,18 +25,17 @@ export const SGrid = styled.div`
 
 export const SGridItem = styled.div`
     height: 100%;
-    justify-self: center;
-    align-self: center;
-    text-align: center;
+    text-align: left;
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
 `;
 
 export const SImageContainer = styled.div`
     background: ${({ theme }) => theme.bg3};
     display: flex;
     align-items: flex-start;
-    flex: 1;
+    /* flex: 1; */
     cursor: pointer;
     position: relative;
     border-top-right-radius: ${v.borderRadius};
@@ -50,7 +49,11 @@ export const SImage = styled.img`
     transition: 0.3s ease transform;
 
     :hover {
-        transform: scale(1.025);
+        /* transform: scale(0.95); */
+    }
+
+    :active {
+        transform: scale(0.95);
     }
 `;
 
@@ -61,6 +64,7 @@ export const SThumbnailsContainer = styled.div`
     gap: 4px;
     justify-content: space-evenly;
     cursor: initial;
+    border-top: 4px solid ${({ theme }) => theme.bg};
 `;
 
 export const SThumbnailImageContainer = styled.div`
@@ -82,23 +86,26 @@ export const SThumbnailImage = styled.img`
 export const SContent = styled.div`
     color: ${({ theme }) => theme.text};
     line-height: 100%;
-    border-bottom: 1px solid ${({ theme }) => theme.bg3};
 
-    padding: ${v.mdSpacing} ${v.smSpacing} ${v.smSpacing};
+    padding: ${v.mdSpacing} ${v.smSpacing};
     @media ${b.sm} {
-        padding: ${v.mdSpacing} 0 ${v.smSpacing};
+        padding: ${v.smSpacing} 0 ${v.mdSpacing};
     }
 `;
 
 export const SInfoControl = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 
-    padding-bottom: ${v.mdSpacing};
+    :not(:last-of-type) {
+        padding-bottom: ${v.mdSpacing};
+    }
 
     @media ${b.md} {
-        padding-bottom: ${v.smSpacing};
+        :not(:last-of-type) {
+            padding-bottom: ${v.smSpacing};
+        }
     }
 `;
 

@@ -13,16 +13,3 @@ export const getProductBySku = (productSku, { onComplete, onError }) => {
         }
     };
 };
-
-export const getProduct = (productId, { onComplete, onError }) => {
-    return async (dispatch) => {
-        try {
-            const { data } = await api.getProductById_admin(productId);
-            dispatch(productActions.replaceProduct({ data }));
-        } catch (error) {
-            onError(error);
-        } finally {
-            onComplete();
-        }
-    };
-};

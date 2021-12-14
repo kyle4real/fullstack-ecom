@@ -1,4 +1,5 @@
 import React from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
@@ -34,71 +35,72 @@ const ProductsGrid = () => {
 
     console.log(products);
 
-    const productSelectHandler = (productSku, variantTitle) => {
-        history.push(`/products/${productSku}/${variantTitle}`);
+    const productSelectHandler = (productSku, variantSku) => {
+        history.push(`/products/${productSku}/${variantSku}`);
     };
 
     return (
         <SProductsGrid>
             <SGrid>
-                {products?.map?.(
-                    ({ title, price, compareAtPrice, tags, variants, media, sku }, index) => {
-                        let images = variants?.reduce((r, v) => [...r, v.mediaUrl], [])?.slice(1);
-                        images = images?.length > 4 ? images?.slice(0, 4) : images;
-                        const hasSale = compareAtPrice !== price;
-                        const noImg = images?.length === 0;
-                        return (
-                            <SGridItem key={index}>
-                                <SImageContainer
-                                    onClick={() => productSelectHandler(sku, variants?.[0]?.title)}
-                                >
-                                    <SImage src={media?.[0]?.url || missingImg} />
-                                </SImageContainer>
-                                <SThumbnailsContainer>
-                                    {!noImg && (
-                                        <>
-                                            {variants.map(({ mediaUrl, title }, index) => {
-                                                return (
-                                                    <SThumbnailImageContainer
-                                                        key={index}
-                                                        onClick={() =>
-                                                            productSelectHandler(sku, title)
-                                                        }
-                                                    >
-                                                        <SThumbnailImage src={mediaUrl} />
-                                                    </SThumbnailImageContainer>
-                                                );
-                                            })}
-                                        </>
+                {products?.map?.(({ title, tags, variants, sku, image }, index) => {
+                    const { price, compareAtPrice } = variants.reduce(
+                        (r, v) =>
+                            v.price < r.price
+                                ? { price: v.price, compareAtPrice: v.compare_at_price }
+                                : r,
+                        { price: variants[0].price, compareAtPrice: variants[0].compare_at_price }
+                    );
+
+                    const hasSale = price !== compareAtPrice;
+                    return (
+                        <SGridItem key={index}>
+                            <SImageContainer
+                                onClick={() => productSelectHandler(sku, variants[0].sku)}
+                            >
+                                <SImage src={image?.url || missingImg} />
+                            </SImageContainer>
+                            {/* <SThumbnailsContainer>
+                                <>
+                                    {thumbnails.map(({ media, sku: variantSku }, index) => {
+                                        return (
+                                            <SThumbnailImageContainer
+                                                key={index}
+                                                onClick={() =>
+                                                    productSelectHandler(sku, variantSku)
+                                                }
+                                            >
+                                                <SThumbnailImage src={media.url} />
+                                            </SThumbnailImageContainer>
+                                        );
+                                    })}
+                                </>
+                            </SThumbnailsContainer> */}
+                            <SContent>
+                                <SInfoControl>
+                                    {!hasSale && <STag>{tags?.[0]}</STag>}
+                                    {hasSale && (
+                                        <SSaleTag>
+                                            <SSaleIcon />
+                                            <SSalePercentage>
+                                                {Math.round((1 - price / compareAtPrice) * 100)}%
+                                                off
+                                            </SSalePercentage>
+                                        </SSaleTag>
                                     )}
-                                </SThumbnailsContainer>
-                                <SContent>
-                                    <SInfoControl>
-                                        {!hasSale && <STag>{tags?.[0]}</STag>}
-                                        {hasSale && (
-                                            <SSaleTag>
-                                                <SSaleIcon />
-                                                <SSalePercentage>
-                                                    {Math.round((1 - price / compareAtPrice) * 100)}
-                                                    % off
-                                                </SSalePercentage>
-                                            </SSaleTag>
-                                        )}
-                                        <SPrice>{priceFormatter.format(price)}</SPrice>
-                                    </SInfoControl>
-                                    <SInfoControl>
-                                        <STitle>{title}</STitle>
-                                        {hasSale && (
-                                            <SComparePrice>
-                                                {priceFormatter.format(compareAtPrice)}
-                                            </SComparePrice>
-                                        )}
-                                    </SInfoControl>
-                                </SContent>
-                            </SGridItem>
-                        );
-                    }
-                )}
+                                    <SPrice>{priceFormatter.format(price)}</SPrice>
+                                </SInfoControl>
+                                <SInfoControl>
+                                    <STitle>{title}</STitle>
+                                    {hasSale && (
+                                        <SComparePrice>
+                                            {priceFormatter.format(compareAtPrice)}
+                                        </SComparePrice>
+                                    )}
+                                </SInfoControl>
+                            </SContent>
+                        </SGridItem>
+                    );
+                })}
             </SGrid>
         </SProductsGrid>
     );

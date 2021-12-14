@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { v, b, s, btnReset } from "../../styles/variables";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import { SInput } from "../UI/AuthForm/styles";
 
 // POPUP /////////////////////////////////////////////////
 export const SPopup = styled.div`
@@ -149,4 +150,20 @@ export const SDeleteIcon = styled(AiOutlineDelete)`
 `;
 export const SEditIcon = styled(AiOutlineEdit)`
     ${iconStyles}
+`;
+
+export const SPriceInputContainer = styled.div`
+    position: relative;
+`;
+export const SPriceInput = styled(SInput)`
+    width: ${v.xxlSpacing};
+    border: 1px solid ${({ theme }) => theme.bg3};
+    padding-left: ${v.mdSpacing};
+`;
+export const SDollarSign = styled.div`
+    position: absolute;
+    left: ${v.smSpacing};
+    top: 50%;
+    font-size: 12px;
+    transform: translate(-50%, -50%);
 `;

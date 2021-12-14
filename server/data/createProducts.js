@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import { artists, backdrops, readFromFile, writeToFile } from "./config.js";
 
+const backdropHash = backdrops.reduce((r, v) => ({ ...r, [v.backdrop]: v }), {});
 const createProducts = async () => {
     const cloudinaryData = await readFromFile(`cloudinary`);
     const products = cloudinaryData.reduce((r, v, i) => {
@@ -10,7 +11,11 @@ const createProducts = async () => {
             .map((str) => str[0].toUpperCase() + str.substr(1))
             .join(" ");
         const description = `Custom ${title} inspired artwork carved into a vinyl record and framed with a backdrop of your choice.`;
-        const media = v.files.reduce((r, v) => [...r, { public_id: v.public_id, url: v.url }], []);
+        const media = v.files.reduce((r, v) => {
+            const handle = v.filename.replace(`${sku}-`, "");
+            const order = backdropHash[handle].order;
+            return [...r, { public_id: v.public_id, url: v.url, position: order }];
+        }, []);
         const variants = v.files.reduce((r, v) => {
             const variantSku = v.filename;
             const variantTitle = v.filename

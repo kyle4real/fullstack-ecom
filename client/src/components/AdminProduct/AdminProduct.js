@@ -6,6 +6,7 @@ import Button from "../UI/Button/Button";
 
 import {
     SDeleteIcon,
+    SDollarSign,
     SEditIcon,
     SIconButtonWrap,
     SIconsContainer,
@@ -14,6 +15,8 @@ import {
     SMediaBottomBar,
     SMediaContainer,
     SMediaGrid,
+    SPriceInput,
+    SPriceInputContainer,
     SProductDisplayGrid,
     STBodyTRVariant,
     STDImage,
@@ -37,6 +40,13 @@ import ImageInput from "../UI/ImageInput/ImageInput";
 import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
+import { updateProduct } from "../../app/actions/product-actions_admin";
+
+const priceFormatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+});
 
 const editTargets = ["title", "description", "status"];
 
@@ -47,6 +57,19 @@ const prepareInitialFormInput = (product) => {
     }, {});
 };
 
+const variantEditTargets = ["price", "compare_at_price"];
+
+const prepareInitialVariantFormInput = (variants) => {
+    return variants.reduce((r, v) => {
+        let variant = v;
+        variant = variantEditTargets.reduce(
+            (r, v) => ({ ...r, [v]: priceFormatter.format(variant[v]).slice(1) }),
+            {}
+        );
+        return { ...r, [v._id]: variant };
+    }, {});
+};
+
 const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -54,15 +77,55 @@ const AdminProduct = () => {
     const [mediaSelect, setMediaSelect] = useState(null);
     const [variantSelect, setVariantSelect] = useState(null);
 
-    const initialFormInput = prepareInitialFormInput(product);
-
-    console.log(initialFormInput);
+    const initialFormInput = useMemo(() => prepareInitialFormInput(product), [product]);
     const [formInput, setFormInput] = useState(initialFormInput);
+    useEffect(() => setFormInput(initialFormInput), [initialFormInput]);
+
+    const initialVariantFormInput = useMemo(
+        () => prepareInitialVariantFormInput(product.variants),
+        [product.variants]
+    );
+    const [variantFormInput, setVariantFormInput] = useState(initialVariantFormInput);
+    useEffect(() => setVariantFormInput(initialVariantFormInput), [initialVariantFormInput]);
+
+    const onCancelHandler = () => {
+        setFormInput(initialFormInput);
+        setVariantFormInput(initialVariantFormInput);
+    };
+    const onSaveHandler = () => {
+        const productEdits = {};
+        editTargets.forEach((name) => {
+            if (initialFormInput[name] !== formInput[name]) productEdits[name] = formInput[name];
+        });
+
+        const variantsEdits = [];
+        product.variants.forEach(({ _id }) => {
+            const obj = {};
+            variantEditTargets.forEach((name) => {
+                const initial = priceFormatter.format(Number(initialVariantFormInput[_id][name]));
+                const formInput = priceFormatter.format(Number(variantFormInput[_id][name]));
+                if (initial !== formInput) obj[name] = Number(formInput.slice(1));
+            });
+            if (Object.keys(obj).length) variantsEdits.push({ _id, ...obj });
+        });
+
+        if (!Object.keys(productEdits).length && !variantsEdits.length) return;
+
+        const productObj = { ...productEdits };
+        if (variantsEdits.length) productObj.variants = variantsEdits;
+        dispatch(updateProduct(product._id, productObj));
+    };
 
     const inputChangeHandler = (e) => {
         const name = e.target.name;
         const value = e.target.value;
         setFormInput((p) => ({ ...p, [name]: value }));
+    };
+    const variantInputChangeHandler = (e) => {
+        const value = e.target.value;
+        if (isNaN(Number(value))) return;
+        const [id, name] = e.target.name.split("-");
+        setVariantFormInput((p) => ({ ...p, [id]: { ...p[id], [name]: value } }));
     };
 
     const edits = useMemo(() => {
@@ -70,16 +133,26 @@ const AdminProduct = () => {
         editTargets.forEach((name) => {
             if (initialFormInput[name] !== formInput[name]) changes = true;
         });
+
+        product.variants.forEach(({ _id }) => {
+            variantEditTargets.forEach((name) => {
+                const initial = priceFormatter.format(Number(initialVariantFormInput[_id][name]));
+                const formInput = priceFormatter.format(Number(variantFormInput[_id][name]));
+                if (initial !== formInput) changes = true;
+            });
+        });
         return changes;
-    }, [formInput, initialFormInput]);
+    }, [formInput, initialFormInput, product.variants, initialVariantFormInput, variantFormInput]);
 
     const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
     const variantSelectHandler = (variantId) => setVariantSelect(variantId);
 
     const { mainMedia, media } = useMemo(() => {
-        if (!product.media.length) return { mainMedia: { url: missingImg, _id: null }, media: [] };
-        if (product.media.length === 1) return { mainMedia: product.media[0], media: [] };
-        else return { mainMedia: product.media[0], media: product.media.slice(1) };
+        let media = product.media;
+        if (!media.length) return { mainMedia: { url: missingImg, _id: null }, media: [] };
+        media = [...media].sort((a, b) => a.position - b.position);
+        if (media.length === 1) return { mainMedia: media[0], media: [] };
+        else return { mainMedia: media[0], media: media.slice(1) };
     }, [product.media]);
 
     return (
@@ -100,7 +173,12 @@ const AdminProduct = () => {
                 />
             )}
 
-            <UnsavedChanges show={edits} loading={false} />
+            <UnsavedChanges
+                show={edits}
+                loading={false}
+                onSave={onSaveHandler}
+                onCancel={onCancelHandler}
+            />
 
             <SProductDisplayGrid>
                 <div>
@@ -142,15 +220,7 @@ const AdminProduct = () => {
                             ))}
                         </SMediaGrid>
                         <SMediaBottomBar>
-                            {/* {(loading.imageUpload || loading.imageDelete) && (
-                                        <Spinner size={`30px`} />
-                                    )} */}
-                            <Button
-                                secondaryRadius
-                                fixed
-                                absolute
-                                // disabled={loading.imageUpload || loading.imageDelete}
-                            >
+                            <Button secondaryRadius fixed absolute>
                                 Add Image
                                 <ImageInput productId={id} />
                             </Button>
@@ -161,7 +231,7 @@ const AdminProduct = () => {
                             <SSectionHeadTitle>Variants</SSectionHeadTitle>
                         </SSectionHeadContainer>
                         {(() => {
-                            const displayKeys = ["title", "price"];
+                            const displayKeys = ["title", "price", "compare_at_price"];
                             const variants = product.variants;
                             return (
                                 <STable>
@@ -171,12 +241,13 @@ const AdminProduct = () => {
                                             <STH />
                                             <STH>Title</STH>
                                             <STH>Price</STH>
+                                            <STH>Compare Price</STH>
                                             <STH style={{ width: "1%", whiteSpace: "nowrap" }} />
                                         </STHeadTR>
                                     </STHead>
                                     <STBody>
                                         {variants.map((variant, index) => {
-                                            const src = variant.mediaUrl || missingImg;
+                                            const src = variant.media.url || missingImg;
                                             return (
                                                 <STBodyTRVariant key={index}>
                                                     <STD>{index + 1}</STD>
@@ -194,14 +265,41 @@ const AdminProduct = () => {
                                                     </STDImage>
                                                     {displayKeys.map((key, index) => {
                                                         let value = variant[key];
-                                                        if (key === "price") value = `$${value}`;
+                                                        if (
+                                                            key === "price" ||
+                                                            key === "compare_at_price"
+                                                        ) {
+                                                            value =
+                                                                variantFormInput[variant._id][key];
+                                                            return (
+                                                                <STD key={index}>
+                                                                    <SPriceInputContainer>
+                                                                        <SPriceInput
+                                                                            value={value}
+                                                                            name={`${variant._id}-${key}`}
+                                                                            onChange={(e) =>
+                                                                                variantInputChangeHandler(
+                                                                                    e
+                                                                                )
+                                                                            }
+                                                                            placeholder={
+                                                                                !value
+                                                                                    ? "0.00"
+                                                                                    : "false"
+                                                                            }
+                                                                        />
+                                                                        <SDollarSign>$</SDollarSign>
+                                                                    </SPriceInputContainer>
+                                                                </STD>
+                                                            );
+                                                        }
                                                         return <STD key={index}>{value}</STD>;
                                                     })}
                                                     <STD>
                                                         <SIconsContainer>
-                                                            <SIconButtonWrap>
+                                                            {/* <SIconButtonWrap>
                                                                 <SEditIcon />
-                                                            </SIconButtonWrap>
+                                                            </SIconButtonWrap> */}
                                                             <SIconButtonWrap>
                                                                 <SDeleteIcon />
                                                             </SIconButtonWrap>

@@ -44,3 +44,6 @@ export const getProducts_admin = () => {
 export const getProductById_admin = (productId) => {
     return API.get(`${adminPath}${productsPath}/${productId}`);
 };
+export const updateProduct_admin = (productId, productObj) => {
+    return API.put(`${adminPath}${productsPath}/${productId}`, productObj);
+};

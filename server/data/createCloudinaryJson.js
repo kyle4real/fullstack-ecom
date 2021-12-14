@@ -1,16 +1,16 @@
-import { artists, backdrops, writeToFile } from "./config.js";
+import { artists, writeToFile } from "./config.js";
 import cloudinary from "../config/cloudinary.js";
 import "colors";
 
-const getSelectFiles = (targetFolder, res, backdrops) => {
-    const filtered = res.filter((file) => {
-        const backdropName = file.filename.replace(`${targetFolder}-`, "");
-        return backdrops.includes(backdropName);
-    });
-    return filtered;
-};
+// const getSelectFiles = (targetFolder, res, backdrops) => {
+//     const filtered = res.filter((file) => {
+//         const backdropName = file.filename.replace(`${targetFolder}-`, "");
+//         return backdrops.includes(backdropName);
+//     });
+//     return filtered;
+// };
 
-const fetchFromCloudinary = async (artists, backdrops) => {
+const fetchFromCloudinary = async (artists) => {
     const fetchFolder = async (folder) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -46,7 +46,7 @@ const fetchFromCloudinary = async (artists, backdrops) => {
 };
 
 const main = async () => {
-    const arr = await fetchFromCloudinary(artists, backdrops);
+    const arr = await fetchFromCloudinary(artists);
     try {
         await writeToFile(arr, `cloudinary`);
         console.log(`JSON Created`.green.underline);

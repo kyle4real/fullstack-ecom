@@ -1,6 +1,6 @@
 import express from "express";
 
-import { getProduct, getProducts } from "../controllers/products.admin.js";
+import { getProduct, getProducts, updateProduct } from "../controllers/products.admin.js";
 import Product from "../models/Product.js";
 
 // Middleware
@@ -11,7 +11,12 @@ const router = express.Router();
 
 router.use(protect);
 
-router.route(`/`).get(advancedResults(Product), getProducts);
-router.route(`/:id`).get(getProduct);
+router
+    .route(`/`)
+    .get(
+        advancedResults(Product, [{ path: "variants" }, { path: "media" }, { path: "image" }]),
+        getProducts
+    );
+router.route(`/:id`).get(getProduct).put(updateProduct);
 
 export default router;

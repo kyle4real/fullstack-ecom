@@ -1,9 +1,8 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProduct } from "../app/actions/product-actions";
+import { getProduct } from "../app/actions/product-actions_admin";
 import { productActions } from "../app/slices/product-slice";
 
 import AdminProduct from "../components/AdminProduct/AdminProduct";

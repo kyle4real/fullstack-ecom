@@ -10,6 +10,7 @@ export const STable = styled.table`
 export const STHead = styled.thead`
     position: sticky;
     top: ${v.headerHeight};
+    z-index: 10;
 
     @media ${b.lg} {
         top: calc(${v.headerHeight} + ${v.headerTopHeight});
