@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema(
         createdAt: { type: Date, default: Date.now },
         description: { type: String },
         image: { type: mongoose.Schema.ObjectId, ref: "Media" },
-        // status: {type: String, enum: []}
+        status: { type: String, enum: ["active", "archived"] },
     },
     {
         toJSON: { virtuals: true },

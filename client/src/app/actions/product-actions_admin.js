@@ -18,6 +18,8 @@ export const getProduct = (productId, { onComplete, onError }) => {
 export const updateProduct = (productId, productObj) => {
     return async (dispatch, getState) => {
         try {
+            dispatch(productActions.setProductLoading(true));
+
             let { data } = await api.updateProduct_admin(productId, productObj);
             if (productObj.variants !== undefined) {
                 const media = getState().product.product.media;
@@ -28,13 +30,27 @@ export const updateProduct = (productId, productObj) => {
         } catch (error) {
             console.log(error);
         } finally {
+            dispatch(productActions.setProductLoading(false));
+        }
+    };
+};
+
+export const addMedia = (productId, base64Img) => {
+    return async (dispatch) => {
+        try {
+            dispatch(productActions.setMediaLoading(true));
+            const { data } = await api.addMedia(productId, base64Img);
+            dispatch(productActions.addMedia({ data }));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(productActions.setMediaLoading(false));
         }
     };
 };
 
 // actorly populate
 const actorlyMediaToVariantPopulate = (product) => {
-    console.log(product);
     const mediaHash = product.media.reduce((r, v) => ({ ...r, [v._id]: v }), {});
     const variants = product.variants.reduce(
         (r, v) => [...r, { ...v, media: mediaHash[v.media] }],

@@ -24,12 +24,11 @@ import {
     SSliderPanel,
 } from "./styles";
 
-const MediaFocus = ({ product, mediaSelect, onMediaSelect }) => {
+const MediaFocus = ({ product, media, mediaSelect, onMediaSelect }) => {
     const mediaFocusRef = useRef();
     useDetectClickaway(mediaFocusRef, () => {
         onMediaSelect(null);
     });
-    const media = product.media;
 
     const { index, src } = useMemo(() => {
         const index = media.findIndex(({ _id }) => _id === mediaSelect);

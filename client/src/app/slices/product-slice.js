@@ -4,6 +4,8 @@ const productSlice = createSlice({
     name: "product",
     initialState: {
         product: null,
+        productLoading: false,
+        mediaLoading: false,
     },
     reducers: {
         replaceProduct(state, action) {
@@ -28,6 +30,17 @@ const productSlice = createSlice({
                     }
                 }
             }
+        },
+        addMedia(state, action) {
+            const { data } = action.payload;
+            state.product.media.push(data.data);
+        },
+        // loading
+        setProductLoading(state, action) {
+            state.productLoading = action.payload;
+        },
+        setMediaLoading(state, action) {
+            state.mediaLoading = action.payload;
         },
     },
 });

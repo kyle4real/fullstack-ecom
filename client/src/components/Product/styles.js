@@ -5,50 +5,33 @@ import { v, b } from "../../styles/variables";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { FaShippingFast } from "react-icons/fa";
 import { GiCardboardBox } from "react-icons/gi";
+import { SSelect } from "../UI/AuthForm/styles";
 
-export const SProductPage = styled.div`
-    @media ${b.md} {
-        display: flex;
-    }
-`;
-
-export const SMediaSection = styled.section`
-    @media ${b.md} {
-        width: 65%;
-    }
-    @media ${b.lg} {
-        width: 60%;
+export const SProductGrid = styled.div`
+    @media ${b.sm} {
+        display: grid;
+        grid-template-columns: 1fr minmax(380px, 1fr);
+        > div {
+            :last-of-type {
+                align-self: start;
+                position: sticky;
+                top: 10rem;
+            }
+        }
     }
 `;
 
 export const SMobileWrapper = styled.div`
     display: initial;
-    @media ${b.md} {
+    @media ${b.sm} {
         display: none;
     }
 `;
 
 export const SDesktopWrapper = styled.div`
     display: none;
-    @media ${b.md} {
+    @media ${b.sm} {
         display: initial;
-    }
-`;
-
-export const SContentSection = styled.section`
-    height: 100%;
-
-    @media ${b.md} {
-        width: 45%;
-        min-width: 380px;
-
-        position: -webkit-sticky;
-        position: sticky;
-        top: 10rem;
-    }
-    @media ${b.lg} {
-        min-width: 450px;
-        width: 40%;
     }
 `;
 
@@ -59,23 +42,9 @@ export const SMediaTOP = styled.div`
     margin-bottom: calc(${v.smSpacing} + 4px);
 `;
 
-export const SMediaItemTOP = styled.div`
-    justify-self: center;
-    align-self: center;
-    text-align: center;
+export const SMediaMAIN = styled.div`
+    width: 100%;
 `;
-
-export const SImageContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-export const SImage = styled.img`
-    max-width: 100%;
-    height: auto;
-`;
-
-export const SMediaMAIN = styled.div``;
 
 export const SMediaBOTTOM = styled.div`
     display: grid;
@@ -84,10 +53,13 @@ export const SMediaBOTTOM = styled.div`
     margin-top: calc(${v.smSpacing} + 4px);
 `;
 
-export const SMediaItemBOTTOM = styled.div`
-    justify-self: center;
-    align-self: center;
-    text-align: center;
+export const SImageContainer = styled.div`
+    display: flex;
+`;
+
+export const SImage = styled.img`
+    max-width: 100%;
+    height: auto;
 `;
 
 // MOBILE
@@ -183,45 +155,13 @@ export const SCollectionName = styled.span`
     }
 `;
 
-export const SContentVARIANTS = styled.div`
+export const SVariantSelect = styled(SSelect)`
+    border-color: ${({ theme }) => theme.bg3};
+`;
+
+export const SVariantSelection = styled.div`
     padding-bottom: ${v.mdSpacing};
     border-bottom: 1px solid ${({ theme }) => theme.primaryLighter};
-`;
-
-export const SVariantsHead = styled.div`
-    margin-bottom: calc(${v.smSpacing} + 4px);
-`;
-export const SVariantsName = styled.span`
-    font-weight: 600;
-    text-transform: uppercase;
-    margin-right: 4px;
-    font-size: 16px;
-    @media ${b.sm} {
-        font-size: 18px;
-    }
-`;
-export const SVariantSelection = styled.span`
-    font-size: 18px;
-    @media ${b.sm} {
-        font-size: 16px;
-    }
-`;
-
-export const SVariantsGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: ${v.smSpacing};
-`;
-export const SVariantGridItem = styled.div`
-    justify-self: center;
-    align-self: center;
-    text-align: center;
-`;
-export const SVariantImageContainer = styled.div`
-    cursor: pointer;
-    display: flex;
-    border: 2px solid ${({ theme, active }) => (!active ? "transparent" : theme.primary)};
-    transition: 0.2s ease border;
 `;
 
 export const SContentBUTTONS = styled.div`

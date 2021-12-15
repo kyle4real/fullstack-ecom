@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../Button/Button";
+import Loading from "../Loading/Loading";
 import {
     SButtonContainer,
     SUnsavedChangedContent,
@@ -7,7 +8,7 @@ import {
     SUnsavedChangesTitle,
 } from "./styles";
 
-const UnsavedChanges = ({ show, onSave, onCancel }) => {
+const UnsavedChanges = ({ show, loading, onSave, onCancel }) => {
     return (
         <SUnsavedChanges className={show ? "top-0" : ""}>
             <SUnsavedChangedContent className={"unsaved-changes-content"}>
@@ -17,7 +18,7 @@ const UnsavedChanges = ({ show, onSave, onCancel }) => {
                         Discard
                     </Button>
                     <Button fixed onClick={onSave}>
-                        Save
+                        {!loading ? "Save" : <Loading />}
                     </Button>
                 </SButtonContainer>
             </SUnsavedChangedContent>

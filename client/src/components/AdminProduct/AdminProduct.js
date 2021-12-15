@@ -7,7 +7,6 @@ import Button from "../UI/Button/Button";
 import {
     SDeleteIcon,
     SDollarSign,
-    SEditIcon,
     SIconButtonWrap,
     SIconsContainer,
     SImage,
@@ -41,6 +40,7 @@ import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 import { updateProduct } from "../../app/actions/product-actions_admin";
+import Loading from "../UI/Loading/Loading";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -52,7 +52,7 @@ const editTargets = ["title", "description", "status"];
 
 const prepareInitialFormInput = (product) => {
     return editTargets.reduce((r, v) => {
-        const value = product[v] || "";
+        const value = product?.[v] || "";
         return { ...r, [v]: value };
     }, {});
 };
@@ -63,7 +63,7 @@ const prepareInitialVariantFormInput = (variants) => {
     return variants.reduce((r, v) => {
         let variant = v;
         variant = variantEditTargets.reduce(
-            (r, v) => ({ ...r, [v]: priceFormatter.format(variant[v]).slice(1) }),
+            (r, v) => ({ ...r, [v]: priceFormatter.format(variant?.[v]).slice(1) }),
             {}
         );
         return { ...r, [v._id]: variant };
@@ -73,7 +73,7 @@ const prepareInitialVariantFormInput = (variants) => {
 const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { product } = useSelector((state) => state.product);
+    const { product, productLoading, mediaLoading } = useSelector((state) => state.product);
     const [mediaSelect, setMediaSelect] = useState(null);
     const [variantSelect, setVariantSelect] = useState(null);
 
@@ -155,6 +155,7 @@ const AdminProduct = () => {
         else return { mainMedia: media[0], media: media.slice(1) };
     }, [product.media]);
 
+    const loading = productLoading;
     return (
         <>
             {!!variantSelect && (
@@ -168,6 +169,7 @@ const AdminProduct = () => {
             {!!mediaSelect && (
                 <MediaFocus
                     product={product}
+                    media={[mainMedia, ...media]}
                     mediaSelect={mediaSelect}
                     onMediaSelect={mediaSelectHandler}
                 />
@@ -175,7 +177,7 @@ const AdminProduct = () => {
 
             <UnsavedChanges
                 show={edits}
-                loading={false}
+                loading={loading}
                 onSave={onSaveHandler}
                 onCancel={onCancelHandler}
             />
@@ -220,9 +222,9 @@ const AdminProduct = () => {
                             ))}
                         </SMediaGrid>
                         <SMediaBottomBar>
-                            <Button secondaryRadius fixed absolute>
-                                Add Image
-                                <ImageInput productId={id} />
+                            <Button secondaryRadius fixed absolute disabled={mediaLoading}>
+                                {!mediaLoading ? "Add Image" : <Loading />}
+                                <ImageInput productId={product._id} disabled={mediaLoading} />
                             </Button>
                         </SMediaBottomBar>
                     </SCardContainer>
