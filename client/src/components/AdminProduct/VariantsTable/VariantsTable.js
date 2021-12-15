@@ -83,7 +83,6 @@ const VariantsTable = ({ variantFormInput, onVariantInputChange }) => {
                                                     value={value}
                                                     name={`${variant._id}-${key}`}
                                                     onChange={(e) => onVariantInputChange(e)}
-                                                    placeholder={!value ? "0.00" : "false"}
                                                 />
                                             </STD>
                                         );

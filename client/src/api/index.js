@@ -51,3 +51,7 @@ export const updateProduct_admin = (productId, productObj) => {
 export const addMedia = (productId, base64Img) => {
     return API.post(`${adminPath}${productsPath}/${productId}/media`, { base64Img });
 };
+
+export const addVariant = (productId, variantObj) => {
+    return API.post(`${adminPath}${productsPath}/${productId}/variants`, variantObj);
+};

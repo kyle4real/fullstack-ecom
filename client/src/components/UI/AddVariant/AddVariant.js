@@ -12,6 +12,10 @@ const AddVariant = ({ product, onCancel }) => {
         onCancel();
     });
 
+    const onSubmitHandler = (form) => {
+        console.log(form);
+    };
+
     return (
         <Overlay>
             <SFixedContainer maxWidth={300}>
@@ -19,7 +23,7 @@ const AddVariant = ({ product, onCancel }) => {
                     <SSectionHeadContainer>
                         <SSectionHeadTitle>{`Add Variant - ${product.title}`}</SSectionHeadTitle>
                     </SSectionHeadContainer>
-                    <Form formArr={formArr} submitBtn={"Add Variant"} />
+                    <Form formArr={formArr} submitBtn={"Add Variant"} onSubmit={onSubmitHandler} />
                 </SCardContainer>
             </SFixedContainer>
         </Overlay>

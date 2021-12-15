@@ -24,7 +24,7 @@ const PriceInput = ({ value, name, onChange, placeholder }) => {
                 value={value}
                 name={name}
                 onChange={(e) => onChangeHandler(e)}
-                placeholder={placeholder}
+                placeholder={placeholder ? placeholder : !value ? "0.00" : "false"}
                 onBlur={(e) => onBlurHandler(e)}
             />
             <SDollarSign>$</SDollarSign>

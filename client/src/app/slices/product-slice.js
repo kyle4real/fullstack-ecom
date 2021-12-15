@@ -6,6 +6,7 @@ const productSlice = createSlice({
         product: null,
         productLoading: false,
         mediaLoading: false,
+        variantLoading: false,
     },
     reducers: {
         replaceProduct(state, action) {
@@ -35,12 +36,19 @@ const productSlice = createSlice({
             const { data } = action.payload;
             state.product.media.push(data.data);
         },
+        addVariant(state, action) {
+            const { data } = action.payload;
+            state.product.variants.push(data.data);
+        },
         // loading
         setProductLoading(state, action) {
             state.productLoading = action.payload;
         },
         setMediaLoading(state, action) {
             state.mediaLoading = action.payload;
+        },
+        setVariantLoading(state, action) {
+            state.variantLoading = action.payload;
         },
     },
 });
