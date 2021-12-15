@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../app/actions/auth-actions";
-import AuthForm from "../components/UI/AuthForm/AuthForm";
+
 import {
     SCardContainer,
     SFixedContainer,
     SFlexContainer,
 } from "../components/UI/Containers/styles";
+import Form from "../components/UI/Form/Form";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const LoginPage = () => {
@@ -20,7 +21,7 @@ const LoginPage = () => {
         <SFlexContainer>
             <SFixedContainer maxWidth={300}>
                 <SCardContainer>
-                    <AuthForm
+                    <Form
                         formTitle={"Login"}
                         formArr={formArr}
                         submitBtn={"Login"}

@@ -1,10 +1,11 @@
 import React from "react";
-import AuthForm from "../components/UI/AuthForm/AuthForm";
+
 import {
     SCardContainer,
     SFixedContainer,
     SFlexContainer,
 } from "../components/UI/Containers/styles";
+import Form from "../components/UI/Form/Form";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const RegisterPage = () => {
@@ -12,7 +13,7 @@ const RegisterPage = () => {
         <SFlexContainer>
             <SFixedContainer maxWidth={300}>
                 <SCardContainer>
-                    <AuthForm formTitle={"Register"} formArr={formArr} submitBtn={"Register"} />
+                    <Form formTitle={"Register"} formArr={formArr} submitBtn={"Register"} />
                 </SCardContainer>
             </SFixedContainer>
         </SFlexContainer>

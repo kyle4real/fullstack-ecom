@@ -10,16 +10,16 @@ import {
 } from "./styles";
 
 const QuantitySelection = ({ cartItem, mobile }) => {
-    const { subHandler, addHandler, removeHandler } = useCartActions();
+    const { decHandler, incHandler, removeHandler } = useCartActions();
     const { _id, qty } = cartItem;
     return (
         <>
             <SQtySelection mobile={mobile}>
-                <SQtySelectionButton disabled={qty === 1} onClick={() => subHandler(_id)}>
+                <SQtySelectionButton disabled={qty === 1} onClick={() => decHandler(_id)}>
                     <SMinusIcon />
                 </SQtySelectionButton>
                 <SQtySelectionSpan>{qty}</SQtySelectionSpan>
-                <SQtySelectionButton onClick={() => addHandler(_id)}>
+                <SQtySelectionButton onClick={() => incHandler(_id)}>
                     <SPlusIcon />
                 </SQtySelectionButton>
             </SQtySelection>

@@ -21,10 +21,15 @@ const cartSlice = createSlice({
                 state.cart[cartItemIndex].qty++;
             }
         },
-        subFromCart(state, action) {
+        decCartItem(state, action) {
             const { cartId } = action.payload;
             const cartItemIndex = state.cart.findIndex((item) => item._id === cartId);
             state.cart[cartItemIndex].qty--;
+        },
+        incCartItem(state, action) {
+            const { cartId } = action.payload;
+            const cartItemIndex = state.cart.findIndex((item) => item._id === cartId);
+            state.cart[cartItemIndex].qty++;
         },
         removeFromCart(state, action) {
             const { cartId } = action.payload;

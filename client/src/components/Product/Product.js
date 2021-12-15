@@ -21,7 +21,6 @@ import {
     SContentCARD,
     SContentSpacebetween,
     SContentTOP,
-    SContentVARIANTS,
     SDesktopWrapper,
     SExpressIcon,
     SImage,
@@ -43,8 +42,7 @@ import {
 } from "./styles";
 import { uiActions } from "../../app/slices/ui-slice";
 import useQuery from "../../hooks/useQuery";
-import { SLabel, SSelect, SSelectOption } from "../UI/AuthForm/styles";
-import { useEffect } from "react";
+import { SLabel, SSelectOption } from "../UI/Form/styles";
 
 const Product = () => {
     const dispatch = useDispatch();

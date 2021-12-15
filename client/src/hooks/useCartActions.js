@@ -6,13 +6,13 @@ const useCartActions = () => {
     const removeHandler = (_id) => {
         dispatch(cartActions.removeFromCart({ cartId: _id }));
     };
-    const addHandler = (_id) => {
-        dispatch(cartActions.addToCart({ cartId: _id }));
+    const incHandler = (_id) => {
+        dispatch(cartActions.incCartItem({ cartId: _id }));
     };
-    const subHandler = (_id) => {
-        dispatch(cartActions.subFromCart({ cartId: _id }));
+    const decHandler = (_id) => {
+        dispatch(cartActions.decCartItem({ cartId: _id }));
     };
-    return { removeHandler, addHandler, subHandler };
+    return { removeHandler, incHandler, decHandler };
 };
 
 export default useCartActions;

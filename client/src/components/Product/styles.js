@@ -5,7 +5,7 @@ import { v, b } from "../../styles/variables";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { FaShippingFast } from "react-icons/fa";
 import { GiCardboardBox } from "react-icons/gi";
-import { SSelect } from "../UI/AuthForm/styles";
+import { SSelect } from "../UI/Form/styles";
 
 export const SProductGrid = styled.div`
     @media ${b.sm} {
