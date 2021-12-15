@@ -106,7 +106,6 @@ const AdminProduct = () => {
     };
     const variantInputChangeHandler = (e) => {
         const value = e.target.value;
-        // if (isNaN(Number(value))) return;
         const [id, name] = e.target.name.split("-");
         setVariantFormInput((p) => ({ ...p, [id]: { ...p[id], [name]: value } }));
     };

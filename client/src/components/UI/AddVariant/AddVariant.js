@@ -35,12 +35,12 @@ const formArr = [
     {
         label: "Price",
         name: "price",
-        type: "number",
+        type: "price",
     },
     {
         label: "Compare At Price",
         name: "compare_at_price",
-        type: "number",
+        type: "price",
     },
 ];
 
