@@ -60,18 +60,6 @@ const Product = () => {
         history.push(newUrl);
     };
 
-    const addToCartHandler = (variant, product) => {
-        dispatch(
-            cartActions.addToCart({
-                data: {
-                    variant,
-                    product,
-                },
-            })
-        );
-        dispatch(uiActions.toggleCart());
-    };
-
     const variantId = query.get("variant");
     const currentVariant = variantId && product.variants.find((item) => item._id === variantId);
     const { mainMedia, media } = useMemo(() => {
@@ -83,7 +71,17 @@ const Product = () => {
         return { mainMedia, media };
     }, [product.media, currentVariant]);
 
-    const variantSelectValue = mainMedia?.variant?._id;
+    const variantSelectValue = variantId || mainMedia?.variant?._id || product.variants[0]._id;
+
+    const addToCartHandler = () => {
+        dispatch(
+            cartActions.addToCart({
+                variant: product.variants.find((item) => item._id === variantSelectValue),
+                product,
+            })
+        );
+        dispatch(uiActions.toggleCart());
+    };
 
     const topMedia = media.slice(0, 3);
     const bottomMedia = media.slice(3);
@@ -156,10 +154,7 @@ const Product = () => {
 
                     <SContentBUTTONS>
                         <SButtonControl>
-                            <Button
-                                font={"14px"}
-                                onClick={() => addToCartHandler(params.variant, { ...product })}
-                            >
+                            <Button font={"14px"} onClick={addToCartHandler}>
                                 Add To Cart
                             </Button>
                         </SButtonControl>
@@ -171,10 +166,7 @@ const Product = () => {
                     </SContentBUTTONS>
 
                     <SButtonFIXED>
-                        <Button
-                            font={"14px"}
-                            onClick={() => addToCartHandler(params.variant, { ...product })}
-                        >
+                        <Button font={"14px"} onClick={addToCartHandler}>
                             Add To Cart
                         </Button>
                     </SButtonFIXED>

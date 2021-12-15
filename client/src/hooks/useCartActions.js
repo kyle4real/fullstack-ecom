@@ -3,20 +3,14 @@ import { cartActions } from "../app/slices/cart-slice";
 
 const useCartActions = () => {
     const dispatch = useDispatch();
-    const removeHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.removeFromCart({ data: { product: productObj, variant: variantSelection } })
-        );
+    const removeHandler = (_id) => {
+        dispatch(cartActions.removeFromCart({ cartId: _id }));
     };
-    const addHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.addToCart({ data: { product: productObj, variant: variantSelection } })
-        );
+    const addHandler = (_id) => {
+        dispatch(cartActions.addToCart({ cartId: _id }));
     };
-    const subHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.subFromCart({ data: { product: productObj, variant: variantSelection } })
-        );
+    const subHandler = (_id) => {
+        dispatch(cartActions.subFromCart({ cartId: _id }));
     };
     return { removeHandler, addHandler, subHandler };
 };
