@@ -53,6 +53,7 @@ const Product = () => {
     const query = useQuery();
     const { url } = useRouteMatch();
     const { product } = useSelector((state) => state.product);
+    console.log(product);
 
     const variantSelectHandler = (variantId) => {
         const newUrl = url.concat(`?variant=${variantId}`);
@@ -73,7 +74,6 @@ const Product = () => {
 
     const variantId = query.get("variant");
     const currentVariant = variantId && product.variants.find((item) => item._id === variantId);
-    console.log(currentVariant);
     const { mainMedia, media } = useMemo(() => {
         const mainMedia = !currentVariant
             ? product.media.find((item) => item.position === 1)
@@ -82,6 +82,8 @@ const Product = () => {
         const media = product.media.filter((item) => item._id !== mainMedia._id);
         return { mainMedia, media };
     }, [product.media, currentVariant]);
+
+    const variantSelectValue = mainMedia?.variant?._id;
 
     const topMedia = media.slice(0, 3);
     const bottomMedia = media.slice(3);
@@ -139,7 +141,7 @@ const Product = () => {
                     <SVariantSelection>
                         <SLabel>Variant</SLabel>
                         <SVariantSelect
-                            value={variantId}
+                            value={variantSelectValue}
                             onChange={(e) => variantSelectHandler(e.target.value)}
                         >
                             {product.variants.map(({ title, _id }, index) => {
