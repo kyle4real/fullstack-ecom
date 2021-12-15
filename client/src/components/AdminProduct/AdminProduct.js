@@ -51,7 +51,7 @@ const editTargets = ["title", "description", "status"];
 
 const prepareInitialFormInput = (product) => {
     return editTargets.reduce((r, v) => {
-        const value = product[v] || "";
+        const value = product?.[v] || "";
         return { ...r, [v]: value };
     }, {});
 };
@@ -62,7 +62,7 @@ const prepareInitialVariantFormInput = (variants) => {
     return variants.reduce((r, v) => {
         let variant = v;
         variant = variantEditTargets.reduce(
-            (r, v) => ({ ...r, [v]: priceFormatter.format(variant[v]).slice(1) }),
+            (r, v) => ({ ...r, [v]: priceFormatter.format(variant?.[v]).slice(1) }),
             {}
         );
         return { ...r, [v._id]: variant };

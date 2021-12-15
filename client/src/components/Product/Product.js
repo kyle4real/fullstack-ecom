@@ -19,7 +19,6 @@ import {
     SContentACCORDIAN,
     SContentBUTTONS,
     SContentCARD,
-    SContentSection,
     SContentSpacebetween,
     SContentTOP,
     SContentVARIANTS,
@@ -28,82 +27,37 @@ import {
     SImage,
     SImageContainer,
     SMediaBOTTOM,
-    SMediaItemBOTTOM,
-    SMediaItemTOP,
     SMediaMAIN,
-    SMediaSection,
     SMediaTOP,
     SMobileImage,
     SMobileImageContainer,
     SMobileMediaBottom,
     SMobileWrapper,
-    SProductPage,
+    SProductGrid,
     SProductPrice,
     SProductTitle,
     SReturnIcon,
     SShippingIcon,
-    SVariantGridItem,
-    SVariantImageContainer,
+    SVariantSelect,
     SVariantSelection,
-    SVariantsGrid,
-    SVariantsHead,
-    SVariantsName,
 } from "./styles";
 import { uiActions } from "../../app/slices/ui-slice";
+import useQuery from "../../hooks/useQuery";
+import { SLabel, SSelect, SSelectOption } from "../UI/AuthForm/styles";
+import { useEffect } from "react";
 
 const Product = () => {
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
+    const query = useQuery();
     const { url } = useRouteMatch();
     const { product } = useSelector((state) => state.product);
-    const [currentHover, setCurrentHover] = useState(null);
-    const [currentMain, setCurrentMain] = useState(null);
 
-    const variantSelectHandler = (variantTitle) => {
-        setCurrentMain(null);
-        const newUrl = url.split("/").slice(0, -1).concat(variantTitle).join("/");
+    const variantSelectHandler = (variantId) => {
+        const newUrl = url.concat(`?variant=${variantId}`);
         history.push(newUrl);
     };
-
-    let { TOPMedia, MAINMedia, BOTTOMMedia, MobileMediaMAIN, MobileMediaBOTTOM, variantPrice } =
-        useMemo(() => {
-            let TOPMedia = [],
-                MAINMedia = null,
-                BOTTOMMedia = [];
-            const mediaArr = product?.media;
-            const variantsArr = product?.variants;
-            const variantUrl = variantsArr?.find(({ title }) => title === params.variant)?.mediaUrl;
-            const filteredMediaArr = mediaArr?.filter(({ url }) => url !== variantUrl);
-
-            if (mediaArr?.length >= 5) {
-                TOPMedia = filteredMediaArr?.slice(1, 4);
-                MAINMedia = variantUrl;
-                BOTTOMMedia = filteredMediaArr?.slice(2);
-            } else if (mediaArr?.length >= 4) {
-                MAINMedia = variantUrl;
-                BOTTOMMedia = filteredMediaArr;
-            } else if (mediaArr?.length >= 3) {
-                TOPMedia = filteredMediaArr;
-                MAINMedia = variantUrl;
-            }
-
-            let MobileMediaMAIN = null;
-            let MobileMediaBOTTOM = [];
-
-            MobileMediaMAIN = variantUrl;
-            MobileMediaBOTTOM = mediaArr;
-
-            let variantPrice = variantsArr?.find(({ title }) => title === params.variant)?.price;
-            return {
-                TOPMedia,
-                MAINMedia,
-                BOTTOMMedia,
-                MobileMediaMAIN,
-                MobileMediaBOTTOM,
-                variantPrice,
-            };
-        }, [product, params.variant]);
 
     const addToCartHandler = (variant, product) => {
         dispatch(
@@ -117,18 +71,30 @@ const Product = () => {
         dispatch(uiActions.toggleCart());
     };
 
+    const variantId = query.get("variant");
+    const currentVariant = variantId && product.variants.find((item) => item._id === variantId);
+    const { mainMedia, media } = useMemo(() => {
+        const mainMedia = !currentVariant
+            ? product.media.find((item) => item.position === 1)
+            : product.media.find((item) => item._id === currentVariant.media);
+        const media = product.media.filter((item) => item._id !== mainMedia._id);
+        return { mainMedia, media };
+    }, [product.media, currentVariant]);
+
+    const topMedia = media.slice(0, 3);
+    const bottomMedia = media.slice(3);
     return (
-        <SProductPage>
-            <SMediaSection>
+        <SProductGrid>
+            <div>
                 <SMobileWrapper>
                     <SMediaMAIN>
                         <SImageContainer>
-                            <SImage src={currentMain || (MobileMediaMAIN && MobileMediaMAIN)} />
+                            <SImage src={mainMedia.url} />
                         </SImageContainer>
                     </SMediaMAIN>
                     <SMobileMediaBottom>
-                        {MobileMediaBOTTOM?.map(({ url }, index) => (
-                            <SMobileImageContainer key={index} onClick={() => setCurrentMain(url)}>
+                        {media.map(({ url, _id }, index) => (
+                            <SMobileImageContainer key={index}>
                                 <SMobileImage src={url} />
                             </SMobileImageContainer>
                         ))}
@@ -137,67 +103,52 @@ const Product = () => {
 
                 <SDesktopWrapper>
                     <SMediaTOP>
-                        {TOPMedia?.map(({ url }, index) => (
-                            <SMediaItemTOP key={index}>
-                                <SImageContainer>
-                                    <SImage src={url} />
-                                </SImageContainer>
-                            </SMediaItemTOP>
+                        {topMedia.map(({ url }, index) => (
+                            <SImageContainer key={index}>
+                                <SImage src={url} />
+                            </SImageContainer>
                         ))}
                     </SMediaTOP>
                     <SMediaMAIN>
                         <SImageContainer>
-                            <SImage src={MAINMedia && MAINMedia} />
+                            <SImage src={mainMedia.url} />
                         </SImageContainer>
                     </SMediaMAIN>
                     <SMediaBOTTOM>
-                        {BOTTOMMedia?.map(({ url }, index) => (
-                            <SMediaItemBOTTOM key={index}>
-                                <SImageContainer>
-                                    <SImage src={url} />
-                                </SImageContainer>
-                            </SMediaItemBOTTOM>
+                        {bottomMedia.map(({ url }, index) => (
+                            <SImageContainer key={index}>
+                                <SImage src={url} />
+                            </SImageContainer>
                         ))}
                     </SMediaBOTTOM>
                 </SDesktopWrapper>
-            </SMediaSection>
-            <SContentSection>
+            </div>
+            <div>
                 <SContent>
                     <SContentTOP>
                         <Rating />
                         <SContentSpacebetween>
                             <SProductTitle>{product?.title}</SProductTitle>
-                            <SProductPrice>${variantPrice}.00 USD</SProductPrice>
+                            <SProductPrice>${"5"}.00 USD</SProductPrice>
                         </SContentSpacebetween>
                         <SCollectionName>Ecom Collection</SCollectionName>
-                        <SProductPrice mobile>${variantPrice}.00 USD</SProductPrice>
+                        <SProductPrice mobile>${"5"}.00 USD</SProductPrice>
                     </SContentTOP>
-                    <SContentVARIANTS>
-                        <SVariantsHead>
-                            <SVariantsName>Size:</SVariantsName>
-                            <SVariantSelection>
-                                {currentHover ? currentHover : params.variant}
-                            </SVariantSelection>
-                        </SVariantsHead>
-                        <SVariantsGrid>
-                            {product?.variants?.map(({ mediaUrl, title }, index) => (
-                                <SVariantGridItem key={index}>
-                                    <SVariantImageContainer
-                                        onClick={() => variantSelectHandler(title)}
-                                        active={
-                                            currentHover
-                                                ? currentHover === title
-                                                : params.variant === title
-                                        }
-                                        onMouseEnter={() => setCurrentHover(title)}
-                                        onMouseLeave={() => setCurrentHover(null)}
-                                    >
-                                        <SImage src={mediaUrl || missingImg} />
-                                    </SVariantImageContainer>
-                                </SVariantGridItem>
-                            ))}
-                        </SVariantsGrid>
-                    </SContentVARIANTS>
+                    <SVariantSelection>
+                        <SLabel>Variant</SLabel>
+                        <SVariantSelect
+                            value={variantId}
+                            onChange={(e) => variantSelectHandler(e.target.value)}
+                        >
+                            {product.variants.map(({ title, _id }, index) => {
+                                return (
+                                    <SSelectOption key={index} value={_id}>
+                                        {title}
+                                    </SSelectOption>
+                                );
+                            })}
+                        </SVariantSelect>
+                    </SVariantSelection>
 
                     <SContentBUTTONS>
                         <SButtonControl>
@@ -257,8 +208,8 @@ const Product = () => {
                         />
                     </SContentACCORDIAN>
                 </SContent>
-            </SContentSection>
-        </SProductPage>
+            </div>
+        </SProductGrid>
     );
 };
 

@@ -32,7 +32,7 @@ const Routes = () => {
                 <Route path="/shop">
                     <ShopPage />
                 </Route>
-                <Route exact path="/products/:product/:variant">
+                <Route exact path="/products/:product">
                     <ProductPage />
                 </Route>
                 <Route path="/cart">

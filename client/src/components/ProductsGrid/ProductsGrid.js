@@ -17,9 +17,6 @@ import {
     SSalePercentage,
     SSaleTag,
     STag,
-    SThumbnailImage,
-    SThumbnailImageContainer,
-    SThumbnailsContainer,
     STitle,
 } from "./styles";
 
@@ -35,8 +32,8 @@ const ProductsGrid = () => {
 
     console.log(products);
 
-    const productSelectHandler = (productSku, variantSku) => {
-        history.push(`/products/${productSku}/${variantSku}`);
+    const productSelectHandler = (productSku, variantId) => {
+        history.push(`/products/${productSku}?variant=${variantId}`);
     };
 
     return (
@@ -55,7 +52,7 @@ const ProductsGrid = () => {
                     return (
                         <SGridItem key={index}>
                             <SImageContainer
-                                onClick={() => productSelectHandler(sku, variants[0].sku)}
+                                onClick={() => productSelectHandler(sku, variants[0]._id)}
                             >
                                 <SImage src={image?.url || missingImg} />
                             </SImageContainer>

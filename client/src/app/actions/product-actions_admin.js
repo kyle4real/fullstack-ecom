@@ -37,7 +37,6 @@ export const updateProduct = (productId, productObj) => {
 
 // actorly populate
 const actorlyMediaToVariantPopulate = (product) => {
-    console.log(product);
     const mediaHash = product.media.reduce((r, v) => ({ ...r, [v._id]: v }), {});
     const variants = product.variants.reduce(
         (r, v) => [...r, { ...v, media: mediaHash[v.media] }],
