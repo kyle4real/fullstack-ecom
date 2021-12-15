@@ -8,11 +8,8 @@ import { GiCardboardBox } from "react-icons/gi";
 import { SSelect } from "../UI/AuthForm/styles";
 
 export const SProductGrid = styled.div`
-    display: grid;
-
-    grid-template-columns: 1fr;
-
-    @media ${b.md} {
+    @media ${b.sm} {
+        display: grid;
         grid-template-columns: 1fr minmax(380px, 1fr);
         > div {
             :last-of-type {
@@ -26,14 +23,14 @@ export const SProductGrid = styled.div`
 
 export const SMobileWrapper = styled.div`
     display: initial;
-    @media ${b.md} {
+    @media ${b.sm} {
         display: none;
     }
 `;
 
 export const SDesktopWrapper = styled.div`
     display: none;
-    @media ${b.md} {
+    @media ${b.sm} {
         display: initial;
     }
 `;
@@ -45,17 +42,19 @@ export const SMediaTOP = styled.div`
     margin-bottom: calc(${v.smSpacing} + 4px);
 `;
 
-export const SImageContainer = styled.div`
-    display: flex;
+export const SMediaMAIN = styled.div`
+    width: 100%;
 `;
-
-export const SMediaMAIN = styled.div``;
 
 export const SMediaBOTTOM = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: ${v.smSpacing};
     margin-top: calc(${v.smSpacing} + 4px);
+`;
+
+export const SImageContainer = styled.div`
+    display: flex;
 `;
 
 export const SImage = styled.img`

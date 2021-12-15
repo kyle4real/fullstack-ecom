@@ -73,10 +73,12 @@ const Product = () => {
 
     const variantId = query.get("variant");
     const currentVariant = variantId && product.variants.find((item) => item._id === variantId);
+    console.log(currentVariant);
     const { mainMedia, media } = useMemo(() => {
         const mainMedia = !currentVariant
             ? product.media.find((item) => item.position === 1)
-            : product.media.find((item) => item._id === currentVariant.media);
+            : product.media.find((item) => item._id === currentVariant.media._id);
+
         const media = product.media.filter((item) => item._id !== mainMedia._id);
         return { mainMedia, media };
     }, [product.media, currentVariant]);
