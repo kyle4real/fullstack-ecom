@@ -35,6 +35,21 @@ export const updateProduct = (productId, productObj) => {
     };
 };
 
+export const addMedia = (productId, base64Img) => {
+    return async (dispatch) => {
+        try {
+            dispatch(productActions.setProductLoading(true));
+
+            const { data } = await api.addMedia(productId, base64Img);
+            dispatch(productActions.addMedia({ data }));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(productActions.setProductLoading(false));
+        }
+    };
+};
+
 // actorly populate
 const actorlyMediaToVariantPopulate = (product) => {
     const mediaHash = product.media.reduce((r, v) => ({ ...r, [v._id]: v }), {});
