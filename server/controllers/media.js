@@ -22,7 +22,7 @@ export const addMedia = asyncHandler(async (req, res, next) => {
     const { base64Img } = req.body;
     const cloudinaryRes = await cloudinary.uploader.upload(base64Img, {
         upload_preset: "ecom",
-        public_id: `ecom/${product.sku}/uploaded-${media._id}`,
+        public_id: `${product.sku}/uploaded-${media._id}`,
     });
     const { public_id, url } = cloudinaryRes;
 

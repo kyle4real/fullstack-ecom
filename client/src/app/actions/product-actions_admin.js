@@ -38,14 +38,13 @@ export const updateProduct = (productId, productObj) => {
 export const addMedia = (productId, base64Img) => {
     return async (dispatch) => {
         try {
-            dispatch(productActions.setProductLoading(true));
-
+            dispatch(productActions.setMediaLoading(true));
             const { data } = await api.addMedia(productId, base64Img);
             dispatch(productActions.addMedia({ data }));
         } catch (error) {
             console.log(error);
         } finally {
-            dispatch(productActions.setProductLoading(false));
+            dispatch(productActions.setMediaLoading(false));
         }
     };
 };

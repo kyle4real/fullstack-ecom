@@ -40,6 +40,7 @@ import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import VariantMediaSelect from "../UI/VariantMediaSelect/VariantMediaSelect";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 import { updateProduct } from "../../app/actions/product-actions_admin";
+import Loading from "../UI/Loading/Loading";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -72,7 +73,7 @@ const prepareInitialVariantFormInput = (variants) => {
 const AdminProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { product, productLoading } = useSelector((state) => state.product);
+    const { product, productLoading, mediaLoading } = useSelector((state) => state.product);
     const [mediaSelect, setMediaSelect] = useState(null);
     const [variantSelect, setVariantSelect] = useState(null);
 
@@ -221,9 +222,9 @@ const AdminProduct = () => {
                             ))}
                         </SMediaGrid>
                         <SMediaBottomBar>
-                            <Button secondaryRadius fixed absolute>
-                                Add Image
-                                <ImageInput productId={id} />
+                            <Button secondaryRadius fixed absolute disabled={mediaLoading}>
+                                {!mediaLoading ? "Add Image" : <Loading />}
+                                <ImageInput productId={product._id} disabled={mediaLoading} />
                             </Button>
                         </SMediaBottomBar>
                     </SCardContainer>
