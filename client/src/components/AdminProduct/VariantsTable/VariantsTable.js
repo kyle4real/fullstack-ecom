@@ -61,7 +61,7 @@ const VariantsTable = ({ variantFormInput, onVariantInputChange }) => {
                 </STHead>
                 <STBody>
                     {variants.map((variant, index) => {
-                        const src = variant.media.url || missingImg;
+                        const src = variant?.media?.url || missingImg;
                         return (
                             <STBodyTRVariant key={index}>
                                 <STD>{index + 1}</STD>
