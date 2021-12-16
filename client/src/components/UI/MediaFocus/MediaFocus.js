@@ -2,6 +2,8 @@ import React from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useMemo } from "react";
+import { useDispatch } from "react-redux";
+import { deleteMedia } from "../../../app/actions/product-actions_admin";
 import useDetectClickaway from "../../../hooks/useClickAway";
 import { s } from "../../../styles/variables";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../components.styles";
@@ -24,30 +26,37 @@ import {
     SSliderPanel,
 } from "./styles";
 
-const MediaFocus = ({ product, media, mediaSelect, onMediaSelect }) => {
+const MediaFocus = ({ product, media, mediaSelectIndex, onMediaSelect }) => {
+    const dispatch = useDispatch();
     const mediaFocusRef = useRef();
     useDetectClickaway(mediaFocusRef, () => {
         onMediaSelect(null);
     });
 
     const { index, src } = useMemo(() => {
-        const index = media.findIndex(({ _id }) => _id === mediaSelect);
+        const index = mediaSelectIndex;
         const src = media[index].url;
         return { index, src };
-    }, [mediaSelect, media]);
+    }, [mediaSelectIndex, media]);
 
     const incrementHandler = () => {
         if (index === media?.length - 1) {
-            return onMediaSelect(media[0]._id);
+            return onMediaSelect(0);
         }
-        onMediaSelect(media[index + 1]._id);
+        onMediaSelect(index + 1);
     };
 
     const decrementHandler = () => {
         if (index === 0) {
-            return onMediaSelect(media[media?.length - 1]._id);
+            return onMediaSelect(media.length - 1);
         }
-        onMediaSelect(media[index - 1]._id);
+        onMediaSelect(index - 1);
+    };
+
+    const deleteMediaHandler = () => {
+        const mediaId = media[index]._id;
+        onMediaSelect(null);
+        dispatch(deleteMedia(product._id, mediaId));
     };
 
     return (
@@ -57,9 +66,7 @@ const MediaFocus = ({ product, media, mediaSelect, onMediaSelect }) => {
                     <SSectionHeadContainer>
                         <SSectionHeadTitle>{product.title}</SSectionHeadTitle>
                         <SButtonContainer>
-                            <SIconButtonWrap
-                            // onClick={deleteImage}
-                            >
+                            <SIconButtonWrap onClick={deleteMediaHandler}>
                                 <SDeleteIcon />
                             </SIconButtonWrap>
                             <SIconButtonWrap onClick={() => onMediaSelect(null)}>

@@ -49,6 +49,19 @@ export const addMedia = (productId, base64Img) => {
         }
     };
 };
+export const deleteMedia = (productId, mediaId) => {
+    return async (dispatch) => {
+        try {
+            dispatch(productActions.setMediaLoading(true));
+            await api.deleteMedia(productId, mediaId);
+            dispatch(productActions.deleteMedia({ mediaId }));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(productActions.setMediaLoading(false));
+        }
+    };
+};
 
 export const addVariant = (productId, variantObj, callback) => {
     return async (dispatch) => {
@@ -82,7 +95,7 @@ export const deleteVariant = (productId, variantId) => {
 const actorlyMediaToVariantPopulate = (product) => {
     const mediaHash = product.media.reduce((r, v) => ({ ...r, [v._id]: v }), {});
     const variants = product.variants.reduce(
-        (r, v) => [...r, { ...v, media: mediaHash[v.media] }],
+        (r, v) => [...r, { ...v, media: mediaHash?.[v.media] || null }],
         []
     );
     return { data: { ...product, variants } };
