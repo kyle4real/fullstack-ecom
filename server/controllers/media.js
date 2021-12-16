@@ -38,4 +38,11 @@ export const addMedia = asyncHandler(async (req, res, next) => {
 // @desc    Delete media from product
 // @route   DELETE /admin/products/:productId/media/:id
 // @access  Private
-export const deleteMedia = asyncHandler(async (req, res, next) => {});
+export const deleteMedia = asyncHandler(async (req, res, next) => {
+    const media = await Media.findById(req.params.id);
+    if (!media) {
+        return next(new ErrorResponse(`Resouce not found with id ${req.params.id}`));
+    }
+    await media.remove();
+    res.status(200).json({ success: true, data: {} });
+});
