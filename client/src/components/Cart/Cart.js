@@ -22,17 +22,14 @@ import {
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const { authData } = useSelector((state) => state.auth);
-    const firstName = authData?.name?.split(" ")?.[0];
-    const { cartProducts } = useSelector((state) => state.cart);
-
-    const cartProductsList = [...cartProducts]?.reverse();
+    const { firstName } = useSelector((state) => state.auth);
+    const { cart } = useSelector((state) => state.cart);
 
     return (
         <SCartPage>
             <SCartPageTitle>{firstName ? <>{firstName}'s</> : <>Your</>} Cart</SCartPageTitle>
             {(() => {
-                if (!cartProducts?.length) return <EmptyCart />;
+                if (!cart.length) return <EmptyCart />;
                 return (
                     <STable>
                         <STableHead>
@@ -43,27 +40,27 @@ const Cart = () => {
                             </STableHeadTR>
                         </STableHead>
                         <STableBody>
-                            {cartProductsList?.map((cartProduct, index) => {
-                                const { productObj, variantSelection, qty } = cartProduct;
-                                const { variants, media, title } = productObj;
-                                const { mediaUrl, price } = variants?.find(
-                                    ({ title }) => title === variantSelection
-                                );
+                            {[...cart].reverse().map((cartItem, index) => {
+                                const { product, qty } = cartItem;
+                                const { title } = product;
+                                const { title: variantTitle, price } = product.variant;
+                                const { url } = product.variant.media;
+
                                 return (
                                     <STableBodyTR key={index}>
                                         <STableBodyTD>
                                             <SImageContainer>
-                                                <SImage src={mediaUrl || media?.[0]?.url} />
+                                                <SImage src={url} />
                                             </SImageContainer>
                                         </STableBodyTD>
                                         <STableBodyTD>
                                             <SProductTitle>{title}</SProductTitle>
-                                            <SProductVariant>{variantSelection}</SProductVariant>
+                                            <SProductVariant>{variantTitle}</SProductVariant>
                                             <SProductPrice>${price}.00 USD</SProductPrice>
-                                            <QuantitySelection cartProduct={cartProduct} mobile />
+                                            <QuantitySelection cartItem={cartItem} mobile />
                                         </STableBodyTD>
                                         <STableBodyTD>
-                                            <QuantitySelection cartProduct={cartProduct} />
+                                            <QuantitySelection cartItem={cartItem} />
                                         </STableBodyTD>
                                         <STableBodyTD>${qty * price}.00 USD</STableBodyTD>
                                     </STableBodyTR>

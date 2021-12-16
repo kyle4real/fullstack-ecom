@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { v, b, s, btnReset } from "../../styles/variables";
 
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { SInput } from "../UI/AuthForm/styles";
+import { SInput } from "../UI/Form/styles";
 
 // POPUP /////////////////////////////////////////////////
 export const SPopup = styled.div`
@@ -112,58 +112,4 @@ export const SMediaBottomBar = styled.div`
     button {
         margin-left: ${v.smSpacing};
     }
-`;
-
-// card three /////////////////////////////////////////////////
-
-export const STBodyTRVariant = styled.tr`
-    background: ${({ theme }) => theme.bg};
-`;
-
-export const STDImage = styled.td`
-    width: 1%;
-`;
-
-export const STDImageContainer = styled.div`
-    width: 64px;
-    display: flex;
-    position: relative;
-`;
-
-export const SIconsContainer = styled.div`
-    display: flex;
-    align-items: center;
-`;
-export const SIconButtonWrap = styled.button`
-    ${btnReset};
-    cursor: pointer;
-    :first-of-type {
-        margin-right: ${v.mdSpacing};
-    }
-`;
-const iconStyles = css`
-    font-size: 16px;
-    display: block;
-`;
-export const SDeleteIcon = styled(AiOutlineDelete)`
-    ${iconStyles}
-`;
-export const SEditIcon = styled(AiOutlineEdit)`
-    ${iconStyles}
-`;
-
-export const SPriceInputContainer = styled.div`
-    position: relative;
-`;
-export const SPriceInput = styled(SInput)`
-    width: ${v.xxlSpacing};
-    border: 1px solid ${({ theme }) => theme.bg3};
-    padding-left: ${v.mdSpacing};
-`;
-export const SDollarSign = styled.div`
-    position: absolute;
-    left: ${v.smSpacing};
-    top: 50%;
-    font-size: 12px;
-    transform: translate(-50%, -50%);
 `;

@@ -3,41 +3,37 @@ import { createSlice } from "@reduxjs/toolkit";
 const cartSlice = createSlice({
     name: "cart",
     initialState: {
-        cartProducts: [],
+        cart: [],
     },
     reducers: {
         addToCart(state, action) {
-            const { data } = action.payload;
+            const { product, variant } = action.payload;
 
-            const productIndex = state.cartProducts.findIndex(
-                ({ variantSelection, productObj }) =>
-                    variantSelection === data.variant && productObj.title === data.product.title
-            );
-            if (productIndex === -1) {
-                const cartProduct = {
-                    qty: 1,
-                    variantSelection: data.variant,
-                    productObj: data.product,
-                };
-                state.cartProducts.push(cartProduct);
+            const cartId = `${product._id}-${variant._id}`;
+
+            const cartItemIndex = state.cart.findIndex((item) => item._id === cartId);
+            if (cartItemIndex === -1) {
+                const productCpy = { ...product };
+                delete productCpy.variants;
+                delete productCpy.media;
+                state.cart.push({ _id: cartId, qty: 1, product: { ...productCpy, variant } });
             } else {
-                state.cartProducts[productIndex].qty++;
+                state.cart[cartItemIndex].qty++;
             }
         },
-        subFromCart(state, action) {
-            const { data } = action.payload;
-            const productIndex = state.cartProducts.findIndex(
-                ({ variantSelection, productObj }) =>
-                    variantSelection === data.variant && productObj.title === data.product.title
-            );
-            state.cartProducts[productIndex].qty--;
+        decCartItem(state, action) {
+            const { cartId } = action.payload;
+            const cartItemIndex = state.cart.findIndex((item) => item._id === cartId);
+            state.cart[cartItemIndex].qty--;
+        },
+        incCartItem(state, action) {
+            const { cartId } = action.payload;
+            const cartItemIndex = state.cart.findIndex((item) => item._id === cartId);
+            state.cart[cartItemIndex].qty++;
         },
         removeFromCart(state, action) {
-            const { data } = action.payload;
-            state.cartProducts = state.cartProducts.filter(
-                ({ variantSelection, productObj }) =>
-                    variantSelection !== data.variant || productObj.title !== data.product.title
-            );
+            const { cartId } = action.payload;
+            state.cart = state.cart.filter((item) => item._id !== cartId);
         },
     },
 });

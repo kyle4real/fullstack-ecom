@@ -9,27 +9,21 @@ import {
     SRemoveButton,
 } from "./styles";
 
-const QuantitySelection = ({ cartProduct, mobile }) => {
-    const { subHandler, addHandler, removeHandler } = useCartActions();
-    const { productObj, variantSelection, qty } = cartProduct;
+const QuantitySelection = ({ cartItem, mobile }) => {
+    const { decHandler, incHandler, removeHandler } = useCartActions();
+    const { _id, qty } = cartItem;
     return (
         <>
             <SQtySelection mobile={mobile}>
-                <SQtySelectionButton
-                    disabled={qty === 1}
-                    onClick={() => subHandler(productObj, variantSelection)}
-                >
+                <SQtySelectionButton disabled={qty === 1} onClick={() => decHandler(_id)}>
                     <SMinusIcon />
                 </SQtySelectionButton>
                 <SQtySelectionSpan>{qty}</SQtySelectionSpan>
-                <SQtySelectionButton onClick={() => addHandler(productObj, variantSelection)}>
+                <SQtySelectionButton onClick={() => incHandler(_id)}>
                     <SPlusIcon />
                 </SQtySelectionButton>
             </SQtySelection>
-            <SRemoveButton
-                mobile={mobile}
-                onClick={() => removeHandler(productObj, variantSelection)}
-            >
+            <SRemoveButton mobile={mobile} onClick={() => removeHandler(_id)}>
                 Remove
             </SRemoveButton>
         </>

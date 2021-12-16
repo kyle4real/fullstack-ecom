@@ -5,7 +5,7 @@ import { v, b } from "../../styles/variables";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { FaShippingFast } from "react-icons/fa";
 import { GiCardboardBox } from "react-icons/gi";
-import { SSelect } from "../UI/AuthForm/styles";
+import { SSelect } from "../UI/Form/styles";
 
 export const SProductGrid = styled.div`
     @media ${b.sm} {
@@ -14,8 +14,8 @@ export const SProductGrid = styled.div`
         > div {
             :last-of-type {
                 align-self: start;
-                position: sticky;
-                top: 10rem;
+                /* position: sticky;
+                top: 10rem; */
             }
         }
     }
@@ -85,8 +85,6 @@ export const SMobileImageContainer = styled.div`
 `;
 
 export const SMobileImage = styled.img`
-    transition: 0.3s ease border;
-    border: 2px solid black;
     max-width: 100%;
     height: auto;
 `;

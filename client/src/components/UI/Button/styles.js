@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { v, b } from "./../../../styles/variables";
+import { v, b, btnReset } from "./../../../styles/variables";
 
 export const SButton = styled.button`
     font-family: inherit;
@@ -38,4 +38,11 @@ export const SButton = styled.button`
         /* color: ${({ theme, secondary }) =>
             !secondary ? theme.textSecondary : theme.primary}; */
     }
+`;
+
+export const SAddButton = styled.button`
+    ${btnReset};
+    color: ${({ theme }) => theme.primary};
+    font-size: 14px;
+    cursor: pointer;
 `;

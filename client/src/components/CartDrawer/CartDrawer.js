@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { uiActions } from "../../app/slices/ui-slice";
+import { missingImg } from "../../assets";
 
 import useDetectClickaway from "../../hooks/useClickAway";
 import Button from "../UI/Button/Button";
@@ -35,35 +36,49 @@ const CartDrawer = () => {
     const history = useHistory();
     const cartRef = useRef();
     const { cartDrawer } = useSelector((state) => state.ui);
-    const { cartProducts } = useSelector((state) => state.cart);
+    const { cart } = useSelector((state) => state.cart);
     useDetectClickaway(cartRef, () => {
         if (cartDrawer) {
             dispatch(uiActions.toggleCart());
         }
     });
 
+    useEffect(() => {
+        console.log(cart);
+    }, [cart]);
+
     const cartRedirectHandler = () => {
         history.push("/cart");
         dispatch(uiActions.toggleCart());
     };
 
-    const cartAmount = useMemo(() => {
-        return cartProducts.reduce((r, v, i) => {
-            return r + v.qty;
-        }, 0);
-    }, [cartProducts]);
+    // const cartAmount = useMemo(() => {
+    //     return cart.reduce((r, v, i) => {
+    //         return r + v.qty;
+    //     }, 0);
+    // }, [cart]);
 
-    const totalPrice = useMemo(() => {
-        return cartProducts.reduce((r, v) => {
-            return (
-                r +
-                v.qty *
-                    v.productObj.variants.find(({ title }) => title === v.variantSelection).price
-            );
-        }, 0);
-    }, [cartProducts]);
+    // const totalPrice = useMemo(() => {
+    //     return cart.reduce((r, v) => {
+    //         return (
+    //             r +
+    //             v.qty *
+    //                 v.productObj.variants.find(({ title }) => title === v.variantSelection).price
+    //         );
+    //     }, 0);
+    // }, [cart]);
 
-    const cartProductsList = [...cartProducts]?.reverse();
+    const { cartQty, cartTotalPrice } = useMemo(() => {
+        return cart.reduce(
+            (r, v) => {
+                let { cartQty, cartTotalPrice } = r;
+                cartQty += v.qty;
+                cartTotalPrice += v.qty * v.product.variant.price;
+                return { cartQty, cartTotalPrice };
+            },
+            { cartQty: 0, cartTotalPrice: 0 }
+        );
+    }, [cart]);
 
     return (
         <>
@@ -72,26 +87,26 @@ const CartDrawer = () => {
                 <SCartDrawerContainer className={cartDrawer ? "cart-open" : ""}>
                     <SCartDrawer>
                         <SCartHead>
-                            <SCartHeadSpan>Your Cart - {cartAmount} Items</SCartHeadSpan>
+                            <SCartHeadSpan>Your Cart - {cartQty} Items</SCartHeadSpan>
                             <SCloseIcon onClick={() => dispatch(uiActions.toggleCart())} />
                         </SCartHead>
                         <SCartProductDisplay>
-                            {cartProductsList?.map((cartProduct, index) => {
-                                const { productObj, variantSelection, qty } = cartProduct;
-                                const { variants, media, title } = productObj;
-                                const { mediaUrl, price } = variants?.find(
-                                    ({ title }) => title === variantSelection
-                                );
+                            {[...cart]?.reverse()?.map((cartItem, index) => {
+                                const { product } = cartItem;
+                                const { title } = product;
+                                const { title: variantTitle, price } = product.variant;
+                                const { url } = product.variant.media;
+
                                 return (
                                     <SCartProduct key={index}>
                                         <SImageContainer>
-                                            <SImage src={mediaUrl || media?.[0]?.url} />
+                                            <SImage src={url} />
                                         </SImageContainer>
                                         <SProductContent>
                                             <SProductTitle>{title}</SProductTitle>
-                                            <SProductVariant>{variantSelection}</SProductVariant>
+                                            <SProductVariant>{variantTitle}</SProductVariant>
                                             <SProductPrice>${price}.00 USD</SProductPrice>
-                                            <QuantitySelection cartProduct={cartProduct} />
+                                            <QuantitySelection cartItem={cartItem} />
                                         </SProductContent>
                                     </SCartProduct>
                                 );
@@ -99,10 +114,10 @@ const CartDrawer = () => {
                         </SCartProductDisplay>
                         <SCartTotal>
                             <SCartTotalLabel>Total</SCartTotalLabel>
-                            <SCartTotalPrice>${totalPrice}.00 USD</SCartTotalPrice>
+                            <SCartTotalPrice>${cartTotalPrice}.00 USD</SCartTotalPrice>
                         </SCartTotal>
-                        {cartProducts.length === 0 && <EmptyCart />}
-                        {cartProducts.length > 0 && (
+                        {cart.length === 0 && <EmptyCart />}
+                        {cart.length > 0 && (
                             <SCartButtons>
                                 <SButtonControl>
                                     <Button>Checkout</Button>

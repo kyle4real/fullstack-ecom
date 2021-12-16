@@ -51,15 +51,15 @@ const Header = () => {
 
     const { isMin } = useWindowSize({ size: "lg" });
     const { firstName } = useSelector((state) => state.auth);
-    const { cartProducts } = useSelector((state) => state.cart);
+    const { cart } = useSelector((state) => state.cart);
     const [menuOpen, setMenuOpen] = useState(false);
     const [currentAs, setCurrentAs] = useState([aArr.length - 1, 0, 1]);
 
     const cartAmount = useMemo(() => {
-        return cartProducts.reduce((r, v, i) => {
+        return cart.reduce((r, v, i) => {
             return r + v.qty;
         }, 0);
-    }, [cartProducts]);
+    }, [cart]);
 
     useEffect(() => {
         if (isMin === undefined) return;

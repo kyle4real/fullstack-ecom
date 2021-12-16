@@ -3,22 +3,16 @@ import { cartActions } from "../app/slices/cart-slice";
 
 const useCartActions = () => {
     const dispatch = useDispatch();
-    const removeHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.removeFromCart({ data: { product: productObj, variant: variantSelection } })
-        );
+    const removeHandler = (_id) => {
+        dispatch(cartActions.removeFromCart({ cartId: _id }));
     };
-    const addHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.addToCart({ data: { product: productObj, variant: variantSelection } })
-        );
+    const incHandler = (_id) => {
+        dispatch(cartActions.incCartItem({ cartId: _id }));
     };
-    const subHandler = (productObj, variantSelection) => {
-        dispatch(
-            cartActions.subFromCart({ data: { product: productObj, variant: variantSelection } })
-        );
+    const decHandler = (_id) => {
+        dispatch(cartActions.decCartItem({ cartId: _id }));
     };
-    return { removeHandler, addHandler, subHandler };
+    return { removeHandler, incHandler, decHandler };
 };
 
 export default useCartActions;

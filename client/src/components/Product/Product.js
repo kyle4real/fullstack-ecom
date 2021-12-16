@@ -21,7 +21,6 @@ import {
     SContentCARD,
     SContentSpacebetween,
     SContentTOP,
-    SContentVARIANTS,
     SDesktopWrapper,
     SExpressIcon,
     SImage,
@@ -43,8 +42,7 @@ import {
 } from "./styles";
 import { uiActions } from "../../app/slices/ui-slice";
 import useQuery from "../../hooks/useQuery";
-import { SLabel, SSelect, SSelectOption } from "../UI/AuthForm/styles";
-import { useEffect } from "react";
+import { SLabel, SSelectOption } from "../UI/Form/styles";
 
 const Product = () => {
     const dispatch = useDispatch();
@@ -53,27 +51,15 @@ const Product = () => {
     const query = useQuery();
     const { url } = useRouteMatch();
     const { product } = useSelector((state) => state.product);
+    console.log(product);
 
     const variantSelectHandler = (variantId) => {
         const newUrl = url.concat(`?variant=${variantId}`);
         history.push(newUrl);
     };
 
-    const addToCartHandler = (variant, product) => {
-        dispatch(
-            cartActions.addToCart({
-                data: {
-                    variant,
-                    product,
-                },
-            })
-        );
-        dispatch(uiActions.toggleCart());
-    };
-
     const variantId = query.get("variant");
     const currentVariant = variantId && product.variants.find((item) => item._id === variantId);
-    console.log(currentVariant);
     const { mainMedia, media } = useMemo(() => {
         const mainMedia = !currentVariant
             ? product.media.find((item) => item.position === 1)
@@ -82,6 +68,18 @@ const Product = () => {
         const media = product.media.filter((item) => item._id !== mainMedia._id);
         return { mainMedia, media };
     }, [product.media, currentVariant]);
+
+    const variantSelectValue = variantId || mainMedia?.variant?._id || product.variants[0]._id;
+
+    const addToCartHandler = () => {
+        dispatch(
+            cartActions.addToCart({
+                variant: product.variants.find((item) => item._id === variantSelectValue),
+                product,
+            })
+        );
+        dispatch(uiActions.toggleCart());
+    };
 
     const topMedia = media.slice(0, 3);
     const bottomMedia = media.slice(3);
@@ -139,7 +137,7 @@ const Product = () => {
                     <SVariantSelection>
                         <SLabel>Variant</SLabel>
                         <SVariantSelect
-                            value={variantId}
+                            value={variantSelectValue}
                             onChange={(e) => variantSelectHandler(e.target.value)}
                         >
                             {product.variants.map(({ title, _id }, index) => {
@@ -154,10 +152,7 @@ const Product = () => {
 
                     <SContentBUTTONS>
                         <SButtonControl>
-                            <Button
-                                font={"14px"}
-                                onClick={() => addToCartHandler(params.variant, { ...product })}
-                            >
+                            <Button font={"14px"} onClick={addToCartHandler}>
                                 Add To Cart
                             </Button>
                         </SButtonControl>
@@ -169,10 +164,7 @@ const Product = () => {
                     </SContentBUTTONS>
 
                     <SButtonFIXED>
-                        <Button
-                            font={"14px"}
-                            onClick={() => addToCartHandler(params.variant, { ...product })}
-                        >
+                        <Button font={"14px"} onClick={addToCartHandler}>
                             Add To Cart
                         </Button>
                     </SButtonFIXED>
