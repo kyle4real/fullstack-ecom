@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteVariant } from "../../../app/actions/product-actions_admin";
 import { missingImg } from "../../../assets";
 import AddVariant from "../../UI/AddVariant/AddVariant";
 import { SAddButton } from "../../UI/Button/styles";
@@ -14,23 +15,23 @@ import { STable, STBody, STD, STH, STHead, STHeadTR } from "../../UI/Table/style
 import VariantMediaSelect from "../../UI/VariantMediaSelect/VariantMediaSelect";
 import {
     SDeleteIcon,
-    SDollarSign,
     SIconButtonWrap,
     SIconsContainer,
     SImage,
-    SPriceInput,
-    SPriceInputContainer,
     STBodyTRVariant,
     STDImage,
     STDImageContainer,
 } from "./styles";
 
-const VariantsTable = ({ variantFormInput, onVariantInputChange }) => {
+const VariantsTable = ({ variantFormEdits, onVariantInputEdit }) => {
+    const dispatch = useDispatch();
     const { product } = useSelector((state) => state.product);
     const [variantSelect, setVariantSelect] = useState(null);
     const [addVariant, setAddVariant] = useState(false);
 
     const variantSelectHandler = (variantId) => setVariantSelect(variantId);
+
+    const deleteVariantHandler = (variantId) => dispatch(deleteVariant(variantId));
 
     const displayKeys = ["title", "price", "compare_at_price"];
     const variants = product.variants;
@@ -76,13 +77,13 @@ const VariantsTable = ({ variantFormInput, onVariantInputChange }) => {
                                 {displayKeys.map((key, index) => {
                                     let value = variant[key];
                                     if (key === "price" || key === "compare_at_price") {
-                                        value = variantFormInput[variant._id][key];
+                                        value = variantFormEdits?.[variant._id]?.[key] || value;
                                         return (
                                             <STD key={index}>
                                                 <PriceInput
                                                     value={value}
                                                     name={`${variant._id}-${key}`}
-                                                    onChange={(e) => onVariantInputChange(e)}
+                                                    onChange={(e) => onVariantInputEdit(e)}
                                                 />
                                             </STD>
                                         );
@@ -91,7 +92,9 @@ const VariantsTable = ({ variantFormInput, onVariantInputChange }) => {
                                 })}
                                 <STD>
                                     <SIconsContainer>
-                                        <SIconButtonWrap>
+                                        <SIconButtonWrap
+                                            onClick={() => deleteVariantHandler(variant._id)}
+                                        >
                                             <SDeleteIcon />
                                         </SIconButtonWrap>
                                     </SIconsContainer>

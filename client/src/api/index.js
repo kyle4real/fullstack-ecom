@@ -55,3 +55,6 @@ export const addMedia = (productId, base64Img) => {
 export const addVariant = (productId, variantObj) => {
     return API.post(`${adminPath}${productsPath}/${productId}/variants`, variantObj);
 };
+export const deleteVariant = (productId, variantId) => {
+    return API.delete(`${adminPath}${productsPath}/${productId}/variants/${variantId}`);
+};

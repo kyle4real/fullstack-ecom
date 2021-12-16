@@ -13,10 +13,10 @@ const PriceInput = ({ value, name, onChange, placeholder }) => {
         if (isNaN(Number(value))) return;
         onChange(e);
     };
-    const onBlurHandler = (e) => {
-        e.target.value = priceFormatter.format(e.target.value).slice(1);
-        onChange(e);
-    };
+    // const onBlurHandler = (e) => {
+    //     e.target.value = priceFormatter.format(e.target.value).slice(1);
+    //     onChange(e);
+    // };
 
     return (
         <SPriceInputContainer>
@@ -25,7 +25,7 @@ const PriceInput = ({ value, name, onChange, placeholder }) => {
                 name={name}
                 onChange={(e) => onChangeHandler(e)}
                 placeholder={placeholder ? placeholder : !value ? "0.00" : "false"}
-                onBlur={(e) => onBlurHandler(e)}
+                // onBlur={(e) => onBlurHandler(e)}
             />
             <SDollarSign>$</SDollarSign>
         </SPriceInputContainer>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Loading from "../Loading/Loading";
 import PriceInput from "./PriceInput/PriceInput";
 
 import { SForm, SFormControl, SFormTitle, SInput, SLabel, SSubmitButton } from "./styles";
@@ -7,7 +8,7 @@ const prepareFormInput = (formArr) => {
     return formArr?.reduce((r, v) => ({ ...r, [v.name]: v?.initialValue || "" }), {});
 };
 
-const Form = ({ formTitle, formArr, submitBtn, onSubmit }) => {
+const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
     const [formInput, setFormInput] = useState(prepareFormInput(formArr));
 
     const onChangeHandler = ({ target: { name, value } }) => {
@@ -57,7 +58,9 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit }) => {
                     </SFormControl>
                 );
             })}
-            <SSubmitButton onClick={(e) => onSubmitHandler(e)}>{submitBtn}</SSubmitButton>
+            <SSubmitButton onClick={(e) => onSubmitHandler(e)}>
+                {!loading ? submitBtn : <Loading />}
+            </SSubmitButton>
         </SForm>
     );
 };

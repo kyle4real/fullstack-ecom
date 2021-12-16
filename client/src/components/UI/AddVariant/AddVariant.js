@@ -1,4 +1,6 @@
 import React, { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addVariant } from "../../../app/actions/product-actions_admin";
 import useDetectClickaway from "../../../hooks/useClickAway";
 import { s } from "../../../styles/variables";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../components.styles";
@@ -7,13 +9,19 @@ import Form from "../Form/Form";
 import Overlay from "../Overlay/Overlay";
 
 const AddVariant = ({ product, onCancel }) => {
+    const dispatch = useDispatch();
+    const { variantLoading } = useSelector((state) => state.product);
     const addVariantRef = useRef();
     useDetectClickaway(addVariantRef, () => {
         onCancel();
     });
 
     const onSubmitHandler = (form) => {
-        console.log(form);
+        dispatch(
+            addVariant(product._id, form, () => {
+                onCancel();
+            })
+        );
     };
 
     return (
@@ -23,7 +31,12 @@ const AddVariant = ({ product, onCancel }) => {
                     <SSectionHeadContainer>
                         <SSectionHeadTitle>{`Add Variant - ${product.title}`}</SSectionHeadTitle>
                     </SSectionHeadContainer>
-                    <Form formArr={formArr} submitBtn={"Add Variant"} onSubmit={onSubmitHandler} />
+                    <Form
+                        formArr={formArr}
+                        submitBtn={"Add Variant"}
+                        onSubmit={onSubmitHandler}
+                        loading={variantLoading}
+                    />
                 </SCardContainer>
             </SFixedContainer>
         </Overlay>

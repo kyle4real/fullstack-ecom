@@ -21,10 +21,12 @@ import { useMemo } from "react";
 import ImageInput from "../UI/ImageInput/ImageInput";
 import MediaFocus from "../UI/MediaFocus/MediaFocus";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
-import { updateProduct } from "../../app/actions/product-actions_admin";
+
 import Loading from "../UI/Loading/Loading";
-import { SAddButton } from "../UI/Button/styles";
+
 import VariantsTable from "./VariantsTable/VariantsTable";
+import { onProductEdit, onVariantEdit } from "./helpers";
+import { updateProduct } from "../../app/actions/product-actions_admin";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -32,99 +34,46 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
 });
 
-const editTargets = ["title", "description", "status"];
-
-const prepareInitialFormInput = (product) => {
-    return editTargets.reduce((r, v) => {
-        const value = product?.[v] || "";
-        return { ...r, [v]: value };
-    }, {});
-};
-
-const variantEditTargets = ["price", "compare_at_price"];
-
-const prepareInitialVariantFormInput = (variants) => {
-    return variants.reduce((r, v) => {
-        let variant = v;
-        variant = variantEditTargets.reduce(
-            (r, v) => ({ ...r, [v]: priceFormatter.format(variant?.[v]).slice(1) }),
-            {}
-        );
-        return { ...r, [v._id]: variant };
-    }, {});
-};
-
 const AdminProduct = () => {
     const dispatch = useDispatch();
 
     const { product, productLoading, mediaLoading } = useSelector((state) => state.product);
     const [mediaSelect, setMediaSelect] = useState(null);
 
-    const initialFormInput = useMemo(() => prepareInitialFormInput(product), [product]);
-    const [formInput, setFormInput] = useState(initialFormInput);
-    useEffect(() => setFormInput(initialFormInput), [initialFormInput]);
-
-    const initialVariantFormInput = useMemo(
-        () => prepareInitialVariantFormInput(product.variants),
-        [product.variants]
-    );
-    const [variantFormInput, setVariantFormInput] = useState(initialVariantFormInput);
-    useEffect(() => setVariantFormInput(initialVariantFormInput), [initialVariantFormInput]);
+    const [productFormEdits, setProductFormEdits] = useState(null);
+    const [variantFormEdits, setVariantFormEdits] = useState(null);
 
     const onCancelHandler = () => {
-        setFormInput(initialFormInput);
-        setVariantFormInput(initialVariantFormInput);
+        setProductFormEdits(null);
+        setVariantFormEdits(null);
     };
     const onSaveHandler = () => {
-        const productEdits = {};
-        editTargets.forEach((name) => {
-            if (initialFormInput[name] !== formInput[name]) productEdits[name] = formInput[name];
-        });
-
-        const variantsEdits = [];
-        product.variants.forEach(({ _id }) => {
-            const obj = {};
-            variantEditTargets.forEach((name) => {
-                const initial = priceFormatter.format(Number(initialVariantFormInput[_id][name]));
-                const formInput = priceFormatter.format(Number(variantFormInput[_id][name]));
-                if (initial !== formInput) obj[name] = Number(formInput.slice(1));
-            });
-            if (Object.keys(obj).length) variantsEdits.push({ _id, ...obj });
-        });
-
-        if (!Object.keys(productEdits).length && !variantsEdits.length) return;
-
-        const productObj = { ...productEdits };
-        if (variantsEdits.length) productObj.variants = variantsEdits;
-        dispatch(updateProduct(product._id, productObj));
+        if (!variantFormEdits && !productFormEdits) return;
+        const productObj = productFormEdits ? { ...productFormEdits } : {};
+        if (variantFormEdits) {
+            var variants = Object.keys(variantFormEdits).reduce((r, v) => {
+                return [...r, { _id: v, ...variantFormEdits[v] }];
+            }, []);
+            productObj.variants = variants;
+        }
+        dispatch(
+            updateProduct(product._id, productObj, () => {
+                onCancelHandler();
+            })
+        );
     };
 
-    const inputChangeHandler = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setFormInput((p) => ({ ...p, [name]: value }));
+    const productEditHandler = (e) => {
+        setProductFormEdits((prevState) => onProductEdit(prevState, e, product));
     };
-    const variantInputChangeHandler = (e) => {
-        const value = e.target.value;
-        const [id, name] = e.target.name.split("-");
-        setVariantFormInput((p) => ({ ...p, [id]: { ...p[id], [name]: value } }));
+    const variantInputEditHandler = (e) => {
+        setVariantFormEdits((prevState) => onVariantEdit(prevState, e, product));
     };
 
-    const edits = useMemo(() => {
-        let changes = false;
-        editTargets.forEach((name) => {
-            if (initialFormInput[name] !== formInput[name]) changes = true;
-        });
-
-        product.variants.forEach(({ _id }) => {
-            variantEditTargets.forEach((name) => {
-                const initial = priceFormatter.format(Number(initialVariantFormInput[_id][name]));
-                const formInput = priceFormatter.format(Number(variantFormInput[_id][name]));
-                if (initial !== formInput) changes = true;
-            });
-        });
-        return changes;
-    }, [formInput, initialFormInput, product.variants, initialVariantFormInput, variantFormInput]);
+    const edits = useMemo(
+        () => !!variantFormEdits || !!productFormEdits,
+        [variantFormEdits, productFormEdits]
+    );
 
     const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
 
@@ -163,19 +112,30 @@ const AdminProduct = () => {
                         </SSectionHeadContainer>
                         <SFormControl>
                             <SLabel>Title</SLabel>
-                            <SInput
-                                name="title"
-                                value={formInput["title"]}
-                                onChange={(e) => inputChangeHandler(e)}
-                            />
+                            {(() => {
+                                const value = productFormEdits?.["title"] || product["title"];
+                                return (
+                                    <SInput
+                                        name="title"
+                                        value={value}
+                                        onChange={(e) => productEditHandler(e)}
+                                    />
+                                );
+                            })()}
                         </SFormControl>
                         <SFormControl>
                             <SLabel>Description</SLabel>
-                            <STextArea
-                                name="description"
-                                value={formInput["description"]}
-                                onChange={(e) => inputChangeHandler(e)}
-                            />
+                            {(() => {
+                                const value =
+                                    productFormEdits?.["description"] || product["description"];
+                                return (
+                                    <STextArea
+                                        name="description"
+                                        value={value}
+                                        onChange={(e) => productEditHandler(e)}
+                                    />
+                                );
+                            })()}
                         </SFormControl>
                     </SCardContainer>
                     <SCardContainer>
@@ -205,8 +165,8 @@ const AdminProduct = () => {
                         {(() => {
                             return (
                                 <VariantsTable
-                                    onVariantInputChange={variantInputChangeHandler}
-                                    variantFormInput={variantFormInput}
+                                    onVariantInputEdit={variantInputEditHandler}
+                                    variantFormEdits={variantFormEdits}
                                 />
                             );
                         })()}
@@ -218,15 +178,20 @@ const AdminProduct = () => {
                             <SSectionHeadTitle>Product Status</SSectionHeadTitle>
                         </SSectionHeadContainer>
                         <SFormControl>
-                            <SSelect
-                                name="status"
-                                value={formInput["status"]}
-                                onChange={(e) => inputChangeHandler(e)}
-                            >
-                                {["active", "archived"].map((option, index) => (
-                                    <SSelectOption key={index}>{option}</SSelectOption>
-                                ))}
-                            </SSelect>
+                            {(() => {
+                                const value = productFormEdits?.["status"] || product["status"];
+                                return (
+                                    <SSelect
+                                        name="status"
+                                        value={value}
+                                        onChange={(e) => productEditHandler(e)}
+                                    >
+                                        {["active", "archived"].map((option, index) => (
+                                            <SSelectOption key={index}>{option}</SSelectOption>
+                                        ))}
+                                    </SSelect>
+                                );
+                            })()}
                         </SFormControl>
                     </SCardContainer>
                 </div>

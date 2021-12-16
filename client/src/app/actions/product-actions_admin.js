@@ -15,7 +15,7 @@ export const getProduct = (productId, { onComplete, onError }) => {
     };
 };
 
-export const updateProduct = (productId, productObj) => {
+export const updateProduct = (productId, productObj, callback) => {
     return async (dispatch, getState) => {
         try {
             dispatch(productActions.setProductLoading(true));
@@ -30,6 +30,7 @@ export const updateProduct = (productId, productObj) => {
         } catch (error) {
             console.log(error);
         } finally {
+            callback && callback();
             dispatch(productActions.setProductLoading(false));
         }
     };
@@ -49,7 +50,7 @@ export const addMedia = (productId, base64Img) => {
     };
 };
 
-export const addVariant = (productId, variantObj) => {
+export const addVariant = (productId, variantObj, callback) => {
     return async (dispatch) => {
         try {
             dispatch(productActions.setVariantLoading(true));
@@ -58,7 +59,20 @@ export const addVariant = (productId, variantObj) => {
         } catch (error) {
             console.log(error);
         } finally {
+            callback && callback();
+            dispatch(productActions.setVariantLoading(false));
+        }
+    };
+};
+export const deleteVariant = (productId, variantId) => {
+    return async (dispatch) => {
+        try {
             dispatch(productActions.setVariantLoading(true));
+            await api.deleteVariant(productId, variantId);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            dispatch(productActions.setVariantLoading(false));
         }
     };
 };
