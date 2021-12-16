@@ -36,9 +36,25 @@ const productSlice = createSlice({
             const { data } = action.payload;
             state.product.media.push(data.data);
         },
+        deleteMedia(state, action) {
+            const { mediaId } = action.payload;
+            const mediaIndex = state.product.media.findIndex((item) => item._id === mediaId);
+            state.product.media.splice(mediaIndex, 1);
+            for (let i = 0; i < state.product.variants.length; i++) {
+                const variant = state.product.variants[i];
+                if (variant?.media?._id === mediaId) {
+                    state.product.variants[i].media = null;
+                }
+            }
+        },
         addVariant(state, action) {
             const { data } = action.payload;
             state.product.variants.push(data.data);
+        },
+        deleteVariant(state, action) {
+            const { variantId } = action.payload;
+            const variantIndex = state.product.variants.findIndex((item) => item._id === variantId);
+            state.product.variants.splice(variantIndex, 1);
         },
         // loading
         setProductLoading(state, action) {

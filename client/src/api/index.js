@@ -51,6 +51,9 @@ export const updateProduct_admin = (productId, productObj) => {
 export const addMedia = (productId, base64Img) => {
     return API.post(`${adminPath}${productsPath}/${productId}/media`, { base64Img });
 };
+export const deleteMedia = (productId, mediaId) => {
+    return API.delete(`${adminPath}${productsPath}/${productId}/media/${mediaId}`);
+};
 
 export const addVariant = (productId, variantObj) => {
     return API.post(`${adminPath}${productsPath}/${productId}/variants`, variantObj);

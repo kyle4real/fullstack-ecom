@@ -4,7 +4,7 @@ import { SLoading, SSpinner } from "./styles";
 const Loading = () => {
     return (
         <SLoading>
-            <SSpinner />;
+            <SSpinner />
         </SLoading>
     );
 };

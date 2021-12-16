@@ -38,7 +38,7 @@ const AdminProduct = () => {
     const dispatch = useDispatch();
 
     const { product, productLoading, mediaLoading } = useSelector((state) => state.product);
-    const [mediaSelect, setMediaSelect] = useState(null);
+    const [mediaSelectIndex, setMediaSelectIndex] = useState(null);
 
     const [productFormEdits, setProductFormEdits] = useState(null);
     const [variantFormEdits, setVariantFormEdits] = useState(null);
@@ -75,7 +75,7 @@ const AdminProduct = () => {
         [variantFormEdits, productFormEdits]
     );
 
-    const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
+    const mediaSelectHandler = (index) => setMediaSelectIndex(index);
 
     const { mainMedia, media } = useMemo(() => {
         let media = product.media;
@@ -88,11 +88,11 @@ const AdminProduct = () => {
     const loading = productLoading;
     return (
         <>
-            {!!mediaSelect && (
+            {mediaSelectIndex !== null && (
                 <MediaFocus
                     product={product}
-                    media={[mainMedia, ...media]}
-                    mediaSelect={mediaSelect}
+                    media={[...product.media].sort((a, b) => a.position - b.position)}
+                    mediaSelectIndex={mediaSelectIndex}
                     onMediaSelect={mediaSelectHandler}
                 />
             )}
@@ -145,12 +145,12 @@ const AdminProduct = () => {
                         <SMediaGrid>
                             <SMainMediaContainer>
                                 <SImage src={mainMedia.url} />
-                                <SImageOverlay onClick={() => mediaSelectHandler(mainMedia._id)} />
+                                <SImageOverlay onClick={() => mediaSelectHandler(0)} />
                             </SMainMediaContainer>
                             {media.map(({ url, _id }, index) => (
                                 <SMediaContainer key={index}>
                                     <SImage src={url} />
-                                    <SImageOverlay onClick={() => mediaSelectHandler(_id)} />
+                                    <SImageOverlay onClick={() => mediaSelectHandler(index + 1)} />
                                 </SMediaContainer>
                             ))}
                         </SMediaGrid>

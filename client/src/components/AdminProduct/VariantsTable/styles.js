@@ -26,10 +26,8 @@ export const SIconsContainer = styled.div`
 `;
 export const SIconButtonWrap = styled.button`
     ${btnReset};
+    width: ${v.mdSpacing};
     cursor: pointer;
-    :first-of-type {
-        margin-right: ${v.mdSpacing};
-    }
 `;
 
 const iconStyles = css`
