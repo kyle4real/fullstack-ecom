@@ -40,6 +40,11 @@ const productSlice = createSlice({
             const { data } = action.payload;
             state.product.variants.push(data.data);
         },
+        deleteVariant(state, action) {
+            const { variantId } = action.payload;
+            const variantIndex = state.product.variants.findIndex((item) => item._id === variantId);
+            state.product.variants.splice(variantIndex, 1);
+        },
         // loading
         setProductLoading(state, action) {
             state.productLoading = action.payload;

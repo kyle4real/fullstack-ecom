@@ -10,6 +10,7 @@ import {
     SSectionHeadTitle,
 } from "../../UI/components.styles";
 import PriceInput from "../../UI/Form/PriceInput/PriceInput";
+import Loading from "../../UI/Loading/Loading";
 
 import { STable, STBody, STD, STH, STHead, STHeadTR } from "../../UI/Table/styles";
 import VariantMediaSelect from "../../UI/VariantMediaSelect/VariantMediaSelect";
@@ -25,13 +26,13 @@ import {
 
 const VariantsTable = ({ variantFormEdits, onVariantInputEdit }) => {
     const dispatch = useDispatch();
-    const { product } = useSelector((state) => state.product);
+    const { product, variantLoading } = useSelector((state) => state.product);
     const [variantSelect, setVariantSelect] = useState(null);
     const [addVariant, setAddVariant] = useState(false);
 
     const variantSelectHandler = (variantId) => setVariantSelect(variantId);
 
-    const deleteVariantHandler = (variantId) => dispatch(deleteVariant(variantId));
+    const deleteVariantHandler = (variantId) => dispatch(deleteVariant(product._id, variantId));
 
     const displayKeys = ["title", "price", "compare_at_price"];
     const variants = product.variants;
@@ -63,6 +64,7 @@ const VariantsTable = ({ variantFormEdits, onVariantInputEdit }) => {
                 <STBody>
                     {variants.map((variant, index) => {
                         const src = variant?.media?.url || missingImg;
+                        const loading = variantLoading === variant._id;
                         return (
                             <STBodyTRVariant key={index}>
                                 <STD>{index + 1}</STD>
@@ -95,7 +97,7 @@ const VariantsTable = ({ variantFormEdits, onVariantInputEdit }) => {
                                         <SIconButtonWrap
                                             onClick={() => deleteVariantHandler(variant._id)}
                                         >
-                                            <SDeleteIcon />
+                                            {!loading ? <SDeleteIcon /> : <Loading />}
                                         </SIconButtonWrap>
                                     </SIconsContainer>
                                 </STD>

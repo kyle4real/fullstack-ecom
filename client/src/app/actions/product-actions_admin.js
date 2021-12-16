@@ -67,8 +67,9 @@ export const addVariant = (productId, variantObj, callback) => {
 export const deleteVariant = (productId, variantId) => {
     return async (dispatch) => {
         try {
-            dispatch(productActions.setVariantLoading(true));
+            dispatch(productActions.setVariantLoading(variantId));
             await api.deleteVariant(productId, variantId);
+            dispatch(productActions.deleteVariant({ variantId }));
         } catch (error) {
             console.log(error);
         } finally {

@@ -23,3 +23,15 @@ export const addVariant = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({ success: true, data: variant });
 });
+
+// @desc    Delete variant from product
+// @route   DELETE /admin/products/:productId/variant/:id
+// @access  Private
+export const deleteVariant = asyncHandler(async (req, res, next) => {
+    const variant = await Variant.findById(req.params.id);
+    if (!variant) {
+        return next(new ErrorResponse(`Resouce not found with id ${req.params.id}`));
+    }
+    await variant.remove();
+    res.status(200).json({ success: true, data: {} });
+});

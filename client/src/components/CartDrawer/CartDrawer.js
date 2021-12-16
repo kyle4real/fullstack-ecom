@@ -43,10 +43,6 @@ const CartDrawer = () => {
         }
     });
 
-    useEffect(() => {
-        console.log(cart);
-    }, [cart]);
-
     const cartRedirectHandler = () => {
         history.push("/cart");
         dispatch(uiActions.toggleCart());
