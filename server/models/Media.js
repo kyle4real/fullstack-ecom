@@ -7,5 +7,12 @@ const MediaSchema = new mongoose.Schema({
     product: { type: mongoose.Schema.ObjectId, ref: "Product", required: true },
 });
 
+// Remove media refernces from any variants
+MediaSchema.pre("remove", async function (next) {
+    console.log("updating variants");
+    await this.model("Variant").updateMany({ media: this._id }, { $set: { media: null } });
+    next();
+});
+
 const Media = mongoose.model("Media", MediaSchema);
 export default Media;
