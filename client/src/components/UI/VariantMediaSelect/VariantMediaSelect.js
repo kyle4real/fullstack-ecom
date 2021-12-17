@@ -25,9 +25,9 @@ const VariantMediaSelect = ({ product, variantSelect, onCancel }) => {
         onCancel();
     });
     const variant = product.variants.find((item) => item._id === variantSelect);
-    const selectedMediaId = variant?.mediaUrl
-        ? product.media.find((item) => item.url === variant.mediaUrl)._id
-        : null;
+    console.log(variant);
+    const selectedMediaId = variant?.media ? variant.media._id : null;
+    console.log(selectedMediaId);
     const [mediaSelect, setMediaSelect] = useState(selectedMediaId);
     const media = product.media;
 
@@ -37,7 +37,7 @@ const VariantMediaSelect = ({ product, variantSelect, onCancel }) => {
     return (
         <Overlay>
             <SCardContainer
-                style={{ width: s["sm"], margin: `0 ${v.lgSpacing}` }}
+                style={{ width: s["xl"], margin: `0 ${v.lgSpacing}` }}
                 ref={variantMediaSelectRef}
             >
                 <SSectionHeadContainer>
