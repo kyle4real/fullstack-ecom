@@ -1,32 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Button from "../UI/Button/Button";
+import { SProductDisplayGrid } from "./styles";
 
-import {
-    SImage,
-    SMainMediaContainer,
-    SMediaBottomBar,
-    SMediaContainer,
-    SMediaGrid,
-    SProductDisplayGrid,
-} from "./styles";
-
-import { missingImg } from "../../assets";
 import { SCardContainer } from "../UI/Containers/styles";
-import { SImageOverlay, SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
+import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
 import { SFormControl, SInput, SLabel, SSelect, SSelectOption, STextArea } from "../UI/Form/styles";
 
 import { useMemo } from "react";
-import ImageInput from "../UI/ImageInput/ImageInput";
-import MediaFocus from "../UI/MediaFocus/MediaFocus";
-import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 
-import Loading from "../UI/Loading/Loading";
+import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 
 import VariantsTable from "./VariantsTable/VariantsTable";
 import { onProductEdit, onVariantEdit } from "./helpers";
 import { updateProduct } from "../../app/actions/product-actions_admin";
+import MediaGrid from "./MediaGrid/MediaGrid";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -37,8 +25,7 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
 const AdminProduct = () => {
     const dispatch = useDispatch();
 
-    const { product, productLoading, mediaLoading } = useSelector((state) => state.product);
-    const [mediaSelectIndex, setMediaSelectIndex] = useState(null);
+    const { product, productLoading } = useSelector((state) => state.product);
 
     const [productFormEdits, setProductFormEdits] = useState(null);
     const [variantFormEdits, setVariantFormEdits] = useState(null);
@@ -75,28 +62,9 @@ const AdminProduct = () => {
         [variantFormEdits, productFormEdits]
     );
 
-    const mediaSelectHandler = (index) => setMediaSelectIndex(index);
-
-    const { mainMedia, media } = useMemo(() => {
-        let media = product.media;
-        if (!media.length) return { mainMedia: { url: missingImg, _id: null }, media: [] };
-        media = [...media].sort((a, b) => a.position - b.position);
-        if (media.length === 1) return { mainMedia: media[0], media: [] };
-        else return { mainMedia: media[0], media: media.slice(1) };
-    }, [product.media]);
-
     const loading = productLoading;
     return (
         <>
-            {mediaSelectIndex !== null && (
-                <MediaFocus
-                    product={product}
-                    media={[...product.media].sort((a, b) => a.position - b.position)}
-                    mediaSelectIndex={mediaSelectIndex}
-                    onMediaSelect={mediaSelectHandler}
-                />
-            )}
-
             <UnsavedChanges
                 show={edits}
                 loading={loading}
@@ -139,27 +107,9 @@ const AdminProduct = () => {
                         </SFormControl>
                     </SCardContainer>
                     <SCardContainer>
-                        <SSectionHeadContainer>
-                            <SSectionHeadTitle>Media</SSectionHeadTitle>
-                        </SSectionHeadContainer>
-                        <SMediaGrid>
-                            <SMainMediaContainer>
-                                <SImage src={mainMedia.url} />
-                                <SImageOverlay onClick={() => mediaSelectHandler(0)} />
-                            </SMainMediaContainer>
-                            {media.map(({ url, _id }, index) => (
-                                <SMediaContainer key={index}>
-                                    <SImage src={url} />
-                                    <SImageOverlay onClick={() => mediaSelectHandler(index + 1)} />
-                                </SMediaContainer>
-                            ))}
-                        </SMediaGrid>
-                        <SMediaBottomBar>
-                            <Button secondaryRadius fixed absolute disabled={mediaLoading}>
-                                {!mediaLoading ? "Add Image" : <Loading />}
-                                <ImageInput productId={product._id} disabled={mediaLoading} />
-                            </Button>
-                        </SMediaBottomBar>
+                        {(() => {
+                            return <MediaGrid />;
+                        })()}
                     </SCardContainer>
                     <SCardContainer>
                         {(() => {

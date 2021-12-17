@@ -28,7 +28,7 @@ export const addMedia = asyncHandler(async (req, res, next) => {
 
     media.public_id = public_id;
     media.url = url;
-    media.position = product.media[0].position + 1;
+    media.position = product.media.length ? product.media[0].position + 1 : 1;
     media.product = req.params.productId;
     media = await media.save();
 
