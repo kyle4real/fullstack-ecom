@@ -51,6 +51,13 @@ const productSlice = createSlice({
             const { data } = action.payload;
             state.product.variants.push(data.data);
         },
+        replaceVariant(state, action) {
+            const { data } = action.payload;
+            const variantIndex = state.product.variants.findIndex(
+                (item) => item._id === data.data._id
+            );
+            state.product.variants[variantIndex] = data.data;
+        },
         deleteVariant(state, action) {
             const { variantId } = action.payload;
             const variantIndex = state.product.variants.findIndex((item) => item._id === variantId);

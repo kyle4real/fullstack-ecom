@@ -24,8 +24,27 @@ export const addVariant = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: variant });
 });
 
+// @desc    Update variant
+// @route   PUT /admin/products/:productId/variants/:id
+// @access  Private
+export const updateVariant = asyncHandler(async (req, res, next) => {
+    var variant = await Variant.findById(req.params.id);
+    if (!variant) {
+        return next(new ErrorResponse(`Resouce not found with id ${req.params.id}`));
+    }
+
+    const keys = Object.keys(req.body);
+    for (let i = 0; i < keys.length; i++) variant[keys[i]] = req.body[keys[i]];
+    variant = await variant.save();
+    if (req.body.hasOwnProperty("media")) {
+        variant = await Variant.findById(req.params.id).populate("media");
+    }
+
+    res.status(200).json({ success: true, data: variant });
+});
+
 // @desc    Delete variant from product
-// @route   DELETE /admin/products/:productId/variant/:id
+// @route   DELETE /admin/products/:productId/variants/:id
 // @access  Private
 export const deleteVariant = asyncHandler(async (req, res, next) => {
     const variant = await Variant.findById(req.params.id);

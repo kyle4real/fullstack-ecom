@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateVariantMedia } from "../../../app/actions/product-actions_admin";
 import useDetectClickaway from "../../../hooks/useClickAway";
 import { s, v } from "../../../styles/variables";
 import Button from "../Button/Button";
@@ -7,6 +9,7 @@ import CheckBox from "../CheckBox/CheckBox";
 import { SImageOverlay, SSectionHeadContainer, SSectionHeadTitle } from "../components.styles";
 import { SCardContainer } from "../Containers/styles";
 import ImageInput from "../ImageInput/ImageInput";
+import Loading from "../Loading/Loading";
 import Overlay from "../Overlay/Overlay";
 import {
     SBottomBar,
@@ -19,29 +22,39 @@ import {
     SVariantTitle,
 } from "./styles";
 
-const VariantMediaSelect = ({ product, variantSelect, onCancel }) => {
+const VariantMediaSelect = ({ product, variantSelect, onCancel, loading }) => {
+    const dispatch = useDispatch();
     const variantMediaSelectRef = useRef();
     useDetectClickaway(variantMediaSelectRef, () => {
         onCancel();
     });
     const variant = product.variants.find((item) => item._id === variantSelect);
-    console.log(variant);
     const selectedMediaId = variant?.media ? variant.media._id : null;
-    console.log(selectedMediaId);
     const [mediaSelect, setMediaSelect] = useState(selectedMediaId);
     const media = product.media;
 
     const mediaSelectHandler = (mediaId) => setMediaSelect(mediaId);
 
-    const edited = selectedMediaId && selectedMediaId !== mediaSelect;
+    const updateVariantMediaHandler = () => {
+        const productId = product._id;
+        const variantId = variantSelect;
+        const mediaId = mediaSelect;
+        dispatch(
+            updateVariantMedia(productId, variantId, mediaId, () => {
+                onCancel();
+            })
+        );
+    };
+
+    const edited = selectedMediaId !== mediaSelect;
     return (
         <Overlay>
             <SCardContainer
-                style={{ width: s["xl"], margin: `0 ${v.lgSpacing}` }}
+                style={{ width: s["lg"], margin: `0 ${v.lgSpacing}` }}
                 ref={variantMediaSelectRef}
             >
                 <SSectionHeadContainer>
-                    <SSectionHeadTitle>Select Variant Media</SSectionHeadTitle>
+                    <SSectionHeadTitle>Update Variant Media</SSectionHeadTitle>
                 </SSectionHeadContainer>
                 {(() => {
                     if (!media.length) return <SNoMedia>No Media</SNoMedia>;
@@ -79,8 +92,13 @@ const VariantMediaSelect = ({ product, variantSelect, onCancel }) => {
                             Add Image
                             <ImageInput productId={product._id} />
                         </Button>
-                        <Button fixed secondaryRadius disabled={!edited}>
-                            Save
+                        <Button
+                            fixed
+                            secondaryRadius
+                            disabled={!edited}
+                            onClick={updateVariantMediaHandler}
+                        >
+                            {!loading ? "Save" : <Loading />}
                         </Button>
                     </SButtonContainer>
                 </SBottomBar>

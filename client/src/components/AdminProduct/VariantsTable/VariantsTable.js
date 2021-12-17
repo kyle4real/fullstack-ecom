@@ -43,6 +43,7 @@ const VariantsTable = ({ variantFormEdits, onVariantInputEdit }) => {
                     product={product}
                     variantSelect={variantSelect}
                     onCancel={() => variantSelectHandler(null)}
+                    loading={variantLoading}
                 />
             )}
             {!!addVariant && <AddVariant product={product} onCancel={() => setAddVariant(false)} />}

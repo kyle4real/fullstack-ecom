@@ -29,9 +29,9 @@ export const SImageOverlay = styled.button`
     background: ${({ theme }) => theme.bgOverlay};
     cursor: pointer;
     opacity: ${({ active }) => (!active ? 0 : 1)};
+    transition: 0.2s ease;
 
     :hover {
         opacity: 1;
-        transition: 0.2s ease;
     }
 `;
