@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { v, b } from "../../../styles/variables";
 
@@ -20,17 +20,23 @@ export const SMediaGrid = styled.div`
     max-height: 50vh;
     overflow: auto;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     @media ${b.sm} {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(6, 1fr);
     }
 `;
 
+const activeStyles = css`
+    border-color: ${({ theme }) => theme.primary};
+    box-shadow: ${v.cardBoxShadow};
+`;
 export const SImageContainer = styled.div`
     display: flex;
     position: relative;
 
-    border: 2px solid ${({ theme, active }) => (!active ? "transparent" : theme.primary)};
+    border: 2px solid transparent;
+
+    ${({ active }) => active && activeStyles};
 `;
 
 export const SImage = styled.img`
@@ -61,6 +67,7 @@ export const SVariantTitle = styled.span`
     font-weight: 600;
     font-size: 18px;
     padding-left: ${v.smSpacing};
+    white-space: nowrap;
 
     @media ${b.sm} {
         display: block;

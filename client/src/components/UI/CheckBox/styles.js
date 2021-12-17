@@ -5,8 +5,8 @@ import { v } from "../../../styles/variables";
 import { FaCheck } from "react-icons/fa";
 
 export const SCheckBox = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     background: ${({ checked, theme }) => (!checked ? theme.text : theme.primary)};
     display: flex;
     justify-content: center;
@@ -16,6 +16,7 @@ export const SCheckBox = styled.div`
 `;
 
 export const SCheckIcon = styled(FaCheck)`
+    margin: 2px;
     display: block;
     color: ${({ theme }) => theme.text};
 `;

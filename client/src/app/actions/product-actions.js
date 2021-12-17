@@ -21,10 +21,12 @@ const actorlyCustomPopulate = (product) => {
     const variantHash = {};
     let variants = product.variants.reduce((r, v) => {
         variantHash[v.media] = v;
-        return [...r, { ...v, media: mediaHash[v.media] }];
+        return [...r, { ...v, media: mediaHash[v.media] || null }];
     }, []);
     let media = product.media.map((v) => ({ ...v, variant: variantHash?.[v._id] || null }));
-    variants = [...variants].sort((a, b) => a.media.position - b.media.position);
-    media = [...media].sort((a, b) => a.position - b.position);
+    if (!!media.length) {
+        variants = [...variants].sort((a, b) => a?.media?.position - b?.media?.position);
+        media = [...media].sort((a, b) => a.position - b.position);
+    }
     return { data: { ...product, variants, media } };
 };
