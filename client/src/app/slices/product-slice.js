@@ -40,6 +40,9 @@ const productSlice = createSlice({
             const { mediaId } = action.payload;
             const mediaIndex = state.product.media.findIndex((item) => item._id === mediaId);
             state.product.media.splice(mediaIndex, 1);
+            for (let i = mediaIndex; i < state.product.media.length; i++) {
+                state.product.media[i].position--;
+            }
             for (let i = 0; i < state.product.variants.length; i++) {
                 const variant = state.product.variants[i];
                 if (variant?.media?._id === mediaId) {

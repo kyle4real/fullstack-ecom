@@ -7,17 +7,24 @@ const MediaSchema = new mongoose.Schema({
     product: { type: mongoose.Schema.ObjectId, ref: "Product", required: true },
 });
 
+MediaSchema.pre("save", async function (next) {
+    if (!this.isModified("position") || this.position !== 1) return next();
+    await this.model("Product").findByIdAndUpdate(this.product, { image: this._id });
+    next();
+});
+
 // Remove media refernces from any variants
 MediaSchema.pre("remove", async function (next) {
-    console.log("updating variants");
     await this.model("Variant").updateMany({ media: this._id }, { $set: { media: null } });
-    await this.model("Media").updateMany(
-        {
-            position: { $gt: this.position },
-            product: this.product,
-        },
-        { $inc: { position: -1 } }
-    );
+    const mediaArr = await this.model("Media").find({
+        position: { $gt: this.position },
+        product: this.product,
+    });
+    for (let i = 0; i < mediaArr.length; i++) {
+        let media = mediaArr[i];
+        media.position--;
+        await media.save();
+    }
     next();
 });
 

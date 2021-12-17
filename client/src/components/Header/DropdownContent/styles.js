@@ -25,17 +25,19 @@ export const SMenuDropdown = styled.div`
 
 export const SDropdownContent = styled.div`
     margin: 0 auto;
-    width: ${s.md};
+    width: ${s.sm};
+
     height: 100%;
     padding: ${v.lgSpacing} ${v.mdSpacing} ${v.xlSpacing};
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     line-height: 100%;
     color: ${({ theme }) => theme.text};
     text-align: center;
 `;
 
 export const SSection = styled.div`
-    flex: 1;
+    /* flex: 1; */
     height: 100%;
 `;
 

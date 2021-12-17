@@ -16,6 +16,7 @@ import {
     SMediaBottomBar,
     SMediaContainer,
     SMediaGrid,
+    STempPosDis,
 } from "./styles";
 
 const MediaGrid = () => {
@@ -31,6 +32,7 @@ const MediaGrid = () => {
         if (media.length === 1) return { mainMedia: media[0], media: [] };
         else return { mainMedia: media[0], media: media.slice(1) };
     }, [product.media]);
+
     return (
         <>
             {mediaSelectIndex !== null && (
@@ -56,10 +58,12 @@ const MediaGrid = () => {
                         }
                     })()}
                 </SMainMediaContainer>
-                {media.map(({ url, _id }, index) => (
+                {media.map(({ url, _id, position }, index) => (
                     <SMediaContainer key={index}>
                         <SImage src={url} />
                         <SImageOverlay onClick={() => mediaSelectHandler(index + 1)} />
+
+                        <STempPosDis>{position}</STempPosDis>
                     </SMediaContainer>
                 ))}
             </SMediaGrid>
