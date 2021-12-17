@@ -61,10 +61,11 @@ const Product = () => {
     const variantId = query.get("variant");
     const currentVariant = variantId && product.variants.find((item) => item._id === variantId);
     const { mainMedia, media } = useMemo(() => {
-        const mainMedia = !currentVariant
+        const mainMedia = (!currentVariant
             ? product.media.find((item) => item.position === 1)
-            : product.media.find((item) => item._id === currentVariant.media._id);
-
+            : product.media.find((item) => item._id === currentVariant.media?._id)) || {
+            url: missingImg,
+        };
         const media = product.media.filter((item) => item._id !== mainMedia._id);
         return { mainMedia, media };
     }, [product.media, currentVariant]);
@@ -89,7 +90,7 @@ const Product = () => {
                 <SMobileWrapper>
                     <SMediaMAIN>
                         <SImageContainer>
-                            <SImage src={mainMedia.url} />
+                            <SImage src={mainMedia?.url} />
                         </SImageContainer>
                     </SMediaMAIN>
                     <SMobileMediaBottom>
@@ -111,7 +112,7 @@ const Product = () => {
                     </SMediaTOP>
                     <SMediaMAIN>
                         <SImageContainer>
-                            <SImage src={mainMedia.url} />
+                            <SImage src={mainMedia?.url} />
                         </SImageContainer>
                     </SMediaMAIN>
                     <SMediaBOTTOM>
