@@ -43,6 +43,12 @@ export const deleteMedia = asyncHandler(async (req, res, next) => {
     if (!media) {
         return next(new ErrorResponse(`Resouce not found with id ${req.params.id}`));
     }
+    if (media.public_id.split("/").slice(-1)[0].includes("uploaded")) {
+        const { result } = await cloudinary.uploader.destroy(media.public_id);
+        if (result !== "ok") {
+            return next(new ErrorResponse(`Resource could not be deleted`, 400));
+        }
+    }
     await media.remove();
     res.status(200).json({ success: true, data: {} });
 });
