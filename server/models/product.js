@@ -27,6 +27,12 @@ ProductSchema.virtual("media", {
     foreignField: "product",
     justOne: false,
 });
+ProductSchema.virtual("collections", {
+    ref: "Collection",
+    localField: "_id",
+    foreignField: "products",
+    justOne: false,
+});
 
 const Product = mongoose.model("Product", ProductSchema);
 export default Product;

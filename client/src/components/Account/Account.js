@@ -65,6 +65,10 @@ const adminButtons = [
         to: "/admin/products",
     },
     {
+        label: "Collections",
+        to: "/admin/collections",
+    },
+    {
         label: "Orders",
         to: "/admin/orders",
     },

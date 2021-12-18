@@ -77,6 +77,22 @@ export const addVariant = (productId, variantObj, callback) => {
         }
     };
 };
+export const updateVariantMedia = (productId, variantId, mediaId, callback) => {
+    return async (dispatch) => {
+        try {
+            dispatch(productActions.setVariantLoading(true));
+
+            let variantObj = { media: mediaId };
+            const { data } = await api.updateVariant(productId, variantId, variantObj);
+            dispatch(productActions.replaceVariant({ data }));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            callback && callback();
+            dispatch(productActions.setVariantLoading(false));
+        }
+    };
+};
 export const deleteVariant = (productId, variantId) => {
     return async (dispatch) => {
         try {

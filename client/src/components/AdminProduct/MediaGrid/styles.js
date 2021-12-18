@@ -44,3 +44,19 @@ export const SMediaBottomBar = styled.div`
         margin-left: ${v.smSpacing};
     }
 `;
+
+export const STempPosDis = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 26px;
+    font-weight: 900;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+`;

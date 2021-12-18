@@ -18,5 +18,5 @@ export const SCheckBox = styled.div`
 export const SCheckIcon = styled(FaCheck)`
     margin: 2px;
     display: block;
-    color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.textLight};
 `;

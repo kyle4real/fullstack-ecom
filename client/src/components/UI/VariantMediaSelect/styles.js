@@ -34,7 +34,7 @@ export const SImageContainer = styled.div`
     display: flex;
     position: relative;
 
-    border: 2px solid transparent;
+    border: 3px solid transparent;
 
     ${({ active }) => active && activeStyles};
 `;

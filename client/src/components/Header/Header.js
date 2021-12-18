@@ -106,7 +106,7 @@ const Header = () => {
                                 </SItemSpan>
                             </SItemContent>
                         </SNavTopItem>
-                        <SNavTopItem to="/blog">Blog</SNavTopItem>
+                        <SNavTopItem to="/blog">Contact</SNavTopItem>
                         <SNavTopItem to="/newsletter">Newsletter</SNavTopItem>
                         <SNavTopItem to="/help">Help</SNavTopItem>
                     </SNavTop>

@@ -22,7 +22,12 @@ router.use("/:productId/variants", variantsRoutes);
 router
     .route(`/`)
     .get(
-        advancedResults(Product, [{ path: "variants" }, { path: "media" }, { path: "image" }]),
+        advancedResults(Product, [
+            { path: "variants" },
+            { path: "media" },
+            { path: "image" },
+            { path: "collections" },
+        ]),
         getProducts
     );
 router.route(`/:id`).get(getProduct).put(updateProduct);
