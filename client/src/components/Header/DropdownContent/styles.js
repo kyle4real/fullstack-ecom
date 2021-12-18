@@ -15,17 +15,8 @@ export const SNavItem = styled(Link)`
     display: flex;
     align-items: center;
     text-decoration: none;
-`;
-
-export const SNavItemSpanContainer = styled.div`
-    position: relative;
-    width: auto;
-    background: red;
-`;
-export const SNavItemSpan = styled.span`
-    visibility: ${({ loading }) => (!loading ? "initial" : "hidden")};
-    font-weight: 500;
     color: ${({ theme }) => theme.text};
+    font-weight: 500;
 `;
 
 export const SMenuDropdownWrap = styled.div`

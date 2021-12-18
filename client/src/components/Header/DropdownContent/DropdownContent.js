@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import SpanLoad from "../../UI/Loading/SpanLoad";
-import { SLoadBar } from "../../UI/Loading/styles";
 
 import {
     SDropdownContent,
@@ -9,8 +8,6 @@ import {
     SMenuDropdownWrap,
     SNavItem,
     SNavItemContainer,
-    SNavItemSpan,
-    SNavItemSpanContainer,
     SSection,
     SSectionLink,
     SSectionTitle,
@@ -28,7 +25,7 @@ const DropdownContent = ({ navLinks }) => {
             onMouseLeave={() => setOpen(false)}
             onClick={() => setOpen(false)}
         >
-            <SNavItem to={`/${link}`}>
+            <SNavItem to={!loading ? `/${link}` : "#"}>
                 <SpanLoad loading={loading}>{title}</SpanLoad>
             </SNavItem>
             {!!sections && !!sections.length && !loading && (

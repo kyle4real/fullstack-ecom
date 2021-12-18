@@ -43,6 +43,4 @@ export const SSpanLoadContainer = styled.div`
 `;
 export const SSpan = styled.span`
     visibility: ${({ loading }) => (!loading ? "initial" : "hidden")};
-    font-weight: 500;
-    color: ${({ theme }) => theme.text};
 `;

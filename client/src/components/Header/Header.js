@@ -36,6 +36,7 @@ import {
     SNavTopItem,
     SRightIcon,
 } from "./styles";
+import SpanLoad from "../UI/Loading/SpanLoad";
 
 const aArr = [
     "Good News! We are dispatching and delivering as normal and ensuring contactless shipping!",
@@ -52,6 +53,7 @@ const Header = () => {
     const { isMin } = useWindowSize({ size: "lg" });
     const { firstName } = useSelector((state) => state.auth);
     const { cart } = useSelector((state) => state.cart);
+    const { initialLoading } = useSelector((state) => state.ui);
     const [menuOpen, setMenuOpen] = useState(false);
     const [currentAs, setCurrentAs] = useState([aArr.length - 1, 0, 1]);
 
@@ -92,6 +94,7 @@ const Header = () => {
         }, [5000]);
     };
 
+    const loading = initialLoading;
     const isAdminArea = location.pathname.includes("/account/admin");
     return (
         <SHeader isAdminArea={isAdminArea}>
@@ -99,14 +102,30 @@ const Header = () => {
                 <SHeaderTop>
                     <SNavTop>
                         <SNavTopItem to="/account">
-                            <SAccountIcon />
-                            <SItemSpan>
-                                {!firstName ? <>My Account</> : <>Hi {firstName}</>}
-                            </SItemSpan>
+                            <div style={{ display: "flex", alignItems: "flex-end" }}>
+                                <SAccountIcon />
+                                <SpanLoad loading={loading}>
+                                    <SItemSpan>
+                                        {(() => {
+                                            if (loading || !firstName) {
+                                                return <>My Account</>;
+                                            } else {
+                                                return <>Hi {firstName}</>;
+                                            }
+                                        })()}
+                                    </SItemSpan>
+                                </SpanLoad>
+                            </div>
                         </SNavTopItem>
-                        <SNavTopItem to="/blog">Contact</SNavTopItem>
-                        <SNavTopItem to="/newsletter">Newsletter</SNavTopItem>
-                        <SNavTopItem to="/help">Help</SNavTopItem>
+                        <SNavTopItem to="/blog">
+                            <SpanLoad loading={loading}>Contact</SpanLoad>
+                        </SNavTopItem>
+                        <SNavTopItem to="/newsletter">
+                            <SpanLoad loading={loading}>Newsletter</SpanLoad>
+                        </SNavTopItem>
+                        <SNavTopItem to="/help">
+                            <SpanLoad loading={loading}>Help</SpanLoad>
+                        </SNavTopItem>
                     </SNavTop>
                 </SHeaderTop>
                 <SHeaderMain>
