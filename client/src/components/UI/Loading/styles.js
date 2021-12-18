@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { v } from "../../../styles/variables";
+import { loadingBG, v } from "../../../styles/variables";
 
 export const SLoading = styled.div`
     display: flex;
@@ -28,4 +28,21 @@ export const SSpinner = styled.div`
             -webkit-transform: rotate(360deg);
         }
     }
+`;
+
+export const SLoadBar = styled.div`
+    height: 16px;
+    width: 100%;
+    ${loadingBG};
+`;
+
+// SPAN LOAD
+export const SSpanLoadContainer = styled.div`
+    position: relative;
+    width: auto;
+`;
+export const SSpan = styled.span`
+    visibility: ${({ loading }) => (!loading ? "initial" : "hidden")};
+    font-weight: 500;
+    color: ${({ theme }) => theme.text};
 `;

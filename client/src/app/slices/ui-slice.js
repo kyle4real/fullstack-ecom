@@ -5,10 +5,14 @@ const uiSlice = createSlice({
     initialState: {
         theme: "light",
         cartDrawer: false,
+        initialLoading: true,
     },
     reducers: {
         toggleCart(state) {
             state.cartDrawer = !state.cartDrawer;
+        },
+        setInitialLoading(state, action) {
+            state.initialLoading = action.payload;
         },
     },
 });

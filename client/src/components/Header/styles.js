@@ -188,23 +188,6 @@ export const SNav = styled.nav`
     }
 `;
 
-export const SNavItemContainer = styled.div`
-    /* :not(:last-child) {
-        margin-right: ${v.mdSpacing};
-    } */
-`;
-
-export const SNavItem = styled(Link)`
-    padding: 0 ${v.lgSpacing};
-    height: 100%;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-weight: 600;
-
-    color: ${({ theme }) => theme.text};
-`;
-
 export const SMenuToggle = styled.button`
     flex: 1;
     margin: auto 0;

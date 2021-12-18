@@ -62,7 +62,7 @@ const AdminProduct = () => {
         () => !!variantFormEdits || !!productFormEdits,
         [variantFormEdits, productFormEdits]
     );
-
+    console.log(product);
     const loading = productLoading;
     return (
         <>
@@ -131,17 +131,7 @@ const AdminProduct = () => {
                         <SFormControl>
                             {(() => {
                                 const value = productFormEdits?.["status"] || product["status"];
-                                console.log(value);
                                 return (
-                                    // <SSelect
-                                    //     name="status"
-                                    //     value={value}
-                                    //     onChange={(e) => productEditHandler(e)}
-                                    // >
-                                    //     {["active", "archived"].map((option, index) => (
-                                    //         <SSelectOption key={index}>{option}</SSelectOption>
-                                    //     ))}
-                                    // </SSelect>
                                     <DropdownSelect
                                         noClear
                                         label={value}
@@ -163,10 +153,23 @@ const AdminProduct = () => {
                         </SSectionHeadContainer>
                         <SFormControl>
                             <SLabel>Collections</SLabel>
-                            {(() => {
-                                const value = productFormEdits?.["status"] || product["status"];
-                                return <DropdownSelect noClear />;
-                            })()}
+                            {/* {(() => {
+                                const value =
+                                    productFormEdits?.["collections"] || product["collections"];
+                                return (
+                                    <DropdownSelect
+                                        noClear
+                                        label={"hi"}
+                                        value={value}
+                                        options={["active", "archived"]}
+                                        onChange={(option) =>
+                                            productEditHandler({
+                                                target: { name: "status", value: option },
+                                            })
+                                        }
+                                    />
+                                );
+                            })()} */}
                         </SFormControl>
                     </SCardContainer>
                 </div>

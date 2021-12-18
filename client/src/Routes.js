@@ -8,12 +8,22 @@ import AccountPage from "./pages/AccountPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getProvisions } from "./app/actions/ui-actions";
 
 const Routes = () => {
-    const { accessToken, loading } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const { accessToken, loading: authLoading } = useSelector((state) => state.auth);
+    const { initialLoading } = useSelector((state) => state.ui);
 
-    if (loading) return <></>;
+    useEffect(() => {
+        if (authLoading) return;
+        // triggers initialLoading false when done
+        dispatch(getProvisions());
+    }, [dispatch, authLoading]);
+
+    if (authLoading || initialLoading) return <></>;
     return (
         <>
             <Switch>

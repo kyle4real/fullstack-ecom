@@ -1,26 +1,37 @@
 import React, { Fragment, useState } from "react";
-import { SNavItem, SNavItemContainer } from "../styles";
+import { useSelector } from "react-redux";
+import SpanLoad from "../../UI/Loading/SpanLoad";
+import { SLoadBar } from "../../UI/Loading/styles";
+
 import {
     SDropdownContent,
     SMenuDropdown,
     SMenuDropdownWrap,
+    SNavItem,
+    SNavItemContainer,
+    SNavItemSpan,
+    SNavItemSpanContainer,
     SSection,
     SSectionLink,
     SSectionTitle,
 } from "./styles";
 
 const DropdownContent = ({ navLinks }) => {
+    const { initialLoading } = useSelector((state) => state.ui);
     const [open, setOpen] = useState(false);
 
     const { title, link, sections } = navLinks;
+    const loading = initialLoading;
     return (
         <SNavItemContainer
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
             onClick={() => setOpen(false)}
         >
-            <SNavItem to={`/${link}`}>{title}</SNavItem>
-            {!!sections && !!sections.length && (
+            <SNavItem to={`/${link}`}>
+                <SpanLoad loading={loading}>{title}</SpanLoad>
+            </SNavItem>
+            {!!sections && !!sections.length && !loading && (
                 <SMenuDropdownWrap>
                     <SMenuDropdown className={open ? "menu-dropdown-open" : ""}>
                         {open && (

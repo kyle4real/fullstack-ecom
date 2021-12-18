@@ -3,6 +3,31 @@ import styled from "styled-components";
 
 import { v, s } from "../../../styles/variables";
 
+export const SNavItemContainer = styled.div`
+    /* :not(:last-child) {
+        margin-right: ${v.mdSpacing};
+    } */
+`;
+
+export const SNavItem = styled(Link)`
+    padding: 0 ${v.lgSpacing};
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+`;
+
+export const SNavItemSpanContainer = styled.div`
+    position: relative;
+    width: auto;
+    background: red;
+`;
+export const SNavItemSpan = styled.span`
+    visibility: ${({ loading }) => (!loading ? "initial" : "hidden")};
+    font-weight: 500;
+    color: ${({ theme }) => theme.text};
+`;
+
 export const SMenuDropdownWrap = styled.div`
     .menu-dropdown-open {
         opacity: 1;

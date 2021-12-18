@@ -99,12 +99,10 @@ const Header = () => {
                 <SHeaderTop>
                     <SNavTop>
                         <SNavTopItem to="/account">
-                            <SItemContent>
-                                <SAccountIcon />
-                                <SItemSpan>
-                                    {!firstName ? <>My Account</> : <>Hi {firstName}</>}
-                                </SItemSpan>
-                            </SItemContent>
+                            <SAccountIcon />
+                            <SItemSpan>
+                                {!firstName ? <>My Account</> : <>Hi {firstName}</>}
+                            </SItemSpan>
                         </SNavTopItem>
                         <SNavTopItem to="/blog">Contact</SNavTopItem>
                         <SNavTopItem to="/newsletter">Newsletter</SNavTopItem>
