@@ -7,11 +7,13 @@ import "colors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config({ path: "./config/config.env" });
+import { chunkify } from "./data/testing.js";
 
 // Load Models
 import Product from "./models/Product.js";
 import Media from "./models/Media.js";
 import Variant from "./models/Variant.js";
+import Collection from "./models/Collection.js";
 
 // Connect DB
 mongoose.connect(process.env.MONGO_CONNECT, {
@@ -23,14 +25,19 @@ mongoose.connect(process.env.MONGO_CONNECT, {
 let products = JSON.parse(
     fs.readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/products.json`, "utf-8")
 );
+let collections = JSON.parse(
+    fs.readFileSync(`${dirname(fileURLToPath(import.meta.url))}/data/collections.json`, "utf-8")
+);
 
 const importData = async () => {
     return new Promise(async (resolve, reject) => {
         try {
+            const productIds = [];
             for (let i = 0; i < products.length; i++) {
                 let product = products[i];
                 const { media: mediaArr, variants: variantsArr } = products[i];
                 product = await Product.create(product);
+                productIds.push(product._id);
                 const productId = product._id;
                 const mediaURLHash = {};
                 for (let j = 0; j < mediaArr.length; j++) {
@@ -53,6 +60,16 @@ const importData = async () => {
                     };
                     variant = await Variant.create(variant);
                 }
+            }
+            var s = productIds.length;
+            var a = [...productIds];
+            var n = collections.length;
+            const productChunks = chunkify(a, n, true);
+            for (let i = 0; i < n; i++) {
+                let collection = collections[i];
+                let productChunk = productChunks[i];
+                collection.products = productChunk;
+                await Collection.create(collection);
             }
 
             resolve();

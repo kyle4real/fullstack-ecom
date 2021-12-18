@@ -14,10 +14,12 @@ import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js";
 // Admin Route Imports
 import productAdminRoutes from "./routes/products.admin.js";
+import collectionRoutes from "./routes/collections.js";
 
 // For populating purposes
 import "./models/Variant.js";
 import "./models/Media.js";
+import "./models/Collection.js";
 
 import connectDB from "./config/db.js";
 connectDB();
