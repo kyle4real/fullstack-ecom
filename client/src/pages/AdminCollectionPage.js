@@ -24,7 +24,7 @@ const AdminCollectionPage = () => {
         <PageLayout
             loading={loading}
             error={error}
-            layoutArr={[{ type: "contain", component: <Collection /> }]}
+            layoutArr={[{ type: "contain", customSize: "sm", component: <Collection /> }]}
         />
     );
 };

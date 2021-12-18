@@ -16,7 +16,10 @@ export const getCollections = asyncHandler(async (req, res, next) => {
 // @route   GET /admin/collections/:id
 // @access  Private
 export const getCollection = asyncHandler(async (req, res, next) => {
-    const collection = await Collection.findById(req.params.id).populate("products");
+    const collection = await Collection.findById(req.params.id).populate({
+        path: "products",
+        populate: { path: "image" },
+    });
     if (!collection) return next(new ErrorResponse(`Resouce not found with id ${req.params.id}`));
     res.status(200).json({ success: true, data: collection });
 });
