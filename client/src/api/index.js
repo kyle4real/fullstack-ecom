@@ -69,3 +69,6 @@ export const deleteVariant = (productId, variantId) => {
 export const getCollections = () => {
     return API.get(`${adminPath}${collectionsPath}/`);
 };
+export const getCollection = (collectionId) => {
+    return API.get(`${adminPath}${collectionsPath}/${collectionId}`);
+};

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import collectionsSlice from "./collections-slice";
 
 const collectionSlice = createSlice({
     name: "collection",
@@ -17,5 +16,5 @@ const collectionSlice = createSlice({
     },
 });
 
-export const collectionActions = collectionsSlice.actions;
+export const collectionActions = collectionSlice.actions;
 export default collectionSlice;
