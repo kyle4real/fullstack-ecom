@@ -47,6 +47,7 @@ app.use("/users", userRoutes);
 app.use("/products", productRoutes);
 const adminPath = "/admin";
 app.use(`${adminPath}/products`, productAdminRoutes);
+app.use(`${adminPath}/collections`, collectionRoutes);
 
 // Error handling middleware (must be mounted after routes)
 app.use(errorHandler);
