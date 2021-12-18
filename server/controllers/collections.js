@@ -6,6 +6,6 @@ import ErrorResponse from "../utils/errorResponse.js";
 import Collection from "../models/Collection.js";
 
 export const getCollectionTitles = asyncHandler(async (req, res, next) => {
-    const collections = await Collection.find({}).select("title");
+    const collections = await Collection.find({}).select("title slug");
     res.status(200).json({ success: true, data: collections });
 });
