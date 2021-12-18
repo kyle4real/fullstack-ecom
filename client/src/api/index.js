@@ -21,6 +21,7 @@ const adminPath = "/admin";
 
 const authPath = "/auth";
 const productsPath = "/products";
+const collectionsPath = "/collections";
 
 // AUTH
 export const login = (form) => API.post(`${authPath}/login`, form);
@@ -63,4 +64,8 @@ export const updateVariant = (productId, variantId, variantObj) => {
 };
 export const deleteVariant = (productId, variantId) => {
     return API.delete(`${adminPath}${productsPath}/${productId}/variants/${variantId}`);
+};
+
+export const getCollections = () => {
+    return API.get(`${adminPath}${collectionsPath}/`);
 };
