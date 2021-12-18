@@ -4,6 +4,7 @@ const collectionsSlice = createSlice({
     name: "collections",
     initialState: {
         collections: null,
+        collectionsTitles: null,
     },
     reducers: {
         replaceCollections(state, action) {
@@ -12,6 +13,10 @@ const collectionsSlice = createSlice({
         },
         resetCollections(state) {
             state.collections = null;
+        },
+        replaceCollectionsTitles(state, action) {
+            const { data } = action.payload;
+            state.collectionsTitles = data.data;
         },
     },
 });
