@@ -15,6 +15,7 @@ import VariantsTable from "./VariantsTable/VariantsTable";
 import { onProductEdit, onVariantEdit } from "./helpers";
 import { updateProduct } from "../../app/actions/product-actions_admin";
 import MediaGrid from "./MediaGrid/MediaGrid";
+import DropdownSelect from "../UI/DropdownSelect/DropdownSelect";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -125,22 +126,46 @@ const AdminProduct = () => {
                 <div>
                     <SCardContainer>
                         <SSectionHeadContainer>
-                            <SSectionHeadTitle>Product Status</SSectionHeadTitle>
+                            <SSectionHeadTitle>Status</SSectionHeadTitle>
                         </SSectionHeadContainer>
                         <SFormControl>
                             {(() => {
                                 const value = productFormEdits?.["status"] || product["status"];
+                                console.log(value);
                                 return (
-                                    <SSelect
-                                        name="status"
+                                    // <SSelect
+                                    //     name="status"
+                                    //     value={value}
+                                    //     onChange={(e) => productEditHandler(e)}
+                                    // >
+                                    //     {["active", "archived"].map((option, index) => (
+                                    //         <SSelectOption key={index}>{option}</SSelectOption>
+                                    //     ))}
+                                    // </SSelect>
+                                    <DropdownSelect
+                                        noClear
+                                        label={value}
                                         value={value}
-                                        onChange={(e) => productEditHandler(e)}
-                                    >
-                                        {["active", "archived"].map((option, index) => (
-                                            <SSelectOption key={index}>{option}</SSelectOption>
-                                        ))}
-                                    </SSelect>
+                                        options={["active", "archived"]}
+                                        onChange={(option) =>
+                                            productEditHandler({
+                                                target: { name: "status", value: option },
+                                            })
+                                        }
+                                    />
                                 );
+                            })()}
+                        </SFormControl>
+                    </SCardContainer>
+                    <SCardContainer>
+                        <SSectionHeadContainer>
+                            <SSectionHeadTitle>Organization</SSectionHeadTitle>
+                        </SSectionHeadContainer>
+                        <SFormControl>
+                            <SLabel>Collections</SLabel>
+                            {(() => {
+                                const value = productFormEdits?.["status"] || product["status"];
+                                return <DropdownSelect noClear />;
                             })()}
                         </SFormControl>
                     </SCardContainer>

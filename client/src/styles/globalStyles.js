@@ -20,7 +20,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     button {
-        :disabled {
+        /* :disabled {
             background: ${({ theme }) => theme.bg3};
             border-color: ${({ theme }) => theme.bg3};
 
@@ -29,7 +29,7 @@ export const GlobalStyles = createGlobalStyle`
         :disabled:hover {
             cursor: initial;
             background: ${({ theme }) => theme.bg3};
-        }
+        } */
         
     }
 
