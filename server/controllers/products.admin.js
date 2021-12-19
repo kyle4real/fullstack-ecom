@@ -24,6 +24,15 @@ export const getProduct = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: product });
 });
 
+// @desc    Create product
+// @route   POST /admin/products/
+// @access  Private
+export const createProduct = asyncHandler(async (req, res, next) => {
+    var product = new Product(req.body);
+    product = await product.save();
+    res.status(200).json({ success: true, data: product });
+});
+
 // @desc    Update product
 // @route   PUT /admin/products/:id
 // @access  Private

@@ -43,3 +43,21 @@ export const onProductEdit = (prevState, { target: { name, value } }, product) =
         return { ...prevState, [name]: value };
     }
 };
+
+export const collectionsChange = (prevState, option) => {
+    if (!prevState.length) return [option];
+    if (prevState.includes(option)) {
+        const filtered = prevState.filter((item) => item !== option);
+        return filtered;
+    } else return [...prevState, option];
+};
+
+export const arraysEqual = (a, b) => {
+    if (a.length !== b.length) return false;
+    a = [...a].sort();
+    b = [...b].sort();
+    for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
+};

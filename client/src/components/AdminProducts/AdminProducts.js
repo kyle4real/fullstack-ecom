@@ -17,11 +17,11 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
 });
 
 const TableImageDisplay = ({ value }) => {
-    const { url: src } = value;
+    const src = value?.url || missingImg;
     return (
         <STDContained>
             <SImageContainer>
-                <SImage src={src || missingImg} />
+                <SImage src={src} />
             </SImageContainer>
         </STDContained>
     );

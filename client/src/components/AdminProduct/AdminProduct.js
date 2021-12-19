@@ -12,10 +12,17 @@ import { useMemo } from "react";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 
 import VariantsTable from "./VariantsTable/VariantsTable";
-import { onProductEdit, onVariantEdit } from "./helpers";
+import {
+    arraysEqual,
+    collectionsChange,
+    onCollectionsEdit,
+    onProductEdit,
+    onVariantEdit,
+} from "./helpers";
 import { updateProduct } from "../../app/actions/product-actions_admin";
 import MediaGrid from "./MediaGrid/MediaGrid";
 import DropdownSelect from "../UI/DropdownSelect/DropdownSelect";
+import { useEffect } from "react";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -27,13 +34,18 @@ const AdminProduct = () => {
     const dispatch = useDispatch();
 
     const { product, productLoading } = useSelector((state) => state.product);
+    const { collectionsTitles } = useSelector((state) => state.collections);
 
     const [productFormEdits, setProductFormEdits] = useState(null);
     const [variantFormEdits, setVariantFormEdits] = useState(null);
 
+    const initialProductCollections = product.collections.reduce((r, v) => [...r, v.title], []);
+    const [collectionsArr, setCollectionsArr] = useState(initialProductCollections);
+
     const onCancelHandler = () => {
         setProductFormEdits(null);
         setVariantFormEdits(null);
+        setCollectionsArr(initialProductCollections);
     };
     const onSaveHandler = () => {
         if (!variantFormEdits && !productFormEdits) return;
@@ -57,12 +69,19 @@ const AdminProduct = () => {
     const variantInputEditHandler = (e) => {
         setVariantFormEdits((prevState) => onVariantEdit(prevState, e, product));
     };
+    const collectionsEditHandler = (option) => {
+        setCollectionsArr((prevState) => collectionsChange(prevState, option));
+    };
 
-    const edits = useMemo(
-        () => !!variantFormEdits || !!productFormEdits,
-        [variantFormEdits, productFormEdits]
-    );
-    console.log(product);
+    useEffect(() => {
+        console.log(collectionsArr);
+    }, [collectionsArr]);
+
+    const edits = useMemo(() => {
+        var edits = !!variantFormEdits || !!productFormEdits;
+        edits = !arraysEqual(initialProductCollections, collectionsArr);
+        return edits;
+    }, [variantFormEdits, productFormEdits, collectionsArr, initialProductCollections]);
     const loading = productLoading;
     return (
         <>
@@ -153,23 +172,23 @@ const AdminProduct = () => {
                         </SSectionHeadContainer>
                         <SFormControl>
                             <SLabel>Collections</SLabel>
-                            {/* {(() => {
-                                const value =
-                                    productFormEdits?.["collections"] || product["collections"];
+                            {(() => {
+                                const value = collectionsArr;
+                                const options = collectionsTitles.reduce(
+                                    (r, v) => [...r, v.title],
+                                    []
+                                );
+                                const label = value.length ? value.join(", ") : "None Selected";
                                 return (
                                     <DropdownSelect
                                         noClear
-                                        label={"hi"}
+                                        label={label}
                                         value={value}
-                                        options={["active", "archived"]}
-                                        onChange={(option) =>
-                                            productEditHandler({
-                                                target: { name: "status", value: option },
-                                            })
-                                        }
+                                        options={options}
+                                        onChange={(option) => collectionsEditHandler(option)}
                                     />
                                 );
-                            })()} */}
+                            })()}
                         </SFormControl>
                     </SCardContainer>
                 </div>

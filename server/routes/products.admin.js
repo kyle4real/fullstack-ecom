@@ -1,6 +1,11 @@
 import express from "express";
 
-import { getProduct, getProducts, updateProduct } from "../controllers/products.admin.js";
+import {
+    createProduct,
+    getProduct,
+    getProducts,
+    updateProduct,
+} from "../controllers/products.admin.js";
 import Product from "../models/Product.js";
 
 // Middleware
@@ -29,7 +34,8 @@ router
             { path: "collections" },
         ]),
         getProducts
-    );
+    )
+    .post(createProduct);
 router.route(`/:id`).get(getProduct).put(updateProduct);
 
 export default router;
