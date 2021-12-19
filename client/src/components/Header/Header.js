@@ -1,59 +1,46 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import { navLinks } from "../../data";
+
 import useWindowSize from "../../hooks/useWindowSize";
 import { uiActions } from "../../app/slices/ui-slice";
 import DropdownContent from "./DropdownContent/DropdownContent";
 import {
     SAccountIcon,
-    SAnnouncementContent,
-    SAnnouncementSpan,
-    SAnnouncementSpanContainer,
     SBadgeSpan,
     SCartBadge,
     SCartIcon,
     SCartIconContainer,
     SCartLink,
     SHeader,
-    SHeaderAnnouncements,
     SHeaderFixed,
     SHeaderMain,
     SHeaderTop,
-    SItemContent,
     SItemSpan,
-    SLeftIcon,
     SLogo,
     SLogoContainer,
-    SMenu,
     SMenuClose,
-    SMenuNav,
-    SMenuNavItem,
     SMenuOpen,
     SMenuToggle,
     SNav,
     SNavTop,
     SNavTopItem,
-    SRightIcon,
 } from "./styles";
-
-const aArr = [
-    "Good News! We are dispatching and delivering as normal and ensuring contactless shipping!",
-    "Free standard shipping when you spend $75",
-    "Shop Ecom with afterpay, pay in 4 interest-free installments",
-    "Free returns for up to 30 days*",
-];
+import SpanLoad from "../UI/Loading/SpanLoad";
+import Announcements from "./Announcements/Announcements";
+import MobileMenu from "./MobileMenu/MobileMenu";
 
 const Header = () => {
     const dispatch = useDispatch();
-    const intervalRef = useRef();
     const location = useLocation();
 
     const { isMin } = useWindowSize({ size: "lg" });
     const { firstName } = useSelector((state) => state.auth);
     const { cart } = useSelector((state) => state.cart);
+    const { initialLoading } = useSelector((state) => state.ui);
+    const { collectionsTitles } = useSelector((state) => state.collections);
+
     const [menuOpen, setMenuOpen] = useState(false);
-    const [currentAs, setCurrentAs] = useState([aArr.length - 1, 0, 1]);
 
     const cartAmount = useMemo(() => {
         return cart.reduce((r, v, i) => {
@@ -68,30 +55,49 @@ const Header = () => {
         }
     }, [isMin, menuOpen]);
 
-    const changeA = useCallback((inc) => {
-        setCurrentAs((p) =>
-            p.reduce((r, v) => {
-                return inc
-                    ? r.concat(v === aArr.length - 1 ? 0 : v + 1)
-                    : r.concat(v === 0 ? aArr.length - 1 : v - 1);
-            }, [])
-        );
-    }, []);
-    useEffect(() => {
-        intervalRef.current = setInterval(() => {
-            changeA(true);
-        }, [5000]);
-        return () => clearInterval(intervalRef.current);
-    }, [changeA]);
+    const navLinks = useMemo(() => {
+        if (!collectionsTitles)
+            return [
+                {
+                    title: "Shop",
+                    to: "shop",
+                },
+                {
+                    title: "About Us",
+                    to: "about-us",
+                },
+                {
+                    title: "Blog",
+                    to: "blog",
+                },
+            ];
+        else
+            return [
+                {
+                    title: "Shop",
+                    to: "/shop",
+                    sections: [
+                        {
+                            title: "Collections",
+                            links: collectionsTitles.reduce(
+                                (r, v) => [...r, { title: v.title, to: `/${v.slug}` }],
+                                []
+                            ),
+                        },
+                    ],
+                },
+                {
+                    title: "About Us",
+                    to: "/about-us",
+                },
+                {
+                    title: "Blog",
+                    to: "/blog",
+                },
+            ];
+    }, [collectionsTitles]);
 
-    const arrowClickHandler = (inc) => {
-        clearInterval(intervalRef.current);
-        changeA(inc);
-        intervalRef.current = setInterval(() => {
-            changeA(true);
-        }, [5000]);
-    };
-
+    const loading = initialLoading;
     const isAdminArea = location.pathname.includes("/account/admin");
     return (
         <SHeader isAdminArea={isAdminArea}>
@@ -99,32 +105,43 @@ const Header = () => {
                 <SHeaderTop>
                     <SNavTop>
                         <SNavTopItem to="/account">
-                            <SItemContent>
+                            <div style={{ display: "flex", alignItems: "flex-end" }}>
                                 <SAccountIcon />
-                                <SItemSpan>
-                                    {!firstName ? <>My Account</> : <>Hi {firstName}</>}
-                                </SItemSpan>
-                            </SItemContent>
+                                <SpanLoad loading={loading}>
+                                    <SItemSpan>
+                                        {(() => {
+                                            if (loading || !firstName) {
+                                                return <>My Account</>;
+                                            } else {
+                                                return <>Hi {firstName}</>;
+                                            }
+                                        })()}
+                                    </SItemSpan>
+                                </SpanLoad>
+                            </div>
                         </SNavTopItem>
-                        <SNavTopItem to="/blog">Contact</SNavTopItem>
-                        <SNavTopItem to="/newsletter">Newsletter</SNavTopItem>
-                        <SNavTopItem to="/help">Help</SNavTopItem>
+                        {[
+                            { label: "Contact", to: "/contact-us" },
+                            { label: "Newsletter", link: "/newsletter" },
+                            { label: "Help", link: "/help" },
+                        ].map(({ label, to }, index) => (
+                            <Fragment key={index}>
+                                <SNavTopItem to={to}>
+                                    <SpanLoad loading={loading}>{label}</SpanLoad>
+                                </SNavTopItem>
+                            </Fragment>
+                        ))}
                     </SNavTop>
                 </SHeaderTop>
                 <SHeaderMain>
                     <SMenuToggle onClick={() => setMenuOpen((p) => !p)}>
                         {!menuOpen ? <SMenuOpen /> : <SMenuClose />}
                     </SMenuToggle>
-                    <SMenu menuOpen={menuOpen}>
-                        <SMenuNav>
-                            <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
-                                Men
-                            </SMenuNavItem>
-                            <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
-                                Women
-                            </SMenuNavItem>
-                        </SMenuNav>
-                    </SMenu>
+                    <MobileMenu
+                        menuOpen={menuOpen}
+                        closeMenu={() => setMenuOpen(false)}
+                        navLinks={navLinks}
+                    />
                     <SLogoContainer>
                         <SLogo to="/">Ecom</SLogo>
                     </SLogoContainer>
@@ -146,32 +163,7 @@ const Header = () => {
                     </SCartIconContainer>
                 </SHeaderMain>
             </SHeaderFixed>
-            {!isAdminArea && (
-                <SHeaderAnnouncements>
-                    <SAnnouncementContent>
-                        <SLeftIcon onClick={() => arrowClickHandler(false)} />
-                        <SAnnouncementSpanContainer>
-                            {aArr.map((text, i) => {
-                                const index = currentAs.findIndex((inx) => inx === i);
-                                const first = index === 0;
-                                const second = index === 1;
-                                return (
-                                    <SAnnouncementSpan
-                                        key={i}
-                                        style={{
-                                            right: first ? "100%" : second ? 0 : "-100%",
-                                            display: index === -1 ? "none" : "block",
-                                        }}
-                                    >
-                                        {text}
-                                    </SAnnouncementSpan>
-                                );
-                            })}
-                        </SAnnouncementSpanContainer>
-                        <SRightIcon onClick={() => arrowClickHandler(true)} />
-                    </SAnnouncementContent>
-                </SHeaderAnnouncements>
-            )}
+            {!isAdminArea && <Announcements />}
         </SHeader>
     );
 };

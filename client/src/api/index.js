@@ -66,6 +66,9 @@ export const deleteVariant = (productId, variantId) => {
     return API.delete(`${adminPath}${productsPath}/${productId}/variants/${variantId}`);
 };
 
+export const getCollectionsTitles = () => {
+    return API.get(`${collectionsPath}/titles`);
+};
 export const getCollections = () => {
     return API.get(`${adminPath}${collectionsPath}/`);
 };

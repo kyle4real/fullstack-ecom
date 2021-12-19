@@ -17,6 +17,9 @@ export const lightTheme = {
     overlayLight: "rgba(0,0,0,.5)",
     overlayLighter: "rgba(0,0,0,.4)",
     primaryGradient: "linear-gradient(0.25turn, #1b3545, #fff, #1b3545)",
+    // loading gradient
+    loadingGradient:
+        "linear-gradient(90deg, rgb(245, 245, 245), rgb(224, 224, 224), rgb(207, 207, 207))",
 };
 
 export const darkTheme = {

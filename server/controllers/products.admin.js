@@ -15,9 +15,11 @@ export const getProducts = asyncHandler(async (req, res, next) => {
 // @route   GET /admin/products/:id
 // @access  Private
 export const getProduct = asyncHandler(async (req, res, next) => {
-    var product = await Product.findById(req.params.id)
-        .populate("variants")
-        .populate({ path: "media", options: { sort: { position: 1 } } });
+    var product = await Product.findById(req.params.id).populate([
+        { path: "variants" },
+        { path: "media", options: { sort: { position: 1 } } },
+        { path: "collections" },
+    ]);
     if (!product) return next(new ErrorResponse(`Resource not found with id ${req.params.id}`));
     res.status(200).json({ success: true, data: product });
 });

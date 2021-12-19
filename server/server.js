@@ -12,9 +12,10 @@ import errorHandler from "./middleware/error.js";
 import userRoutes from "./routes/users.js";
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js";
+import collectionRoutes from "./routes/collections.js";
 // Admin Route Imports
 import productAdminRoutes from "./routes/products.admin.js";
-import collectionRoutes from "./routes/collections.js";
+import collectionAdminRoutes from "./routes/collections.admin.js";
 
 // For populating purposes
 import "./models/Variant.js";
@@ -45,9 +46,10 @@ app.use(morgan("dev"));
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/products", productRoutes);
+app.use("/collections", collectionRoutes);
 const adminPath = "/admin";
 app.use(`${adminPath}/products`, productAdminRoutes);
-app.use(`${adminPath}/collections`, collectionRoutes);
+app.use(`${adminPath}/collections`, collectionAdminRoutes);
 
 // Error handling middleware (must be mounted after routes)
 app.use(errorHandler);

@@ -33,64 +33,6 @@ export const SHeader = styled.div`
     }
 `;
 
-// ANNOUNCEMENTS ////////////////////////////////////////////////
-
-export const SHeaderAnnouncements = styled.div`
-    position: absolute;
-    bottom: 0;
-    color: ${({ theme }) => theme.text};
-    background: ${({ theme }) => theme.bg2};
-    height: 5vh;
-    /* padding-top: calc(${v.headerHeight} + ${v.headerTopHeight}); */
-    justify-content: center;
-    width: 100%;
-
-    display: none;
-    @media ${b.lg} {
-        display: flex;
-    }
-`;
-
-export const SAnnouncementContent = styled.div`
-    height: 100%;
-    display: block;
-    width: ${s.md};
-    text-align: center;
-    display: flex;
-    align-items: center;
-`;
-
-export const SAnnouncementSpanContainer = styled.div`
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-    height: 100%;
-    margin: 0 ${v.mdSpacing};
-`;
-
-export const SAnnouncementSpan = styled.span`
-    line-height: 100%;
-    display: block;
-    position: absolute;
-    top: calc(50% - 6px);
-    width: 100%;
-    font-size: 13.5px;
-    font-weight: 400;
-    transition: right 0.4s ease-out;
-`;
-
-const arrowStyles = css`
-    display: block;
-    font-size: 1rem;
-    cursor: pointer;
-`;
-export const SLeftIcon = styled(AiOutlineLeft)`
-    ${arrowStyles}
-`;
-export const SRightIcon = styled(AiOutlineRight)`
-    ${arrowStyles}
-`;
-
 // HEADER FIXED //////////////////////////////////////////////
 
 export const SHeaderFixed = styled.div`
@@ -188,23 +130,6 @@ export const SNav = styled.nav`
     }
 `;
 
-export const SNavItemContainer = styled.div`
-    /* :not(:last-child) {
-        margin-right: ${v.mdSpacing};
-    } */
-`;
-
-export const SNavItem = styled(Link)`
-    padding: 0 ${v.lgSpacing};
-    height: 100%;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-weight: 600;
-
-    color: ${({ theme }) => theme.text};
-`;
-
 export const SMenuToggle = styled.button`
     flex: 1;
     margin: auto 0;
@@ -269,42 +194,4 @@ export const SBadgeSpan = styled.span`
     font-size: 11px;
     font-weight: 900;
     margin-right: -1px;
-`;
-
-export const SMenu = styled.div`
-    position: fixed;
-    height: 100vh;
-    z-index: -1;
-    width: 100vw;
-    top: 0;
-    bottom: 0;
-    left: -100vw;
-    right: 0;
-    background: ${({ theme }) => theme.bg};
-    transform: ${({ menuOpen }) => (!menuOpen ? "none" : "translatex(100vw)")};
-    transition: 0.3s ease transform;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(4px);
-
-    @media ${b.lg} {
-        display: none;
-    }
-`;
-
-export const SMenuNav = styled.nav`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-`;
-export const SMenuNavItem = styled(Link)`
-    display: block;
-    text-decoration: none;
-    padding: ${v.mdSpacing} ${v.lgSpacing};
-    :not(:last-child) {
-        margin-bottom: ${v.mdSpacing};
-    }
-    color: ${({ theme }) => theme.text2};
 `;

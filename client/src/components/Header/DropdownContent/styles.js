@@ -3,6 +3,23 @@ import styled from "styled-components";
 
 import { v, s } from "../../../styles/variables";
 
+export const SNavItemContainer = styled.div`
+    /* :not(:last-child) {
+        margin-right: ${v.mdSpacing};
+    } */
+`;
+
+export const SNavItem = styled(Link)`
+    padding: 0 ${v.lgSpacing};
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: ${({ theme }) => theme.text};
+    font-weight: 500;
+    white-space: nowrap;
+`;
+
 export const SMenuDropdownWrap = styled.div`
     .menu-dropdown-open {
         opacity: 1;
@@ -15,7 +32,7 @@ export const SMenuDropdown = styled.div`
     position: absolute;
     right: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     z-index: -1;
     background: ${({ theme }) => theme.bg};
     opacity: 0;
@@ -25,12 +42,9 @@ export const SMenuDropdown = styled.div`
 
 export const SDropdownContent = styled.div`
     margin: 0 auto;
-    width: ${s.sm};
-
+    width: fit-content;
     height: 100%;
-    padding: ${v.lgSpacing} ${v.mdSpacing} ${v.xlSpacing};
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    padding: ${v.lgSpacing} ${v.mdSpacing} ${v.lgSpacing};
     line-height: 100%;
     color: ${({ theme }) => theme.text};
     text-align: center;
