@@ -1,40 +1,30 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router";
-import { navLinks } from "../../data";
+
 import useWindowSize from "../../hooks/useWindowSize";
 import { uiActions } from "../../app/slices/ui-slice";
 import DropdownContent from "./DropdownContent/DropdownContent";
 import {
     SAccountIcon,
-    SAnnouncementContent,
-    SAnnouncementSpan,
-    SAnnouncementSpanContainer,
     SBadgeSpan,
     SCartBadge,
     SCartIcon,
     SCartIconContainer,
     SCartLink,
     SHeader,
-    SHeaderAnnouncements,
     SHeaderFixed,
     SHeaderMain,
     SHeaderTop,
-    SItemContent,
     SItemSpan,
-    SLeftIcon,
     SLogo,
     SLogoContainer,
-    SMenu,
     SMenuClose,
-    SMenuNav,
-    SMenuNavItem,
     SMenuOpen,
     SMenuToggle,
     SNav,
     SNavTop,
     SNavTopItem,
-    SRightIcon,
 } from "./styles";
 import SpanLoad from "../UI/Loading/SpanLoad";
 import Announcements from "./Announcements/Announcements";
@@ -42,13 +32,14 @@ import MobileMenu from "./MobileMenu/MobileMenu";
 
 const Header = () => {
     const dispatch = useDispatch();
-
     const location = useLocation();
 
     const { isMin } = useWindowSize({ size: "lg" });
     const { firstName } = useSelector((state) => state.auth);
     const { cart } = useSelector((state) => state.cart);
     const { initialLoading } = useSelector((state) => state.ui);
+    const { collectionsTitles } = useSelector((state) => state.collections);
+
     const [menuOpen, setMenuOpen] = useState(false);
 
     const cartAmount = useMemo(() => {
@@ -63,6 +54,48 @@ const Header = () => {
             setMenuOpen(false);
         }
     }, [isMin, menuOpen]);
+
+    const navLinks = useMemo(() => {
+        if (!collectionsTitles)
+            return [
+                {
+                    title: "Shop",
+                    to: "shop",
+                },
+                {
+                    title: "About Us",
+                    to: "about-us",
+                },
+                {
+                    title: "Blog",
+                    to: "blog",
+                },
+            ];
+        else
+            return [
+                {
+                    title: "Shop",
+                    to: "/shop",
+                    sections: [
+                        {
+                            title: "Collections",
+                            links: collectionsTitles.reduce(
+                                (r, v) => [...r, { title: v.title, to: `/${v.slug}` }],
+                                []
+                            ),
+                        },
+                    ],
+                },
+                {
+                    title: "About Us",
+                    to: "/about-us",
+                },
+                {
+                    title: "Blog",
+                    to: "/blog",
+                },
+            ];
+    }, [collectionsTitles]);
 
     const loading = initialLoading;
     const isAdminArea = location.pathname.includes("/account/admin");

@@ -32,7 +32,7 @@ export const SMenuDropdown = styled.div`
     position: absolute;
     right: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     z-index: -1;
     background: ${({ theme }) => theme.bg};
     opacity: 0;
@@ -42,12 +42,9 @@ export const SMenuDropdown = styled.div`
 
 export const SDropdownContent = styled.div`
     margin: 0 auto;
-    width: ${s.sm};
-
+    width: fit-content;
     height: 100%;
-    padding: ${v.lgSpacing} ${v.mdSpacing} ${v.xlSpacing};
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    padding: ${v.lgSpacing} ${v.mdSpacing} ${v.lgSpacing};
     line-height: 100%;
     color: ${({ theme }) => theme.text};
     text-align: center;

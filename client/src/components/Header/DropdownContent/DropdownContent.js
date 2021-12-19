@@ -15,9 +15,10 @@ import {
 
 const DropdownContent = ({ navLinks }) => {
     const { initialLoading } = useSelector((state) => state.ui);
+
     const [open, setOpen] = useState(false);
 
-    const { title, link, sections } = navLinks;
+    const { title, to, sections } = navLinks;
     const loading = initialLoading;
     return (
         <SNavItemContainer
@@ -25,7 +26,7 @@ const DropdownContent = ({ navLinks }) => {
             onMouseLeave={() => setOpen(false)}
             onClick={() => setOpen(false)}
         >
-            <SNavItem to={!loading ? `/${link}` : "#"}>
+            <SNavItem to={!loading ? to : "#"}>
                 <SpanLoad loading={loading}>{title}</SpanLoad>
             </SNavItem>
             {!!sections && !!sections.length && !loading && (
@@ -34,37 +35,17 @@ const DropdownContent = ({ navLinks }) => {
                         {open && (
                             <SDropdownContent>
                                 {sections.map(({ title, links }, index) => {
-                                    if (title.toLowerCase() === "exclusives")
-                                        return <Fragment key={index}></Fragment>;
-                                    const exclusivesIndex = sections.findIndex(
-                                        (item) => item.title.toLowerCase() === "exclusives"
-                                    );
                                     return (
                                         <SSection key={index}>
                                             <SSectionTitle>{title}</SSectionTitle>
-                                            {links.map(({ title, link }, index) => (
+                                            {links.map(({ title, to }, index) => (
                                                 <SSectionLink
                                                     key={index}
-                                                    to={`/shop/collections/${link}`}
+                                                    to={`/shop/collections${to}}`}
                                                 >
                                                     {title}
                                                 </SSectionLink>
                                             ))}
-                                            {exclusivesIndex !== -1 && index === 0 && (
-                                                <SSection>
-                                                    <SSectionTitle ptop>Exclusives</SSectionTitle>
-                                                    {sections[exclusivesIndex].links.map(
-                                                        ({ title, link }, index) => (
-                                                            <SSectionLink
-                                                                key={index}
-                                                                to={`/shop/collections/${link}`}
-                                                            >
-                                                                {title}
-                                                            </SSectionLink>
-                                                        )
-                                                    )}
-                                                </SSection>
-                                            )}
                                         </SSection>
                                     );
                                 })}
