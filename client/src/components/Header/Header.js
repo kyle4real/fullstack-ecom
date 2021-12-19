@@ -38,6 +38,7 @@ import {
 } from "./styles";
 import SpanLoad from "../UI/Loading/SpanLoad";
 import Announcements from "./Announcements/Announcements";
+import MobileMenu from "./MobileMenu/MobileMenu";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -103,16 +104,11 @@ const Header = () => {
                     <SMenuToggle onClick={() => setMenuOpen((p) => !p)}>
                         {!menuOpen ? <SMenuOpen /> : <SMenuClose />}
                     </SMenuToggle>
-                    <SMenu menuOpen={menuOpen}>
-                        <SMenuNav>
-                            <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
-                                Men
-                            </SMenuNavItem>
-                            <SMenuNavItem to="/shop" onClick={() => setMenuOpen(false)}>
-                                Women
-                            </SMenuNavItem>
-                        </SMenuNav>
-                    </SMenu>
+                    <MobileMenu
+                        menuOpen={menuOpen}
+                        closeMenu={() => setMenuOpen(false)}
+                        navLinks={navLinks}
+                    />
                     <SLogoContainer>
                         <SLogo to="/">Ecom</SLogo>
                     </SLogoContainer>

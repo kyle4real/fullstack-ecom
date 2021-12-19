@@ -4,40 +4,6 @@ export const navLinks = [
         link: "shop",
         sections: [
             {
-                title: "Trending",
-                links: [
-                    {
-                        title: "new releases",
-                        link: "new-releases",
-                    },
-                    {
-                        title: "must haves",
-                        link: "must-haves",
-                    },
-                    {
-                        title: "lorem lorem",
-                        link: "lorem-lorem",
-                    },
-                    {
-                        title: "lorem lorem",
-                        link: "lorem-lorem",
-                    },
-                    {
-                        title: "lorem lorem",
-                        link: "lorem-lorem",
-                    },
-                ],
-            },
-            {
-                title: "Exclusives",
-                links: [
-                    {
-                        title: "sale",
-                        link: "sale",
-                    },
-                ],
-            },
-            {
                 title: "Collections",
                 links: [
                     {
