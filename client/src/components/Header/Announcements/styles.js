@@ -9,11 +9,12 @@ export const SHeaderAnnouncements = styled.div`
     position: absolute;
     bottom: 0;
     color: ${({ theme }) => theme.text};
-    background: ${({ theme }) => theme.bg2};
+    background: ${({ theme }) => theme.bg};
     height: 5vh;
     /* padding-top: calc(${v.headerHeight} + ${v.headerTopHeight}); */
     justify-content: center;
     width: 100%;
+    box-shadow: inset 0 -1px ${({ theme }) => theme.bg3};
 
     display: none;
     @media ${b.lg} {

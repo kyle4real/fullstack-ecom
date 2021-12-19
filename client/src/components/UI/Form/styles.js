@@ -54,28 +54,31 @@ export const SInput = styled.input`
     ${inputStyles};
 `;
 
-export const SSubmitButton = styled.button`
-    ${btnReset};
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    font-size: 14px;
-    background: ${({ theme }) => theme.primary};
-    color: ${({ theme }) => theme.textLight};
+// export const SSubmitButton = styled.button`
+//     ${btnReset};
+//     width: 100%;
+//     display: flex;
+//     justify-content: center;
+//     text-align: center;
+//     font-size: 14px;
+//     background: ${({ theme }) => theme.primary};
+//     color: ${({ theme }) => theme.textLight};
+//     margin-top: ${v.mdSpacing};
+//     padding: calc(${v.smSpacing} + 4px) calc(${v.smSpacing} + 4px);
+//     cursor: pointer;
+//     border-radius: ${v.borderRadius};
+//     :active {
+//         transform: scale(0.95);
+//     }
+//     :disabled {
+//         background: ${({ theme }) => theme.bg};
+//         color: ${({ theme }) => theme.textFade};
+//         cursor: initial;
+//     }
+//     transition: 0.2s ease all;
+// `;
+export const SSubmitButton = styled.div`
     margin-top: ${v.mdSpacing};
-    padding: calc(${v.smSpacing} + 4px) calc(${v.smSpacing} + 4px);
-    cursor: pointer;
-    border-radius: ${v.borderRadius};
-    :active {
-        transform: scale(0.95);
-    }
-    :disabled {
-        background: ${({ theme }) => theme.bg};
-        color: ${({ theme }) => theme.textFade};
-        cursor: initial;
-    }
-    transition: 0.2s ease all;
 `;
 
 // Text Area

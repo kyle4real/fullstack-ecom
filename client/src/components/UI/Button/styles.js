@@ -3,40 +3,26 @@ import styled from "styled-components";
 import { v, b, btnReset } from "./../../../styles/variables";
 
 export const SButton = styled.button`
-    font-family: inherit;
-    font-size: ${({ font }) => (!font ? "12px" : font)};
-    font-weight: 600;
-    text-transform: uppercase;
-    white-space: nowrap;
+    ${btnReset};
+    font-size: 14px;
     line-height: 100%;
-    padding: calc(${v.mdSpacing} - 4px) ${({ fixed }) => (!fixed ? "0" : v.lgSpacing)};
+    font-weight: 400;
+    padding: calc(${v.smSpacing} + 2px) ${v.mdSpacing};
     border: none;
     color: ${({ theme, secondary }) => (!secondary ? theme.textSecondary : theme.primary)};
-    border: 1px solid ${({ theme, bg }) => (!bg ? theme.primary : theme[bg])};
-    background: ${({ theme, secondary, bg }) =>
-        !secondary && bg ? theme[bg] : !secondary ? theme.primary : "transparent"};
-    border-radius: ${({ secondaryRadius }) =>
-        !secondaryRadius ? v.borderRadiusButton : v.borderRadius};
+    border: 1px solid ${({ theme, secondary }) => (!secondary ? theme.bg : theme.primary)};
+    background: ${({ theme, secondary, bg }) => (!secondary ? theme.primary : "transparent")};
+    border-radius: ${v.borderRadius};
     cursor: pointer;
     position: ${({ absolute }) => (!absolute ? "initial" : "relative")};
     transition: 0.2s ease background;
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
 
-    width: 100%;
-    @media ${b.sm} {
-        width: ${({ fixed }) => (!fixed ? "100%" : "auto")};
-    }
-
-    :focus {
-        outline: 1px solid ${({ theme }) => theme.primary};
-    }
     :hover {
-        background: ${({ theme, secondary, bg }) =>
-            !secondary && bg ? theme.primaryLighter : !secondary ? theme.primaryLight : theme.bg3};
-        /* color: ${({ theme, secondary }) =>
-            !secondary ? theme.textSecondary : theme.primary}; */
+        background: ${({ theme, secondary, bg }) => (!secondary ? theme.primaryLight : theme.bg)};
     }
 `;
 

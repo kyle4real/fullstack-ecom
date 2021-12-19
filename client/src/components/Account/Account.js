@@ -37,11 +37,16 @@ const Account = () => {
                     <SAccountButtons>
                         {buttons.map(({ label, to }, index) => (
                             <SButtonContainer key={index}>
-                                <Button onClick={() => buttonClickHandler(to)}>{label}</Button>
+                                <Button
+                                    style={{ width: "100%" }}
+                                    onClick={() => buttonClickHandler(to)}
+                                >
+                                    {label}
+                                </Button>
                             </SButtonContainer>
                         ))}
                         <SButtonContainer>
-                            <Button secondary onClick={logoutHandler}>
+                            <Button style={{ width: "100%" }} secondary onClick={logoutHandler}>
                                 Logout
                             </Button>
                         </SButtonContainer>

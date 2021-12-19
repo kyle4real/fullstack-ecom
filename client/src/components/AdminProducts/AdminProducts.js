@@ -3,9 +3,11 @@ import { useSelector } from "react-redux";
 
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { missingImg } from "../../assets";
+import Button from "../UI/Button/Button";
 import { STDContained } from "../UI/Table/styles";
 
 import Table from "../UI/Table/Table";
+import TableContainer from "../UI/TableContainer/TableContainer";
 import { SImage, SImageContainer } from "./styles";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
@@ -61,15 +63,17 @@ const AdminProducts = () => {
         "variantCount",
     ];
 
-    const table = (
-        <Table
-            trArr={trArr}
-            displayKeys={displayKeys}
-            thArr={thArr}
-            trLinks={{ to: `${url}`, target: "_id" }}
-        />
+    const addButton = <Button fixed>Add Product</Button>;
+    return (
+        <TableContainer placeholder={"Search Products"} title={"Products"} addButton={addButton}>
+            <Table
+                trArr={trArr}
+                displayKeys={displayKeys}
+                thArr={thArr}
+                trLinks={{ to: `${url}`, target: "_id" }}
+            />
+        </TableContainer>
     );
-    return table;
 };
 
 // const [lowestPrice, highestPrice] = variants.reduce(

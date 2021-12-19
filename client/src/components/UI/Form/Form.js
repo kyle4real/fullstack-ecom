@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "../Button/Button";
 import Loading from "../Loading/Loading";
 import PriceInput from "./PriceInput/PriceInput";
 
@@ -58,8 +59,10 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
                     </SFormControl>
                 );
             })}
-            <SSubmitButton onClick={(e) => onSubmitHandler(e)}>
-                {!loading ? submitBtn : <Loading />}
+            <SSubmitButton>
+                <Button onClick={(e) => onSubmitHandler(e)} style={{ width: "100%" }}>
+                    {!loading ? submitBtn : <Loading />}
+                </Button>
             </SSubmitButton>
         </SForm>
     );
