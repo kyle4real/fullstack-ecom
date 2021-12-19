@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { v } from "../../../styles/variables";
 
@@ -34,9 +34,15 @@ export const SMinusIcon = styled(AiOutlineMinus)`
     font-size: 16px;
 `;
 
-export const SAccordianContent = styled.div`
+const openStyles = css`
     padding: ${v.mdSpacing};
     padding-top: ${v.smSpacing};
+    max-height: 500px;
+    transition: 0.5s ease max-height;
+`;
+export const SAccordianContent = styled.div`
+    max-height: 0;
+    ${({ open }) => open && openStyles};
 `;
 
 export const SContentSpan = styled.span`

@@ -17,11 +17,11 @@ const AccordianChild = ({ title, content }) => {
                 <SAccordianTitle>{title}</SAccordianTitle>
                 <SPlusIcon />
             </SAccordianHead>
-            {open && (
-                <SAccordianContent>
-                    <SContentSpan>{content}</SContentSpan>
-                </SAccordianContent>
-            )}
+            {/* {open && ( */}
+            <SAccordianContent open={open}>
+                <SContentSpan>{content}</SContentSpan>
+            </SAccordianContent>
+            {/* )} */}
         </SAccordianContainer>
     );
 };
