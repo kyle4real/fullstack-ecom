@@ -41,7 +41,7 @@ const DropdownContent = ({ navLinks }) => {
                                             {links.map(({ title, to }, index) => (
                                                 <SSectionLink
                                                     key={index}
-                                                    to={`/shop/collections${to}}`}
+                                                    to={`/shop/collections${to}`}
                                                 >
                                                     {title}
                                                 </SSectionLink>
