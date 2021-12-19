@@ -40,6 +40,12 @@ export const STH = styled.th`
     }
 `;
 
+export const STHNoPadding = styled.th`
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+`;
+
 export const STBody = styled.tbody``;
 
 export const STBodyTR = styled.tr`
@@ -63,4 +69,8 @@ export const STD = styled.td`
     @media ${b.md} {
         display: table-cell;
     }
+`;
+export const STDNoPadding = styled.td`
+    padding: 0;
+    position: relative;
 `;
