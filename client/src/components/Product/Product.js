@@ -43,6 +43,7 @@ import {
 import { uiActions } from "../../app/slices/ui-slice";
 import useQuery from "../../hooks/useQuery";
 import { SLabel, SSelectOption } from "../UI/Form/styles";
+import { SCardContainer } from "../UI/Containers/styles";
 
 const Product = () => {
     const dispatch = useDispatch();
@@ -153,36 +154,38 @@ const Product = () => {
 
                     <SContentBUTTONS>
                         <SButtonControl>
-                            <Button font={"14px"} onClick={addToCartHandler}>
+                            <Button onClick={addToCartHandler} style={{ width: "100%" }}>
                                 Add To Cart
                             </Button>
                         </SButtonControl>
                         <SButtonControl>
-                            <Button secondary font={"14px"}>
+                            <Button secondary style={{ width: "100%" }}>
                                 Checkout Now
                             </Button>
                         </SButtonControl>
                     </SContentBUTTONS>
 
                     <SButtonFIXED>
-                        <Button font={"14px"} onClick={addToCartHandler}>
+                        <Button onClick={addToCartHandler} style={{ width: "100%" }}>
                             Add To Cart
                         </Button>
                     </SButtonFIXED>
 
                     <SContentCARD>
-                        <SCardSpanControl>
-                            <SReturnIcon />
-                            <SCardSpan>Free Returns On All Orders</SCardSpan>
-                        </SCardSpanControl>
-                        <SCardSpanControl>
-                            <SShippingIcon />
-                            <SCardSpan>Free Standard Over $75</SCardSpan>
-                        </SCardSpanControl>
-                        <SCardSpanControl>
-                            <SExpressIcon />
-                            <SCardSpan>Free Express Over $150</SCardSpan>
-                        </SCardSpanControl>
+                        <SCardContainer customPadding={"lgSpacing"}>
+                            <SCardSpanControl>
+                                <SReturnIcon />
+                                <SCardSpan>Free Returns On All Orders</SCardSpan>
+                            </SCardSpanControl>
+                            <SCardSpanControl>
+                                <SShippingIcon />
+                                <SCardSpan>Free Standard Over $75</SCardSpan>
+                            </SCardSpanControl>
+                            <SCardSpanControl>
+                                <SExpressIcon />
+                                <SCardSpan>Free Express Over $150</SCardSpan>
+                            </SCardSpanControl>
+                        </SCardContainer>
                     </SContentCARD>
                     <SContentACCORDIAN>
                         <Accordian

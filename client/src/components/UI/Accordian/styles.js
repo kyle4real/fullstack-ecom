@@ -8,9 +8,9 @@ export const SAccordianContainer = styled.div`
     user-select: none;
     overflow: hidden;
     :first-child {
-        border-top: 1px solid ${({ theme }) => theme.primaryLighter};
+        border-top: 1px solid ${({ theme }) => theme.bg3};
     }
-    border-bottom: 1px solid ${({ theme }) => theme.primaryLighter};
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
 `;
 
 export const SAccordianHead = styled.div`
