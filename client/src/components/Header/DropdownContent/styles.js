@@ -17,6 +17,7 @@ export const SNavItem = styled(Link)`
     text-decoration: none;
     color: ${({ theme }) => theme.text};
     font-weight: 500;
+    white-space: nowrap;
 `;
 
 export const SMenuDropdownWrap = styled.div`
