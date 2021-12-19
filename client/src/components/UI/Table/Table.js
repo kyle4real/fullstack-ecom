@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { useHistory } from "react-router-dom";
 import { SCardContainer, SFlexContainer } from "../Containers/styles";
 import {
     STable,
@@ -12,7 +13,8 @@ import {
     STHNoPadding,
 } from "./styles";
 
-const Table = ({ thArr, trArr, displayKeys }) => {
+const Table = ({ thArr, trArr, displayKeys, trLinks }) => {
+    const history = useHistory();
     let thDisplay;
     if (thArr) {
         thDisplay = thArr.reduce((r, v) => {
@@ -80,18 +82,22 @@ const Table = ({ thArr, trArr, displayKeys }) => {
                                 }
                             }, []);
                         } else displayArr = Object.values(dataObj);
+                        const onClick = !trLinks
+                            ? null
+                            : () => history.push(`${trLinks.to}/${dataObj[trLinks.target]}`);
                         return (
                             <Fragment key={trIndex}>
-                                <STBodyTR>
+                                <STBodyTR
+                                    onClick={onClick}
+                                    style={!!trLinks ? { cursor: "pointer" } : {}}
+                                >
                                     <STD>{trIndex + 1}</STD>
                                     {displayArr.map(({ value, component }, index) => {
                                         return (
                                             <Fragment key={index}>
                                                 {!component && <STD>{value}</STD>}
                                                 {component && (
-                                                    <STDNoPadding>
-                                                        {component(value, dataObj, trIndex)}
-                                                    </STDNoPadding>
+                                                    <>{component(value, dataObj, trIndex)}</>
                                                 )}
                                             </Fragment>
                                         );

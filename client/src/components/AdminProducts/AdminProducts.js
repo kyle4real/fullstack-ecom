@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import { useHistory, useRouteMatch } from "react-router-dom";
-
 import { missingImg } from "../../assets";
-import { SImage, SImageContainer, STBodyTRVariant, STDImage, STDVariant } from "./styles";
-import { STable, STBody, STBodyTR, STD, STH, STHead, STHeadTR } from "../UI/Table/styles";
+import { STDContained } from "../UI/Table/styles";
+
 import Table from "../UI/Table/Table";
+import { SImage, SImageContainer } from "./styles";
 
 const priceFormatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -14,13 +14,20 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
 });
 
+const TableImageDisplay = ({ value }) => {
+    const { url: src } = value;
+    return (
+        <STDContained>
+            <SImageContainer>
+                <SImage src={src || missingImg} />
+            </SImageContainer>
+        </STDContained>
+    );
+};
+
 const AdminProducts = () => {
-    const history = useHistory();
     const { url } = useRouteMatch();
-
     const { products } = useSelector((state) => state.products);
-
-    const productClickHandler = (id) => history.push(`${url}/${id}`);
 
     const trArr = products.reduce((r, v) => {
         const variants = v.variants;
@@ -45,10 +52,23 @@ const AdminProducts = () => {
         let product = { ...v, price, variantCount: variantCount };
         return [...r, product];
     }, []);
-    const thArr = ["Title", "Status", "Price", "Variants"];
-    const displayKeys = ["title", "status", "price", "variantCount"];
+    const thArr = ["", "Title", "Status", "Price", "Variants"];
+    const displayKeys = [
+        ["image", (value) => <TableImageDisplay value={value} />],
+        "title",
+        "status",
+        "price",
+        "variantCount",
+    ];
 
-    const table = <Table trArr={trArr} displayKeys={displayKeys} thArr={thArr} />;
+    const table = (
+        <Table
+            trArr={trArr}
+            displayKeys={displayKeys}
+            thArr={thArr}
+            trLinks={{ to: `${url}`, target: "_id" }}
+        />
+    );
     return table;
 };
 
