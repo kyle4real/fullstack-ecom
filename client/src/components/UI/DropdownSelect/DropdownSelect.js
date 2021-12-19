@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useRef } from "react";
+import useDetectClickaway from "../../../hooks/useClickAway";
 import {
     SCheckBox,
     SCheckIcon,
@@ -14,7 +16,9 @@ import {
 } from "./styles";
 
 const DropdownSelect = ({ options, onChange, value, label, noClear }) => {
+    const dropdownRef = useRef();
     const [isOpen, setIsOpen] = useState(false);
+    useDetectClickaway(dropdownRef, () => setIsOpen(false));
 
     const changeHandler = (option) => {
         setIsOpen(false);
@@ -24,7 +28,7 @@ const DropdownSelect = ({ options, onChange, value, label, noClear }) => {
     };
 
     return (
-        <SDropdownContainer>
+        <SDropdownContainer ref={dropdownRef}>
             <SSelectedContainer onClick={() => setIsOpen((p) => !p)} isOpen={isOpen}>
                 <SSelected>{label}</SSelected>
                 <SDropdownIcon />
