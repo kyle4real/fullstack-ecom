@@ -13,7 +13,7 @@ export const inputStyles = css`
     background: ${({ theme }) => theme.bg};
     color: ${({ theme }) => theme.text};
     font-size: 12px;
-    border: 1px solid ${({ theme }) => theme.bg};
+    border: 1px solid ${({ theme }) => theme.bg3};
 
     :focus {
         border-radius: 0;

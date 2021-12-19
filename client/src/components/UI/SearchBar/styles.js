@@ -11,19 +11,26 @@ export const SSearchContainer = styled.div`
     overflow: hidden;
     border-radius: 4px;
 
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.bg3};
     :focus-within .search-icon {
-        color: ${({ theme }) => theme.bgSecondary};
+        color: ${({ theme }) => theme.primary};
     }
     :focus-within {
-        box-shadow: 0 0 0 1px ${({ theme }) => theme.bgSecondary};
+        box-shadow: 0 0 0 1px ${({ theme }) => theme.primary};
     }
     box-shadow: ${v.buttonActiveBoxShadow};
 `;
 export const SSearchInput = styled.input`
     ${inputStyles};
+    padding: ${v.smSpacing} ${v.smSpacing};
+    border: none;
 
     ::placeholder {
         color: ${({ theme }) => theme.textFade};
+    }
+    :focus {
+        border-radius: 4px;
+        border-color: none;
     }
 `;
 export const SSearchIcon = styled(AiOutlineSearch)`

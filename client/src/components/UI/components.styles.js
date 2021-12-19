@@ -7,7 +7,7 @@ export const SSectionHeadContainer = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    border-bottom: 2px solid ${({ theme }) => theme.bg};
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
     padding-bottom: calc(${v.smSpacing} / 2);
     margin-bottom: ${v.mdSpacing};
 `;

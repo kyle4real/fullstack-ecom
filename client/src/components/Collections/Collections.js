@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { STable, STBody, STBodyTR, STD, STH, STHead, STHeadTR } from "../UI/Table/styles";
+import TableContainer from "../UI/TableContainer/TableContainer";
 
 const Collections = () => {
     const history = useHistory();
@@ -15,7 +16,7 @@ const Collections = () => {
     const displayKeys = ["title", "products"];
 
     return (
-        <>
+        <TableContainer placeholder={"Search Collections"}>
             <STable>
                 <STHead>
                     <STHeadTR>
@@ -45,7 +46,7 @@ const Collections = () => {
                     })}
                 </STBody>
             </STable>
-        </>
+        </TableContainer>
     );
 };
 

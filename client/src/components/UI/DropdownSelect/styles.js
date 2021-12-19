@@ -20,6 +20,7 @@ export const SSelectedContainer = styled.div`
     background: ${({ theme }) => theme.bg};
     border-radius: ${v.borderRadius};
     padding: calc(${v.smSpacing} + 4px) calc(${v.smSpacing} + 4px);
+    box-shadow: 0 0 0 1px ${({ isOpen, theme }) => (!isOpen ? theme.bg3 : theme.primary)};
 `;
 
 export const SSelected = styled.span`
@@ -34,6 +35,7 @@ export const SDropdownIcon = styled(RiArrowDropDownFill)`
 
 export const SDropdown = styled.div`
     position: absolute;
+    top: calc(100% + 1px);
     background: ${({ theme }) => theme.bg};
     color: ${({ theme }) => theme.text};
     border: 1px solid ${({ theme }) => theme.bg};

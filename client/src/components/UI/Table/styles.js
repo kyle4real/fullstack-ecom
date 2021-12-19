@@ -18,13 +18,16 @@ export const STHead = styled.thead`
 `;
 
 export const STHeadTR = styled.tr`
-    background: ${({ theme }) => theme.bg3};
+    background: ${({ theme }) => theme.bg};
+    box-shadow: inset 0 -1px ${({ theme }) => theme.bg3};
 `;
 
 export const STH = styled.th`
     padding: ${v.smSpacing};
     text-align: left;
     display: ${({ desktop }) => (desktop ? "none" : "table-cell")};
+    font-size: 14px;
+    font-weight: 500;
 
     :first-of-type {
         width: 1%;
@@ -41,6 +44,9 @@ export const STBody = styled.tbody``;
 
 export const STBodyTR = styled.tr`
     background: ${({ theme }) => theme.bg2};
+    :nth-of-type(even) {
+        background: ${({ theme }) => theme.bg};
+    }
 `;
 
 export const STD = styled.td`

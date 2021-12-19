@@ -25,7 +25,7 @@ const DropdownSelect = ({ options, onChange, value, label, noClear }) => {
 
     return (
         <SDropdownContainer>
-            <SSelectedContainer onClick={() => setIsOpen((p) => !p)}>
+            <SSelectedContainer onClick={() => setIsOpen((p) => !p)} isOpen={isOpen}>
                 <SSelected>{label}</SSelected>
                 <SDropdownIcon />
             </SSelectedContainer>

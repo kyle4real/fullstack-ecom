@@ -4,7 +4,7 @@ import { v, b } from "../../../styles/variables";
 
 export const SMediaGrid = styled.div`
     background: ${({ theme }) => theme.bg};
-    padding: ${v.mdSpacing};
+    /* padding: ${v.mdSpacing}; */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: ${v.smSpacing};

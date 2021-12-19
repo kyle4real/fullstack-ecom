@@ -2,7 +2,7 @@ import React from "react";
 import { SCardContainer, SFlexContainer } from "../Containers/styles";
 import SearchBar from "../SearchBar/SearchBar";
 
-const TableContainer = (table, { optionsArr, searchValue, onChange, placeholder }) => {
+const TableContainer = ({ optionsArr, searchValue, onChange, placeholder, children }) => {
     return (
         <SCardContainer customPadding={"smSpacing"}>
             <SFlexContainer style={{ justifyContent: "flex-start", paddingBottom: 8 }}>
@@ -11,7 +11,7 @@ const TableContainer = (table, { optionsArr, searchValue, onChange, placeholder 
                 </div>
                 {/* {optionsArr && <OptionsContainer optionsArr={optionsArr} />} */}
             </SFlexContainer>
-            {table}
+            {children}
         </SCardContainer>
     );
 };
