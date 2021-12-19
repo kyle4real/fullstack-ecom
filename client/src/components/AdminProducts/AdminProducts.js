@@ -63,7 +63,7 @@ const AdminProducts = () => {
         "variantCount",
     ];
 
-    const addButton = <Button fixed>Add Product</Button>;
+    const addButton = <Button>Add Product</Button>;
     return (
         <TableContainer placeholder={"Search Products"} title={"Products"} addButton={addButton}>
             <Table
