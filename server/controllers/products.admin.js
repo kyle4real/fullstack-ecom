@@ -1,5 +1,6 @@
 import Product from "../models/Product.js";
 import Variant from "../models/Variant.js";
+import Collection from "../models/Collection.js";
 import asyncHandler from "../middleware/async.js";
 import cloudinary from "../config/cloudinary.js";
 import ErrorResponse from "../utils/errorResponse.js";
@@ -45,8 +46,15 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
     if (req.body.hasOwnProperty("variants")) {
         const updatedVariants = await updateProductVariants(req, res, next);
         product.variants = updatedVariants;
-        res.status(200).json({ success: true, data: product });
-    } else res.status(200).json({ success: true, data: product });
+    }
+    if (req.body.hasOwnProperty("collections")) {
+        await updateProductInCollections(req, res, next);
+    }
+    res.status(200).json({ success: true, data: product });
+});
+
+const updateProductInCollections = asyncHandler(async (req, res, next) => {
+    const collectionsArr = req.body.collections;
 });
 
 const updateProductVariants = asyncHandler(async (req, res, next) => {

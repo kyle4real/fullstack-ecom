@@ -61,3 +61,16 @@ export const arraysEqual = (a, b) => {
     }
     return true;
 };
+
+export const prepareCollectionsEdits = (initial, updated, collections) => {
+    const collectionsHash = collections.reduce((r, v) => ({ ...r, [v.title]: v }), {});
+    const arr = initial
+        .filter((x) => !updated.includes(x))
+        .map((x) => ({ _id: collectionsHash[x]._id, title: x, include: false }))
+        .concat(
+            updated
+                .filter((x) => !initial.includes(x))
+                .map((x) => ({ _id: collectionsHash[x]._id, title: x, include: true }))
+        );
+    return arr;
+};

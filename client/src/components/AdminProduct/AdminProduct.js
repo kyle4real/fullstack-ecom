@@ -18,6 +18,7 @@ import {
     onCollectionsEdit,
     onProductEdit,
     onVariantEdit,
+    prepareCollectionsEdits,
 } from "./helpers";
 import { updateProduct } from "../../app/actions/product-actions_admin";
 import MediaGrid from "./MediaGrid/MediaGrid";
@@ -48,7 +49,8 @@ const AdminProduct = () => {
         setCollectionsArr(initialProductCollections);
     };
     const onSaveHandler = () => {
-        if (!variantFormEdits && !productFormEdits) return;
+        const collectionsEdits = !arraysEqual(initialProductCollections, collectionsArr);
+        if (!variantFormEdits && !productFormEdits && !collectionsEdits) return;
         const productObj = productFormEdits ? { ...productFormEdits } : {};
         if (variantFormEdits) {
             var variants = Object.keys(variantFormEdits).reduce((r, v) => {
@@ -56,11 +58,20 @@ const AdminProduct = () => {
             }, []);
             productObj.variants = variants;
         }
-        dispatch(
-            updateProduct(product._id, productObj, () => {
-                onCancelHandler();
-            })
-        );
+        if (collectionsEdits) {
+            const collections = prepareCollectionsEdits(
+                initialProductCollections,
+                collectionsArr,
+                collectionsTitles
+            );
+            productObj.collections = collections;
+        }
+        console.log(productObj);
+        // dispatch(
+        //     updateProduct(product._id, productObj, () => {
+        //         onCancelHandler();
+        //     })
+        // );
     };
 
     const productEditHandler = (e) => {
@@ -73,13 +84,15 @@ const AdminProduct = () => {
         setCollectionsArr((prevState) => collectionsChange(prevState, option));
     };
 
-    useEffect(() => {
-        console.log(collectionsArr);
-    }, [collectionsArr]);
+    // useEffect(() => {
+    //     console.log(collectionsArr);
+    // }, [collectionsArr]);
 
     const edits = useMemo(() => {
-        var edits = !!variantFormEdits || !!productFormEdits;
-        edits = !arraysEqual(initialProductCollections, collectionsArr);
+        var edits =
+            !!variantFormEdits ||
+            !!productFormEdits ||
+            !arraysEqual(initialProductCollections, collectionsArr);
         return edits;
     }, [variantFormEdits, productFormEdits, collectionsArr, initialProductCollections]);
     const loading = productLoading;
