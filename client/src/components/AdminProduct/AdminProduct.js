@@ -40,8 +40,15 @@ const AdminProduct = () => {
     const [productFormEdits, setProductFormEdits] = useState(null);
     const [variantFormEdits, setVariantFormEdits] = useState(null);
 
-    const initialProductCollections = product.collections.reduce((r, v) => [...r, v.title], []);
+    const initialProductCollections = useMemo(
+        () => product.collections.reduce((r, v) => [...r, v.title], []),
+        [product.collections]
+    );
     const [collectionsArr, setCollectionsArr] = useState(initialProductCollections);
+    useEffect(() => {
+        console.log(initialProductCollections);
+        setCollectionsArr(initialProductCollections);
+    }, [initialProductCollections]);
 
     const onCancelHandler = () => {
         setProductFormEdits(null);
@@ -69,7 +76,8 @@ const AdminProduct = () => {
 
         dispatch(
             updateProduct(product._id, productObj, () => {
-                onCancelHandler();
+                setProductFormEdits(null);
+                setVariantFormEdits(null);
             })
         );
     };
@@ -192,6 +200,7 @@ const AdminProduct = () => {
                                     []
                                 );
                                 const label = value.length ? value.join(", ") : "None Selected";
+                                console.log("value", value);
                                 return (
                                     <DropdownSelect
                                         noClear

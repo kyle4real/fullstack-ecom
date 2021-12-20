@@ -49,7 +49,8 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
         product.variants = updatedVariants;
     }
     if (req.body.hasOwnProperty("collections")) {
-        await updateProductInCollections(req, res, next);
+        const updatedCollections = await updateProductInCollections(req, res, next);
+        product = await Product.findById(req.params.id).populate("collections");
     }
     res.status(200).json({ success: true, data: product });
 });
@@ -92,6 +93,8 @@ const updateProductInCollections = asyncHandler(async (req, res, next) => {
                 }),
         Promise.resolve()
     );
+
+    return collections;
 });
 
 const updateProductVariants = asyncHandler(async (req, res, next) => {

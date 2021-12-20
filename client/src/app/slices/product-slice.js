@@ -29,6 +29,7 @@ const productSlice = createSlice({
                         state.product.variants[variantIndex] = variant;
                     }
                 } else if (key === "collections") {
+                    console.log(data.data[key]);
                     state.product.collections = data.data[key];
                 } else {
                     state.product[key] = data.data[key];

@@ -26,6 +26,7 @@ export const updateProduct = (productId, productObj, callback) => {
                 data = actorlyMediaToVariantPopulate({ ...data.data, media });
             }
             const updateKeys = Object.keys(productObj);
+            console.log(data.data);
             dispatch(productActions.updateProduct({ data, updateKeys }));
         } catch (error) {
             console.log(error);
