@@ -98,15 +98,16 @@ export const SContent = styled.div`
 
     @media ${b.sm} {
         padding: 0;
+        margin-left: ${v.mdSpacing};
     }
 
     @media ${b.md} {
         margin-top: 0;
-        margin-left: 30px;
+        margin-left: ${v.lgSpacing};
     }
 
     @media ${b.lg} {
-        margin-left: 60px;
+        margin-left: ${v.xlSpacing};
     }
 `;
 
@@ -145,7 +146,7 @@ export const SCollectionName = styled.span`
     display: block;
     font-weight: 400;
 
-    color: ${({ theme }) => theme.primaryLight};
+    color: ${({ theme }) => theme.primary};
 
     font-size: 14px;
     @media ${b.sm} {
@@ -159,7 +160,7 @@ export const SVariantSelect = styled(SSelect)`
 
 export const SVariantSelection = styled.div`
     padding-bottom: ${v.mdSpacing};
-    border-bottom: 1px solid ${({ theme }) => theme.primaryLighter};
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
 `;
 
 export const SContentBUTTONS = styled.div`
@@ -192,10 +193,10 @@ export const SButtonFIXED = styled.div`
 `;
 
 export const SContentCARD = styled.div`
-    background: ${({ theme }) => theme.bg3};
-    border-radius: ${v.borderRadius};
+    /* background: ${({ theme }) => theme.bg};
+    border-radius: ${v.borderRadius}; */
     margin: ${v.lgSpacing} 0;
-    padding: ${v.lgSpacing};
+    /* padding: ${v.lgSpacing}; */
 `;
 export const SCardSpanControl = styled.div`
     display: flex;

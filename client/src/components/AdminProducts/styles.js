@@ -21,8 +21,9 @@ export const STDImage = styled.td`
 `;
 
 export const SImageContainer = styled.div`
-    width: 35px;
+    width: 64px;
     display: flex;
+    margin: ${v.smSpacing};
 `;
 
 export const SImage = styled.img`

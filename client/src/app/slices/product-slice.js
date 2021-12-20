@@ -20,8 +20,7 @@ const productSlice = createSlice({
             const { data, updateKeys } = action.payload;
             for (let i = 0; i < updateKeys.length; i++) {
                 const key = updateKeys[i];
-                if (key !== "variants") state.product[key] = data.data[key];
-                else {
+                if (key === "variants") {
                     for (let j = 0; j < data.data[key].length; j++) {
                         const variant = data.data[key][j];
                         const variantIndex = state.product.variants.findIndex(
@@ -29,6 +28,10 @@ const productSlice = createSlice({
                         );
                         state.product.variants[variantIndex] = variant;
                     }
+                } else if (key === "collections") {
+                    state.product.collections = data.data[key];
+                } else {
+                    state.product[key] = data.data[key];
                 }
             }
         },

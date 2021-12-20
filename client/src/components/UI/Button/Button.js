@@ -1,26 +1,13 @@
 import React from "react";
 import { SButton } from "./styles";
 
-const Button = ({
-    children,
-    onClick,
-    secondary,
-    fixed,
-    secondaryRadius,
-    absolute,
-    bg,
-    font,
-    ...restOfProps
-}) => {
+const Button = ({ children, onClick, secondary, absolute, style, ...restOfProps }) => {
     return (
         <SButton
+            style={style ? style : {}}
             onClick={onClick && onClick}
             secondary={secondary}
-            fixed={fixed}
-            secondaryRadius={secondaryRadius}
             absolute={absolute}
-            bg={bg}
-            font={font}
             {...restOfProps}
         >
             {children}

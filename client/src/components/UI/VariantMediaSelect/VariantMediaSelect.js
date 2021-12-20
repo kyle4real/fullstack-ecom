@@ -85,18 +85,17 @@ const VariantMediaSelect = ({ product, variantSelect, onCancel, loading }) => {
                 <SBottomBar>
                     <SVariantTitle>{variant.title}</SVariantTitle>
                     <SButtonContainer>
-                        <Button fixed secondary onClick={onCancel}>
+                        <Button secondary onClick={onCancel} style={{ width: "100%" }}>
                             Cancel
                         </Button>
-                        <Button fixed secondary absolute>
+                        <Button secondary absolute style={{ width: "100%" }}>
                             Add Image
                             <ImageInput productId={product._id} />
                         </Button>
                         <Button
-                            fixed
-                            secondaryRadius
                             disabled={!edited}
                             onClick={updateVariantMediaHandler}
+                            style={{ width: "100%" }}
                         >
                             {!loading ? "Save" : <Loading />}
                         </Button>
