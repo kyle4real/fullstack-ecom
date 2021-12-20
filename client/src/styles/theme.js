@@ -3,6 +3,7 @@ export const lightTheme = {
     text2: "rgb(41, 41, 41)",
     textFade: "rgba(18,18,18,.4)",
     textLight: "rgb(250, 250, 250)",
+    textLightFade: "rgba(250, 250, 250, .4)",
     textDark: "#000",
     textSecondary: "rgb(250, 250, 250)",
     textSecondary2: "rgb(235, 235, 235)",

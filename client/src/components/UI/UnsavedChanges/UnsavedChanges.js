@@ -8,7 +8,7 @@ import {
     SUnsavedChangesTitle,
 } from "./styles";
 
-const UnsavedChanges = ({ show, loading, onSave, onCancel }) => {
+const UnsavedChanges = ({ show, loading, onSave, onCancel, saveDisabled }) => {
     return (
         <SUnsavedChanges className={show ? "top-0" : ""}>
             <SUnsavedChangedContent className={"unsaved-changes-content"}>
@@ -17,7 +17,7 @@ const UnsavedChanges = ({ show, loading, onSave, onCancel }) => {
                     <Button fixed secondary onClick={onCancel}>
                         Discard
                     </Button>
-                    <Button fixed onClick={onSave}>
+                    <Button fixed onClick={onSave} disabled={saveDisabled}>
                         {!loading ? "Save" : <Loading />}
                     </Button>
                 </SButtonContainer>

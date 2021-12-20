@@ -24,6 +24,14 @@ export const SButton = styled.button`
     :hover {
         background: ${({ theme, secondary, bg }) => (!secondary ? theme.primaryLight : theme.bg)};
     }
+    :disabled {
+        color: ${({ theme }) => theme.textLightFade};
+        cursor: initial;
+        :hover {
+            background: ${({ theme, secondary, bg }) =>
+                !secondary ? theme.primary : "transparent"};
+        }
+    }
 `;
 
 export const SAddButton = styled.button`

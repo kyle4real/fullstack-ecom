@@ -8,6 +8,7 @@ import ProtectedRoute from "../routes/ProtectedRoute";
 import AdminCollectionPage from "./AdminCollectionPage";
 import AdminCollectionsPage from "./AdminCollectionsPage";
 import AdminOrdersPage from "./AdminOrdersPage";
+import AdminProductNewPage from "./AdminProductNewPage";
 import AdminProductPage from "./AdminProductPage";
 import AdminProductsPage from "./AdminProductsPage";
 import CredentialsPage from "./CredentialsPage";
@@ -33,6 +34,9 @@ const AccountPage = () => {
             {/* PRODUCTS */}
             <ProtectedRoute exact path={`${path}/admin/products`} roles={["admin"]}>
                 <AdminProductsPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${path}/admin/products/new`} roles={["admin"]}>
+                <AdminProductNewPage />
             </ProtectedRoute>
             <ProtectedRoute exact path={`${path}/admin/products/:product`} roles={["admin"]}>
                 <AdminProductPage />
