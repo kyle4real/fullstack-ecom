@@ -1,11 +1,11 @@
 import React from "react";
 import { SDollarSign, SPriceInput, SPriceInputContainer } from "./styles";
 
-const priceFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-});
+// const priceFormatter = new Intl.NumberFormat("en-US", {
+//     style: "currency",
+//     currency: "USD",
+//     minimumFractionDigits: 2,
+// });
 
 const PriceInput = ({ value, name, onChange, placeholder }) => {
     const onChangeHandler = (e) => {

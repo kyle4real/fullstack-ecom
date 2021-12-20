@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { uiActions } from "../../app/slices/ui-slice";
-import { missingImg } from "../../assets";
 
 import useDetectClickaway from "../../hooks/useClickAway";
 import Button from "../UI/Button/Button";

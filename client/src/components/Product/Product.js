@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, useRouteMatch } from "react-router";
+import { useHistory, useRouteMatch } from "react-router";
 import { missingImg } from "../../assets";
 import { cartActions } from "../../app/slices/cart-slice";
 
@@ -47,7 +47,6 @@ import { SCardContainer } from "../UI/Containers/styles";
 
 const Product = () => {
     const dispatch = useDispatch();
-    const params = useParams();
     const history = useHistory();
     const query = useQuery();
     const { url } = useRouteMatch();

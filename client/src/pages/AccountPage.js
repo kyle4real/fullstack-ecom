@@ -13,7 +13,7 @@ import AdminProductsPage from "./AdminProductsPage";
 import CredentialsPage from "./CredentialsPage";
 
 const AccountPage = () => {
-    const { path, url } = useRouteMatch();
+    const { path } = useRouteMatch();
 
     return (
         <Switch>

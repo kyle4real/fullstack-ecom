@@ -5,7 +5,7 @@ import { SProductDisplayGrid } from "./styles";
 
 import { SCardContainer } from "../UI/Containers/styles";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
-import { SFormControl, SInput, SLabel, SSelect, SSelectOption, STextArea } from "../UI/Form/styles";
+import { SFormControl, SInput, SLabel, STextArea } from "../UI/Form/styles";
 
 import { useMemo } from "react";
 
@@ -15,7 +15,6 @@ import VariantsTable from "./VariantsTable/VariantsTable";
 import {
     arraysEqual,
     collectionsChange,
-    onCollectionsEdit,
     onProductEdit,
     onVariantEdit,
     prepareCollectionsEdits,
@@ -25,11 +24,11 @@ import MediaGrid from "./MediaGrid/MediaGrid";
 import DropdownSelect from "../UI/DropdownSelect/DropdownSelect";
 import { useEffect } from "react";
 
-const priceFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-});
+// const priceFormatter = new Intl.NumberFormat("en-US", {
+//     style: "currency",
+//     currency: "USD",
+//     minimumFractionDigits: 2,
+// });
 
 const AdminProduct = () => {
     const dispatch = useDispatch();
@@ -45,10 +44,7 @@ const AdminProduct = () => {
         [product.collections]
     );
     const [collectionsArr, setCollectionsArr] = useState(initialProductCollections);
-    useEffect(() => {
-        console.log(initialProductCollections);
-        setCollectionsArr(initialProductCollections);
-    }, [initialProductCollections]);
+    useEffect(() => setCollectionsArr(initialProductCollections), [initialProductCollections]);
 
     const onCancelHandler = () => {
         setProductFormEdits(null);
@@ -218,23 +214,5 @@ const AdminProduct = () => {
         </>
     );
 };
-
-// <SMainImageContainer
-//                                 onClick={() =>
-//                                     productImages && setImageFocus(product?.media?.[0]?.url)
-//                                 }
-//                             >
-//                                 <SMainImage src={product?.media?.[0]?.url || missingImg} />
-//                                 <SImageOverlay />
-//                                 {/* {!productImages && <ImageInput id={id} />} */}
-//                             </SMainImageContainer>
-//                             <SImagesContainer>
-//                                 {slicedProductImages.map(({ url }, index) => (
-//                                     <SImageContainer key={index} onClick={() => setImageFocus(url)}>
-//                                         <SMainImage src={url} />
-//                                         <SImageOverlay />
-//                                     </SImageContainer>
-//                                 ))}
-//                             </SImagesContainer>
 
 export default AdminProduct;

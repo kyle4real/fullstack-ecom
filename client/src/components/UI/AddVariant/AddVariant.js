@@ -2,7 +2,6 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addVariant } from "../../../app/actions/product-actions_admin";
 import useDetectClickaway from "../../../hooks/useClickAway";
-import { s } from "../../../styles/variables";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../components.styles";
 import { SCardContainer, SFixedContainer } from "../Containers/styles";
 import Form from "../Form/Form";

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { missingImg } from "../../assets";
 import Button from "../UI/Button/Button";
 import { STDContained } from "../UI/Table/styles";

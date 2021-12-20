@@ -1,16 +1,11 @@
 import styled, { css } from "styled-components";
 
-import { v, s, b } from "./../../styles/variables";
+import { v, b } from "./../../styles/variables";
 
 import { Link } from "react-router-dom";
 
 import { BiMenu } from "react-icons/bi";
-import {
-    AiOutlineClose,
-    AiOutlineShoppingCart,
-    AiOutlineLeft,
-    AiOutlineRight,
-} from "react-icons/ai";
+import { AiOutlineClose, AiOutlineShoppingCart } from "react-icons/ai";
 import { IoPersonOutline } from "react-icons/io5";
 
 const height = css`

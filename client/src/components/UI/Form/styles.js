@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { btnReset, v } from "../../../styles/variables";
+import { v } from "../../../styles/variables";
 
 export const inputStyles = css`
     font-family: inherit;

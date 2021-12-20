@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import EmptyCart from "../UI/EmptyCart/EmptyCart";
 import QuantitySelection from "../UI/QuantitySelection/QuantitySelection";
 
@@ -21,7 +21,6 @@ import {
 } from "./styles";
 
 const Cart = () => {
-    const dispatch = useDispatch();
     const { firstName } = useSelector((state) => state.auth);
     const { cart } = useSelector((state) => state.cart);
 

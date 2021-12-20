@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { v, s } from "../../../styles/variables";
+import { v } from "../../../styles/variables";
 
 export const SNavItemContainer = styled.div`
     /* :not(:last-child) {

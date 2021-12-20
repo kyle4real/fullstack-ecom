@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { v, b, btnReset } from "./../../../styles/variables";
+import { v, btnReset } from "./../../../styles/variables";
 
 export const SButton = styled.button`
     ${btnReset};

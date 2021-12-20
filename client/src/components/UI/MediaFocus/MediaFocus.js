@@ -1,6 +1,5 @@
 import React from "react";
 import { useRef } from "react";
-import { useState } from "react";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { deleteMedia } from "../../../app/actions/product-actions_admin";

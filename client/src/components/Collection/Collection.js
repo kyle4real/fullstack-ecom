@@ -56,7 +56,7 @@ const Collection = () => {
                         <STable>
                             <STBody>
                                 {trArr.map((product, index) => {
-                                    const productId = product._id;
+                                    // const productId = product._id;
                                     const src = product.image?.url || missingImg;
                                     return (
                                         <Fragment key={index}>
