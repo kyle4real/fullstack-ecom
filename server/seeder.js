@@ -85,6 +85,7 @@ const deleteData = async () => {
             await Product.deleteMany();
             await Media.deleteMany();
             await Variant.deleteMany();
+            await Collection.deleteMany();
 
             resolve();
         } catch (error) {

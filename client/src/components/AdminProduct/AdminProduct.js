@@ -66,12 +66,12 @@ const AdminProduct = () => {
             );
             productObj.collections = collections;
         }
-        console.log(productObj);
-        // dispatch(
-        //     updateProduct(product._id, productObj, () => {
-        //         onCancelHandler();
-        //     })
-        // );
+
+        dispatch(
+            updateProduct(product._id, productObj, () => {
+                onCancelHandler();
+            })
+        );
     };
 
     const productEditHandler = (e) => {

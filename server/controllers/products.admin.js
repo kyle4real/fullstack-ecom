@@ -4,6 +4,7 @@ import Collection from "../models/Collection.js";
 import asyncHandler from "../middleware/async.js";
 import cloudinary from "../config/cloudinary.js";
 import ErrorResponse from "../utils/errorResponse.js";
+import mongoose from "mongoose";
 
 // @desc    Get products
 // @route   GET /admin/products/
@@ -55,6 +56,42 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
 
 const updateProductInCollections = asyncHandler(async (req, res, next) => {
     const collectionsArr = req.body.collections;
+    console.log(collectionsArr);
+
+    const updateCollection = async (v) => {
+        return new Promise((resolve, reject) => {
+            const update = v.include
+                ? { $push: { products: req.params.id } }
+                : { $pull: { products: req.params.id } };
+            Collection.findByIdAndUpdate(
+                v._id,
+                update,
+                { runValidators: true, new: true },
+                (err, result) => {
+                    console.log(result);
+                    if (err) return reject(err);
+                    else return resolve(result);
+                }
+            );
+        });
+    };
+
+    const collections = [];
+    await collectionsArr.reduce(
+        (r, v) =>
+            r
+                .then(() => {
+                    return updateCollection(v);
+                })
+                .then((res) => {
+                    if (v.include) collections.push(res);
+                    return;
+                })
+                .catch((err) => {
+                    return next(new ErrorResponse(`${err}`, 400));
+                }),
+        Promise.resolve()
+    );
 });
 
 const updateProductVariants = asyncHandler(async (req, res, next) => {
