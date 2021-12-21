@@ -1,6 +1,10 @@
 import express from "express";
 
-import { getCollection, getCollections } from "../controllers/collections.admin.js";
+import {
+    getCollection,
+    getCollections,
+    updateCollection,
+} from "../controllers/collections.admin.js";
 import Collection from "../models/Collection.js";
 
 // Middleware
@@ -12,6 +16,6 @@ const router = express.Router();
 router.use(protect);
 
 router.route("/").get(advancedResults(Collection), getCollections);
-router.route("/:id").get(getCollection);
+router.route("/:id").get(getCollection).put(updateCollection);
 
 export default router;
