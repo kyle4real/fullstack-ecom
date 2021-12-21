@@ -15,6 +15,25 @@ export const getCollection = (collectionId, { onComplete, onError }) => {
     };
 };
 
+export const createCollection = (collectionObj, callback) => {
+    return async (dispatch) => {
+        let collectionId = null;
+        try {
+            let { data } = await api.createCollection(collectionObj);
+            const collectionCpy = { ...data.data };
+            delete collectionCpy.products;
+            data = { data: collectionCpy };
+            dispatch(collectionsActions.addCollectionsTitle({ data }));
+
+            collectionId = data.data._id;
+        } catch (error) {
+            console.log(error);
+        } finally {
+            callback && callback(collectionId);
+        }
+    };
+};
+
 export const updateCollection = (collectionId, collectionObj, callback) => {
     return async (dispatch) => {
         try {

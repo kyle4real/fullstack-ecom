@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { createCollection } from "../../app/actions/collection-actions";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
 import { SCardContainer } from "../UI/Containers/styles";
 import { SFormControl, SInput, SLabel, STextArea } from "../UI/Form/styles";
@@ -23,7 +24,13 @@ const CollectionNew = () => {
         setCollectionForm((p) => ({ ...p, [name]: value }));
     };
 
-    const onSaveHandler = () => {};
+    const onSaveHandler = () => {
+        dispatch(
+            createCollection(collectionForm, (collectionId) => {
+                history.push(`/account/admin/collections/${collectionId}`);
+            })
+        );
+    };
 
     const onCancelHandler = () => history.goBack();
 

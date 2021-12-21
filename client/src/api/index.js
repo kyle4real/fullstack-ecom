@@ -82,3 +82,6 @@ export const getCollection = (collectionId) => {
 export const updateCollection = (collectionId, collectionObj) => {
     return API.put(`${adminPath}${collectionsPath}/${collectionId}`, collectionObj);
 };
+export const createCollection = (collectionObj) => {
+    return API.post(`${adminPath}${collectionsPath}/`, collectionObj);
+};

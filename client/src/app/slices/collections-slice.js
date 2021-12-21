@@ -30,6 +30,10 @@ const collectionsSlice = createSlice({
                 state.collectionsTitles[collectionIndex][key] = data.data[key];
             }
         },
+        addCollectionsTitle(state, action) {
+            const { data } = action.payload;
+            state.collectionsTitles.push(data.data);
+        },
     },
 });
 
