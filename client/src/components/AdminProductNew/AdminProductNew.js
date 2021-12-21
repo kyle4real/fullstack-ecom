@@ -32,7 +32,7 @@ const AdminProductNew = () => {
     const onSaveHandler = () => {
         dispatch(
             createProduct(productForm, (productId) => {
-                history.push(`/account/admin/products/${productId}`);
+                history.replace(`/account/admin/products/${productId}`);
             })
         );
     };

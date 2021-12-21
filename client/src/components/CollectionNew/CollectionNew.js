@@ -27,7 +27,7 @@ const CollectionNew = () => {
     const onSaveHandler = () => {
         dispatch(
             createCollection(collectionForm, (collectionId) => {
-                history.push(`/account/admin/collections/${collectionId}`);
+                history.replace(`/account/admin/collections/${collectionId}`);
             })
         );
     };
