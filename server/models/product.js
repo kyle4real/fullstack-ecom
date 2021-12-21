@@ -15,14 +15,6 @@ const ProductSchema = new mongoose.Schema(
     }
 );
 
-// ProductSchema.pre("save", function (next) {
-//     this.sku = this.title
-//         .split(" ")
-//         .map((p) => p.toLowerCase())
-//         .join("-");
-//     next();
-// });
-
 ProductSchema.virtual("variants", {
     ref: "Variant",
     localField: "_id",
