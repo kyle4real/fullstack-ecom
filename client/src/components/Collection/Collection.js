@@ -6,6 +6,7 @@ import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.style
 import { SCardContainer } from "../UI/Containers/styles";
 import { SFormControl, SInput, SLabel, STextArea } from "../UI/Form/styles";
 import { STable, STBody, STBodyTR, STD } from "../UI/Table/styles";
+import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 import { onCollectionEdit } from "./helpers";
 import {
     SCloseIcon,
@@ -21,12 +22,25 @@ const Collection = () => {
 
     const [collectionFormEdtis, setCollectionFormEdits] = useState(null);
 
+    const onSaveHandler = () => {};
+    const onCancelHandler = () => {
+        setCollectionFormEdits(null);
+    };
+
     const collectionEditHandler = (e) => {
         setCollectionFormEdits((prevState) => onCollectionEdit(prevState, e, collection));
     };
 
+    const edits = !!collectionFormEdtis;
     return (
         <>
+            <UnsavedChanges
+                show={edits}
+                // loading={loading}
+                // saveDisabled={!edits}
+                onSave={onSaveHandler}
+                onCancel={onCancelHandler}
+            />
             <SCollection>
                 <SCardContainer>
                     <SSectionHeadContainer>
