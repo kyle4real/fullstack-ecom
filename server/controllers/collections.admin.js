@@ -24,6 +24,18 @@ export const getCollection = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: collection });
 });
 
+// @desc    Create collection
+// @route   POST /admin/collections/
+// @access  Private
+export const createCollection = asyncHandler(async (req, res, next) => {
+    req.body.slug = req.body.title
+        .split(" ")
+        .map((p) => p.toLowerCase())
+        .join("-");
+    let collection = await Collection.create(req.body);
+    res.status(200).json({ success: true, data: collection });
+});
+
 // @desc    Update collection
 // @route   PUT /admin/collections/:id
 // @access  Private
