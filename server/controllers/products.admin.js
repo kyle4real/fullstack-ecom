@@ -30,8 +30,21 @@ export const getProduct = asyncHandler(async (req, res, next) => {
 // @route   POST /admin/products/
 // @access  Private
 export const createProduct = asyncHandler(async (req, res, next) => {
-    var product = new Product(req.body);
-    product = await product.save();
+    req.body.sku = req.body.title
+        .split(" ")
+        .map((p) => p.toLowerCase())
+        .join("-");
+    var product = await Product.create(req.body);
+    var variantBody = {
+        title: "Default Title",
+        price: req.body.price,
+        compare_at_price: req.body.compare_at_price,
+        product: product._id,
+    };
+    var variant = new Variant(variantBody);
+    variant = await variant.save();
+
+    product.variants = [variant];
     res.status(200).json({ success: true, data: product });
 });
 
