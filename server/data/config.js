@@ -7,6 +7,12 @@ export const artists = [
     "sublime",
     "2pac",
     "queen",
+    "prince",
+    "pink-floyd-animals",
+    "drake",
+    "bruce-springsteen",
+    "misfits",
+    "johnny-cash",
 ];
 export const backdrops = [
     { backdrop: "yellow", order: 3 },
