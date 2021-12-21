@@ -5,6 +5,7 @@ import Account from "../components/Account/Account";
 
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 import ProtectedRoute from "../routes/ProtectedRoute";
+import AdminCollectionNewPage from "./AdminCollectionNewPage";
 import AdminCollectionPage from "./AdminCollectionPage";
 import AdminCollectionsPage from "./AdminCollectionsPage";
 import AdminOrdersPage from "./AdminOrdersPage";
@@ -44,6 +45,9 @@ const AccountPage = () => {
             {/* COLLECTIONS */}
             <ProtectedRoute exact path={`${path}/admin/collections`} roles={["admin"]}>
                 <AdminCollectionsPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path={`${path}/admin/collections/new`} roles={["admin"]}>
+                <AdminCollectionNewPage />
             </ProtectedRoute>
             <ProtectedRoute exact path={`${path}/admin/collections/:collection`} roles={["admin"]}>
                 <AdminCollectionPage />

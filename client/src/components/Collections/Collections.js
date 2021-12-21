@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import Button from "../UI/Button/Button";
 
 import Table from "../UI/Table/Table";
@@ -8,6 +8,7 @@ import TableContainer from "../UI/TableContainer/TableContainer";
 
 const Collections = () => {
     const { url } = useRouteMatch();
+    const history = useHistory();
 
     const { collections } = useSelector((state) => state.collections);
 
@@ -18,7 +19,7 @@ const Collections = () => {
     const displayKeys = ["title", "productCount"];
     const thArr = ["Title", "Products"];
 
-    const addButton = <Button>Add Collection</Button>;
+    const addButton = <Button onClick={() => history.push(`${url}/new`)}>Add Collection</Button>;
     return (
         <TableContainer
             placeholder={"Search Collections"}
