@@ -39,15 +39,29 @@ const ProductsGrid = () => {
         <SProductsGrid>
             <SGrid>
                 {products?.map?.(({ title, tags, variants, sku, image }, index) => {
-                    const { price, compareAtPrice } = variants.reduce(
-                        (r, v) =>
-                            v.price < r.price
-                                ? { price: v.price, compareAtPrice: v.compare_at_price }
-                                : r,
-                        { price: variants[0].price, compareAtPrice: variants[0].compare_at_price }
-                    );
+                    let price = null;
+                    let compareAtPrice = null;
+                    if (!!variants.length) {
+                        const priceObj = variants.reduce(
+                            (r, v) =>
+                                v.price < r.price
+                                    ? { price: v.price, compareAtPrice: v.compare_at_price }
+                                    : r,
+                            {
+                                price: variants[0].price,
+                                compareAtPrice: variants[0].compare_at_price,
+                            }
+                        );
+                        price = priceObj.price;
+                        compareAtPrice = priceObj.compareAtPrice;
+                    }
 
-                    const hasSale = price !== compareAtPrice;
+                    const hasSale = price && compareAtPrice && price !== compareAtPrice;
+                    console.log(price, compareAtPrice);
+                    const percentOff = !hasSale
+                        ? undefined
+                        : Math.round((1 - price / compareAtPrice) * 100);
+                    price = price ? priceFormatter.format(price) : "N/A";
                     return (
                         <SGridItem key={index}>
                             <SImageContainer onClick={() => productSelectHandler(sku)}>
@@ -75,13 +89,10 @@ const ProductsGrid = () => {
                                     {hasSale && (
                                         <SSaleTag>
                                             <SSaleIcon />
-                                            <SSalePercentage>
-                                                {Math.round((1 - price / compareAtPrice) * 100)}%
-                                                off
-                                            </SSalePercentage>
+                                            <SSalePercentage>{percentOff}% off</SSalePercentage>
                                         </SSaleTag>
                                     )}
-                                    <SPrice>{priceFormatter.format(price)}</SPrice>
+                                    <SPrice>{price}</SPrice>
                                 </SInfoControl>
                                 <SInfoControl>
                                     <STitle>{title}</STitle>

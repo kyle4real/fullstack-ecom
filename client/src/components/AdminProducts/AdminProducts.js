@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { useRouteMatch } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { missingImg } from "../../assets";
 import Button from "../UI/Button/Button";
 import { STDContained } from "../UI/Table/styles";
@@ -29,6 +29,7 @@ const TableImageDisplay = ({ value }) => {
 
 const AdminProducts = () => {
     const { url } = useRouteMatch();
+    const history = useHistory();
     const { products } = useSelector((state) => state.products);
 
     const trArr = products.reduce((r, v) => {
@@ -63,7 +64,7 @@ const AdminProducts = () => {
         "variantCount",
     ];
 
-    const addButton = <Button>Add Product</Button>;
+    const addButton = <Button onClick={() => history.push(`${url}/new`)}>Add Product</Button>;
     return (
         <TableContainer placeholder={"Search Products"} title={"Products"} addButton={addButton}>
             <Table

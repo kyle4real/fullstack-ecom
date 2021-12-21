@@ -15,6 +15,20 @@ export const getProduct = (productId, { onComplete, onError }) => {
     };
 };
 
+export const createProduct = (productObj, callback) => {
+    return async (dispatch) => {
+        let productId = null;
+        try {
+            const { data } = await api.createProduct(productObj);
+            productId = data.data._id;
+        } catch (error) {
+            console.log(error);
+        } finally {
+            callback && callback(productId);
+        }
+    };
+};
+
 export const updateProduct = (productId, productObj, callback) => {
     return async (dispatch, getState) => {
         try {

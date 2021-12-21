@@ -95,11 +95,19 @@ const VariantsTable = ({ variantFormEdits, onVariantInputEdit }) => {
                                 })}
                                 <STD>
                                     <SIconsContainer>
-                                        <SIconButtonWrap
-                                            onClick={() => deleteVariantHandler(variant._id)}
-                                        >
-                                            {!loading ? <SDeleteIcon /> : <Loading />}
-                                        </SIconButtonWrap>
+                                        {(() => {
+                                            if (variants.length > 1) {
+                                                return (
+                                                    <SIconButtonWrap
+                                                        onClick={() =>
+                                                            deleteVariantHandler(variant._id)
+                                                        }
+                                                    >
+                                                        {!loading ? <SDeleteIcon /> : <Loading />}
+                                                    </SIconButtonWrap>
+                                                );
+                                            } else return undefined;
+                                        })()}
                                     </SIconsContainer>
                                 </STD>
                             </STBodyTRVariant>

@@ -22,7 +22,7 @@ export const SSearchContainer = styled.div`
 `;
 export const SSearchInput = styled.input`
     ${inputStyles};
-    padding: ${v.smSpacing} ${v.smSpacing};
+    padding: calc(${v.smSpacing} + 2px) ${v.mdSpacing};
     border: none;
 
     ::placeholder {
