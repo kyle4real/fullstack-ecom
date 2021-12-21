@@ -48,6 +48,9 @@ export const getProductById_admin = (productId) => {
 export const updateProduct_admin = (productId, productObj) => {
     return API.put(`${adminPath}${productsPath}/${productId}`, productObj);
 };
+export const createProduct = (productObj) => {
+    return API.post(`${adminPath}${productsPath}/`, productObj);
+};
 
 export const addMedia = (productId, base64Img) => {
     return API.post(`${adminPath}${productsPath}/${productId}/media`, { base64Img });

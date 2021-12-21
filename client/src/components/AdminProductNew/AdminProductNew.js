@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { createProduct } from "../../app/actions/product-actions_admin";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
 import { SCardContainer } from "../UI/Containers/styles";
 import DropdownSelect from "../UI/DropdownSelect/DropdownSelect";
@@ -29,7 +30,11 @@ const AdminProductNew = () => {
     };
 
     const onSaveHandler = () => {
-        console.log(productForm);
+        dispatch(
+            createProduct(productForm, (productId) => {
+                history.push(`/account/admin/products/${productId}`);
+            })
+        );
     };
 
     const onCancelHandler = () => history.goBack();
