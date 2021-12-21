@@ -18,6 +18,18 @@ const collectionsSlice = createSlice({
             const { data } = action.payload;
             state.collectionsTitles = data.data;
         },
+        updateCollectionsTitles(state, action) {
+            const { data } = action.payload;
+            const collectionId = data.data._id;
+            const collectionIndex = state.collectionsTitles.findIndex(
+                (item) => item._id === collectionId
+            );
+            const keys = Object.keys(state.collectionsTitles[collectionIndex]);
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                state.collectionsTitles[collectionIndex][key] = data.data[key];
+            }
+        },
     },
 });
 

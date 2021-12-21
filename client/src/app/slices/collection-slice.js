@@ -13,6 +13,13 @@ const collectionSlice = createSlice({
         resetCollection(state) {
             state.collection = null;
         },
+        updateCollection(state, action) {
+            const { data, updateKeys } = action.payload;
+            for (let i = 0; i < updateKeys.length; i++) {
+                const key = updateKeys[i];
+                state.collection[key] = data.data[key];
+            }
+        },
     },
 });
 

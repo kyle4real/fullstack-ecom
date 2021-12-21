@@ -38,6 +38,10 @@ export const getProductBySku = (productSku) => {
     return API.get(`${productsPath}/${productSku}`);
 };
 
+export const getCollectionsTitles = () => {
+    return API.get(`${collectionsPath}/titles`);
+};
+
 // ADMIN
 export const getProducts_admin = () => {
     return API.get(`${adminPath}${productsPath}/`);
@@ -69,12 +73,12 @@ export const deleteVariant = (productId, variantId) => {
     return API.delete(`${adminPath}${productsPath}/${productId}/variants/${variantId}`);
 };
 
-export const getCollectionsTitles = () => {
-    return API.get(`${collectionsPath}/titles`);
-};
 export const getCollections = () => {
     return API.get(`${adminPath}${collectionsPath}/`);
 };
 export const getCollection = (collectionId) => {
     return API.get(`${adminPath}${collectionsPath}/${collectionId}`);
+};
+export const updateCollection = (collectionId, collectionObj) => {
+    return API.put(`${adminPath}${collectionsPath}/${collectionId}`, collectionObj);
 };

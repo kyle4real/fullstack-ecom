@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateCollection } from "../../app/actions/collection-actions";
 import { missingImg } from "../../assets";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
 import { SCardContainer } from "../UI/Containers/styles";
@@ -18,11 +19,18 @@ import {
 } from "./styles";
 
 const Collection = () => {
+    const dispatch = useDispatch();
     const { collection } = useSelector((state) => state.collection);
 
     const [collectionFormEdtis, setCollectionFormEdits] = useState(null);
 
-    const onSaveHandler = () => {};
+    const onSaveHandler = () => {
+        dispatch(
+            updateCollection(collection._id, collectionFormEdtis, () => {
+                setCollectionFormEdits(null);
+            })
+        );
+    };
     const onCancelHandler = () => {
         setCollectionFormEdits(null);
     };
