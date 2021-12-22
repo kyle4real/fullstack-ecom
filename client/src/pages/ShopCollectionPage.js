@@ -32,7 +32,7 @@ const ShopCollectionPage = () => {
             layoutArr={[
                 {
                     type: "contain",
-                    component: <ProductsGrid productsArray={[]} />,
+                    component: <ProductsGrid />,
                 },
             ]}
         />
