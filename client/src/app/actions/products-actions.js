@@ -14,3 +14,17 @@ export const getProducts = ({ onComplete, onError }) => {
         }
     };
 };
+
+export const getProductsForCollection = (collectionId, { onComplete, onError }) => {
+    return async (dispatch) => {
+        try {
+            const { data } = await api.getProductsForCollection(collectionId);
+            dispatch(productsActions.replaceProducts({ data }));
+        } catch (error) {
+            console.log(error);
+            onError(error);
+        } finally {
+            onComplete();
+        }
+    };
+};

@@ -6,7 +6,7 @@ import { AiOutlineLeft, AiOutlineArrowLeft } from "react-icons/ai";
 
 export const SPageHead = styled.div`
     height: 175px;
-    background: ${({ theme }) => theme.headBg};
+    background: ${({ theme }) => theme.bg2};
 `;
 
 export const SPageHeadContent = styled.div`

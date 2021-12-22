@@ -42,6 +42,10 @@ export const getCollectionsTitles = () => {
     return API.get(`${collectionsPath}/titles`);
 };
 
+export const getProductsForCollection = (collectionId) => {
+    return API.get(`${collectionsPath}/${collectionId}/products`);
+};
+
 // ADMIN
 export const getProducts_admin = () => {
     return API.get(`${adminPath}${productsPath}/`);

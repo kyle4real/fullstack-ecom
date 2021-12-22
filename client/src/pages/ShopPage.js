@@ -8,7 +8,6 @@ import { productsActions } from "../app/slices/products-slice";
 import ProductsGrid from "../components/ProductsGrid/ProductsGrid";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
-import ShopCategoryPage from "./ShopCategoryPage";
 import ShopCollectionPage from "./ShopCollectionPage";
 
 const ShopPage = () => {
@@ -34,6 +33,7 @@ const ShopPage = () => {
                     <PageLayout
                         loading={loading}
                         error={error}
+                        head={{ title: "All Products" }}
                         layoutArr={[
                             {
                                 type: "contain",
@@ -44,9 +44,6 @@ const ShopPage = () => {
                 </Route>
                 <Route exact path={`${path}/collections/:collection`}>
                     <ShopCollectionPage />
-                </Route>
-                <Route exact path={`${path}/categories/:category`}>
-                    <ShopCategoryPage />
                 </Route>
             </Switch>
         </>
