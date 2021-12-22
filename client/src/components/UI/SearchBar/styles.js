@@ -14,11 +14,35 @@ export const SSearchBarContent = styled.div`
     height: 100%;
 
     transition: 0.3s ease padding;
-    padding: ${v.smSpacing} ${v.mdSpacing};
+    padding: 0 ${v.mdSpacing};
     @media ${b.lg} {
-        padding: ${v.smSpacing} ${v.lgSpacing};
+        padding: 0 ${v.lgSpacing};
 
         max-width: ${({ customSize }) =>
             !customSize ? s.lg : customSize === "fill" ? "initial" : s[customSize]};
+    }
+    display: flex;
+    > div {
+        :not(:last-of-type) {
+            padding-right: ${v.smSpacing};
+            margin-right: ${v.smSpacing};
+            border-right: 1px solid ${({ theme }) => theme.bg3};
+        }
+        display: flex;
+        align-items: center;
+        > select {
+            width: fit-content;
+            background: none;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+        > label {
+            margin-right: ${v.smSpacing};
+            margin-bottom: 0;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
     }
 `;

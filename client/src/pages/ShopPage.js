@@ -25,6 +25,7 @@ const ShopPage = () => {
 
     return (
         <PageLayout
+            searchBar
             loading={loading}
             error={error}
             head={{ title: "All Products" }}
