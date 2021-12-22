@@ -1,6 +1,7 @@
 import React from "react";
 import { SCardContainer, SFlexContainer } from "../Containers/styles";
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBox from "../SearchBox/SearchBox";
+
 import { STableTop, STableTopTitle } from "./styles";
 
 const TableContainer = ({
@@ -21,7 +22,7 @@ const TableContainer = ({
             <SCardContainer customPadding={"smSpacing"}>
                 <SFlexContainer style={{ justifyContent: "flex-start", paddingBottom: 8 }}>
                     <div style={{ marginRight: 8 }}>
-                        <SearchBar
+                        <SearchBox
                             placeholder={placeholder}
                             value={searchValue}
                             onChange={onChange}

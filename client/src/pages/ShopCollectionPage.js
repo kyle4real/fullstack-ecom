@@ -26,6 +26,7 @@ const ShopCollectionPage = () => {
 
     return (
         <PageLayout
+            searchBar
             loading={loading}
             error={error}
             head={{ title: collection.title }}

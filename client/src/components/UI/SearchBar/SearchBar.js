@@ -1,15 +1,13 @@
 import React from "react";
-import { SSearchContainer, SSearchIcon, SSearchInput } from "./styles";
+import { SSearchBar, SSearchBarContent } from "./styles";
 
-const SearchBar = ({ value, onChange, placeholder }) => {
-    const inputChangeHandler = (e) => {
-        onChange(e);
-    };
+const SearchBar = ({ minWidth, customSize }) => {
     return (
-        <SSearchContainer>
-            <SSearchInput placeholder={placeholder} value={value} onChange={inputChangeHandler} />
-            <SSearchIcon className="search-icon" />
-        </SSearchContainer>
+        <SSearchBar>
+            <SSearchBarContent minWidth={minWidth} customSize={customSize}>
+                Search Bar
+            </SSearchBarContent>
+        </SSearchBar>
     );
 };
 
