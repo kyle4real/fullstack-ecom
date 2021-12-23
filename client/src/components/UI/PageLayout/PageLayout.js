@@ -1,6 +1,7 @@
 import React from "react";
 import { Fragment } from "react";
 import { SCardContainer, SFixedContainer, SFlexContainer } from "../Containers/styles";
+import SearchBar from "../SearchBar/SearchBar";
 import PageHead from "./PageHead/PageHead";
 import { SErrorMessage, SPage, SPageLayout, SPageLoad } from "./styles";
 
@@ -10,7 +11,7 @@ const getDimenstionsForHead = (layout) => {
     return { customSize, minWidth };
 };
 
-const PageLayout = ({ head, layoutArr, loading, error }) => {
+const PageLayout = ({ head, layoutArr, loading, error, searchBar }) => {
     const renderContent = !loading && !error;
     const renderError = !loading && error;
 
@@ -27,6 +28,9 @@ const PageLayout = ({ head, layoutArr, loading, error }) => {
                     minWidth={headMinWidth}
                     customSize={headCustomSize}
                 />
+            )}
+            {searchBar && !renderError && (
+                <SearchBar minWidth={headMinWidth} customSize={headCustomSize} />
             )}
             <SPageLayout>
                 {renderError && (

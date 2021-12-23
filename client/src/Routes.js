@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProvisions } from "./app/actions/ui-actions";
+import ShopCollectionPage from "./pages/ShopCollectionPage";
 
 const Routes = () => {
     const dispatch = useDispatch();
@@ -39,8 +40,11 @@ const Routes = () => {
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-                <Route path="/shop">
+                <Route exact path="/shop">
                     <ShopPage />
+                </Route>
+                <Route exact path={`/shop/collections/:collection`}>
+                    <ShopCollectionPage />
                 </Route>
                 <Route exact path="/products/:product">
                     <ProductPage />

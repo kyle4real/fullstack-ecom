@@ -5,7 +5,7 @@ import { v, s, b, loadingBG } from "../../../../styles/variables";
 import { AiOutlineLeft, AiOutlineArrowLeft } from "react-icons/ai";
 
 export const SPageHead = styled.div`
-    height: 175px;
+    height: 150px;
     background: ${({ theme }) => theme.bg2};
 `;
 

@@ -1,44 +1,48 @@
 import styled from "styled-components";
 
-import { v } from "../../../styles/variables";
+import { v, s, b } from "../../../styles/variables";
 
-import { AiOutlineSearch } from "react-icons/ai";
-import { inputStyles } from "../Form/styles";
-
-export const SSearchContainer = styled.div`
-    position: relative;
-    display: block;
-    overflow: hidden;
-    border-radius: 4px;
-
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.bg3};
-    :focus-within .search-icon {
-        color: ${({ theme }) => theme.primary};
-    }
-    :focus-within {
-        box-shadow: 0 0 0 1px ${({ theme }) => theme.primary};
-    }
-    box-shadow: ${v.buttonActiveBoxShadow};
+export const SSearchBar = styled.div`
+    border-top: 1px solid ${({ theme }) => theme.bg3};
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
 `;
-export const SSearchInput = styled.input`
-    ${inputStyles};
-    padding: calc(${v.smSpacing} + 2px) ${v.mdSpacing};
-    border: none;
 
-    ::placeholder {
-        color: ${({ theme }) => theme.textFade};
+export const SSearchBarContent = styled.div`
+    min-width: ${({ minWidth }) => (!minWidth ? "initial" : s[minWidth])};
+    padding: ${v.smSpacing};
+    margin: 0 auto;
+    height: 100%;
+
+    transition: 0.3s ease padding;
+    padding: 0 ${v.mdSpacing};
+    @media ${b.lg} {
+        padding: 0 ${v.lgSpacing};
+
+        max-width: ${({ customSize }) =>
+            !customSize ? s.lg : customSize === "fill" ? "initial" : s[customSize]};
     }
-    :focus {
-        border-radius: 4px;
-        border-color: none;
+    display: flex;
+    > div {
+        :not(:last-of-type) {
+            padding-right: ${v.smSpacing};
+            margin-right: ${v.smSpacing};
+            border-right: 1px solid ${({ theme }) => theme.bg3};
+        }
+        display: flex;
+        align-items: center;
+        > select {
+            width: fit-content;
+            background: none;
+            font-size: 14px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+        > label {
+            margin-right: ${v.smSpacing};
+            margin-bottom: 0;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
     }
-`;
-export const SSearchIcon = styled(AiOutlineSearch)`
-    position: absolute;
-    font-size: 18px;
-    top: calc(50% - 9px);
-    right: ${v.smSpacing};
-    color: ${({ theme }) => theme.textFade};
-    cursor: text;
-    background: ${({ theme }) => theme.bg};
 `;

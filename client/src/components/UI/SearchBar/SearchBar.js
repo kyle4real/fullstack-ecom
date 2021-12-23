@@ -1,15 +1,31 @@
 import React from "react";
-import { SSearchContainer, SSearchIcon, SSearchInput } from "./styles";
+import { SLabel, SSelect, SSelectOption } from "../Form/styles";
+import { SSearchBar, SSearchBarContent } from "./styles";
 
-const SearchBar = ({ value, onChange, placeholder }) => {
-    const inputChangeHandler = (e) => {
-        onChange(e);
-    };
+const sortOptions = [
+    "Best Selling",
+    "Alphabetical, A-Z",
+    "Alphabetical, Z-A",
+    "Price, low to high",
+    "Price, high to low",
+    "Date, new to old",
+    "Date, old to new",
+];
+
+const SearchBar = ({ minWidth, customSize }) => {
     return (
-        <SSearchContainer>
-            <SSearchInput placeholder={placeholder} value={value} onChange={inputChangeHandler} />
-            <SSearchIcon className="search-icon" />
-        </SSearchContainer>
+        <SSearchBar>
+            <SSearchBarContent minWidth={minWidth} customSize={customSize}>
+                <div>
+                    <SLabel>Sort By</SLabel>
+                    <SSelect>
+                        {sortOptions.map((option) => (
+                            <SSelectOption>{option}</SSelectOption>
+                        ))}
+                    </SSelect>
+                </div>
+            </SSearchBarContent>
+        </SSearchBar>
     );
 };
 
