@@ -29,7 +29,7 @@ const SearchBar = ({ minWidth, customSize }) => {
             <SSearchBarContent minWidth={minWidth} customSize={customSize}>
                 <div>
                     <SLabel>Sort By</SLabel>
-                    <SSelect onChange={(e) => onChange(e)} value={query.sort_by}>
+                    <SSelect onChange={(e) => onChange(e)} value={query.get("sort_by")}>
                         {sortOptions.map(({ label, value }, index) => (
                             <SSelectOption key={index} value={value}>
                                 {label}
