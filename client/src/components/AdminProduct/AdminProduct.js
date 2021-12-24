@@ -155,14 +155,15 @@ const AdminProduct = () => {
                                 <div>
                                     <SLabel>Price</SLabel>
                                     {(() => {
+                                        const variant = product.variants[0];
                                         const value =
-                                            variantFormEdits?.["price"] ||
-                                            product.variants[0]["price"];
+                                            variantFormEdits?.[variant._id]?.["price"] ||
+                                            variant["price"];
                                         return (
                                             <PriceInput
                                                 value={value}
                                                 onChange={variantInputEditHandler}
-                                                name={"price"}
+                                                name={`${variant._id}-price`}
                                             />
                                         );
                                     })()}
@@ -170,14 +171,15 @@ const AdminProduct = () => {
                                 <div>
                                     <SLabel>Compare Price</SLabel>
                                     {(() => {
+                                        const variant = product.variants[0];
                                         const value =
-                                            variantFormEdits?.["compare_at_price"] ||
-                                            product.variants[0]["compare_at_price"];
+                                            variantFormEdits?.[variant._id]?.["compare_at_price"] ||
+                                            variant["compare_at_price"];
                                         return (
                                             <PriceInput
                                                 value={value}
                                                 onChange={variantInputEditHandler}
-                                                name={"compare_at_price"}
+                                                name={`${variant._id}-compare_at_price`}
                                             />
                                         );
                                     })()}
@@ -240,7 +242,6 @@ const AdminProduct = () => {
                                     []
                                 );
                                 const label = value.length ? value.join(", ") : "None Selected";
-                                console.log("value", value);
                                 return (
                                     <DropdownSelect
                                         noClear
