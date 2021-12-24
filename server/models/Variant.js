@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const VariantSchema = new mongoose.Schema(
     {
         title: { type: String },
-        sku: { type: String },
+        sku: { type: String, default: null },
         price: { type: Number },
         compare_at_price: { type: Number },
         product: { type: mongoose.Schema.ObjectId, ref: "Product", required: true },

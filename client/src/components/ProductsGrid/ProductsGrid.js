@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
+import useSearch from "../../hooks/useSearch";
 import {
     SComparePrice,
     SContent,
@@ -28,17 +29,17 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
 const ProductsGrid = () => {
     const history = useHistory();
     const { products } = useSelector((state) => state.products);
+    const uiProducts = useSearch(products);
+    console.log(uiProducts);
 
-    console.log(products);
-
-    const productSelectHandler = (productSku, variantId) => {
+    const productSelectHandler = (productSku) => {
         history.push(`/products/${productSku}`);
     };
 
     return (
         <SProductsGrid>
             <SGrid>
-                {products?.map?.(({ title, tags, variants, sku, image }, index) => {
+                {uiProducts?.map(({ title, tags, variants, sku, image }, index) => {
                     let price = null;
                     let compareAtPrice = null;
                     if (!!variants.length) {
@@ -67,22 +68,6 @@ const ProductsGrid = () => {
                             <SImageContainer onClick={() => productSelectHandler(sku)}>
                                 <SImage src={image?.url || missingImg} />
                             </SImageContainer>
-                            {/* <SThumbnailsContainer>
-                                <>
-                                    {thumbnails.map(({ media, sku: variantSku }, index) => {
-                                        return (
-                                            <SThumbnailImageContainer
-                                                key={index}
-                                                onClick={() =>
-                                                    productSelectHandler(sku, variantSku)
-                                                }
-                                            >
-                                                <SThumbnailImage src={media.url} />
-                                            </SThumbnailImageContainer>
-                                        );
-                                    })}
-                                </>
-                            </SThumbnailsContainer> */}
                             <SContent>
                                 <SInfoControl>
                                     {!hasSale && <STag>{tags?.[0]}</STag>}
