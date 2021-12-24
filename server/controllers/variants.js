@@ -9,9 +9,13 @@ import ErrorResponse from "../utils/errorResponse.js";
 // @route   POST /admin/products/:productId/variants
 // @access  Private
 export const addVariant = asyncHandler(async (req, res, next) => {
-    const product = await Product.findById(req.params.productId);
+    const product = await Product.findById(req.params.productId).populate("variants");
     if (!product) {
         return next(new ErrorResponse(`Resource not found with id ${req.params.productId}`));
+    }
+    // removes default variant
+    if (product.variants.length === 1 && product.variants[0].sku === null) {
+        await product.variants[0].remove();
     }
     req.body.sku = req.body.title
         .split(" ")
@@ -47,10 +51,30 @@ export const updateVariant = asyncHandler(async (req, res, next) => {
 // @route   DELETE /admin/products/:productId/variants/:id
 // @access  Private
 export const deleteVariant = asyncHandler(async (req, res, next) => {
+    var data = {};
+
+    const product = await Product.findById(req.params.productId).populate("variants");
+    if (!product) {
+        return next(new ErrorResponse(`Resource not found with id ${req.params.productId}`));
+    }
+
     const variant = await Variant.findById(req.params.id);
     if (!variant) {
         return next(new ErrorResponse(`Resouce not found with id ${req.params.id}`));
     }
     await variant.remove();
-    res.status(200).json({ success: true, data: {} });
+
+    if (product.variants.length === 1) {
+        var variantBody = {
+            title: "Default Title",
+            price: variant.price,
+            compare_at_price: variant.compare_at_price,
+            product: product._id,
+        };
+        var defaultVariant = new Variant(variantBody);
+        defaultVariant = await defaultVariant.save();
+        data = defaultVariant;
+    }
+
+    res.status(200).json({ success: true, data });
 });

@@ -32,7 +32,9 @@ const VariantsTable = ({ variantFormEdits, onVariantInputEdit, hasVariants }) =>
 
     const variantSelectHandler = (variantId) => setVariantSelect(variantId);
 
-    const deleteVariantHandler = (variantId) => dispatch(deleteVariant(product._id, variantId));
+    const deleteVariantHandler = (variantId) => {
+        dispatch(deleteVariant(product._id, variantId));
+    };
 
     const displayKeys = ["title", "price", "compare_at_price"];
     const variants = product.variants;
@@ -104,7 +106,8 @@ const VariantsTable = ({ variantFormEdits, onVariantInputEdit, hasVariants }) =>
                                     <STD>
                                         <SIconsContainer>
                                             {(() => {
-                                                if (variants.length > 1) {
+                                                // UPDATED - was variants.length > 1
+                                                if (true) {
                                                     return (
                                                         <SIconButtonWrap
                                                             onClick={() =>

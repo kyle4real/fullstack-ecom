@@ -126,8 +126,13 @@ export const deleteVariant = (productId, variantId) => {
     return async (dispatch) => {
         try {
             dispatch(productActions.setVariantLoading(variantId));
-            await api.deleteVariant(productId, variantId);
-            dispatch(productActions.deleteVariant({ variantId }));
+            const { data } = await api.deleteVariant(productId, variantId);
+            const defaultReturned = !!Object.keys(data.data).length;
+            if (!defaultReturned) {
+                dispatch(productActions.deleteVariant({ variantId }));
+            } else {
+                dispatch(productActions.replaceVariants({ data }));
+            }
         } catch (error) {
             console.log(error);
         } finally {
