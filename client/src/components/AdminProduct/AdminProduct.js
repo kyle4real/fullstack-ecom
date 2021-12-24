@@ -23,6 +23,8 @@ import { updateProduct } from "../../app/actions/product-actions_admin";
 import MediaGrid from "./MediaGrid/MediaGrid";
 import DropdownSelect from "../UI/DropdownSelect/DropdownSelect";
 import { useEffect } from "react";
+import { SPriceInputGrid } from "../AdminProductNew/styles";
+import PriceInput from "../UI/Form/PriceInput/PriceInput";
 
 // const priceFormatter = new Intl.NumberFormat("en-US", {
 //     style: "currency",
@@ -88,10 +90,6 @@ const AdminProduct = () => {
         setCollectionsArr((prevState) => collectionsChange(prevState, option));
     };
 
-    // useEffect(() => {
-    //     console.log(collectionsArr);
-    // }, [collectionsArr]);
-
     const edits = useMemo(() => {
         var edits =
             !!variantFormEdits ||
@@ -99,6 +97,11 @@ const AdminProduct = () => {
             !arraysEqual(initialProductCollections, collectionsArr);
         return edits;
     }, [variantFormEdits, productFormEdits, collectionsArr, initialProductCollections]);
+
+    // A default variant is created on product create, and when all product variants are deleted..
+    // so to check for this, we will measure the variants array length and see if the single variant
+    // has an sku value of null
+    const hasVariants = !(product.variants.length === 1 && product.variants[0].sku === null);
     const loading = productLoading;
     return (
         <>
@@ -143,21 +146,62 @@ const AdminProduct = () => {
                             })()}
                         </SFormControl>
                     </SCardContainer>
+                    {!hasVariants && (
+                        <SCardContainer>
+                            <SSectionHeadContainer>
+                                <SSectionHeadTitle>Pricing</SSectionHeadTitle>
+                            </SSectionHeadContainer>
+                            <SPriceInputGrid>
+                                <div>
+                                    <SLabel>Price</SLabel>
+                                    {(() => {
+                                        const value =
+                                            variantFormEdits?.["price"] ||
+                                            product.variants[0]["price"];
+                                        return (
+                                            <PriceInput
+                                                value={value}
+                                                onChange={variantInputEditHandler}
+                                                name={"price"}
+                                            />
+                                        );
+                                    })()}
+                                </div>
+                                <div>
+                                    <SLabel>Compare Price</SLabel>
+                                    {(() => {
+                                        const value =
+                                            variantFormEdits?.["compare_at_price"] ||
+                                            product.variants[0]["compare_at_price"];
+                                        return (
+                                            <PriceInput
+                                                value={value}
+                                                onChange={variantInputEditHandler}
+                                                name={"compare_at_price"}
+                                            />
+                                        );
+                                    })()}
+                                </div>
+                            </SPriceInputGrid>
+                        </SCardContainer>
+                    )}
                     <SCardContainer>
                         {(() => {
                             return <MediaGrid />;
                         })()}
                     </SCardContainer>
-                    <SCardContainer>
-                        {(() => {
-                            return (
-                                <VariantsTable
-                                    onVariantInputEdit={variantInputEditHandler}
-                                    variantFormEdits={variantFormEdits}
-                                />
-                            );
-                        })()}
-                    </SCardContainer>
+                    {hasVariants && (
+                        <SCardContainer>
+                            {(() => {
+                                return (
+                                    <VariantsTable
+                                        onVariantInputEdit={variantInputEditHandler}
+                                        variantFormEdits={variantFormEdits}
+                                    />
+                                );
+                            })()}
+                        </SCardContainer>
+                    )}
                 </div>
                 <div>
                     <SCardContainer>
