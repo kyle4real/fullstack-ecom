@@ -65,6 +65,10 @@ const productSlice = createSlice({
             );
             state.product.variants[variantIndex] = data.data;
         },
+        replaceVariants(state, action) {
+            const { data } = action.payload;
+            state.product.variants = [data.data];
+        },
         deleteVariant(state, action) {
             const { variantId } = action.payload;
             const variantIndex = state.product.variants.findIndex((item) => item._id === variantId);

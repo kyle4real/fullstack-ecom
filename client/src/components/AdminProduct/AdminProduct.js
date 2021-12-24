@@ -192,18 +192,17 @@ const AdminProduct = () => {
                             return <MediaGrid />;
                         })()}
                     </SCardContainer>
-                    {hasVariants && (
-                        <SCardContainer>
-                            {(() => {
-                                return (
-                                    <VariantsTable
-                                        onVariantInputEdit={variantInputEditHandler}
-                                        variantFormEdits={variantFormEdits}
-                                    />
-                                );
-                            })()}
-                        </SCardContainer>
-                    )}
+                    <SCardContainer>
+                        {(() => {
+                            return (
+                                <VariantsTable
+                                    onVariantInputEdit={variantInputEditHandler}
+                                    variantFormEdits={variantFormEdits}
+                                    hasVariants={hasVariants}
+                                />
+                            );
+                        })()}
+                    </SCardContainer>
                 </div>
                 <div>
                     <SCardContainer>

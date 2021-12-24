@@ -92,6 +92,20 @@ export const addVariant = (productId, variantObj, callback) => {
         }
     };
 };
+export const addAndReplaceVariant = (productId, variantObj, callback) => {
+    return async (dispatch) => {
+        try {
+            dispatch(productActions.setVariantLoading(true));
+            const { data } = await api.addVariant(productId, variantObj);
+            dispatch(productActions.replaceVariants({ data }));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            callback && callback();
+            dispatch(productActions.setVariantLoading(false));
+        }
+    };
+};
 export const updateVariantMedia = (productId, variantId, mediaId, callback) => {
     return async (dispatch) => {
         try {

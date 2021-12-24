@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addVariant } from "../../../app/actions/product-actions_admin";
+import { addAndReplaceVariant, addVariant } from "../../../app/actions/product-actions_admin";
 import useDetectClickaway from "../../../hooks/useClickAway";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../components.styles";
 import { SCardContainer, SFixedContainer } from "../Containers/styles";
 import Form from "../Form/Form";
 import Overlay from "../Overlay/Overlay";
 
-const AddVariant = ({ product, onCancel }) => {
+const AddVariant = ({ product, onCancel, hasVariants }) => {
     const dispatch = useDispatch();
     const { variantLoading } = useSelector((state) => state.product);
     const addVariantRef = useRef();
@@ -16,11 +16,19 @@ const AddVariant = ({ product, onCancel }) => {
     });
 
     const onSubmitHandler = (form) => {
-        dispatch(
-            addVariant(product._id, form, () => {
-                onCancel();
-            })
-        );
+        if (hasVariants) {
+            dispatch(
+                addVariant(product._id, form, () => {
+                    onCancel();
+                })
+            );
+        } else if (!hasVariants) {
+            dispatch(
+                addAndReplaceVariant(product._id, form, () => {
+                    onCancel();
+                })
+            );
+        }
     };
 
     return (
