@@ -88,8 +88,13 @@ const Product = () => {
         dispatch(uiActions.toggleCart());
     };
 
-    const topMedia = media.slice(0, 3);
-    const bottomMedia = media.slice(3);
+    // if media length >= 5, top media should contain 3 of the media objs while bottom contains the rest
+    // if media length < 5, top media shouldn't be rendered and bottom media should contain all media
+    // if media length is falsy, top and bottom containers should not be rendered
+    const hasTopMedia = media.length >= 5;
+    const topMedia = hasTopMedia ? media.slice(0, 3) : [];
+    const hasBottomMedia = !!media.length;
+    const bottomMedia = hasBottomMedia ? (hasTopMedia ? media.slice(3) : media) : [];
     return (
         <SProductGrid>
             <div>
@@ -99,35 +104,41 @@ const Product = () => {
                             <SImage src={mainMedia?.url} />
                         </SImageContainer>
                     </SMediaMAIN>
-                    <SMobileMediaBottom>
-                        {media.map(({ url, _id }, index) => (
-                            <SMobileImageContainer key={index}>
-                                <SMobileImage src={url} />
-                            </SMobileImageContainer>
-                        ))}
-                    </SMobileMediaBottom>
+                    {hasBottomMedia && (
+                        <SMobileMediaBottom>
+                            {media.map(({ url, _id }, index) => (
+                                <SMobileImageContainer key={index}>
+                                    <SMobileImage src={url} />
+                                </SMobileImageContainer>
+                            ))}
+                        </SMobileMediaBottom>
+                    )}
                 </SMobileWrapper>
 
                 <SDesktopWrapper>
-                    <SMediaTOP>
-                        {topMedia.map(({ url }, index) => (
-                            <SImageContainer key={index}>
-                                <SImage src={url} />
-                            </SImageContainer>
-                        ))}
-                    </SMediaTOP>
+                    {hasTopMedia && (
+                        <SMediaTOP>
+                            {topMedia.map(({ url }, index) => (
+                                <SImageContainer key={index}>
+                                    <SImage src={url} />
+                                </SImageContainer>
+                            ))}
+                        </SMediaTOP>
+                    )}
                     <SMediaMAIN>
                         <SImageContainer>
                             <SImage src={mainMedia?.url} />
                         </SImageContainer>
                     </SMediaMAIN>
-                    <SMediaBOTTOM>
-                        {bottomMedia.map(({ url }, index) => (
-                            <SImageContainer key={index}>
-                                <SImage src={url} />
-                            </SImageContainer>
-                        ))}
-                    </SMediaBOTTOM>
+                    {hasBottomMedia && (
+                        <SMediaBOTTOM>
+                            {bottomMedia.map(({ url }, index) => (
+                                <SImageContainer key={index}>
+                                    <SImage src={url} />
+                                </SImageContainer>
+                            ))}
+                        </SMediaBOTTOM>
+                    )}
                 </SDesktopWrapper>
             </div>
             <div>
