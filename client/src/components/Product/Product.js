@@ -58,24 +58,30 @@ const Product = () => {
         history.push(newUrl);
     };
 
-    const variantId = query.get("variant");
-    const currentVariant = variantId && product.variants.find((item) => item._id === variantId);
-    const { mainMedia, media } = useMemo(() => {
-        const mainMedia = (!currentVariant
-            ? product.media.find((item) => item.position === 1)
-            : product.media.find((item) => item._id === currentVariant.media?._id)) || {
-            url: missingImg,
-        };
-        const media = product.media.filter((item) => item._id !== mainMedia._id);
-        return { mainMedia, media };
-    }, [product.media, currentVariant]);
+    // array with at least one variant obj
+    const variants = product.variants;
+    // boolean
+    const hasVariants = !(variants.length === 1 && variants[0].sku === null);
+    // variant id string or null
+    const queryVariant = hasVariants && query.get("variant");
+    // variant obj
+    const currentVariant = queryVariant
+        ? variants.find((item) => item._id === queryVariant)
+        : variants[0];
 
-    const variantSelectValue = variantId || mainMedia?.variant?._id || product.variants[0]._id;
+    const hasMedia = !!product.media.length;
+    // media obj or obj with url to missing img key value pair
+    const mainMedia =
+        currentVariant.media ||
+        (hasMedia ? product.media.find((x) => x.position === 1) : { url: missingImg });
+    const media = product.media.filter((item) => item._id !== mainMedia._id);
+
+    const currentVariantId = currentVariant._id;
 
     const addToCartHandler = () => {
         dispatch(
             cartActions.addToCart({
-                variant: product.variants.find((item) => item._id === variantSelectValue),
+                variant: currentVariant,
                 product,
             })
         );
@@ -135,23 +141,25 @@ const Product = () => {
                         <SCollectionName>Ecom Collection</SCollectionName>
                         <SProductPrice mobile>${"5"}.00 USD</SProductPrice>
                     </SContentTOP>
-                    <SVariantSelection>
-                        <SLabel>Variant</SLabel>
-                        <SVariantSelect
-                            value={variantSelectValue}
-                            onChange={(e) => variantSelectHandler(e.target.value)}
-                        >
-                            {product.variants.map(({ title, _id }, index) => {
-                                return (
-                                    <SSelectOption key={index} value={_id}>
-                                        {title}
-                                    </SSelectOption>
-                                );
-                            })}
-                        </SVariantSelect>
-                    </SVariantSelection>
+                    {hasVariants && (
+                        <SVariantSelection>
+                            <SLabel>Variant</SLabel>
+                            <SVariantSelect
+                                value={currentVariantId}
+                                onChange={(e) => variantSelectHandler(e.target.value)}
+                            >
+                                {product.variants.map(({ title, _id }, index) => {
+                                    return (
+                                        <SSelectOption key={index} value={_id}>
+                                            {title}
+                                        </SSelectOption>
+                                    );
+                                })}
+                            </SVariantSelect>
+                        </SVariantSelection>
+                    )}
 
-                    <SContentBUTTONS>
+                    <SContentBUTTONS style={hasVariants ? {} : { marginTop: 0 }}>
                         <SButtonControl>
                             <Button onClick={addToCartHandler} style={{ width: "100%" }}>
                                 Add To Cart
