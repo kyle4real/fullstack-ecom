@@ -51,7 +51,8 @@ const AdminProducts = () => {
         else if (!lowestPrice) price = `N/A`;
         else price = `${formattedLowest} - ${formattedHighest}`;
 
-        const variantCount = variants.length;
+        const hasVariants = !(variants.length === 1 && variants[0].sku === null);
+        const variantCount = hasVariants ? variants.length : `None`;
         let product = { ...v, price, variantCount: variantCount };
         return [...r, product];
     }, []);
@@ -76,24 +77,5 @@ const AdminProducts = () => {
         </TableContainer>
     );
 };
-
-// const [lowestPrice, highestPrice] = variants.reduce(
-//     (r, v) => {
-//         let curLowest = r[0];
-//         let curHighest = r[1];
-//         if (v.price < curLowest) curLowest = v.price;
-//         if (v.price > curHighest) curHighest = v.price;
-//         return [curLowest, curHighest];
-//     },
-//     [variants[0].price, variants[0].price]
-// );
-// let priceString = `N/A`;
-// if (lowestPrice === highestPrice) {
-//     priceString = priceFormatter.format(lowestPrice);
-// } else {
-//     priceString = `${priceFormatter.format(
-//         lowestPrice
-//     )} - ${priceFormatter.format(highestPrice)}`;
-// }
 
 export default AdminProducts;
