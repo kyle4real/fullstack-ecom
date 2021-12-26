@@ -68,6 +68,16 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
     res.status(200).json({ success: true, data: product });
 });
 
+// @desc    Delete product
+// @route   DELETE /admin/products/:id
+// @access  Private
+export const deleteProduct = asyncHandler(async (req, res, next) => {
+    const product = await Product.findById(req.params.id);
+    if (!product) return next(new ErrorResponse(`Resource not found with id ${req.params.id}`));
+    await product.remove();
+    res.status(200).json({ success: true, data: {} });
+});
+
 const updateProductInCollections = asyncHandler(async (req, res, next) => {
     const collectionsArr = req.body.collections;
     console.log(collectionsArr);
