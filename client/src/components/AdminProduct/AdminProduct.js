@@ -25,6 +25,8 @@ import DropdownSelect from "../UI/DropdownSelect/DropdownSelect";
 import { useEffect } from "react";
 import { SPriceInputGrid } from "../AdminProductNew/styles";
 import PriceInput from "../UI/Form/PriceInput/PriceInput";
+import ResourceBottomBar from "../UI/ResourceBottomBar/ResourceBottomBar";
+import Button from "../UI/Button/Button";
 
 // const priceFormatter = new Intl.NumberFormat("en-US", {
 //     style: "currency",
@@ -255,6 +257,9 @@ const AdminProduct = () => {
                     </SCardContainer>
                 </div>
             </SProductDisplayGrid>
+            <ResourceBottomBar>
+                <Button secondary>Delete Product</Button>
+            </ResourceBottomBar>
         </>
     );
 };
