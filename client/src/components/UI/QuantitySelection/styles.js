@@ -54,7 +54,7 @@ export const SQtySelectionButton = styled.button`
         color: ${({ theme }) => theme.textFade};
         cursor: initial;
         :hover {
-            background: none;
+            background: ${({ theme }) => theme.bg2};
         }
     }
     cursor: pointer;

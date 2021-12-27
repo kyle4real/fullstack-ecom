@@ -31,7 +31,7 @@ export const SGridItem = styled.div`
 `;
 
 export const SImageContainer = styled.div`
-    background: ${({ theme }) => theme.bg3};
+    /* background: ${({ theme }) => theme.bg3}; */
     display: flex;
     align-items: flex-start;
     /* flex: 1; */
@@ -84,9 +84,10 @@ export const SThumbnailImage = styled.img`
 
 export const SContent = styled.div`
     color: ${({ theme }) => theme.text};
-    line-height: 100%;
+    /* line-height: 100%; */
+    white-space: nowrap;
 
-    padding: ${v.mdSpacing} ${v.smSpacing};
+    padding: ${v.mdSpacing} 0;
     @media ${b.sm} {
         padding: ${v.smSpacing} 0 ${v.mdSpacing};
     }
@@ -111,42 +112,39 @@ export const SInfoControl = styled.div`
 export const STag = styled.span`
     display: block;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 500;
     position: relative;
     color: ${({ theme }) => theme.primary};
 
     ::before {
         content: "";
         position: absolute;
-        width: 3px;
+        width: 2px;
         height: 100%;
         background: ${({ theme }) => theme.primary};
         left: 0;
         top: 0;
     }
 
-    padding-left: ${v.mdSpacing};
-    font-size: 16px;
+    padding-left: ${v.smSpacing};
+
+    font-size: 14px;
     @media ${b.md} {
         padding-left: calc(${v.smSpacing} + 4px);
-        font-size: 14px;
     }
 `;
 export const SSaleTag = styled.div`
     display: flex;
     align-items: center;
-    font-weight: 600;
+    font-weight: 500;
     color: ${({ theme }) => theme.primary};
 
-    font-size: 18px;
-    @media ${b.md} {
-        font-size: 14px;
-    }
+    font-size: 14px;
 `;
 export const SSaleIcon = styled(AiOutlineTag)`
     font-size: inherit;
     display: block;
-    font-weight: 600;
+    font-weight: 500;
 
     margin-right: ${v.smSpacing};
     @media ${b.md} {
@@ -157,16 +155,16 @@ export const SSalePercentage = styled.span`
     display: block;
     text-transform: uppercase;
 
-    font-size: 16px;
+    font-size: 14px;
     @media ${b.md} {
         font-size: 14px;
     }
 `;
 export const SPrice = styled.span`
     display: block;
-    font-weight: 600;
+    font-weight: 500;
 
-    font-size: 18px;
+    font-size: 15px;
     @media ${b.md} {
         font-size: 16px;
     }
@@ -174,7 +172,8 @@ export const SPrice = styled.span`
 export const STitle = styled.span`
     display: block;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 16px;
+    white-space: initial;
 
     @media ${b.md} {
         font-size: 16px;
@@ -183,7 +182,6 @@ export const STitle = styled.span`
 export const SComparePrice = styled.span`
     display: block;
     font-weight: 400;
-    font-size: 14px;
     position: relative;
 
     :before {
@@ -197,7 +195,7 @@ export const SComparePrice = styled.span`
         left: 0;
     }
 
-    font-size: 16px;
+    font-size: 14px;
     @media ${b.md} {
         font-size: 14px;
     }

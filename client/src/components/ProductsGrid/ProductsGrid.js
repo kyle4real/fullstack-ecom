@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
 import usePagination from "../../hooks/usePagination";
 import useSearch from "../../hooks/useSearch";
+import { priceFormatter } from "../../utils/priceFormat";
 
 import {
     SComparePrice,
@@ -22,12 +23,6 @@ import {
     STag,
     STitle,
 } from "./styles";
-
-const priceFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-});
 
 const ProductsGrid = () => {
     const history = useHistory();
@@ -77,20 +72,20 @@ const ProductsGrid = () => {
                                 </SImageContainer>
                                 <SContent>
                                     <SInfoControl>
-                                        {!hasSale && <STag>{tags?.[0]}</STag>}
+                                        {!hasSale && <STag>New</STag>}
                                         {hasSale && (
                                             <SSaleTag>
                                                 <SSaleIcon />
                                                 <SSalePercentage>{percentOff}% off</SSalePercentage>
                                             </SSaleTag>
                                         )}
-                                        <SPrice>{price}</SPrice>
+                                        <SPrice>{price} USD</SPrice>
                                     </SInfoControl>
                                     <SInfoControl>
                                         <STitle>{title}</STitle>
                                         {hasSale && (
                                             <SComparePrice>
-                                                {priceFormatter.format(compareAtPrice)}
+                                                {priceFormatter.format(compareAtPrice)} USD
                                             </SComparePrice>
                                         )}
                                     </SInfoControl>
