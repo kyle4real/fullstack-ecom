@@ -115,10 +115,12 @@ const CartDrawer = () => {
                         {cart.length > 0 && (
                             <SCartButtons>
                                 <SButtonControl>
-                                    <Button>Checkout</Button>
+                                    <Button style={{ width: "100%" }}>Checkout</Button>
                                 </SButtonControl>
                                 <SButtonControl onClick={cartRedirectHandler}>
-                                    <Button secondary>Your Cart</Button>
+                                    <Button secondary style={{ width: "100%" }}>
+                                        Your Cart
+                                    </Button>
                                 </SButtonControl>
                             </SCartButtons>
                         )}

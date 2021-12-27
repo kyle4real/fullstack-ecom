@@ -1,11 +1,11 @@
 import React from "react";
-import { useState } from "react";
+
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
 import usePagination from "../../hooks/usePagination";
 import useSearch from "../../hooks/useSearch";
-import Pagination from "../UI/Pagination/Pagination";
+
 import {
     SComparePrice,
     SContent,
