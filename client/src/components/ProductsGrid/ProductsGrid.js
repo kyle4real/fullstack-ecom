@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -27,7 +27,22 @@ import {
 const ProductsGrid = () => {
     const history = useHistory();
     const { products } = useSelector((state) => state.products);
-    const uiProducts = useSearch(products);
+    var uiProducts = useMemo(
+        () =>
+            products.reduce((r, v) => {
+                const { price, compareAtPrice } = v.variants.reduce(
+                    (r, v) => {
+                        return v.price < r.price
+                            ? { price: v.price, compareAtPrice: v.compare_at_price }
+                            : r;
+                    },
+                    { price: v.variants[0].price, compareAtPrice: v.variants[0].compare_at_price }
+                );
+                return [...r, { price, compareAtPrice, ...v }];
+            }, []),
+        [products]
+    );
+    uiProducts = useSearch(uiProducts);
     const { PaginationUi, resourcesUi } = usePagination({
         resourceArr: uiProducts,
         perPage: 8,

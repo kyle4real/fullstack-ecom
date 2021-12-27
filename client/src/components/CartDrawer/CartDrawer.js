@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { uiActions } from "../../app/slices/ui-slice";
 
 import useDetectClickaway from "../../hooks/useClickAway";
+import { priceFormatter } from "../../utils/priceFormat";
 import Button from "../UI/Button/Button";
 import EmptyCart from "../UI/EmptyCart/EmptyCart";
 import Overlay from "../UI/Overlay/Overlay";
@@ -84,7 +85,9 @@ const CartDrawer = () => {
                                         <SProductContent>
                                             <SProductTitle>{title}</SProductTitle>
                                             <SProductVariant>{variantTitle}</SProductVariant>
-                                            <SProductPrice>${price}.00 USD</SProductPrice>
+                                            <SProductPrice>
+                                                {priceFormatter.format(price)} USD
+                                            </SProductPrice>
                                             <QuantitySelection cartItem={cartItem} />
                                         </SProductContent>
                                     </SCartProduct>
@@ -93,7 +96,9 @@ const CartDrawer = () => {
                         </SCartProductDisplay>
                         <SCartTotal>
                             <SCartTotalLabel>Total</SCartTotalLabel>
-                            <SCartTotalPrice>${cartTotalPrice}.00 USD</SCartTotalPrice>
+                            <SCartTotalPrice>
+                                {priceFormatter.format(cartTotalPrice)} USD
+                            </SCartTotalPrice>
                         </SCartTotal>
                         {cart.length === 0 && <EmptyCart />}
                         {cart.length > 0 && (

@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { priceFormatter } from "../../utils/priceFormat";
 import Button from "../UI/Button/Button";
 import EmptyCart from "../UI/EmptyCart/EmptyCart";
 import QuantitySelection from "../UI/QuantitySelection/QuantitySelection";
@@ -65,13 +66,17 @@ const Cart = () => {
                                             <STableBodyTD>
                                                 <SProductTitle>{title}</SProductTitle>
                                                 <SProductVariant>{variantTitle}</SProductVariant>
-                                                <SProductPrice>${price}.00 USD</SProductPrice>
+                                                <SProductPrice>
+                                                    {priceFormatter.format(price)} USD
+                                                </SProductPrice>
                                                 <QuantitySelection cartItem={cartItem} mobile />
                                             </STableBodyTD>
                                             <STableBodyTD>
                                                 <QuantitySelection cartItem={cartItem} />
                                             </STableBodyTD>
-                                            <STableBodyTD>${qty * price}.00 USD</STableBodyTD>
+                                            <STableBodyTD>
+                                                {priceFormatter.format(qty * price)} USD
+                                            </STableBodyTD>
                                         </STableBodyTR>
                                     );
                                 })}
@@ -80,7 +85,7 @@ const Cart = () => {
                         <SCartSummary>
                             <STotalContainer>
                                 <SCartTotalTagline>Total</SCartTotalTagline>
-                                <SCartTotal>${cartTotalPrice}.00 USD</SCartTotal>
+                                <SCartTotal>{priceFormatter.format(cartTotalPrice)} USD</SCartTotal>
                             </STotalContainer>
                             <SCartSummaryDesc>
                                 Taxes and shipping calculated at checkout

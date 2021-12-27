@@ -3,18 +3,13 @@ import { useSelector } from "react-redux";
 
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { missingImg } from "../../assets";
+import { priceFormatter } from "../../utils/priceFormat";
 import Button from "../UI/Button/Button";
 import { STDContained } from "../UI/Table/styles";
 
 import Table from "../UI/Table/Table";
 import TableContainer from "../UI/TableContainer/TableContainer";
 import { SImage, SImageContainer } from "./styles";
-
-const priceFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-});
 
 const TableImageDisplay = ({ value }) => {
     const src = value?.url || missingImg;
