@@ -8,9 +8,8 @@ export const SButton = styled.button`
     line-height: 100%;
     font-weight: 400;
     padding: calc(${v.smSpacing} + 2px) ${v.mdSpacing};
-    border: none;
     color: ${({ theme, secondary }) => (!secondary ? theme.textSecondary : theme.primary)};
-    border: 1px solid ${({ theme, secondary }) => (!secondary ? theme.bg : theme.primary)};
+    border: 1px solid ${({ theme, secondary }) => (!secondary ? theme.primary : theme.primary)};
     background: ${({ theme, secondary, bg }) => (!secondary ? theme.primary : "transparent")};
     border-radius: ${v.borderRadius};
     cursor: pointer;
@@ -23,6 +22,8 @@ export const SButton = styled.button`
 
     :hover {
         background: ${({ theme, secondary, bg }) => (!secondary ? theme.primaryLight : theme.bg)};
+        border: 1px solid
+            ${({ theme, secondary }) => (!secondary ? theme.primaryLight : theme.primary)};
     }
     :disabled {
         color: ${({ theme }) => theme.textLightFade};

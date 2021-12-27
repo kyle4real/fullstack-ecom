@@ -65,7 +65,7 @@ export const STableBodyTD = styled.td`
     :nth-child(4) {
         width: calc(${v.lgSpacing} * 3 + ${v.mdSpacing} * 4);
         text-align: center;
-        font-size: 14px;
+        font-size: 16px;
         border-left: 1px solid ${({ theme }) => theme.bg3};
     }
 
@@ -105,5 +105,55 @@ export const SProductPrice = styled.span`
     margin-bottom: ${v.smSpacing};
     @media ${b.md} {
         margin-bottom: 0;
+    }
+`;
+
+export const SCartSummary = styled.div`
+    margin: ${v.lgSpacing} 0;
+    padding: ${v.smSpacing} ${v.mdSpacing};
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    @media ${b.md} {
+        align-items: flex-end;
+    }
+
+    border-right: 1px solid ${({ theme }) => theme.bg3};
+    border-left: 1px solid ${({ theme }) => theme.bg3};
+`;
+export const STotalContainer = styled.div`
+    display: flex;
+    align-items: center;
+`;
+export const SCartTotalTagline = styled.span`
+    display: block;
+    font-size: 16px;
+    text-transform: uppercase;
+`;
+export const SCartTotal = styled.span`
+    display: block;
+    margin-left: ${v.xxlSpacing};
+    font-size: 18px;
+`;
+export const SCartSummaryDesc = styled.span`
+    display: block;
+    margin-top: ${v.smSpacing};
+    font-size: 14px;
+    color: ${({ theme }) => theme.text2};
+`;
+
+export const SCartButtons = styled.div`
+    display: flex;
+    justify-content: flex-end;
+
+    > button {
+        font-size: 16px;
+        padding-left: ${v.lgSpacing};
+        padding-right: ${v.lgSpacing};
+
+        :not(:last-of-type) {
+            margin-right: ${v.mdSpacing};
+        }
     }
 `;
