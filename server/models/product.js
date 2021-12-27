@@ -19,7 +19,7 @@ const ProductSchema = new mongoose.Schema(
 
 ProductSchema.pre("remove", async function (next) {
     await Media.deleteMany({ product: this._id });
-    await Variant;
+    await Variant.deleteMany({ product: this._id });
 });
 
 ProductSchema.virtual("variants", {
