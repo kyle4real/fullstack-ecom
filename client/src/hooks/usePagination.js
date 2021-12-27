@@ -68,7 +68,9 @@ const usePagination = ({ resourceArr, perPage, siblingCount = 1, initialCurrentP
         setCurrentPage(number);
     };
 
-    const PaginationUi = (
+    const noPaginationUi = paginationRange.length < 2;
+
+    const PaginationUi = !noPaginationUi ? (
         <Pagination
             paginationRange={paginationRange}
             currentPage={currentPage}
@@ -76,7 +78,7 @@ const usePagination = ({ resourceArr, perPage, siblingCount = 1, initialCurrentP
             onPrevious={onPrevious}
             onPageChange={onPageChange}
         />
-    );
+    ) : null;
 
     const resourcesUi = useMemo(() => {
         const firstInx = perPage * (currentPage - 1);
