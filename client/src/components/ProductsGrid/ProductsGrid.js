@@ -42,7 +42,6 @@ const ProductsGrid = () => {
             }, []),
         [products]
     );
-    console.log(uiProducts);
     uiProducts = useSearch(uiProducts);
     const { PaginationUi, resourcesUi } = usePagination({
         resourceArr: uiProducts,
@@ -58,24 +57,7 @@ const ProductsGrid = () => {
         <>
             <SProductsGrid>
                 <SGrid>
-                    {resourcesUi?.map(({ title, tags, variants, sku, image }, index) => {
-                        let price = null;
-                        let compareAtPrice = null;
-                        if (!!variants.length) {
-                            const priceObj = variants.reduce(
-                                (r, v) =>
-                                    v.price < r.price
-                                        ? { price: v.price, compareAtPrice: v.compare_at_price }
-                                        : r,
-                                {
-                                    price: variants[0].price,
-                                    compareAtPrice: variants[0].compare_at_price,
-                                }
-                            );
-                            price = priceObj.price;
-                            compareAtPrice = priceObj.compareAtPrice;
-                        }
-
+                    {resourcesUi?.map(({ title, sku, image, price, compareAtPrice }, index) => {
                         const hasSale = price && compareAtPrice && price !== compareAtPrice;
                         const percentOff = !hasSale
                             ? undefined
