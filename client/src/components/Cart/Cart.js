@@ -57,7 +57,9 @@ const Cart = () => {
                                     return (
                                         <STableBodyTR key={index}>
                                             <STableBodyTD>
-                                                <SImageContainer>
+                                                <SImageContainer
+                                                    to={`/products/${product.sku}?variant=${product.variant._id}`}
+                                                >
                                                     <SImage src={url} />
                                                 </SImageContainer>
                                             </STableBodyTD>
