@@ -33,6 +33,7 @@ const ProductsGrid = () => {
     const history = useHistory();
     const { products } = useSelector((state) => state.products);
     const uiProducts = useSearch(products);
+    console.log(uiProducts);
     const { PaginationUi, resourcesUi } = usePagination({
         resourceArr: uiProducts,
         perPage: 8,
