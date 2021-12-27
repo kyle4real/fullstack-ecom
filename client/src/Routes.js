@@ -12,9 +12,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getProvisions } from "./app/actions/ui-actions";
 import ShopCollectionPage from "./pages/ShopCollectionPage";
+import useScrollToTop from "./hooks/useScrollToTop";
 
 const Routes = () => {
     const dispatch = useDispatch();
+    useScrollToTop();
     const { accessToken, loading: authLoading } = useSelector((state) => state.auth);
     const { initialLoading } = useSelector((state) => state.ui);
 
