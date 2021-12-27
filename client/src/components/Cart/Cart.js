@@ -8,7 +8,6 @@ import QuantitySelection from "../UI/QuantitySelection/QuantitySelection";
 import {
     SCartButtons,
     SCartPage,
-    SCartPageTitle,
     SCartSummary,
     SCartSummaryDesc,
     SCartTotal,
