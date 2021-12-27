@@ -178,7 +178,8 @@ export const SCartBadge = styled.div`
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.primaryLighter};
+    background: ${({ theme }) => theme.primary};
+    color: ${({ theme }) => theme.textLight};
     display: flex;
     justify-content: center;
     align-items: center;

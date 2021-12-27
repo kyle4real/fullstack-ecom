@@ -5,14 +5,6 @@ import { v, b } from "../../styles/variables";
 
 export const SCartPage = styled.div``;
 
-export const SCartPageTitle = styled.span`
-    display: block;
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: ${v.lgSpacing};
-`;
-
 // TABLE ///////////////////////////////////////
 
 export const STable = styled.table`
@@ -128,8 +120,7 @@ export const STotalContainer = styled.div`
 `;
 export const SCartTotalTagline = styled.span`
     display: block;
-    font-size: 16px;
-    text-transform: uppercase;
+    font-size: 18px;
 `;
 export const SCartTotal = styled.span`
     display: block;

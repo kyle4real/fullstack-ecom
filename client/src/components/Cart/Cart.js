@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Button from "../UI/Button/Button";
 import EmptyCart from "../UI/EmptyCart/EmptyCart";
 import QuantitySelection from "../UI/QuantitySelection/QuantitySelection";
@@ -28,13 +29,12 @@ import {
 } from "./styles";
 
 const Cart = () => {
-    const { firstName } = useSelector((state) => state.auth);
+    const history = useHistory();
     const { cart } = useSelector((state) => state.cart);
 
     const cartTotalPrice = cart.reduce((r, v) => (r += v.qty * v.product.variant.price), 0);
     return (
         <SCartPage>
-            <SCartPageTitle>{firstName ? <>{firstName}'s</> : <>Your</>} Cart</SCartPageTitle>
             {(() => {
                 if (!cart.length) return <EmptyCart />;
                 return (
@@ -85,13 +85,15 @@ const Cart = () => {
                                 Taxes and shipping calculated at checkout
                             </SCartSummaryDesc>
                         </SCartSummary>
+                        <SCartButtons>
+                            <Button secondary onClick={() => history.push("/shop")}>
+                                Continue Shopping
+                            </Button>
+                            <Button>Checkout</Button>
+                        </SCartButtons>
                     </>
                 );
             })()}
-            <SCartButtons>
-                <Button secondary>Continue Shopping</Button>
-                <Button>Checkout</Button>
-            </SCartButtons>
         </SCartPage>
     );
 };

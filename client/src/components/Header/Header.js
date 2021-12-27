@@ -143,7 +143,7 @@ const Header = () => {
                         navLinks={navLinks}
                     />
                     <SLogoContainer>
-                        <SLogo to="/">Ecom</SLogo>
+                        <SLogo to="/">Astro Vinyl Art v.2</SLogo>
                     </SLogoContainer>
                     <SNav>
                         {/* navitemcontainer and navitem are in here!! */}

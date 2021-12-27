@@ -47,22 +47,6 @@ const CartDrawer = () => {
         dispatch(uiActions.toggleCart());
     };
 
-    // const cartAmount = useMemo(() => {
-    //     return cart.reduce((r, v, i) => {
-    //         return r + v.qty;
-    //     }, 0);
-    // }, [cart]);
-
-    // const totalPrice = useMemo(() => {
-    //     return cart.reduce((r, v) => {
-    //         return (
-    //             r +
-    //             v.qty *
-    //                 v.productObj.variants.find(({ title }) => title === v.variantSelection).price
-    //         );
-    //     }, 0);
-    // }, [cart]);
-
     const { cartQty, cartTotalPrice } = useMemo(() => {
         return cart.reduce(
             (r, v) => {
