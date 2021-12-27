@@ -1,27 +1,31 @@
 import styled, { css } from "styled-components";
 
-import { v, b } from "../../../styles/variables";
+import { v, b, btnReset } from "../../../styles/variables";
 
 import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 
 export const SPagination = styled.ul`
     display: flex;
+    justify-content: center;
     list-style: none;
     padding: 0;
     line-height: 100%;
+
+    margin: ${v.xlSpacing} 0;
+    @media ${b.md} {
+        margin: ${v.lgSpacing} 0;
+    }
 `;
 export const SPaginationNumber = styled.li``;
-export const SPaginationLink = styled.button`
-    outline: none;
-    border: none;
-    background: transparent;
+export const SPaginationButton = styled.button`
+    ${btnReset};
     padding: ${v.smSpacing} 0;
     display: flex;
     width: 32px;
     justify-content: center;
     align-items: center;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 16px;
     color: ${({ theme, active }) => (!active ? theme.text : theme.primary)};
     cursor: ${({ dots }) => (dots ? "initial" : "pointer")};
     line-height: 100%;
@@ -33,33 +37,37 @@ export const SPaginationLink = styled.button`
 
     @media ${b.md} {
         padding: ${v.smSpacing} 0;
-        font-size: 14px;
+        font-size: 16px;
     }
 `;
 
 export const SPaginationArrow = styled.button`
+    ${btnReset};
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: ${v.smSpacing} 4px;
-    outline: none;
-    background: transparent;
-    border: none;
+    padding: ${v.smSpacing} ${v.mdSpacing};
     cursor: pointer;
     color: ${({ theme }) => theme.text2};
-    line-height: 100%;
+    border: 1px solid ${({ theme }) => theme.bg3};
     :disabled {
         cursor: initial;
         color: ${({ theme }) => theme.textFade};
     }
+    :first-of-type {
+        margin-right: ${v.mdSpacing};
+    }
+    :last-of-type {
+        margin-left: ${v.mdSpacing};
+    }
 `;
 
 const iconStyle = css`
-    font-size: 12px;
+    font-size: 16px;
     color: inherit;
 
     @media ${b.md} {
-        font-size: 10px;
+        font-size: 12px;
     }
 `;
 export const SArrowLeft = styled(AiOutlineLeft)`

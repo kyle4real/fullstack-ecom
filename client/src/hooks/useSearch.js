@@ -10,7 +10,6 @@ const useSearch = (resourceArr) => {
             const value = query.get("sort_by");
             const [target, sort] = value.split("-");
             return [...resourceArr].sort((a, b) => {
-                console.log(a[target] - b[target]);
                 if (sort === "ascending") return a[target] > b[target] ? 1 : -1;
                 else return b[target] > a[target] ? 1 : -1;
             });

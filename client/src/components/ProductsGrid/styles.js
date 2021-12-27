@@ -8,13 +8,12 @@ export const SProductsGrid = styled.div``;
 
 export const SGrid = styled.div`
     display: grid;
-    gap: ${v.lgSpacing} ${v.lgSpacing};
+    gap: ${v.mdSpacing};
 
-    @media ${b.sm} {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    grid-template-columns: repeat(2, 1fr);
 
     @media ${b.md} {
+        gap: ${v.lgSpacing};
         grid-template-columns: repeat(3, 1fr);
     }
 

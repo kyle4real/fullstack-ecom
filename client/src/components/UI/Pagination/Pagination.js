@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import usePagination, { DOTS } from "../../../hooks/usePagination";
+import { DOTS } from "../../../hooks/usePagination";
 import {
     SPagination,
     SPaginationArrow,
     SArrowLeft,
     SPaginationNumber,
-    SPaginationLink,
     SArrowRight,
+    SPaginationButton,
 } from "./styles";
 
 // const perPageOptions = ["10", "20", "50", "all"];
@@ -37,23 +36,17 @@ const Pagination = ({ paginationRange, onNext, onPrevious, onPageChange, current
                 <SArrowLeft />
             </SPaginationArrow>
             {paginationRange.map((number, index) => {
-                if (number === DOTS) {
-                    return (
-                        <SPaginationNumber key={index}>
-                            <SPaginationLink disabled dots>
-                                &#8230;
-                            </SPaginationLink>
-                        </SPaginationNumber>
-                    );
-                }
+                const isDots = number === DOTS;
                 return (
                     <SPaginationNumber key={index}>
-                        <SPaginationLink
+                        <SPaginationButton
+                            dots={isDots}
+                            disabled={isDots}
                             onClick={() => onPageChange(number)}
                             active={number === currentPage}
                         >
                             {number}
-                        </SPaginationLink>
+                        </SPaginationButton>
                     </SPaginationNumber>
                 );
             })}
