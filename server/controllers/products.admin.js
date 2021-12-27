@@ -58,7 +58,7 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
     for (let i = 0; i < keys.length; i++) product[keys[i]] = req.body[keys[i]];
     product = await product.save();
     if (req.body.hasOwnProperty("collections")) {
-        await updateProductInCollections(req.body.collections);
+        await updateProductInCollections(req.body.collections, product._id);
         product = await Product.findById(req.params.id).populate("collections");
     }
     if (req.body.hasOwnProperty("variants")) {
@@ -79,16 +79,16 @@ export const deleteProduct = asyncHandler(async (req, res, next) => {
         (r, { title, _id }) => [...r, { title, _id, include: false }],
         []
     );
-    await updateProductInCollections(collections);
+    await updateProductInCollections(collections, product._id);
     res.status(200).json({ success: true, data: {} });
 });
 
-const updateProductInCollections = async (collectionsArr) => {
+const updateProductInCollections = async (collectionsArr, productId) => {
     const updateCollection = async (v) => {
         return new Promise((resolve, reject) => {
             const update = v.include
-                ? { $push: { products: req.params.id } }
-                : { $pull: { products: req.params.id } };
+                ? { $push: { products: productId } }
+                : { $pull: { products: productId } };
             Collection.findByIdAndUpdate(
                 v._id,
                 update,
@@ -114,7 +114,7 @@ const updateProductInCollections = async (collectionsArr) => {
                     return;
                 })
                 .catch((err) => {
-                    return next(new ErrorResponse(`${err}`, 400));
+                    console.log(err);
                 }),
         Promise.resolve()
     );
@@ -148,7 +148,7 @@ const updateProductVariants = async (variantsArr) => {
                     return updatedVariants.push(res);
                 })
                 .catch((err) => {
-                    return next(new ErrorResponse(`${err}`, 400));
+                    console.log(err);
                 }),
         Promise.resolve()
     );
