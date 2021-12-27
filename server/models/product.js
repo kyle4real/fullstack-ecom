@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Media from "./Media.js";
+import Variant from "./Variant.js";
 
 const ProductSchema = new mongoose.Schema(
     {
@@ -14,6 +16,11 @@ const ProductSchema = new mongoose.Schema(
         toObject: { virtuals: true },
     }
 );
+
+ProductSchema.pre("remove", async function (next) {
+    await Media.deleteMany({ product: this._id });
+    await Variant.deleteMany({ product: this._id });
+});
 
 ProductSchema.virtual("variants", {
     ref: "Variant",

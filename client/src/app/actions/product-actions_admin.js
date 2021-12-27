@@ -51,6 +51,20 @@ export const updateProduct = (productId, productObj, callback) => {
     };
 };
 
+export const deleteProduct = (productId, callback) => {
+    return async (dispatch) => {
+        try {
+            dispatch(productActions.setProductLoading(true));
+            await api.deleteProduct(productId);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            callback && callback();
+            dispatch(productActions.setProductLoading(false));
+        }
+    };
+};
+
 export const addMedia = (productId, base64Img) => {
     return async (dispatch) => {
         try {

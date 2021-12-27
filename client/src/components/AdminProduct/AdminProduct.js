@@ -19,12 +19,15 @@ import {
     onVariantEdit,
     prepareCollectionsEdits,
 } from "./helpers";
-import { updateProduct } from "../../app/actions/product-actions_admin";
+import { deleteProduct, updateProduct } from "../../app/actions/product-actions_admin";
 import MediaGrid from "./MediaGrid/MediaGrid";
 import DropdownSelect from "../UI/DropdownSelect/DropdownSelect";
 import { useEffect } from "react";
 import { SPriceInputGrid } from "../AdminProductNew/styles";
 import PriceInput from "../UI/Form/PriceInput/PriceInput";
+import ResourceBottomBar from "../UI/ResourceBottomBar/ResourceBottomBar";
+import Button from "../UI/Button/Button";
+import { useHistory } from "react-router-dom";
 
 // const priceFormatter = new Intl.NumberFormat("en-US", {
 //     style: "currency",
@@ -33,6 +36,7 @@ import PriceInput from "../UI/Form/PriceInput/PriceInput";
 // });
 
 const AdminProduct = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const { product, productLoading } = useSelector((state) => state.product);
@@ -88,6 +92,14 @@ const AdminProduct = () => {
     };
     const collectionsEditHandler = (option) => {
         setCollectionsArr((prevState) => collectionsChange(prevState, option));
+    };
+
+    const deleteProductHandler = () => {
+        dispatch(
+            deleteProduct(product._id, () => {
+                history.replace(`/account/admin/products`);
+            })
+        );
     };
 
     const edits = useMemo(() => {
@@ -255,6 +267,11 @@ const AdminProduct = () => {
                     </SCardContainer>
                 </div>
             </SProductDisplayGrid>
+            <ResourceBottomBar>
+                <Button secondary onClick={deleteProductHandler}>
+                    Delete Product
+                </Button>
+            </ResourceBottomBar>
         </>
     );
 };

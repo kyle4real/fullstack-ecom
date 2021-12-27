@@ -16,6 +16,7 @@ const ShopCollectionPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        setLoading(true);
         const onComplete = () => setLoading(false);
         const onError = (err) => setError(err);
 

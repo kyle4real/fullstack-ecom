@@ -58,25 +58,37 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
     for (let i = 0; i < keys.length; i++) product[keys[i]] = req.body[keys[i]];
     product = await product.save();
     if (req.body.hasOwnProperty("collections")) {
-        const updatedCollections = await updateProductInCollections(req, res, next);
+        await updateProductInCollections(req.body.collections, product._id);
         product = await Product.findById(req.params.id).populate("collections");
     }
     if (req.body.hasOwnProperty("variants")) {
-        const updatedVariants = await updateProductVariants(req, res, next);
+        const updatedVariants = await updateProductVariants(req.body.variants);
         product.variants = updatedVariants;
     }
     res.status(200).json({ success: true, data: product });
 });
 
-const updateProductInCollections = asyncHandler(async (req, res, next) => {
-    const collectionsArr = req.body.collections;
-    console.log(collectionsArr);
+// @desc    Delete product
+// @route   DELETE /admin/products/:id
+// @access  Private
+export const deleteProduct = asyncHandler(async (req, res, next) => {
+    const product = await Product.findById(req.params.id).populate("collections");
+    if (!product) return next(new ErrorResponse(`Resource not found with id ${req.params.id}`));
+    await product.remove();
+    const collections = product.collections.reduce(
+        (r, { title, _id }) => [...r, { title, _id, include: false }],
+        []
+    );
+    await updateProductInCollections(collections, product._id);
+    res.status(200).json({ success: true, data: {} });
+});
 
+const updateProductInCollections = async (collectionsArr, productId) => {
     const updateCollection = async (v) => {
         return new Promise((resolve, reject) => {
             const update = v.include
-                ? { $push: { products: req.params.id } }
-                : { $pull: { products: req.params.id } };
+                ? { $push: { products: productId } }
+                : { $pull: { products: productId } };
             Collection.findByIdAndUpdate(
                 v._id,
                 update,
@@ -102,17 +114,15 @@ const updateProductInCollections = asyncHandler(async (req, res, next) => {
                     return;
                 })
                 .catch((err) => {
-                    return next(new ErrorResponse(`${err}`, 400));
+                    console.log(err);
                 }),
         Promise.resolve()
     );
 
     return collections;
-});
+};
 
-const updateProductVariants = asyncHandler(async (req, res, next) => {
-    const variantsArr = req.body.variants;
-
+const updateProductVariants = async (variantsArr) => {
     const updateVariant = async (v) => {
         return new Promise((resolve, reject) => {
             Variant.findByIdAndUpdate(
@@ -138,10 +148,10 @@ const updateProductVariants = asyncHandler(async (req, res, next) => {
                     return updatedVariants.push(res);
                 })
                 .catch((err) => {
-                    return next(new ErrorResponse(`${err}`, 400));
+                    console.log(err);
                 }),
         Promise.resolve()
     );
 
     return updatedVariants;
-});
+};
