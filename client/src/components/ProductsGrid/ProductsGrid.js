@@ -42,6 +42,7 @@ const ProductsGrid = () => {
             }, []),
         [products]
     );
+    console.log(uiProducts);
     uiProducts = useSearch(uiProducts);
     const { PaginationUi, resourcesUi } = usePagination({
         resourceArr: uiProducts,

@@ -10,8 +10,8 @@ const sortOptions = [
     { label: "Alphabetical, Z-A", value: "title-descending" },
     { label: "Price, low to high", value: "price-ascending" },
     { label: "Price, high to low", value: "price-descending" },
-    { label: "Date, new to old", value: "created-ascending" },
-    { label: "Date, old to new", value: "created-descending" },
+    { label: "Date, new to old", value: "createdAt-ascending" },
+    { label: "Date, old to new", value: "createdAt-descending" },
 ];
 
 const SearchBar = ({ minWidth, customSize }) => {
