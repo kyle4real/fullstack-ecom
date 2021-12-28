@@ -14,7 +14,7 @@ export const createCheckoutSession = asyncHandler(async (req, res, next) => {
     const qtyHash = req.body.cart.reduce((r, v) => ({ ...r, [v.variant]: v.qty }), {});
 
     const line_items = variants.reduce((r, v) => {
-        // const productHasVariants = v.sku !== null;
+        const hasVariants = v.sku !== null;
         const quantity = qtyHash[v._id];
         const unit_amount = v.price * 100;
 
@@ -23,7 +23,7 @@ export const createCheckoutSession = asyncHandler(async (req, res, next) => {
             price_data: {
                 currency: "usd",
                 product_data: {
-                    name: `${v.product.title} - ${v.title}`,
+                    name: hasVariants ? `${v.product.title} - ${v.title}` : v.product.title,
                 },
                 unit_amount,
             },
