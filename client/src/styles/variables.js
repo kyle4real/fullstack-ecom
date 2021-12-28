@@ -14,10 +14,7 @@ export const v = {
     openAppbarWidth: `200px`,
     tabsHeight: "30px",
     tableFontSize: "14px",
-    cardBoxShadow: `0 1px 1px rgba(0,0,0,0.15), 
-    0 2px 2px rgba(0,0,0,0.15), 
-    0 4px 4px rgba(0,0,0,0.15), 
-    0 8px 8px rgba(0,0,0,0.15)`,
+    boxShadow: "0 0 5px rgba(23, 24, 24, 0.05), 0 1px 2px rgba(0, 0, 0, 0.15)",
 };
 
 export const btnReset = css`

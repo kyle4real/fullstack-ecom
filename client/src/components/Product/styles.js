@@ -93,10 +93,11 @@ export const SMobileImage = styled.img`
 
 export const SContent = styled.div`
     line-height: 100%;
-    padding: 0 ${v.mdSpacing};
     margin-top: ${v.lgSpacing};
+    margin-bottom: ${v.xxlSpacing};
 
     @media ${b.sm} {
+        margin-bottom: 0;
         padding: 0;
         margin-left: ${v.mdSpacing};
     }
@@ -122,7 +123,7 @@ export const SContentSpacebetween = styled.div`
     margin-top: ${v.mdSpacing};
 `;
 export const SProductTitle = styled.h1`
-    font-weight: 600;
+    font-weight: 500;
     text-transform: uppercase;
 
     font-size: 18px;
@@ -133,7 +134,7 @@ export const SProductTitle = styled.h1`
 export const SProductPrice = styled.span`
     display: block;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: ${({ mobile }) => (!mobile ? 0 : v.mdSpacing)};
 
     display: ${({ mobile }) => (!mobile ? "none" : "block")};

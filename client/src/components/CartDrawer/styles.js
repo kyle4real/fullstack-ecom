@@ -123,14 +123,11 @@ export const SCartTotal = styled.div`
 
 export const SCartTotalLabel = styled.span`
     display: block;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 14px;
+    font-size: 18px;
 `;
 export const SCartTotalPrice = styled.span`
     display: block;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 18px;
 `;
 
 // CART BUTTONS //////////////////////////////////////////////

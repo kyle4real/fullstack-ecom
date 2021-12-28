@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { missingImg } from "../../assets";
 import usePagination from "../../hooks/usePagination";
 import useSearch from "../../hooks/useSearch";
+import { priceFormatter } from "../../utils/priceFormat";
 
 import {
     SComparePrice,
@@ -23,16 +24,25 @@ import {
     STitle,
 } from "./styles";
 
-const priceFormatter = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-});
-
 const ProductsGrid = () => {
     const history = useHistory();
     const { products } = useSelector((state) => state.products);
-    const uiProducts = useSearch(products);
+    var uiProducts = useMemo(
+        () =>
+            products.reduce((r, v) => {
+                const { price, compareAtPrice } = v.variants.reduce(
+                    (r, v) => {
+                        return v.price < r.price
+                            ? { price: v.price, compareAtPrice: v.compare_at_price }
+                            : r;
+                    },
+                    { price: v.variants[0].price, compareAtPrice: v.variants[0].compare_at_price }
+                );
+                return [...r, { price, compareAtPrice, ...v }];
+            }, []),
+        [products]
+    );
+    uiProducts = useSearch(uiProducts);
     const { PaginationUi, resourcesUi } = usePagination({
         resourceArr: uiProducts,
         perPage: 8,
@@ -47,24 +57,7 @@ const ProductsGrid = () => {
         <>
             <SProductsGrid>
                 <SGrid>
-                    {resourcesUi?.map(({ title, tags, variants, sku, image }, index) => {
-                        let price = null;
-                        let compareAtPrice = null;
-                        if (!!variants.length) {
-                            const priceObj = variants.reduce(
-                                (r, v) =>
-                                    v.price < r.price
-                                        ? { price: v.price, compareAtPrice: v.compare_at_price }
-                                        : r,
-                                {
-                                    price: variants[0].price,
-                                    compareAtPrice: variants[0].compare_at_price,
-                                }
-                            );
-                            price = priceObj.price;
-                            compareAtPrice = priceObj.compareAtPrice;
-                        }
-
+                    {resourcesUi?.map(({ title, sku, image, price, compareAtPrice }, index) => {
                         const hasSale = price && compareAtPrice && price !== compareAtPrice;
                         const percentOff = !hasSale
                             ? undefined
@@ -77,20 +70,20 @@ const ProductsGrid = () => {
                                 </SImageContainer>
                                 <SContent>
                                     <SInfoControl>
-                                        {!hasSale && <STag>{tags?.[0]}</STag>}
+                                        {!hasSale && <STag>New</STag>}
                                         {hasSale && (
                                             <SSaleTag>
                                                 <SSaleIcon />
                                                 <SSalePercentage>{percentOff}% off</SSalePercentage>
                                             </SSaleTag>
                                         )}
-                                        <SPrice>{price}</SPrice>
+                                        <SPrice>{price} USD</SPrice>
                                     </SInfoControl>
                                     <SInfoControl>
                                         <STitle>{title}</STitle>
                                         {hasSale && (
                                             <SComparePrice>
-                                                {priceFormatter.format(compareAtPrice)}
+                                                {priceFormatter.format(compareAtPrice)} USD
                                             </SComparePrice>
                                         )}
                                     </SInfoControl>

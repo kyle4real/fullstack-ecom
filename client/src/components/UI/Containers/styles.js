@@ -15,7 +15,7 @@ export const SCardContainer = styled.div`
     background: ${({ theme }) => theme.bg};
     padding: ${({ customPadding }) => (!customPadding ? v.mdSpacing : v[customPadding])};
     border-radius: ${v.borderRadius};
-    box-shadow: 0 0 5px rgba(23, 24, 24, 0.05), 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: ${v.boxShadow};
 `;
 
 export const SCardLinkContainer = styled(Link)`

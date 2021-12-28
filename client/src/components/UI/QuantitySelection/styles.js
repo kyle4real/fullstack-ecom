@@ -9,7 +9,7 @@ export const SQtySelection = styled.div`
     position: relative;
     display: flex;
     width: fit-content;
-    border: 1px solid ${({ theme }) => theme.primaryLighter};
+    border: 1px solid ${({ theme }) => theme.bg3};
     color: ${({ disabled }) => (!disabled ? "initial" : "red")};
     line-height: 100%;
     user-select: none;
@@ -28,7 +28,7 @@ export const SQtySelectionSpan = styled.span`
     align-items: center;
     padding: ${v.smSpacing} 0;
 
-    border-right: 1px solid ${({ theme }) => theme.primaryLighter};
+    border-right: 1px solid ${({ theme }) => theme.bg3};
 `;
 
 export const SQtySelectionButton = styled.button`
@@ -43,17 +43,18 @@ export const SQtySelectionButton = styled.button`
     align-items: center;
     padding: ${v.smSpacing} 0;
     :not(:last-child) {
-        border-right: 1px solid ${({ theme }) => theme.primaryLighter};
+        border-right: 1px solid ${({ theme }) => theme.bg3};
     }
     :hover {
-        background: ${({ theme }) => theme.overlay};
+        background: ${({ theme }) => theme.bg3};
         color: ${({ theme }) => theme.text};
     }
     :disabled {
         background: ${({ theme }) => theme.bg2};
-        color: ${({ theme }) => theme.primaryLighter};
+        color: ${({ theme }) => theme.textFade};
+        cursor: initial;
         :hover {
-            background: none;
+            background: ${({ theme }) => theme.bg2};
         }
     }
     cursor: pointer;

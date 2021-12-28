@@ -44,6 +44,7 @@ import { uiActions } from "../../app/slices/ui-slice";
 import useQuery from "../../hooks/useQuery";
 import { SLabel, SSelectOption } from "../UI/Form/styles";
 import { SCardContainer } from "../UI/Containers/styles";
+import { priceFormatter } from "../../utils/priceFormat";
 
 const Product = () => {
     const dispatch = useDispatch();
@@ -147,10 +148,14 @@ const Product = () => {
                         <Rating />
                         <SContentSpacebetween>
                             <SProductTitle>{product?.title}</SProductTitle>
-                            <SProductPrice>${"5"}.00 USD</SProductPrice>
+                            <SProductPrice>
+                                {priceFormatter.format(currentVariant.price)} USD
+                            </SProductPrice>
                         </SContentSpacebetween>
                         <SCollectionName>Ecom Collection</SCollectionName>
-                        <SProductPrice mobile>${"5"}.00 USD</SProductPrice>
+                        <SProductPrice mobile>
+                            {priceFormatter.format(currentVariant.price)} USD
+                        </SProductPrice>
                     </SContentTOP>
                     {hasVariants && (
                         <SVariantSelection>

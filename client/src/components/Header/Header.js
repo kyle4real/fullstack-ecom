@@ -66,10 +66,6 @@ const Header = () => {
                     title: "About Us",
                     to: "about-us",
                 },
-                {
-                    title: "Blog",
-                    to: "blog",
-                },
             ];
         else
             return [
@@ -89,10 +85,6 @@ const Header = () => {
                 {
                     title: "About Us",
                     to: "/about-us",
-                },
-                {
-                    title: "Blog",
-                    to: "/blog",
                 },
             ];
     }, [collectionsTitles]);
@@ -143,7 +135,7 @@ const Header = () => {
                         navLinks={navLinks}
                     />
                     <SLogoContainer>
-                        <SLogo to="/">Ecom</SLogo>
+                        <SLogo to="/">Astro Vinyl Art v.2</SLogo>
                     </SLogoContainer>
                     <SNav>
                         {/* navitemcontainer and navitem are in here!! */}

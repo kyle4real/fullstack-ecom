@@ -82,8 +82,7 @@ export const STagline = styled.span`
     color: ${({ theme }) => theme.text2};
 `;
 export const STitle = styled.span`
-    font-size: 32px;
-    text-transform: uppercase;
+    font-size: 30px;
     font-weight: 600;
     display: block;
 `;

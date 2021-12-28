@@ -32,7 +32,7 @@ export const SPaginationButton = styled.button`
     box-shadow: ${({ theme, active }) => (active ? `inset 0 -1px 0 ${theme.primary}` : "none")};
     :hover {
         background: ${({ theme, active, dots }) =>
-            dots ? "transparent" : active ? theme.bg2 : theme.bg};
+            dots ? "transparent" : active ? theme.bg3 : theme.bg3};
     }
 
     @media ${b.md} {

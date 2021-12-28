@@ -13,6 +13,7 @@ import userRoutes from "./routes/users.js";
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js";
 import collectionRoutes from "./routes/collections.js";
+import stripeRoutes from "./routes/stripe.js";
 // Admin Route Imports
 import productAdminRoutes from "./routes/products.admin.js";
 import collectionAdminRoutes from "./routes/collections.admin.js";
@@ -47,6 +48,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/products", productRoutes);
 app.use("/collections", collectionRoutes);
+app.use("/stripe", stripeRoutes);
 const adminPath = "/admin";
 app.use(`${adminPath}/products`, productAdminRoutes);
 app.use(`${adminPath}/collections`, collectionAdminRoutes);
