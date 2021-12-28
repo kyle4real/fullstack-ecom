@@ -1,6 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { createCheckoutSession } from "../../app/actions/checkout-actions";
 import { priceFormatter } from "../../utils/priceFormat";
 import Button from "../UI/Button/Button";
 import EmptyCart from "../UI/EmptyCart/EmptyCart";
@@ -29,15 +30,12 @@ import {
 } from "./styles";
 
 const Cart = () => {
+    const dispatch = useDispatch();
     const history = useHistory();
     const { cart } = useSelector((state) => state.cart);
 
     const checkoutHandler = () => {
-        const cartArr = cart.reduce(
-            (r, { product, qty }) => [...r, { qty, variant: product.variant._id }],
-            []
-        );
-        console.log(cartArr);
+        dispatch(createCheckoutSession());
     };
 
     const cartTotalPrice = cart.reduce((r, v) => (r += v.qty * v.product.variant.price), 0);

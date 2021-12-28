@@ -19,6 +19,7 @@ API.interceptors.request.use((req) => {
 
 const adminPath = "/admin";
 
+const stripePath = "/stripe";
 const authPath = "/auth";
 const productsPath = "/products";
 const collectionsPath = "/collections";
@@ -29,6 +30,11 @@ export const register = (form) => API.post(`${authPath}/register`, form);
 export const refresh = () => API.post(`${authPath}/refresh_token`);
 export const logout = () => API.get(`${authPath}/logout`);
 export const getMe = () => API.get(`${authPath}/me`);
+
+// CHECKOUT
+export const createCheckoutSession = (cart) => {
+    return API.post(`${stripePath}/create-checkout-session`, { cart });
+};
 
 // GUEST
 export const getProducts = () => {
