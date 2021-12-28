@@ -136,7 +136,12 @@ export const SCartSummaryDesc = styled.span`
 
 export const SCartButtons = styled.div`
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column-reverse;
+
+    @media ${b.md} {
+        flex-direction: initial;
+        justify-content: flex-end;
+    }
 
     > button {
         font-size: 16px;
@@ -144,7 +149,12 @@ export const SCartButtons = styled.div`
         padding-right: ${v.lgSpacing};
 
         :not(:last-of-type) {
-            margin-right: ${v.mdSpacing};
+            /* margin top because column reverse */
+            margin-top: ${v.smSpacing};
+            @media ${b.md} {
+                margin-top: 0;
+                margin-right: ${v.mdSpacing};
+            }
         }
     }
 `;
