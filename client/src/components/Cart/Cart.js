@@ -32,6 +32,14 @@ const Cart = () => {
     const history = useHistory();
     const { cart } = useSelector((state) => state.cart);
 
+    const checkoutHandler = () => {
+        const cartArr = cart.reduce(
+            (r, { product, qty }) => [...r, { qty, variant: product.variant._id }],
+            []
+        );
+        console.log(cartArr);
+    };
+
     const cartTotalPrice = cart.reduce((r, v) => (r += v.qty * v.product.variant.price), 0);
     return (
         <SCartPage>
@@ -95,7 +103,7 @@ const Cart = () => {
                             <Button secondary onClick={() => history.push("/shop")}>
                                 Continue Shopping
                             </Button>
-                            <Button>Checkout</Button>
+                            <Button onClick={checkoutHandler}>Checkout</Button>
                         </SCartButtons>
                     </>
                 );
