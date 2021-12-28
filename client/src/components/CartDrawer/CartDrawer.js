@@ -80,7 +80,6 @@ const CartDrawer = () => {
                                 const url = hasMedia
                                     ? product.variant.media.url
                                     : product.image.url || null;
-                                console.log("test");
                                 const hasVariants = product.variant.sku !== null;
 
                                 return (

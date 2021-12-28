@@ -10,7 +10,7 @@ import {
 
 const EmptyCart = () => {
     const dispatch = useDispatch();
-    const onClick = () => dispatch(uiActions.toggleCart());
+    const onClick = () => dispatch(uiActions.setCartDrawer(false));
     return (
         <>
             <SCartEmptyNotification>Your cart is currently empty.</SCartEmptyNotification>

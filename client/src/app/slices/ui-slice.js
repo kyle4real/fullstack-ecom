@@ -11,6 +11,9 @@ const uiSlice = createSlice({
         toggleCart(state) {
             state.cartDrawer = !state.cartDrawer;
         },
+        setCartDrawer(state, action) {
+            state.cartDrawer = action.payload;
+        },
         setInitialLoading(state, action) {
             state.initialLoading = action.payload;
         },
