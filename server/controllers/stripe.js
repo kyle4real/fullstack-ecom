@@ -9,13 +9,15 @@ import Variant from "../models/Variant.js";
 export const createCheckoutSession = asyncHandler(async (req, res, next) => {
     const variants = await Variant.find({
         _id: { $in: req.body.cart.map((x) => x.variant) },
-    }).populate("product");
+    }).populate([{ path: "product", populate: { path: "image" } }, { path: "media" }]);
 
     const qtyHash = req.body.cart.reduce((r, v) => ({ ...r, [v.variant]: v.qty }), {});
 
     const line_items = variants.reduce((r, v) => {
+        // const productHasVariants = v.sku !== null;
         const quantity = qtyHash[v._id];
         const unit_amount = v.price * 100;
+
         const line_item = {
             quantity,
             price_data: {
@@ -26,6 +28,12 @@ export const createCheckoutSession = asyncHandler(async (req, res, next) => {
                 unit_amount,
             },
         };
+
+        if (!!v?.media) {
+            line_item.price_data.product_data.images = [v.media.url];
+        } else if (!!v.product?.image) {
+            line_item.price_data.product_data.images = [v.product.image.url];
+        }
         return [...r, line_item];
     }, []);
 
