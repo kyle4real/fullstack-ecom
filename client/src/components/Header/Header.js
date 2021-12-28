@@ -66,10 +66,6 @@ const Header = () => {
                     title: "About Us",
                     to: "about-us",
                 },
-                {
-                    title: "Blog",
-                    to: "blog",
-                },
             ];
         else
             return [
@@ -89,10 +85,6 @@ const Header = () => {
                 {
                     title: "About Us",
                     to: "/about-us",
-                },
-                {
-                    title: "Blog",
-                    to: "/blog",
                 },
             ];
     }, [collectionsTitles]);
