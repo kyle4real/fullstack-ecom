@@ -15,7 +15,7 @@ export const getProducts = asyncHandler(async (req, res) => {
 export const getProduct = asyncHandler(async (req, res, next) => {
     var product = await Product.findOne({ sku: req.params.sku })
         .populate("variants")
-        .populate({ path: "media", options: { sort: { position: -1 } } });
+        .populate([{ path: "media", options: { sort: { position: -1 } } }, { path: "image" }]);
     if (!product) {
         return next(new ErrorResponse(`Resource not found with sku ${req.params.sku}`, 400));
     }

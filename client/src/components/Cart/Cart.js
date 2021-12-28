@@ -60,7 +60,11 @@ const Cart = () => {
                                     const { product, qty } = cartItem;
                                     const { title } = product;
                                     const { title: variantTitle, price } = product.variant;
-                                    const { url } = product.variant.media;
+                                    const hasMedia = !!product.variant?.media?.url;
+                                    const url = hasMedia
+                                        ? product.variant.media.url
+                                        : product.image.url || null;
+                                    const hasVariants = product.variant.sku !== null;
 
                                     return (
                                         <STableBodyTR key={index}>
@@ -73,7 +77,11 @@ const Cart = () => {
                                             </STableBodyTD>
                                             <STableBodyTD>
                                                 <SProductTitle>{title}</SProductTitle>
-                                                <SProductVariant>{variantTitle}</SProductVariant>
+                                                <SProductVariant
+                                                    style={!hasVariants ? { display: "none" } : {}}
+                                                >
+                                                    {variantTitle}
+                                                </SProductVariant>
                                                 <SProductPrice>
                                                     {priceFormatter.format(price)} USD
                                                 </SProductPrice>

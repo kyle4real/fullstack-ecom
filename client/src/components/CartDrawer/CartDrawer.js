@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { uiActions } from "../../app/slices/ui-slice";
+import { missingImg } from "../../assets";
 
 import useDetectClickaway from "../../hooks/useClickAway";
 import { priceFormatter } from "../../utils/priceFormat";
@@ -75,7 +76,11 @@ const CartDrawer = () => {
                                 const { product } = cartItem;
                                 const { title } = product;
                                 const { title: variantTitle, price } = product.variant;
-                                const { url } = product.variant.media;
+                                const hasMedia = !!product.variant?.media?.url;
+                                const url = hasMedia
+                                    ? product.variant.media.url
+                                    : product.image.url || null;
+                                const hasVariants = product.variant.sku !== null;
 
                                 return (
                                     <SCartProduct key={index}>
@@ -84,7 +89,11 @@ const CartDrawer = () => {
                                         </SImageContainer>
                                         <SProductContent>
                                             <SProductTitle>{title}</SProductTitle>
-                                            <SProductVariant>{variantTitle}</SProductVariant>
+                                            <SProductVariant
+                                                style={!hasVariants ? { display: "none" } : {}}
+                                            >
+                                                {variantTitle}
+                                            </SProductVariant>
                                             <SProductPrice>
                                                 {priceFormatter.format(price)} USD
                                             </SProductPrice>
