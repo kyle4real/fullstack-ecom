@@ -19,7 +19,7 @@ export const SHeroImage = styled.img`
     }
 `;
 
-export const SHeroContent = styled.div`
+export const SHeroOverlay = styled.div`
     position: absolute;
     z-index: 2;
     background: rgba(0, 0, 0, 0.4);
@@ -29,4 +29,31 @@ export const SHeroContent = styled.div`
     right: 0;
     width: 100%;
     height: 100%;
+    padding: ${v.mdSpacing};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${({ theme }) => theme.textLight};
+`;
+
+export const SHeroContent = styled.div`
+    text-align: center;
+`;
+
+export const SHeroContentTitle = styled.span`
+    display: block;
+    font-size: 36px;
+    font-weight: 500;
+
+    @media ${b.md} {
+        font-size: 52px;
+    }
+`;
+export const SHeroContentSubtitle = styled.span`
+    display: block;
+    font-size: 18px;
+    margin-top: ${v.smSpacing};
+    @media ${b.md} {
+        font-size: 24px;
+    }
 `;

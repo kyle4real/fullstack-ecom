@@ -19,6 +19,7 @@ import {
     SItemSpan,
     SLogo,
     SLogoContainer,
+    SLogoImage,
     SMenuClose,
     SMenuOpen,
     SMenuToggle,
@@ -29,6 +30,7 @@ import {
 import SpanLoad from "../UI/Loading/SpanLoad";
 import Announcements from "./Announcements/Announcements";
 import MobileMenu from "./MobileMenu/MobileMenu";
+import { logoImg } from "../../assets";
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -100,71 +102,79 @@ const Header = () => {
     const loading = initialLoading;
     const isAdminArea = location.pathname.includes("/account/admin");
     return (
-        <SHeader isAdminArea={isAdminArea}>
-            <SHeaderFixed>
-                <SHeaderTop>
-                    <SNavTop>
-                        <SNavTopItem to="/account">
-                            <div style={{ display: "flex", alignItems: "flex-end" }}>
-                                <SAccountIcon />
-                                <SpanLoad loading={loading}>
-                                    <SItemSpan>
-                                        {(() => {
-                                            if (loading || !firstName) {
-                                                return <>My Account</>;
-                                            } else {
-                                                return <>Hi {firstName}</>;
-                                            }
-                                        })()}
-                                    </SItemSpan>
-                                </SpanLoad>
-                            </div>
-                        </SNavTopItem>
-                        {[
-                            { label: "Contact", to: "/contact-us" },
-                            { label: "Newsletter", link: "/newsletter" },
-                            { label: "Help", link: "/help" },
-                        ].map(({ label, to }, index) => (
-                            <Fragment key={index}>
-                                <SNavTopItem to={to}>
-                                    <SpanLoad loading={loading}>{label}</SpanLoad>
-                                </SNavTopItem>
-                            </Fragment>
-                        ))}
-                    </SNavTop>
-                </SHeaderTop>
-                <SHeaderMain>
-                    <SMenuToggle onClick={() => setMenuOpen((p) => !p)}>
-                        {!menuOpen ? <SMenuOpen /> : <SMenuClose />}
-                    </SMenuToggle>
+        <>
+            <SHeader isAdminArea={isAdminArea}>
+                <SHeaderFixed>
+                    <SHeaderTop>
+                        <SNavTop>
+                            <SNavTopItem to="/account">
+                                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                                    <SAccountIcon />
+                                    <SpanLoad loading={loading}>
+                                        <SItemSpan>
+                                            {(() => {
+                                                if (loading || !firstName) {
+                                                    return <>My Account</>;
+                                                } else {
+                                                    return <>Hi {firstName}</>;
+                                                }
+                                            })()}
+                                        </SItemSpan>
+                                    </SpanLoad>
+                                </div>
+                            </SNavTopItem>
+                            {[
+                                { label: "Contact", to: "/contact-us" },
+                                { label: "Newsletter", link: "/newsletter" },
+                                { label: "Help", link: "/help" },
+                            ].map(({ label, to }, index) => (
+                                <Fragment key={index}>
+                                    <SNavTopItem to={to}>
+                                        <SpanLoad loading={loading}>{label}</SpanLoad>
+                                    </SNavTopItem>
+                                </Fragment>
+                            ))}
+                        </SNavTop>
+                    </SHeaderTop>
                     <MobileMenu
                         menuOpen={menuOpen}
                         closeMenu={() => setMenuOpen(false)}
                         navLinks={navLinks}
                     />
-                    <SLogoContainer>
-                        <SLogo to="/">Astro Vinyl Art v.2</SLogo>
-                    </SLogoContainer>
-                    <SNav>
-                        {/* navitemcontainer and navitem are in here!! */}
-                        {navLinks.map((navLinks, index) => (
-                            <DropdownContent key={index} navLinks={navLinks} />
-                        ))}
-                    </SNav>
-                    <SCartIconContainer>
-                        <SCartLink onClick={() => dispatch(uiActions.toggleCart())}>
-                            <SCartIcon />
-                            {cartAmount > 0 && (
-                                <SCartBadge>
-                                    <SBadgeSpan>{cartAmount}</SBadgeSpan>
-                                </SCartBadge>
-                            )}
-                        </SCartLink>
-                    </SCartIconContainer>
-                </SHeaderMain>
-            </SHeaderFixed>
-            {!isAdminArea && <Announcements />}
-        </SHeader>
+                    <SHeaderMain>
+                        <div>
+                            <SMenuToggle onClick={() => setMenuOpen((p) => !p)}>
+                                {!menuOpen ? <SMenuOpen /> : <SMenuClose />}
+                            </SMenuToggle>
+                        </div>
+                        <div>
+                            <SLogo to="/">
+                                <SLogoImage src={logoImg} />
+                            </SLogo>
+                        </div>
+                        <div>
+                            <SNav>
+                                {/* navitemcontainer and navitem are in here!! */}
+                                {navLinks.map((navLinks, index) => (
+                                    <DropdownContent key={index} navLinks={navLinks} />
+                                ))}
+                            </SNav>
+                        </div>
+                        <div>
+                            <SCartLink onClick={() => dispatch(uiActions.toggleCart())}>
+                                <SCartIcon />
+                                {cartAmount > 0 && (
+                                    <SCartBadge>
+                                        <SBadgeSpan>{cartAmount}</SBadgeSpan>
+                                    </SCartBadge>
+                                )}
+                            </SCartLink>
+                        </div>
+                    </SHeaderMain>
+                </SHeaderFixed>
+                {!isAdminArea && <Announcements />}
+            </SHeader>
+        </>
     );
 };
 

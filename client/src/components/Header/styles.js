@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import { v, b } from "./../../styles/variables";
+import { v, b, btnReset } from "./../../styles/variables";
 
 import { Link } from "react-router-dom";
 
@@ -96,42 +96,57 @@ export const SHeaderMain = styled.div`
     height: ${v.headerHeight};
     padding: 0 ${v.lgSpacing};
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    position: relative;
     background: ${({ theme }) => theme.bg};
     box-shadow: inset 0 -1px 0 0 ${({ theme }) => theme.bg3};
-    position: relative;
-`;
 
-export const SLogoContainer = styled.div`
-    margin: auto 0;
-    @media ${b.lg} {
+    > div {
         flex: 1;
+
+        :first-of-type {
+            @media ${b.lg} {
+                display: none;
+            }
+        }
+        :nth-of-type(3) {
+            display: none;
+            @media ${b.lg} {
+                display: initial;
+                height: 100%;
+            }
+        }
+        :last-of-type {
+            display: flex;
+            justify-content: flex-end;
+        }
     }
 `;
+
 export const SLogo = styled(Link)`
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    @media ${b.lg} {
+        justify-content: flex-start;
+    }
     text-decoration: none;
     font-size: 1.4rem;
     color: ${({ theme }) => theme.text};
+    white-space: nowrap;
+`;
+export const SLogoImage = styled.img`
+    max-width: 100%;
+    height: auto;
 `;
 
 export const SNav = styled.nav`
-    display: none;
+    height: 100%;
+    display: flex;
     justify-content: center;
-    flex: 1;
-
-    @media ${b.lg} {
-        display: flex;
-    }
 `;
 
 export const SMenuToggle = styled.button`
-    flex: 1;
-    margin: auto 0;
-    padding: 0;
-    outline: none;
-    border: none;
-    background: none;
+    ${btnReset};
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -139,10 +154,6 @@ export const SMenuToggle = styled.button`
     cursor: pointer;
     position: relative;
     z-index: 100;
-
-    @media ${b.lg} {
-        display: none;
-    }
 `;
 
 export const SMenuOpen = styled(BiMenu)`
@@ -154,13 +165,8 @@ export const SMenuClose = styled(AiOutlineClose)`
     font-size: 1.8rem;
 `;
 
-export const SCartIconContainer = styled.div`
-    flex: 1;
-    margin: auto 0;
-    display: flex;
-    justify-content: flex-end;
-`;
-export const SCartLink = styled.div`
+export const SCartLink = styled.button`
+    ${btnReset};
     display: block;
     position: relative;
     cursor: pointer;
