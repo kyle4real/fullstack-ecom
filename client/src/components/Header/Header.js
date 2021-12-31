@@ -59,16 +59,24 @@ const Header = () => {
         if (!collectionsTitles)
             return [
                 {
+                    title: "Home",
+                    to: "/",
+                },
+                {
                     title: "Shop",
-                    to: "shop",
+                    to: "/shop",
                 },
                 {
                     title: "About Us",
-                    to: "about-us",
+                    to: "/about-us",
                 },
             ];
         else
             return [
+                {
+                    title: "Home",
+                    to: "/",
+                },
                 {
                     title: "Shop",
                     to: "/shop",

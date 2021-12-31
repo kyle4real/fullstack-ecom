@@ -30,7 +30,7 @@ const ShopCollectionPage = () => {
             searchBar
             loading={loading}
             error={error}
-            head={{ title: collection.title }}
+            head={{ title: collection.title, noBack: true }}
             layoutArr={[
                 {
                     type: "contain",

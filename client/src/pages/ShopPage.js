@@ -28,7 +28,7 @@ const ShopPage = () => {
             searchBar
             loading={loading}
             error={error}
-            head={{ title: "All Products" }}
+            head={{ title: "All Products", noBack: true }}
             layoutArr={[
                 {
                     type: "contain",
