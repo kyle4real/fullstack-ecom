@@ -14,13 +14,9 @@ import {
     SGridItem,
     SImage,
     SImageContainer,
-    SInfoControl,
     SPrice,
+    SPricing,
     SProductsGrid,
-    SSaleIcon,
-    SSalePercentage,
-    SSaleTag,
-    STag,
     STitle,
 } from "./styles";
 
@@ -62,6 +58,9 @@ const ProductsGrid = () => {
                         const percentOff = !hasSale
                             ? undefined
                             : Math.round((1 - price / compareAtPrice) * 100);
+                        compareAtPrice = compareAtPrice
+                            ? priceFormatter.format(compareAtPrice)
+                            : null;
                         price = price ? priceFormatter.format(price) : "N/A";
                         return (
                             <SGridItem key={index}>
@@ -69,24 +68,11 @@ const ProductsGrid = () => {
                                     <SImage src={image?.url || missingImg} />
                                 </SImageContainer>
                                 <SContent>
-                                    <SInfoControl>
-                                        {!hasSale && <STag>New</STag>}
-                                        {hasSale && (
-                                            <SSaleTag>
-                                                <SSaleIcon />
-                                                <SSalePercentage>{percentOff}% off</SSalePercentage>
-                                            </SSaleTag>
-                                        )}
-                                        <SPrice>{price} USD</SPrice>
-                                    </SInfoControl>
-                                    <SInfoControl>
-                                        <STitle>{title}</STitle>
-                                        {hasSale && (
-                                            <SComparePrice>
-                                                {priceFormatter.format(compareAtPrice)} USD
-                                            </SComparePrice>
-                                        )}
-                                    </SInfoControl>
+                                    <STitle>{title}</STitle>
+                                    <SPricing>
+                                        <SPrice>{price}</SPrice>
+                                        {hasSale && <SComparePrice>{compareAtPrice}</SComparePrice>}
+                                    </SPricing>
                                 </SContent>
                             </SGridItem>
                         );
@@ -97,5 +83,24 @@ const ProductsGrid = () => {
         </>
     );
 };
+
+// <SInfoControl>
+//                                         {!hasSale && <STag>New</STag>}
+//                                         {hasSale && (
+//                                             <SSaleTag>
+//                                                 <SSaleIcon />
+//                                                 <SSalePercentage>{percentOff}% off</SSalePercentage>
+//                                             </SSaleTag>
+//                                         )}
+//                                         <SPrice>{price} USD</SPrice>
+//                                     </SInfoControl>
+//                                     <SInfoControl>
+//                                         <STitle>{title}</STitle>
+//                                         {hasSale && (
+//                                             <SComparePrice>
+//                                                 {priceFormatter.format(compareAtPrice)} USD
+//                                             </SComparePrice>
+//                                         )}
+//                                     </SInfoControl>
 
 export default ProductsGrid;

@@ -31,14 +31,10 @@ export const SGridItem = styled.div`
 `;
 
 export const SImageContainer = styled.div`
-    /* background: ${({ theme }) => theme.bg3}; */
     display: flex;
     align-items: flex-start;
-    /* flex: 1; */
     cursor: pointer;
     position: relative;
-    border-top-right-radius: ${v.borderRadius};
-    border-top-left-radius: ${v.borderRadius};
     overflow: hidden;
 `;
 
@@ -47,156 +43,54 @@ export const SImage = styled.img`
     height: auto;
     transition: 0.3s ease transform;
 
-    :hover {
-        /* transform: scale(0.95); */
-    }
-
     :active {
         transform: scale(0.95);
     }
 `;
 
-export const SThumbnailsContainer = styled.div`
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 4px;
-    justify-content: space-evenly;
-    cursor: initial;
-    border-top: 4px solid ${({ theme }) => theme.bg};
-`;
-
-export const SThumbnailImageContainer = styled.div`
-    display: flex;
-    width: auto;
-    cursor: pointer;
-    overflow: hidden;
-`;
-
-export const SThumbnailImage = styled.img`
-    transition: 0.3s ease transform;
-    max-width: 100%;
-    height: auto;
-    :hover {
-        transform: scale(1.1);
-    }
-`;
-
 export const SContent = styled.div`
     color: ${({ theme }) => theme.text};
-    /* line-height: 100%; */
     white-space: nowrap;
 
     padding: ${v.mdSpacing} 0;
     @media ${b.sm} {
-        padding: ${v.smSpacing} 0 ${v.mdSpacing};
+        padding: ${v.mdSpacing} 0 ${v.mdSpacing};
     }
 `;
 
-export const SInfoControl = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-
-    :not(:last-of-type) {
-        padding-bottom: ${v.mdSpacing};
-    }
-
-    @media ${b.md} {
-        :not(:last-of-type) {
-            padding-bottom: ${v.smSpacing};
-        }
-    }
-`;
-
-export const STag = styled.span`
-    display: block;
-    text-transform: uppercase;
-    font-weight: 500;
-    position: relative;
-    color: ${({ theme }) => theme.primary};
-
-    ::before {
-        content: "";
-        position: absolute;
-        width: 2px;
-        height: 100%;
-        background: ${({ theme }) => theme.primary};
-        left: 0;
-        top: 0;
-    }
-
-    padding-left: ${v.smSpacing};
-
-    font-size: 14px;
-    @media ${b.md} {
-        padding-left: calc(${v.smSpacing} + 4px);
-    }
-`;
-export const SSaleTag = styled.div`
-    display: flex;
-    align-items: center;
-    font-weight: 500;
-    color: ${({ theme }) => theme.primary};
-
-    font-size: 14px;
-`;
-export const SSaleIcon = styled(AiOutlineTag)`
-    font-size: inherit;
-    display: block;
-    font-weight: 500;
-
-    margin-right: ${v.smSpacing};
-    @media ${b.md} {
-        margin-right: 6px;
-    }
-`;
-export const SSalePercentage = styled.span`
-    display: block;
-    text-transform: uppercase;
-
-    font-size: 14px;
-    @media ${b.md} {
-        font-size: 14px;
-    }
-`;
-export const SPrice = styled.span`
-    display: block;
-    font-weight: 500;
-
-    font-size: 15px;
-    @media ${b.md} {
-        font-size: 16px;
-    }
-`;
 export const STitle = styled.span`
     display: block;
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 15px;
     white-space: initial;
 
     @media ${b.md} {
-        font-size: 16px;
+        font-size: 17px;
     }
 `;
-export const SComparePrice = styled.span`
+export const SPricing = styled.div`
+    display: flex;
+    align-items: center;
+    margin-top: ${v.smSpacing};
+`;
+export const SPrice = styled.span`
     display: block;
-    font-weight: 400;
+    font-size: 15px;
+    color: ${({ theme }) => theme.text2};
+`;
+export const SComparePrice = styled.span`
+    font-size: 14px;
+    display: block;
+    margin-left: ${v.smSpacing};
     position: relative;
 
-    :before {
-        position: absolute;
+    ::after {
         content: "";
+        position: absolute;
         height: 1px;
         background: ${({ theme }) => theme.primary};
         width: 100%;
         top: 50%;
-        right: 0;
         left: 0;
-    }
-
-    font-size: 14px;
-    @media ${b.md} {
-        font-size: 14px;
     }
 `;
