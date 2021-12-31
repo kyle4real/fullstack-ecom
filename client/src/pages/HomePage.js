@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getSelectProducts } from "../app/actions/products-actions";
 import { productsActions } from "../app/slices/products-slice";
-import FeaturedProducts from "../components/FeaturedProducts.js/FeaturedProducts";
+import FeaturedProducts from "../components/FeaturedProducts/FeaturedProducts";
 import Hero from "../components/Hero/Hero";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
@@ -29,7 +29,7 @@ const HomePage = () => {
             error={error}
             layoutArr={[
                 { type: "span", component: <Hero /> },
-                { type: "contain", component: <FeaturedProducts /> },
+                { type: "contain", customSize: "xl", component: <FeaturedProducts /> },
             ]}
         />
     );

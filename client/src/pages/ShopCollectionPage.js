@@ -34,6 +34,7 @@ const ShopCollectionPage = () => {
             layoutArr={[
                 {
                     type: "contain",
+                    customSize: "xl",
                     component: <ProductsGrid />,
                 },
             ]}

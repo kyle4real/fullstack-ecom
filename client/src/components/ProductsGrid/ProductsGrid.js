@@ -25,7 +25,7 @@ const ProductsGrid = () => {
     const { products } = useSelector((state) => state.products);
     var uiProducts = useMemo(
         () =>
-            products.reduce((r, v) => {
+            products?.reduce((r, v) => {
                 const { price, compareAtPrice } = v.variants.reduce(
                     (r, v) => {
                         return v.price < r.price
@@ -35,7 +35,7 @@ const ProductsGrid = () => {
                     { price: v.variants[0].price, compareAtPrice: v.variants[0].compare_at_price }
                 );
                 return [...r, { price, compareAtPrice, ...v }];
-            }, []),
+            }, []) || [],
         [products]
     );
     uiProducts = useSearch(uiProducts);

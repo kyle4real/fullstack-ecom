@@ -1,7 +1,8 @@
 import React from "react";
+import { SFooter } from "./styles";
 
 const Footer = () => {
-    return <div>FOOTER</div>;
+    return <SFooter>FOOTERRR</SFooter>;
 };
 
 export default Footer;
