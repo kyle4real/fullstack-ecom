@@ -141,8 +141,11 @@ export const SLogoImage = styled.img`
 
 export const SNav = styled.nav`
     height: 100%;
-    display: flex;
+    display: grid;
     justify-content: center;
+    grid-template-columns: repeat(3, 1fr);
+    width: fit-content;
+    margin: 0 auto;
 `;
 
 export const SMenuToggle = styled.button`

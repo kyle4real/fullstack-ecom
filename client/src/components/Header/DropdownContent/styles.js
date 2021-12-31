@@ -14,6 +14,7 @@ export const SNavItem = styled(Link)`
     height: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: ${({ theme }) => theme.text};
     font-weight: 500;
