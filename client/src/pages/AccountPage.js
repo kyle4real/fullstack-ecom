@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import Account from "../components/Account/Account";
@@ -15,12 +16,18 @@ import AdminProductsPage from "./AdminProductsPage";
 import CredentialsPage from "./CredentialsPage";
 
 const AccountPage = () => {
+    const { firstName, role } = useSelector((state) => state.auth);
     const { path } = useRouteMatch();
 
     return (
         <Switch>
             <Route exact path={path}>
                 <PageLayout
+                    head={{
+                        title: `Welcome ${firstName}`,
+                        tagline: `Your Account`,
+                        noBack: true,
+                    }}
                     layoutArr={[
                         {
                             type: "contain",

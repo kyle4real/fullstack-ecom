@@ -10,12 +10,13 @@ export const SAccount = styled.div`
 export const SAccountButtonsContainer = styled.div`
     text-align: center;
     letter-spacing: 100%;
+    width: 175px;
 `;
 
 export const SAccountButtons = styled.div``;
 
 export const SButtonContainer = styled.div`
-    :not(:last-child) {
+    :not(:last-of-type) {
         margin-bottom: ${v.mdSpacing};
     }
 `;

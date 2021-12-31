@@ -40,7 +40,7 @@ export const createCheckoutSession = (cart) => {
 export const getProducts = (query) => {
     if (!query) {
         return API.get(`${productsPath}/`);
-    } else return API.get(`${productsPath}/${query}`);
+    } else return API.get(`${productsPath}${query}`);
 };
 export const getProductBySku = (productSku) => {
     return API.get(`${productsPath}/${productSku}`);

@@ -4,14 +4,7 @@ import { useRouteMatch, useHistory } from "react-router-dom";
 import { logout } from "../../app/actions/auth-actions";
 
 import Button from "../UI/Button/Button";
-import {
-    SAccount,
-    SAccountButtons,
-    SAccountButtonsContainer,
-    SButtonContainer,
-    SDescription,
-    STitle,
-} from "./styles";
+import { SAccount, SAccountButtons, SAccountButtonsContainer, SButtonContainer } from "./styles";
 
 const Account = () => {
     const { firstName, role } = useSelector((state) => state.auth);
@@ -32,8 +25,6 @@ const Account = () => {
         <>
             <SAccount>
                 <SAccountButtonsContainer>
-                    <STitle>Welcome {firstName}</STitle>
-                    <SDescription>Explore your account</SDescription>
                     <SAccountButtons>
                         {buttons.map(({ label, to }, index) => (
                             <SButtonContainer key={index}>
