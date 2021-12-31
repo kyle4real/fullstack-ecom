@@ -36,7 +36,6 @@ export const SCartDrawerContainer = styled.div`
 export const SCartDrawer = styled.div`
     padding: ${v.mdSpacing};
     padding-right: 0;
-    line-height: 100%;
     height: 100%;
 `;
 

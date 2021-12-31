@@ -145,14 +145,14 @@ const Product = () => {
             <div>
                 <SContent>
                     <SContentTOP>
-                        <Rating />
+                        {/* <Rating /> */}
                         <SContentSpacebetween>
                             <SProductTitle>{product?.title}</SProductTitle>
                             <SProductPrice>
                                 {priceFormatter.format(currentVariant.price)} USD
                             </SProductPrice>
                         </SContentSpacebetween>
-                        <SCollectionName>Ecom Collection</SCollectionName>
+                        <SCollectionName>Astro Vinyl Art v.2</SCollectionName>
                         <SProductPrice mobile>
                             {priceFormatter.format(currentVariant.price)} USD
                         </SProductPrice>
@@ -215,9 +215,7 @@ const Product = () => {
                             data={[
                                 {
                                     title: "Description",
-                                    content: `lit. Quibusdam repellendrem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam 
-                                    repellendus, laboriosam voluptate sadfasdf asdfasdf sdfasdf asdf asdfasdf adsdf asd dfasdfsdf
-                                    temporibus odit at exercitationem velit! Lorem ipsum dolor sit amet consectetur adipi`,
+                                    content: product.description,
                                 },
                                 {
                                     title: "Delivery & Returns",

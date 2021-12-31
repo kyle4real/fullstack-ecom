@@ -92,7 +92,6 @@ export const SMobileImage = styled.img`
 // CONTENT ////////////////////////////////////////////////////
 
 export const SContent = styled.div`
-    line-height: 100%;
     margin-top: ${v.lgSpacing};
     margin-bottom: ${v.xxlSpacing};
 
@@ -120,13 +119,15 @@ export const SContentSpacebetween = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: ${v.mdSpacing};
+    /* margin-top: ${v.mdSpacing}; */
 `;
 export const SProductTitle = styled.h1`
     font-weight: 500;
     text-transform: uppercase;
+    display: block;
+    margin-right: ${v.mdSpacing};
 
-    font-size: 18px;
+    font-size: 20px;
     @media ${b.sm} {
         font-size: 24px;
     }
@@ -136,6 +137,7 @@ export const SProductPrice = styled.span`
     font-size: 18px;
     font-weight: 500;
     margin-top: ${({ mobile }) => (!mobile ? 0 : v.mdSpacing)};
+    white-space: nowrap;
 
     display: ${({ mobile }) => (!mobile ? "none" : "block")};
     @media ${b.md} {
