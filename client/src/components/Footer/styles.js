@@ -13,14 +13,34 @@ import {
 export const SFooter = styled.div`
     box-shadow: inset 0 1px ${({ theme }) => theme.bg3};
     background: ${({ theme }) => theme.bg};
-    padding: ${v.mdSpacing} 0;
+
+    padding: ${v.lgSpacing} 0;
+    @media ${b.md} {
+        padding: ${v.mdSpacing} 0;
+    }
+`;
+
+export const SSpaceBetween = styled.div`
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    @media ${b.md} {
+        text-align: left;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 `;
 
 export const SGrid = styled.div`
     width: fit-content;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: ${v.xxlSpacing};
+    gap: ${v.xlSpacing};
+
+    @media ${b.md} {
+        gap: ${v.xxlSpacing};
+        grid-template-columns: repeat(3, 1fr);
+    }
 `;
 export const SList = styled.div`
     display: flex;
@@ -44,17 +64,13 @@ export const SListItemLink = styled(Link)`
     }
 `;
 
-export const SSpaceBetween = styled.div`
-    display: flex;
-    align-items: center;
-
-    @media ${b.md} {
-        justify-content: space-between;
-    }
-`;
-
 export const SSocialIcons = styled.div`
     display: flex;
+
+    margin-top: ${v.xlSpacing};
+    @media ${b.md} {
+        margin: 0;
+    }
 `;
 
 export const SSocialIcon = styled.div`
@@ -82,6 +98,8 @@ export const SYoutubeIcon = styled(AiOutlineYoutube)`
 `;
 
 export const SCopyright = styled.span`
+    display: block;
+    text-align: center;
     font-size: 14px;
     color: ${({ theme }) => theme.text2};
 `;

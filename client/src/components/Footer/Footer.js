@@ -71,9 +71,7 @@ const Footer = () => {
                     </SSocialIcons>
                 </SSpaceBetween>
             </SPage>
-            <SFlexContainer>
-                <SCopyright>© 2021, Astro Vinyl Art</SCopyright>
-            </SFlexContainer>
+            <SCopyright>© 2021, Astro Vinyl Art</SCopyright>
         </SFooter>
     );
 };
