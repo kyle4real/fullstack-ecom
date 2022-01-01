@@ -41,7 +41,7 @@ const Footer = () => {
                             <SListTitle>Pages</SListTitle>
                             {[
                                 { label: "About Us", to: "/about-us" },
-                                { label: "Contact Us", to: "/contact" },
+                                { label: "Contact Us", to: "/contact-us" },
                                 { label: "Newsletter", to: "/newsletter" },
                             ].map(({ label, to }, index) => (
                                 <Fragment key={index}>
@@ -51,8 +51,8 @@ const Footer = () => {
                         </SList>
                         <SList>
                             <SListTitle>My Account</SListTitle>
-                            <SListItemLink>Login</SListItemLink>
-                            <SListItemLink>Register</SListItemLink>
+                            <SListItemLink to="/login">Login</SListItemLink>
+                            <SListItemLink to="/register">Register</SListItemLink>
                         </SList>
                     </SGrid>
                     <SSocialIcons>

@@ -70,9 +70,11 @@ export const SCenter = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    @media ${b.md} {
+
+    align-items: center;
+    /* @media ${b.md} {
         align-items: center;
-    }
+    } */
 `;
 
 export const STagline = styled.span`

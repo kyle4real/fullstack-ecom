@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import SearchBar from "../../SearchBar/SearchBar";
+
 import {
     SArrow,
     SArrowFull,

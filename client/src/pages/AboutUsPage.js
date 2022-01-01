@@ -49,11 +49,7 @@ const SLogoImage = styled.img``;
 
 const SAboutUs = styled.span`
     display: block;
-    text-align: left;
-
-    @media ${b.md} {
-        text-align: center;
-    }
+    text-align: center;
 `;
 
 export default AboutUsPage;
