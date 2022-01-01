@@ -42,8 +42,9 @@ export const createCheckoutSession = asyncHandler(async (req, res, next) => {
         mode: "payment",
         line_items,
         success_url: `${process.env.CLIENT_URL}/checkout-success`,
-        cancel_url: `${process.env.CLIENT_URL}/checkout-cancelled`,
+        cancel_url: `${process.env.CLIENT_URL}/cart`,
     });
 
     res.status(200).json({ url: session.url });
 });
+// cancel_url: `${process.env.CLIENT_URL}/checkout-cancelled`,
