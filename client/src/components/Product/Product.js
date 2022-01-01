@@ -152,7 +152,7 @@ const Product = () => {
                                 {priceFormatter.format(currentVariant.price)} USD
                             </SProductPrice>
                         </SContentSpacebetween>
-                        <SCollectionName>Astro Vinyl Art v.2</SCollectionName>
+                        <SCollectionName>Astro Vinyl Art</SCollectionName>
                         <SProductPrice mobile>
                             {priceFormatter.format(currentVariant.price)} USD
                         </SProductPrice>
@@ -181,11 +181,11 @@ const Product = () => {
                                 Add To Cart
                             </Button>
                         </SButtonControl>
-                        <SButtonControl>
+                        {/* <SButtonControl>
                             <Button secondary style={{ width: "100%" }}>
                                 Checkout Now
                             </Button>
-                        </SButtonControl>
+                        </SButtonControl> */}
                     </SContentBUTTONS>
 
                     <SButtonFIXED>

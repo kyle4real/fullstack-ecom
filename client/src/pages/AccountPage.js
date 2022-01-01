@@ -31,6 +31,7 @@ const AccountPage = () => {
                     layoutArr={[
                         {
                             type: "contain",
+                            customSize: "sm",
                             component: <Account />,
                         },
                     ]}

@@ -22,9 +22,11 @@ const CredentialsPage = () => {
         <PageLayout
             loading={loading}
             error={error}
+            head={{ title: "Your Credentials", noBack: true }}
             layoutArr={[
                 {
                     type: "contain",
+                    customSize: "sm",
                     component: <Credentials />,
                 },
             ]}

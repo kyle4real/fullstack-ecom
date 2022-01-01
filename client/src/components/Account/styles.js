@@ -10,7 +10,7 @@ export const SAccount = styled.div`
 export const SAccountButtonsContainer = styled.div`
     text-align: center;
     letter-spacing: 100%;
-    width: 175px;
+    /* width: 175px; */
 `;
 
 export const SAccountButtons = styled.div``;

@@ -23,27 +23,18 @@ const Account = () => {
     const buttons = role === "admin" ? adminButtons : userButtons;
     return (
         <>
-            <SAccount>
-                <SAccountButtonsContainer>
-                    <SAccountButtons>
-                        {buttons.map(({ label, to }, index) => (
-                            <SButtonContainer key={index}>
-                                <Button
-                                    style={{ width: "100%" }}
-                                    onClick={() => buttonClickHandler(to)}
-                                >
-                                    {label}
-                                </Button>
-                            </SButtonContainer>
-                        ))}
-                        <SButtonContainer>
-                            <Button style={{ width: "100%" }} secondary onClick={logoutHandler}>
-                                Logout
-                            </Button>
-                        </SButtonContainer>
-                    </SAccountButtons>
-                </SAccountButtonsContainer>
-            </SAccount>
+            {buttons.map(({ label, to }, index) => (
+                <SButtonContainer key={index}>
+                    <Button style={{ width: "100%" }} onClick={() => buttonClickHandler(to)}>
+                        {label}
+                    </Button>
+                </SButtonContainer>
+            ))}
+            <SButtonContainer>
+                <Button style={{ width: "100%" }} secondary onClick={logoutHandler}>
+                    Logout
+                </Button>
+            </SButtonContainer>
         </>
     );
 };

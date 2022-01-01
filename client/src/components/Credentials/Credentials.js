@@ -1,24 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-    SCredentials,
-    SCredentialsInfo,
-    SInfoControl,
-    SInfoLabelSpan,
-    SInfoSpan,
-    SLockIcon,
-    STitle,
-} from "./styles";
+import { SCardContainer } from "../UI/Containers/styles";
+import { SInfoControl, SInfoLabelSpan, SInfoSpan } from "./styles";
 
 const Credentials = () => {
     const { me } = useSelector((state) => state.auth);
-    const role = me.role;
+    const role = me?.role;
     const isAdmin = role === "admin";
     return (
-        <SCredentials>
-            <SCredentialsInfo>
-                <SLockIcon />
-                <STitle>Credentials</STitle>
+        <SCardContainer>
+            <>
                 <SInfoControl>
                     <SInfoLabelSpan>Name:</SInfoLabelSpan>
                     <SInfoSpan>{me?.name}</SInfoSpan>
@@ -33,8 +24,8 @@ const Credentials = () => {
                         <SInfoSpan>{me?.role}</SInfoSpan>
                     </SInfoControl>
                 )}
-            </SCredentialsInfo>
-        </SCredentials>
+            </>
+        </SCardContainer>
     );
 };
 
