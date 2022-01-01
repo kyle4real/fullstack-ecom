@@ -1,18 +1,30 @@
 import React from "react";
 import AuthForm from "../components/UI/AuthForm/AuthForm";
+import Form from "../components/UI/Form/Form";
 
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const RegisterPage = () => {
-    const component = (
-        <AuthForm
-            formArr={formArr}
-            submitBtn={"Register"}
-            title={"Account Register"}
-            reroute={{ text: `Have an account already?`, label: `Login`, to: `/login` }}
+    return (
+        <PageLayout
+            layoutArr={[
+                {
+                    type: "contain",
+                    component: (
+                        <AuthForm
+                            form={<Form formArr={formArr} submitBtn={"Register"} />}
+                            title={"Account Register"}
+                            reroute={{
+                                text: `Have an account already?`,
+                                label: `Login`,
+                                to: `/login`,
+                            }}
+                        />
+                    ),
+                },
+            ]}
         />
     );
-    return <PageLayout layoutArr={[{ type: "contain", component }]} />;
 };
 
 const formArr = [

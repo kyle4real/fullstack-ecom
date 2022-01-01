@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../app/actions/auth-actions";
 import AuthForm from "../components/UI/AuthForm/AuthForm";
+import Form from "../components/UI/Form/Form";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const LoginPage = () => {
@@ -11,15 +12,32 @@ const LoginPage = () => {
         dispatch(login(form));
     };
 
-    const component = (
-        <AuthForm
-            formArr={formArr}
-            submitBtn={"Login"}
-            title={"Account Login"}
-            reroute={{ text: `Don't have an account?`, label: `Create One`, to: `/register` }}
+    return (
+        <PageLayout
+            layoutArr={[
+                {
+                    type: "contain",
+                    component: (
+                        <AuthForm
+                            form={
+                                <Form
+                                    formArr={formArr}
+                                    submitBtn={"Login"}
+                                    onSubmit={loginHandler}
+                                />
+                            }
+                            title={"Account Login"}
+                            reroute={{
+                                text: `Don't have an account?`,
+                                label: `Create One`,
+                                to: `/register`,
+                            }}
+                        />
+                    ),
+                },
+            ]}
         />
     );
-    return <PageLayout layoutArr={[{ type: "contain", component }]} />;
 };
 
 const formArr = [
