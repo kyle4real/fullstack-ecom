@@ -43,7 +43,7 @@ const AboutUsPage = () => {
 const SLogoContainer = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: ${v.lgSpacing};
+    margin-top: ${v.xlSpacing};
 `;
 const SLogoImage = styled.img``;
 

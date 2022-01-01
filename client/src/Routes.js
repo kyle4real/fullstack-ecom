@@ -14,6 +14,7 @@ import { getProvisions } from "./app/actions/ui-actions";
 import ShopCollectionPage from "./pages/ShopCollectionPage";
 import useScrollToTop from "./hooks/useScrollToTop";
 import AboutUsPage from "./pages/AboutUsPage";
+import InProgressPage from "./pages/InProgressPage";
 
 const Routes = () => {
     const dispatch = useDispatch();
@@ -57,6 +58,18 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/about-us">
                     <AboutUsPage />
+                </Route>
+                <Route exact path="/contact-us">
+                    <InProgressPage />
+                </Route>
+                <Route exact path="/contact-us">
+                    <InProgressPage />
+                </Route>
+                <Route exact path="/newsletter">
+                    <InProgressPage />
+                </Route>
+                <Route exact path="/help">
+                    <InProgressPage />
                 </Route>
             </Switch>
         </>

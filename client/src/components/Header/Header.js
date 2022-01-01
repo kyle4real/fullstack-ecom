@@ -123,8 +123,8 @@ const Header = () => {
                             </SNavTopItem>
                             {[
                                 { label: "Contact", to: "/contact-us" },
-                                { label: "Newsletter", link: "/newsletter" },
-                                { label: "Help", link: "/help" },
+                                { label: "Newsletter", to: "/newsletter" },
+                                { label: "Help", to: "/help" },
                             ].map(({ label, to }, index) => (
                                 <Fragment key={index}>
                                     <SNavTopItem to={to}>
