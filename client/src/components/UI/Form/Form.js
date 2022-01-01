@@ -26,7 +26,6 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
 
     return (
         <SForm autoComplete="off">
-            <SFormTitle>{formTitle}</SFormTitle>
             {formArr?.map(({ label, name, type }) => {
                 let value = formInput[name];
 

@@ -1,13 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../app/actions/auth-actions";
-
-import {
-    SCardContainer,
-    SFixedContainer,
-    SFlexContainer,
-} from "../components/UI/Containers/styles";
-import Form from "../components/UI/Form/Form";
+import AuthForm from "../components/UI/AuthForm/AuthForm";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const LoginPage = () => {
@@ -18,18 +12,12 @@ const LoginPage = () => {
     };
 
     const component = (
-        <SFlexContainer>
-            <SFixedContainer maxWidth={300}>
-                <SCardContainer>
-                    <Form
-                        formTitle={"Login"}
-                        formArr={formArr}
-                        submitBtn={"Login"}
-                        onSubmit={loginHandler}
-                    />
-                </SCardContainer>
-            </SFixedContainer>
-        </SFlexContainer>
+        <AuthForm
+            formArr={formArr}
+            submitBtn={"Login"}
+            title={"Account Login"}
+            reroute={{ text: `Don't have an account?`, label: `Create One`, to: `/register` }}
+        />
     );
     return <PageLayout layoutArr={[{ type: "contain", component }]} />;
 };

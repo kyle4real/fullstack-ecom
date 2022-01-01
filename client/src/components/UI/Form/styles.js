@@ -25,16 +25,6 @@ export const SForm = styled.form`
     width: 100%;
 `;
 
-export const SFormTitle = styled.h1`
-    text-transform: uppercase;
-    display: block;
-    font-size: 22px;
-    text-align: center;
-    font-weight: 900;
-    letter-spacing: 2.2px;
-    margin-bottom: ${v.lgSpacing};
-`;
-
 export const SFormControl = styled.div`
     :not(:last-of-type) {
         margin-bottom: ${v.mdSpacing};
@@ -43,7 +33,7 @@ export const SFormControl = styled.div`
 
 export const SLabel = styled.label`
     display: block;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 12px;
     color: ${({ theme }) => theme.text2};
     line-height: 100%;
@@ -78,7 +68,7 @@ export const SInput = styled.input`
 //     transition: 0.2s ease all;
 // `;
 export const SSubmitButton = styled.div`
-    margin-top: ${v.mdSpacing};
+    margin-top: ${v.lgSpacing};
 `;
 
 // Text Area

@@ -52,6 +52,7 @@ export const SListTitle = styled.span`
     font-weight: 500;
 `;
 export const SListItemLink = styled(Link)`
+    font-size: 15px;
     display: block;
     text-decoration: none;
     color: ${({ theme }) => theme.text};
@@ -73,7 +74,11 @@ export const SSocialIcons = styled.div`
     }
 `;
 
-export const SSocialIcon = styled.div`
+export const SSocialIcon = styled.a`
+    display: block;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
     :not(:last-of-type) {
         margin-right: ${v.mdSpacing};
     }

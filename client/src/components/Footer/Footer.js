@@ -1,8 +1,6 @@
 import React from "react";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { logoImg } from "../../assets";
-import { SFlexContainer } from "../UI/Containers/styles";
 import { SPage } from "../UI/PageLayout/styles";
 import {
     SCopyright,
@@ -11,11 +9,8 @@ import {
     SGrid,
     SIGIcon,
     SList,
-    SListItem,
     SListItemLink,
     SListTitle,
-    SLogoContainer,
-    SLogoImage,
     SSocialIcon,
     SSocialIcons,
     SSpaceBetween,
@@ -61,13 +56,18 @@ const Footer = () => {
                         </SList>
                     </SGrid>
                     <SSocialIcons>
-                        {[<SIGIcon />, <SFacebookIcon />, <STwitterIcon />, <SYoutubeIcon />].map(
-                            (icon, index) => (
-                                <Fragment key={index}>
-                                    <SSocialIcon>{icon}</SSocialIcon>
-                                </Fragment>
-                            )
-                        )}
+                        {[
+                            { icon: <SIGIcon />, link: "https://www.instagram.com/" },
+                            { icon: <SFacebookIcon />, link: "https://www.facebook.com/" },
+                            { icon: <STwitterIcon />, link: "https://www.twitter.com/" },
+                            { icon: <SYoutubeIcon />, link: "https://www.youtube.com/" },
+                        ].map(({ icon, link }, index) => (
+                            <Fragment key={index}>
+                                <SSocialIcon href={link} target={`_blank`}>
+                                    {icon}
+                                </SSocialIcon>
+                            </Fragment>
+                        ))}
                     </SSocialIcons>
                 </SSpaceBetween>
             </SPage>

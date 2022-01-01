@@ -1,22 +1,16 @@
 import React from "react";
+import AuthForm from "../components/UI/AuthForm/AuthForm";
 
-import {
-    SCardContainer,
-    SFixedContainer,
-    SFlexContainer,
-} from "../components/UI/Containers/styles";
-import Form from "../components/UI/Form/Form";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const RegisterPage = () => {
     const component = (
-        <SFlexContainer>
-            <SFixedContainer maxWidth={300}>
-                <SCardContainer>
-                    <Form formTitle={"Register"} formArr={formArr} submitBtn={"Register"} />
-                </SCardContainer>
-            </SFixedContainer>
-        </SFlexContainer>
+        <AuthForm
+            formArr={formArr}
+            submitBtn={"Register"}
+            title={"Account Register"}
+            reroute={{ text: `Have an account already?`, label: `Login`, to: `/login` }}
+        />
     );
     return <PageLayout layoutArr={[{ type: "contain", component }]} />;
 };
