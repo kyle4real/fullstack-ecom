@@ -1,10 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { register } from "../app/actions/auth-actions";
 import AuthForm from "../components/UI/AuthForm/AuthForm";
 import Form from "../components/UI/Form/Form";
 
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 
 const RegisterPage = () => {
+    const dispatch = useDispatch();
+
+    const registerHandler = (form) => {
+        dispatch(register(form));
+    };
+
     return (
         <PageLayout
             layoutArr={[
@@ -12,7 +20,13 @@ const RegisterPage = () => {
                     type: "contain",
                     component: (
                         <AuthForm
-                            form={<Form formArr={formArr} submitBtn={"Register"} />}
+                            form={
+                                <Form
+                                    formArr={formArr}
+                                    submitBtn={"Register"}
+                                    onSubmit={registerHandler}
+                                />
+                            }
                             title={"Account Register"}
                             reroute={{
                                 text: `Have an account already?`,
