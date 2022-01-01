@@ -11,14 +11,25 @@ dotenv.config({ path: "./config/config.env" });
 // @route   POST /api/v1/auth/register/
 // @access  Public
 export const register = asyncHandler(async (req, res, next) => {
-    const { name, email, password, role } = req.body;
+    const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+    if (!firstName || !firstName.length) {
+        return next(new ErrorResponse(`First name required`));
+    }
+    if (!lastName || !lastName.length) {
+        return next(new ErrorResponse(`First name required`));
+    }
+    if (password !== confirmPassword) {
+        return next(new ErrorResponse(`Passwords do not match`));
+    }
+
+    const name = `${firstName} ${lastName}`;
 
     // Create user
     const user = await User.create({
         name,
         email,
         password,
-        role,
     });
 
     sendTokenResponse(user, 200, res);
