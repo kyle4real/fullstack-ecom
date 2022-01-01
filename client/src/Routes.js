@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { getProvisions } from "./app/actions/ui-actions";
 import ShopCollectionPage from "./pages/ShopCollectionPage";
 import useScrollToTop from "./hooks/useScrollToTop";
+import AboutUsPage from "./pages/AboutUsPage";
 
 const Routes = () => {
     const dispatch = useDispatch();
@@ -53,6 +54,9 @@ const Routes = () => {
                 </Route>
                 <Route path="/cart">
                     <CartPage />
+                </Route>
+                <Route exact path="/about-us">
+                    <AboutUsPage />
                 </Route>
             </Switch>
         </>
