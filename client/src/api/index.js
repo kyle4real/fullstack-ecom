@@ -22,7 +22,7 @@ API.interceptors.response.use(
     (res) => res,
     async (err) => {
         if (err.response) {
-            const message = err.reponse?.data?.error;
+            const message = err.response?.data?.error;
             const errArr = ["No refresh token detected", "Invalid refresh token", "jwt expired"];
             if (errArr.includes(message)) {
                 store.dispatch(authActions.resetAccessToken());

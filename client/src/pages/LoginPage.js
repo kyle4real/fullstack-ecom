@@ -45,13 +45,11 @@ const formArr = [
         label: "Email Address",
         name: "email",
         type: "text",
-        initialState: "",
     },
     {
         label: "Password",
         name: "password",
         type: "password",
-        initialState: "",
     },
 ];
 
