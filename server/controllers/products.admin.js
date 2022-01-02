@@ -94,7 +94,6 @@ const updateProductInCollections = async (collectionsArr, productId) => {
                 update,
                 { runValidators: true, new: true },
                 (err, result) => {
-                    console.log(result);
                     if (err) return reject(err);
                     else return resolve(result);
                 }

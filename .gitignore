@@ -1,3 +1,14 @@
-node_modules/
-*.env
 cloudinary.json
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# production
+*build
+
+npm-debug.log*
+
+*node_modules
+*config.env
