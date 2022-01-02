@@ -6,7 +6,7 @@ cloudinary.json
 .pnp.js
 
 # production
-*build
+# *build
 
 npm-debug.log*
 
