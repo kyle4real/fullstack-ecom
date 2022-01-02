@@ -26,6 +26,7 @@ const AdminProductPage = () => {
         <PageLayout
             loading={loading}
             error={error}
+            head={{ backOnly: true }}
             layoutArr={[
                 {
                     type: "contain",
