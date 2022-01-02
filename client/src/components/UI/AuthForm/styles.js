@@ -5,10 +5,12 @@ import { v } from "../../../styles/variables";
 
 export const SAuthFormTitle = styled.span`
     display: block;
-    margin: ${v.smSpacing} 0 ${v.xlSpacing};
+    margin: ${v.smSpacing} 0 ${v.lgSpacing};
     font-size: 20px;
     font-weight: 500;
     text-align: center;
+    padding-bottom: ${v.smSpacing};
+    border-bottom: 1px solid ${({ theme }) => theme.bg3};
 `;
 
 export const SAuthFormReroute = styled.div`

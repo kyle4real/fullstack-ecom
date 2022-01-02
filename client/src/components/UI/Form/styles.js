@@ -48,6 +48,13 @@ export const SValidityMessage = styled.span`
     padding-left: 4px;
 `;
 
+export const SFormErrorMessage = styled.span`
+    display: block;
+    font-size: 12px;
+    color: ${({ theme }) => theme.error};
+    text-align: center;
+`;
+
 export const SErrorIcon = styled(BiError)`
     font-size: inherit;
     color: inherit;

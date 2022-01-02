@@ -1,17 +1,16 @@
 import { authActions } from "../slices/auth-slice";
+import { returnErrorHandler } from "../updates";
 import * as api from "./../../api";
 
 // TODO
 
-export const login = (form, callback) => {
+export const login = (form, { onError }) => {
     return async (dispatch) => {
         try {
             const { data } = await api.login(form);
             dispatch(authActions.replaceAccessToken({ data }));
         } catch (error) {
-            console.log(error);
-        } finally {
-            callback && callback();
+            onError(returnErrorHandler(error));
         }
     };
 };

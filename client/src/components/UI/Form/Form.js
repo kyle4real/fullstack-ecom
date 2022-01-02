@@ -8,6 +8,7 @@ import {
     SErrorIcon,
     SForm,
     SFormControl,
+    SFormErrorMessage,
     SInput,
     SLabel,
     SSubmitButton,
@@ -29,15 +30,20 @@ const prepareNameToValidityHash = (formArr) => {
 const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
     const [formInput, setFormInput] = useState(prepareFormInput(formArr));
     const [validities, setValidities] = useState(null);
+    const [formError, setFormError] = useState(null);
 
     const validityHash = useMemo(() => {
         return prepareNameToValidityHash(formArr);
     }, [formArr]);
 
-    console.log(validityHash);
-
     const onChangeHandler = ({ target: { name, value } }) => {
         setFormInput((p) => ({ ...p, [name]: value }));
+        if (validities && validities[name] !== undefined) {
+            setValidities((p) => {
+                delete p[name];
+                return { ...p };
+            });
+        }
     };
 
     const onSubmitHandler = (e) => {
@@ -55,8 +61,9 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
         }
 
         const form = formInput;
-        onSubmit(form, () => {
-            setFormInput(prepareFormInput(formArr));
+        // error callback
+        onSubmit(form, (err) => {
+            setFormError(err);
         });
     };
 
@@ -101,6 +108,15 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
                     </SFormControl>
                 );
             })}
+            {!!formError && (
+                <SFormControl>
+                    <SFormErrorMessage>
+                        <SErrorIcon />
+                        &nbsp;
+                        {formError}
+                    </SFormErrorMessage>
+                </SFormControl>
+            )}
             <SSubmitButton>
                 <Button onClick={(e) => onSubmitHandler(e)} style={{ width: "100%" }}>
                     {!loading ? submitBtn : <Loading />}

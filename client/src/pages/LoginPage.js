@@ -8,8 +8,11 @@ import PageLayout from "../components/UI/PageLayout/PageLayout";
 const LoginPage = () => {
     const dispatch = useDispatch();
 
-    const loginHandler = (form) => {
-        dispatch(login(form));
+    const loginHandler = (form, callback) => {
+        const onError = (err) => {
+            callback(err);
+        };
+        dispatch(login(form, { onError }));
     };
 
     return (
