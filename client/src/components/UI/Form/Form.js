@@ -44,6 +44,7 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
                 return { ...p };
             });
         }
+        if (formError) setFormError(null);
     };
 
     const onSubmitHandler = (e) => {

@@ -15,15 +15,13 @@ export const login = (form, { onError }) => {
     };
 };
 
-export const register = (form, callback) => {
+export const register = (form, { onError }) => {
     return async (dispatch) => {
         try {
             const { data } = await api.register(form);
             dispatch(authActions.replaceAccessToken({ data }));
         } catch (error) {
-            console.log(error);
-        } finally {
-            callback && callback();
+            onError(returnErrorHandler(error));
         }
     };
 };

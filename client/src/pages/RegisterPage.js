@@ -9,8 +9,11 @@ import PageLayout from "../components/UI/PageLayout/PageLayout";
 const RegisterPage = () => {
     const dispatch = useDispatch();
 
-    const registerHandler = (form) => {
-        dispatch(register(form));
+    const registerHandler = (form, callback) => {
+        const onError = (err) => {
+            callback(err);
+        };
+        dispatch(register(form, { onError }));
     };
 
     return (
