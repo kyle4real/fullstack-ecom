@@ -22,6 +22,7 @@ const AdminCollectionsPage = () => {
         <PageLayout
             loading={loading}
             error={error}
+            head={{ backOnly: true }}
             layoutArr={[
                 {
                     type: "contain",

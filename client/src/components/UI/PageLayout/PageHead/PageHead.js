@@ -17,39 +17,53 @@ import {
 } from "./styles";
 
 const PageHead = ({
-    headData: { title, title2, tagline, noBack },
+    headData: { title, title2, tagline, noBack, backOnly },
     loading,
     minWidth,
     customSize,
 }) => {
-    const history = useHistory();
     return (
-        <SPageHead>
+        <SPageHead backOnly={backOnly}>
             <SPageHeadContent minWidth={minWidth} customSize={customSize}>
-                {!noBack && !loading && (
-                    <STop>
-                        <SBackButton onClick={() => history.goBack()}>
-                            <SArrow className="arrow" />
-                            <SArrowFull className="arrow-full" />
-                        </SBackButton>
-                    </STop>
-                )}
-                {!loading && (
-                    <SCenter>
-                        <STagline>{tagline}</STagline>
-                        <STitle>{title}</STitle>
-                        <STitle2>{title2}</STitle2>
-                    </SCenter>
-                )}
-                {loading && (
-                    <SCenter>
-                        <SSmallLoading />
-                        <SMediumLoading />
-                        <SSmallLoading />
-                    </SCenter>
-                )}
+                {(() => {
+                    if (!backOnly) {
+                        return (
+                            <>
+                                {!noBack && !loading && (
+                                    <STop>
+                                        <BackButton />
+                                    </STop>
+                                )}
+                                {!loading && (
+                                    <SCenter>
+                                        <STagline>{tagline}</STagline>
+                                        <STitle>{title}</STitle>
+                                        <STitle2>{title2}</STitle2>
+                                    </SCenter>
+                                )}
+                                {loading && (
+                                    <SCenter>
+                                        <SSmallLoading />
+                                        <SMediumLoading />
+                                        <SSmallLoading />
+                                    </SCenter>
+                                )}
+                            </>
+                        );
+                    } else return <BackButton />;
+                })()}
             </SPageHeadContent>
         </SPageHead>
+    );
+};
+
+const BackButton = () => {
+    const history = useHistory();
+    return (
+        <SBackButton onClick={() => history.goBack()}>
+            <SArrow className="arrow" />
+            <SArrowFull className="arrow-full" />
+        </SBackButton>
     );
 };
 

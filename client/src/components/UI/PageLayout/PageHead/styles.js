@@ -5,7 +5,8 @@ import { v, s, b, loadingBG, btnReset } from "../../../../styles/variables";
 import { AiOutlineLeft, AiOutlineArrowLeft } from "react-icons/ai";
 
 export const SPageHead = styled.div`
-    height: 150px;
+    /* height: 150px; */
+    height: ${({ backOnly }) => (!backOnly ? `150px` : "auto")};
     background: ${({ theme }) => theme.bg2};
 `;
 
@@ -40,6 +41,7 @@ export const SBackButton = styled.button`
     border: 1px solid ${({ theme }) => theme.bg3};
     background: ${({ theme }) => theme.bg};
     font-size: 12px;
+    width: fit-content;
 
     display: flex;
     align-items: center;
