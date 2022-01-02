@@ -24,7 +24,7 @@ function App() {
         <ThemeProvider theme={themeStyle}>
             <GlobalStyles />
             <Helmet>
-                <title>Ecom</title>
+                <title>Astro Vinyl Art</title>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                 <link
