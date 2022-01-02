@@ -22,7 +22,7 @@ const CredentialsPage = () => {
         <PageLayout
             loading={loading}
             error={error}
-            head={{ title: "Your Credentials", noBack: true }}
+            head={{ title: "Your Credentials" }}
             layoutArr={[
                 {
                     type: "contain",

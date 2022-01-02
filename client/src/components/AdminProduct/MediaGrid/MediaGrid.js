@@ -16,7 +16,6 @@ import {
     SMediaBottomBar,
     SMediaContainer,
     SMediaGrid,
-    STempPosDis,
 } from "./styles";
 
 const MediaGrid = () => {
@@ -63,7 +62,7 @@ const MediaGrid = () => {
                         <SImage src={url} />
                         <SImageOverlay onClick={() => mediaSelectHandler(index + 1)} />
 
-                        <STempPosDis>{position}</STempPosDis>
+                        {/* <STempPosDis>{position}</STempPosDis> */}
                     </SMediaContainer>
                 ))}
             </SMediaGrid>

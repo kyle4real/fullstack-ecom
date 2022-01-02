@@ -1,4 +1,5 @@
 import axios from "axios";
+import { authActions } from "../app/slices/auth-slice";
 import store from "./../app/store";
 
 let baseURL = "http://localhost:5000";
@@ -16,6 +17,30 @@ API.interceptors.request.use((req) => {
     req.headers.Authorization = `Bearer ${token || ""}`;
     return req;
 });
+
+API.interceptors.response.use(
+    (res) => res,
+    async (err) => {
+        if (err.response) {
+            const message = err.reponse?.data?.error;
+            const errArr = ["No refresh token detected", "Invalid refresh token", "jwt expired"];
+            if (errArr.includes(message)) {
+                store.dispatch(authActions.resetAccessToken());
+                return Promise.reject(err);
+            }
+            if (err.response.status === 401) {
+                try {
+                    const { data } = await API.post(`${authPath}/refresh_token`);
+                    store.dispatch(authActions.replaceAccessToken({ data }));
+                    return API(err.config);
+                } catch (error) {
+                    return Promise.reject(error);
+                }
+            }
+        }
+        return Promise.reject(err);
+    }
+);
 
 const adminPath = "/admin";
 

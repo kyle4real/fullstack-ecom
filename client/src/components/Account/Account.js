@@ -56,10 +56,6 @@ const adminButtons = [
         label: "Collections",
         to: "/admin/collections",
     },
-    {
-        label: "Orders",
-        to: "/admin/orders",
-    },
 ];
 
 export default Account;

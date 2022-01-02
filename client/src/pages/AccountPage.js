@@ -9,14 +9,13 @@ import ProtectedRoute from "../routes/ProtectedRoute";
 import AdminCollectionNewPage from "./AdminCollectionNewPage";
 import AdminCollectionPage from "./AdminCollectionPage";
 import AdminCollectionsPage from "./AdminCollectionsPage";
-import AdminOrdersPage from "./AdminOrdersPage";
 import AdminProductNewPage from "./AdminProductNewPage";
 import AdminProductPage from "./AdminProductPage";
 import AdminProductsPage from "./AdminProductsPage";
 import CredentialsPage from "./CredentialsPage";
 
 const AccountPage = () => {
-    const { firstName, role } = useSelector((state) => state.auth);
+    const { firstName } = useSelector((state) => state.auth);
     const { path } = useRouteMatch();
 
     return (
@@ -59,10 +58,6 @@ const AccountPage = () => {
             </ProtectedRoute>
             <ProtectedRoute exact path={`${path}/admin/collections/:collection`} roles={["admin"]}>
                 <AdminCollectionPage />
-            </ProtectedRoute>
-            {/* ORDERS */}
-            <ProtectedRoute exact path={`${path}/admin/orders`} roles={["admin"]}>
-                <AdminOrdersPage />
             </ProtectedRoute>
         </Switch>
     );
