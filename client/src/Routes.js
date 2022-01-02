@@ -16,6 +16,7 @@ import useScrollToTop from "./hooks/useScrollToTop";
 import AboutUsPage from "./pages/AboutUsPage";
 import InProgressPage from "./pages/InProgressPage";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const Routes = () => {
     const dispatch = useDispatch();
@@ -74,6 +75,9 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/checkout-success">
                     <CheckoutSuccess />
+                </Route>
+                <Route path="*">
+                    <NotFoundPage />
                 </Route>
             </Switch>
         </>

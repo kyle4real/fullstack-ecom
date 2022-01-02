@@ -31,7 +31,6 @@ const PageHead = ({
                         <SBackButton onClick={() => history.goBack()}>
                             <SArrow className="arrow" />
                             <SArrowFull className="arrow-full" />
-                            &nbsp;go back
                         </SBackButton>
                     </STop>
                 )}

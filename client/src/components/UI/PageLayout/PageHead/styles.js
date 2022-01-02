@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { v, s, b, loadingBG } from "../../../../styles/variables";
+import { v, s, b, loadingBG, btnReset } from "../../../../styles/variables";
 
 import { AiOutlineLeft, AiOutlineArrowLeft } from "react-icons/ai";
 
@@ -34,35 +34,33 @@ export const STop = styled.div`
     position: absolute;
 `;
 export const SBackButton = styled.button`
-    outline: none;
-    border: none;
-    background: none;
-    padding: 0;
-    font-family: inherit;
-    color: inherit;
+    ${btnReset};
     cursor: pointer;
     line-height: 100%;
+    border: 1px solid ${({ theme }) => theme.bg3};
+    background: ${({ theme }) => theme.bg};
+    font-size: 12px;
 
     display: flex;
     align-items: center;
 
-    padding: 0 ${v.smSpacing};
+    padding: ${v.smSpacing};
 
     :hover .arrow {
         display: none;
     }
     :hover .arrow-full {
         display: inline-block;
-        transform: translateX(-3px);
+        transform: translateX(1px);
     }
 `;
 export const SArrow = styled(AiOutlineLeft)`
     display: inline-block;
-    font-size: 10px;
+    font-size: inherit;
 `;
 export const SArrowFull = styled(AiOutlineArrowLeft)`
     display: none;
-    font-size: 10px;
+    font-size: inherit;
 `;
 
 export const SCenter = styled.div`
