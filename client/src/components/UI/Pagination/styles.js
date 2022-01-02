@@ -43,11 +43,12 @@ export const SPaginationArrow = styled.button`
     cursor: pointer;
     color: ${({ theme }) => theme.text2};
     border: 1px solid ${({ theme }) => theme.bg3};
+    background: ${({ theme }) => theme.bg};
     :disabled {
         cursor: initial;
         color: ${({ theme }) => theme.textFade};
         :hover {
-            background: none;
+            background: ${({ theme }) => theme.bg};
         }
     }
     :first-of-type {
