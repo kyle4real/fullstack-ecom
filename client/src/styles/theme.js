@@ -21,6 +21,8 @@ export const lightTheme = {
     // loading gradient
     loadingGradient:
         "linear-gradient(90deg, rgb(245, 245, 245), rgb(224, 224, 224), rgb(207, 207, 207))",
+
+    error: `rgb(217, 48, 37)`,
 };
 
 export const darkTheme = {

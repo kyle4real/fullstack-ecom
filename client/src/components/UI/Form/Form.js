@@ -1,16 +1,40 @@
 import React, { useState } from "react";
+import { useMemo } from "react";
 import Button from "../Button/Button";
 import Loading from "../Loading/Loading";
 import PriceInput from "./PriceInput/PriceInput";
 
-import { SForm, SFormControl, SInput, SLabel, SSubmitButton } from "./styles";
+import {
+    SErrorIcon,
+    SForm,
+    SFormControl,
+    SInput,
+    SLabel,
+    SSubmitButton,
+    SValidityMessage,
+} from "./styles";
 
 const prepareFormInput = (formArr) => {
     return formArr?.reduce((r, v) => ({ ...r, [v.name]: v?.initialValue || "" }), {});
 };
 
+const prepareNameToValidityHash = (formArr) => {
+    return formArr?.reduce((r, v) => {
+        if (v?.validity !== undefined) {
+            return { ...r, [v.name]: v.validity };
+        } else return r;
+    }, {});
+};
+
 const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
     const [formInput, setFormInput] = useState(prepareFormInput(formArr));
+    const [validities, setValidities] = useState(null);
+
+    const validityHash = useMemo(() => {
+        return prepareNameToValidityHash(formArr);
+    }, [formArr]);
+
+    console.log(validityHash);
 
     const onChangeHandler = ({ target: { name, value } }) => {
         setFormInput((p) => ({ ...p, [name]: value }));
@@ -18,6 +42,18 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+
+        const notValidObj = {};
+        for (const name in validityHash) {
+            const validityFunc = validityHash[name];
+            const inputValue = formInput[name];
+            const notValid = validityFunc(inputValue, formInput);
+            if (notValid) notValidObj[name] = notValid;
+        }
+        if (Object.keys(notValidObj).length) {
+            return setValidities(notValidObj);
+        }
+
         const form = formInput;
         onSubmit(form, () => {
             setFormInput(prepareFormInput(formArr));
@@ -28,7 +64,7 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
         <SForm autoComplete="off">
             {formArr?.map(({ label, name, type }) => {
                 let value = formInput[name];
-
+                const isInvalid = validities && !!validities?.[name];
                 return (
                     <SFormControl>
                         <SLabel htmlFor={name}>{label}</SLabel>
@@ -55,6 +91,13 @@ const Form = ({ formTitle, formArr, submitBtn, onSubmit, loading }) => {
                                 );
                             }
                         })()}
+                        {isInvalid && (
+                            <SValidityMessage>
+                                <SErrorIcon />
+                                &nbsp;
+                                {validities[name]}
+                            </SValidityMessage>
+                        )}
                     </SFormControl>
                 );
             })}

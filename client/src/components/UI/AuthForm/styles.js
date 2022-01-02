@@ -12,7 +12,7 @@ export const SAuthFormTitle = styled.span`
 `;
 
 export const SAuthFormReroute = styled.div`
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     margin-top: ${v.smSpacing};
 `;

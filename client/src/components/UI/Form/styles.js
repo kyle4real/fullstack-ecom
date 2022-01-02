@@ -2,6 +2,8 @@ import styled, { css } from "styled-components";
 
 import { v } from "../../../styles/variables";
 
+import { BiError } from "react-icons/bi";
+
 export const inputStyles = css`
     font-family: inherit;
     letter-spacing: inherit;
@@ -38,6 +40,17 @@ export const SLabel = styled.label`
     color: ${({ theme }) => theme.text2};
     line-height: 100%;
     margin-bottom: 4px;
+`;
+
+export const SValidityMessage = styled.span`
+    font-size: 12px;
+    color: ${({ theme }) => theme.error};
+    padding-left: 4px;
+`;
+
+export const SErrorIcon = styled(BiError)`
+    font-size: inherit;
+    color: inherit;
 `;
 
 export const SInput = styled.input`

@@ -45,11 +45,25 @@ const formArr = [
         label: "Email Address",
         name: "email",
         type: "text",
+        validity: (value) => {
+            if (value.length === 0) {
+                return "Please provide an email";
+            } else if (!value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+                return "Please provide a valid email";
+            } else return false;
+        },
     },
     {
         label: "Password",
         name: "password",
         type: "password",
+        validity: (value) => {
+            if (value.length === 0) {
+                return "Please provide a password";
+            } else if (value.length < 6) {
+                return "Please provide a valid password";
+            } else return false;
+        },
     },
 ];
 
