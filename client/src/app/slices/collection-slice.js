@@ -4,6 +4,7 @@ const collectionSlice = createSlice({
     name: "collection",
     initialState: {
         collection: null,
+        collectionLoading: false,
     },
     reducers: {
         replaceCollection(state, action) {
@@ -19,6 +20,10 @@ const collectionSlice = createSlice({
                 const key = updateKeys[i];
                 state.collection[key] = data.data[key];
             }
+        },
+        // loading
+        setCollectionLoading(state, action) {
+            state.collectionLoading = action.payload;
         },
     },
 });

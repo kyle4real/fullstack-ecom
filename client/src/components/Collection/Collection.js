@@ -1,11 +1,14 @@
 import React, { Fragment } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateCollection } from "../../app/actions/collection-actions";
+import { useHistory } from "react-router-dom";
+import { deleteCollection, updateCollection } from "../../app/actions/collection-actions";
 import { missingImg } from "../../assets";
+import Button from "../UI/Button/Button";
 import { SSectionHeadContainer, SSectionHeadTitle } from "../UI/components.styles";
 import { SCardContainer } from "../UI/Containers/styles";
 import { SFormControl, SInput, SLabel, STextArea } from "../UI/Form/styles";
+import ResourceBottomBar from "../UI/ResourceBottomBar/ResourceBottomBar";
 import { STable, STBody, STBodyTR, STD } from "../UI/Table/styles";
 import UnsavedChanges from "../UI/UnsavedChanges/UnsavedChanges";
 import { onCollectionEdit } from "./helpers";
@@ -19,6 +22,7 @@ import {
 } from "./styles";
 
 const Collection = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { collection } = useSelector((state) => state.collection);
 
@@ -37,6 +41,14 @@ const Collection = () => {
 
     const collectionEditHandler = (e) => {
         setCollectionFormEdits((prevState) => onCollectionEdit(prevState, e, collection));
+    };
+
+    const deleteCollectionHandler = () => {
+        dispatch(
+            deleteCollection(collection._id, () => {
+                history.replace(`/account/admin/collections`);
+            })
+        );
     };
 
     const edits = !!collectionFormEdtis;
@@ -123,6 +135,11 @@ const Collection = () => {
                     })()}
                 </SCardContainer>
             </SCollection>
+            <ResourceBottomBar>
+                <Button secondary onClick={deleteCollectionHandler}>
+                    Delete Collection
+                </Button>
+            </ResourceBottomBar>
         </>
     );
 };

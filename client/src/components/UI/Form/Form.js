@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import Loading from "../Loading/Loading";
 import PriceInput from "./PriceInput/PriceInput";
 
-import { SForm, SFormControl, SFormTitle, SInput, SLabel, SSubmitButton } from "./styles";
+import { SForm, SFormControl, SInput, SLabel, SSubmitButton } from "./styles";
 
 const prepareFormInput = (formArr) => {
     return formArr?.reduce((r, v) => ({ ...r, [v.name]: v?.initialValue || "" }), {});

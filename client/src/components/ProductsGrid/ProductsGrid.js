@@ -55,9 +55,9 @@ const ProductsGrid = () => {
                 <SGrid>
                     {resourcesUi?.map(({ title, sku, image, price, compareAtPrice }, index) => {
                         const hasSale = price && compareAtPrice && price !== compareAtPrice;
-                        const percentOff = !hasSale
-                            ? undefined
-                            : Math.round((1 - price / compareAtPrice) * 100);
+                        // const percentOff = !hasSale
+                        //     ? undefined
+                        //     : Math.round((1 - price / compareAtPrice) * 100);
                         compareAtPrice = compareAtPrice
                             ? priceFormatter.format(compareAtPrice)
                             : null;

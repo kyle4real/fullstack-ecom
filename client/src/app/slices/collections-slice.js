@@ -34,6 +34,13 @@ const collectionsSlice = createSlice({
             const { data } = action.payload;
             state.collectionsTitles.push(data.data);
         },
+        deleteCollectionsTitle(state, action) {
+            const { collectionId } = action.payload;
+            const collectionIndex = state.collectionsTitles.findIndex(
+                (item) => item._id === collectionId
+            );
+            state.collectionsTitles.splice(collectionIndex, 1);
+        },
     },
 });
 

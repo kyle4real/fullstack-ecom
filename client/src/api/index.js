@@ -125,3 +125,6 @@ export const updateCollection = (collectionId, collectionObj) => {
 export const createCollection = (collectionObj) => {
     return API.post(`${adminPath}${collectionsPath}/`, collectionObj);
 };
+export const deleteCollection = (collectionId) => {
+    return API.delete(`${adminPath}${collectionsPath}/${collectionId}`);
+};

@@ -49,3 +49,18 @@ export const updateCollection = (collectionId, collectionObj, callback) => {
         }
     };
 };
+
+export const deleteCollection = (collectionId, callback) => {
+    return async (dispatch) => {
+        try {
+            dispatch(collectionActions.setCollectionLoading(true));
+            await api.deleteCollection(collectionId);
+            dispatch(collectionsActions.deleteCollectionsTitle({ collectionId }));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            callback && callback();
+            dispatch(collectionActions.setCollectionLoading(false));
+        }
+    };
+};

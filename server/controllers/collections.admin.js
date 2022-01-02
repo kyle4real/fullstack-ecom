@@ -47,3 +47,13 @@ export const updateCollection = asyncHandler(async (req, res, next) => {
     collection = await collection.save();
     res.status(200).json({ success: true, data: collection });
 });
+
+// @desc    Delete collection
+// @route   DELETE /admin/collections/:id
+// @access  Private
+export const deleteCollection = asyncHandler(async (req, res, next) => {
+    const collection = await Collection.findById(req.params.id);
+    if (!collection) return next(new ErrorResponse(`Resouce not found with id ${req.params.id}`));
+    await collection.remove();
+    res.status(200).json({ success: true, data: {} });
+});

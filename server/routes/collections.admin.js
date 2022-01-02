@@ -2,6 +2,7 @@ import express from "express";
 
 import {
     createCollection,
+    deleteCollection,
     getCollection,
     getCollections,
     updateCollection,
@@ -17,6 +18,6 @@ const router = express.Router();
 router.use(protect);
 
 router.route("/").get(advancedResults(Collection), getCollections).post(createCollection);
-router.route("/:id").get(getCollection).put(updateCollection);
+router.route("/:id").get(getCollection).put(updateCollection).delete(deleteCollection);
 
 export default router;

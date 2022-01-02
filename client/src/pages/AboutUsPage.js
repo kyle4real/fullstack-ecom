@@ -1,7 +1,7 @@
 import React from "react";
 import PageLayout from "../components/UI/PageLayout/PageLayout";
 import styled from "styled-components";
-import { b, v } from "../styles/variables";
+import { v } from "../styles/variables";
 import { logoImg } from "../assets";
 
 const AboutUsPage = () => {

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router";
 import { missingImg } from "../../assets";
@@ -8,7 +8,6 @@ import Accordian from "../UI/Accordian/Accordian";
 
 import Button from "../UI/Button/Button";
 
-import Rating from "../UI/Rating/Rating";
 import {
     SButtonControl,
     SButtonFIXED,

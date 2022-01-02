@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 import { v, b } from "./../../styles/variables";
 
-import { AiOutlineTag } from "react-icons/ai";
-
 export const SProductsGrid = styled.div``;
 
 export const SGrid = styled.div`
