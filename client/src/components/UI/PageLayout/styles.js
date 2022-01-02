@@ -37,7 +37,7 @@ export const SPage = styled.div`
 
 export const SPageLoad = styled.div`
     width: 100%;
-    height: 100vh;
+    height: 20vh;
     border-radius: ${v.borderRadius};
 
     ${loadingBG};

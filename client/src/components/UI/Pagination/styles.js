@@ -11,10 +11,7 @@ export const SPagination = styled.ul`
     padding: 0;
     line-height: 100%;
 
-    margin: ${v.xlSpacing} 0;
-    @media ${b.md} {
-        margin: ${v.lgSpacing} 0;
-    }
+    margin: ${v.xxlSpacing} 0;
 `;
 export const SPaginationNumber = styled.li``;
 export const SPaginationButton = styled.button`
@@ -30,10 +27,6 @@ export const SPaginationButton = styled.button`
     cursor: ${({ dots }) => (dots ? "initial" : "pointer")};
     line-height: 100%;
     box-shadow: ${({ theme, active }) => (active ? `inset 0 -1px 0 ${theme.primary}` : "none")};
-    :hover {
-        background: ${({ theme, active, dots }) =>
-            dots ? "transparent" : active ? theme.bg3 : theme.bg3};
-    }
 
     @media ${b.md} {
         padding: ${v.smSpacing} 0;
@@ -53,12 +46,19 @@ export const SPaginationArrow = styled.button`
     :disabled {
         cursor: initial;
         color: ${({ theme }) => theme.textFade};
+        :hover {
+            background: none;
+        }
     }
     :first-of-type {
         margin-right: ${v.mdSpacing};
     }
     :last-of-type {
         margin-left: ${v.mdSpacing};
+    }
+
+    :hover {
+        background: ${({ theme }) => theme.bg3};
     }
 `;
 

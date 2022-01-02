@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import { useMemo } from "react";
 import Pagination from "../components/UI/Pagination/Pagination";
+import useQuery from "./useQuery";
 
 export const DOTS = "...";
 
@@ -10,6 +12,7 @@ const range = (start, end) => {
 };
 
 const usePagination = ({ resourceArr, perPage, siblingCount = 1, initialCurrentPage }) => {
+    const query = useQuery();
     const [currentPage, setCurrentPage] = useState(initialCurrentPage);
     const totalCount = resourceArr.length;
 
@@ -58,14 +61,19 @@ const usePagination = ({ resourceArr, perPage, siblingCount = 1, initialCurrentP
         }
     }, [totalCount, perPage, siblingCount, currentPage]);
 
+    useEffect(() => setCurrentPage(1), [query]);
+
     const onNext = () => {
         setCurrentPage((p) => (p += 1));
+        window.scrollTo(0, 0);
     };
     const onPrevious = () => {
         setCurrentPage((p) => (p -= 1));
+        window.scrollTo(0, 0);
     };
     const onPageChange = (number) => {
         setCurrentPage(number);
+        window.scrollTo(0, 0);
     };
 
     const noPaginationUi = paginationRange.length < 2;

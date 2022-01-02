@@ -4,10 +4,11 @@ import { useRouteMatch, useHistory } from "react-router-dom";
 import { logout } from "../../app/actions/auth-actions";
 
 import Button from "../UI/Button/Button";
-import { SAccount, SAccountButtons, SAccountButtonsContainer, SButtonContainer } from "./styles";
+import { SCardContainer } from "../UI/Containers/styles";
+import { SButtonControl } from "./styles";
 
 const Account = () => {
-    const { firstName, role } = useSelector((state) => state.auth);
+    const { role } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const { url } = useRouteMatch();
     const history = useHistory();
@@ -22,20 +23,20 @@ const Account = () => {
 
     const buttons = role === "admin" ? adminButtons : userButtons;
     return (
-        <>
+        <SCardContainer>
             {buttons.map(({ label, to }, index) => (
-                <SButtonContainer key={index}>
+                <SButtonControl key={index}>
                     <Button style={{ width: "100%" }} onClick={() => buttonClickHandler(to)}>
                         {label}
                     </Button>
-                </SButtonContainer>
+                </SButtonControl>
             ))}
-            <SButtonContainer>
+            <SButtonControl>
                 <Button style={{ width: "100%" }} secondary onClick={logoutHandler}>
                     Logout
                 </Button>
-            </SButtonContainer>
-        </>
+            </SButtonControl>
+        </SCardContainer>
     );
 };
 
