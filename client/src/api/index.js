@@ -3,6 +3,9 @@ import { authActions } from "../app/slices/auth-slice";
 import store from "./../app/store";
 
 let baseURL = "http://localhost:5000";
+if (process.env.NODE_ENV === "production") {
+    baseURL = "https://astrovinylart-v2.xyz";
+}
 
 const API = axios.create({ baseURL, withCredentials: true });
 
