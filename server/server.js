@@ -1,10 +1,19 @@
 import dotenv from "dotenv";
 dotenv.config({ path: "./config/config.env" });
 import express from "express";
+
 import cors from "cors";
 import morgan from "morgan";
 import "colors";
 import cookieParser from "cookie-parser";
+import mongoSanitize from "express-mongo-sanitize";
+import xss from "xss-clean";
+import rateLimit from "express-rate-limit";
+import hpp from "hpp";
+
+import * as path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 import errorHandler from "./middleware/error.js";
 
@@ -42,7 +51,24 @@ if (process.env.NODE_ENV === "development") {
 
 app.use(cookieParser());
 
-app.use(morgan("dev"));
+if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
+
+// Sanitize Data
+app.use(mongoSanitize());
+// Prevent XSS Attacks
+app.use(xss());
+// Rate Limiter
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 100,
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
+
+// Static Folder
+app.use(express.static(path.join(dirname(fileURLToPath(import.meta.url)), "/../client/build")));
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
