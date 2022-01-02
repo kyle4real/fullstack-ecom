@@ -59,10 +59,10 @@ export const SSection = styled.div`
 export const SSectionTitle = styled.span`
     display: block;
     font-size: 16px;
-    font-weight: 900;
+    font-weight: 500;
     margin-bottom: ${v.mdSpacing};
     padding-top: ${({ ptop }) => (!ptop ? 0 : v.mdSpacing)};
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     letter-spacing: 2px;
 `;
 

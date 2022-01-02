@@ -81,7 +81,7 @@ const Cart = () => {
                                                     {variantTitle}
                                                 </SProductVariant>
                                                 <SProductPrice>
-                                                    {priceFormatter.format(price)} USD
+                                                    {priceFormatter.format(price)}
                                                 </SProductPrice>
                                                 <QuantitySelection cartItem={cartItem} mobile />
                                             </STableBodyTD>
@@ -89,7 +89,7 @@ const Cart = () => {
                                                 <QuantitySelection cartItem={cartItem} />
                                             </STableBodyTD>
                                             <STableBodyTD>
-                                                {priceFormatter.format(qty * price)} USD
+                                                {priceFormatter.format(qty * price)}
                                             </STableBodyTD>
                                         </STableBodyTR>
                                     );
@@ -99,7 +99,7 @@ const Cart = () => {
                         <SCartSummary>
                             <STotalContainer>
                                 <SCartTotalTagline>Total</SCartTotalTagline>
-                                <SCartTotal>{priceFormatter.format(cartTotalPrice)} USD</SCartTotal>
+                                <SCartTotal>{priceFormatter.format(cartTotalPrice)}</SCartTotal>
                             </STotalContainer>
                             <SCartSummaryDesc>
                                 Taxes and shipping calculated at checkout

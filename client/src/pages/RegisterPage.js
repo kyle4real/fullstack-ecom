@@ -52,7 +52,7 @@ const formArr = [
         validity: (value) => {
             if (value.length === 0) {
                 return "Please provide an email";
-            } else if (!value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+            } else if (!value.match(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/)) {
                 return "Please provide a valid email";
             } else return false;
         },

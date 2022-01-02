@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { createCheckoutSession } from "../../app/actions/checkout-actions";
 import { uiActions } from "../../app/slices/ui-slice";
 
 import useDetectClickaway from "../../hooks/useClickAway";
@@ -42,6 +43,10 @@ const CartDrawer = () => {
             dispatch(uiActions.toggleCart());
         }
     });
+
+    const checkoutHandler = () => {
+        dispatch(createCheckoutSession());
+    };
 
     const cartRedirectHandler = () => {
         history.push("/cart");
@@ -94,7 +99,7 @@ const CartDrawer = () => {
                                                 {variantTitle}
                                             </SProductVariant>
                                             <SProductPrice>
-                                                {priceFormatter.format(price)} USD
+                                                {priceFormatter.format(price)}
                                             </SProductPrice>
                                             <QuantitySelection cartItem={cartItem} />
                                         </SProductContent>
@@ -105,14 +110,16 @@ const CartDrawer = () => {
                         <SCartTotal>
                             <SCartTotalLabel>Total</SCartTotalLabel>
                             <SCartTotalPrice>
-                                {priceFormatter.format(cartTotalPrice)} USD
+                                {priceFormatter.format(cartTotalPrice)}
                             </SCartTotalPrice>
                         </SCartTotal>
                         {cart.length === 0 && <EmptyCart />}
                         {cart.length > 0 && (
                             <SCartButtons>
                                 <SButtonControl>
-                                    <Button style={{ width: "100%" }}>Checkout</Button>
+                                    <Button style={{ width: "100%" }} onClick={checkoutHandler}>
+                                        Checkout
+                                    </Button>
                                 </SButtonControl>
                                 <SButtonControl onClick={cartRedirectHandler}>
                                     <Button secondary style={{ width: "100%" }}>
