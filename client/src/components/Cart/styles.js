@@ -77,7 +77,7 @@ export const SImageContainer = styled(Link)`
 `;
 export const SImage = styled.img`
     max-width: 100%;
-    height: 100%;
+    height: auto;
 `;
 
 export const SProductTitle = styled.span`
